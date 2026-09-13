@@ -1,111 +1,200 @@
+/* --------------------------------------------------------------------------
+   1. GOOGLE FONTS
+   -------------------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Baloo+2:wght@400;500;600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+/* --------------------------------------------------------------------------
+   2. CSS VARIABLES (ROOT)
+   -------------------------------------------------------------------------- */
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+  /* ---------- Teal (Chủ đạo / Primary) ---------- */
+  --color-teal-50: #e1f5ee;
+  --color-teal-100: #9fe1cb;
+  --color-teal-200: #5dcaa5;
+  --color-teal-500: #1d9e75; /* Primary */
+  --color-teal-700: #0f6e56;
+  --color-teal-900: #085041;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+  /* ---------- Coral ---------- */
+  --color-coral-50: #fadece;
+  --color-coral-100: #f5c4b3;
+  --color-coral-200: #f0997b;
+  --color-coral-500: #d85a30;
+  --color-coral-700: #993c1d;
+  --color-coral-900: #712b13;
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* ---------- Purple ---------- */
+  --color-purple-50: #eeedfe;
+  --color-purple-100: #cecbf6;
+  --color-purple-200: #afa9ec;
+  --color-purple-500: #7f77dd;
+  --color-purple-700: #534ab7;
+  --color-purple-900: #3c3489;
 
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
+  /* ---------- Green ---------- */
+  --color-green-50: #eaf3de;
+  --color-green-100: #c0dd97;
+  --color-green-200: #97c459;
+  --color-green-500: #639922;
+  --color-green-700: #3b6d11;
+  --color-green-900: #27500a;
+
+  /* ---------- Neutrals (Grays) ---------- */
+  --color-neutral-50: #fcf9f3;  /* Surface */
+  --color-neutral-100: #f1efe8;
+  --color-neutral-200: #d3d1c7;
+  --color-neutral-300: #b4b2a9;
+  --color-neutral-500: #888780;
+  --color-neutral-700: #5f5e5a; /* Dark neutral (hex chính) */
+  --color-neutral-900: #444441;
+
+  /* ---------- Màu chính (Hex chính - theo bảng màu tổng) ---------- */
+  --color-primary-teal: #1D9E75;
+  --color-primary-coral: #D85A30;
+  --color-primary-purple: #7F77DD;
+  --color-primary-dark-neutral: #5F5E5A;
+
+  /* ---------- Font Families ---------- */
+  --font-family-main: 'Plus Jakarta Sans', system-ui, sans-serif;   /* Thương hiệu & Điều hướng */
+  --font-family-display: 'Baloo 2', cursive;                        /* Tiêu đề thân thiện */
+  --font-family-body: 'Be Vietnam Pro', sans-serif;                 /* Nội dung văn bản (đọc lâu) */
+  --font-family-mono: 'JetBrains Mono', monospace;                  /* Số liệu & Dữ liệu kỹ thuật */
+
+  /* ---------- Font Weights ---------- */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  /* ---------- Type Scale (tổng quát) ---------- */
+  --text-xs: 0.75rem;    /* 12px */
+  --text-sm: 0.875rem;   /* 14px */
+  --text-base: 1rem;     /* 16px */
+  --text-lg: 1.125rem;   /* 18px */
+  --text-xl: 1.25rem;    /* 20px */
+  --text-2xl: 1.5rem;    /* 24px */
+  --text-3xl: 1.875rem;  /* 30px */
+  --text-4xl: 2.25rem;   /* 36px */
+  --text-5xl: 3rem;      /* 48px */
+
+  /* ---------- Thang chữ theo vai trò cụ thể (Desktop) ---------- */
+  --font-size-display: 40px;
+  --font-size-h1: 32px;
+  --font-size-h2: 24px;
+  --font-size-h3: 18px;
+  --font-size-body: 16px;
+  --font-size-caption: 13px;
+  --font-size-number-lg: 28px;
+  --font-size-number-sm: 14px;
+
+  /* ---------- Thang chữ theo vai trò cụ thể (Mobile) ---------- */
+  --font-size-display-mobile: 28px;
+  --font-size-h1-mobile: 24px;
+  --font-size-h2-mobile: 20px;
+  --font-size-h3-mobile: 16px;
+  --font-size-body-mobile: 15px;
+  --font-size-caption-mobile: 12px;
+  --font-size-number-lg-mobile: 22px;
+  --font-size-number-sm-mobile: 13px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
+/* --------------------------------------------------------------------------
+   3. RESET CƠ BẢN
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  margin: 0;
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-neutral-900);
+  background-color: var(--color-neutral-50);
+  line-height: 1.5;
 }
 
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
+/* --------------------------------------------------------------------------
+   4. TYPOGRAPHY - CLASS DÙNG CHUNG
+   -------------------------------------------------------------------------- */
+
+/* Display: Tiêu đề trang chủ, màn hình chào mừng */
+.text-display {
+  font-family: var(--font-family-main);
+  font-size: var(--font-size-display);
+  font-weight: var(--font-weight-bold);
 }
 
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
+/* H1: Tên chương học, tiêu đề màn hình chính */
+.text-h1 {
+  font-family: var(--font-family-main);
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-bold);
 }
 
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
-  margin: 0;
+/* H2: Tên bài học, tiêu đề section */
+.text-h2 {
+  font-family: var(--font-family-main);
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-semibold);
 }
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
+/* H3: Tiêu đề phụ, tên card */
+.text-h3 {
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-semibold);
 }
 
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+/* Body: Nội dung chính, mô tả */
+.text-body {
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-regular);
 }
+
+/* Caption: Chú thích, nhãn phụ */
+.text-caption {
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-regular);
+}
+
+/* Số liệu lớn: % khớp AI, tổng XP */
+.text-number-lg {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-number-lg);
+  font-weight: var(--font-weight-bold);
+}
+
+/* Số liệu nhỏ: Streak, thời gian cuộc gọi */
+.text-number-sm {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-number-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+/* --------------------------------------------------------------------------
+   5. RESPONSIVE (MOBILE) - Áp dụng size mobile theo tài liệu
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .text-display  { font-size: var(--font-size-display-mobile); }
+  .text-h1       { font-size: var(--font-size-h1-mobile); }
+  .text-h2       { font-size: var(--font-size-h2-mobile); }
+  .text-h3       { font-size: var(--font-size-h3-mobile); }
+  .text-body     { font-size: var(--font-size-body-mobile); }
+  .text-caption  { font-size: var(--font-size-caption-mobile); }
+  .text-number-lg { font-size: var(--font-size-number-lg-mobile); }
+  .text-number-sm { font-size: var(--font-size-number-sm-mobile); }
+}
+
