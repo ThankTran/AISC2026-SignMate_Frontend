@@ -103,19 +103,19 @@
 /* Logo A - trạng thái mở rộng */
 
 .sidebar__logo--full {
-  width: 150px;
+  width: 110px;
   height: auto;
 
-  margin-bottom: 10px;
+  margin: -6px 0 10px 0;
 }
 
 /* Logo B - trạng thái thu nhỏ */
 
 .sidebar__logo--collapsed {
-  width: 70px;
+  width: 50px;
   height: auto;
 
-  margin-bottom: 8px;
+  margin: -6px 0 10px 0;
 }
 
 /* =========================================================
