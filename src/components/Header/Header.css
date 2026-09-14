@@ -1,0 +1,332 @@
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+
+  width: 100%;
+  height: 64px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 24px;
+  box-sizing: border-box;
+
+  background: var(--color-neutral-50);
+  border-bottom: 1px solid var(--color-neutral-200);
+}
+
+.header__left {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.header__title {
+  font-family: var(--font-family-main);
+  font-size: var(--text-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-neutral-900);
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.header__right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  flex-shrink: 0;
+}
+
+/* =========================================================
+   ICON BUTTON (dùng chung cho Notification, Settings)
+   ========================================================= */
+
+.header-icon-btn {
+  position: relative;
+
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 8px;
+
+  background: transparent;
+  color: var(--color-neutral-700);
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease;
+}
+
+.header-icon-btn:hover {
+  background: var(--color-neutral-100);
+  color: var(--color-teal-600, var(--color-teal-500));
+}
+
+.header-icon-btn:focus-visible {
+  outline: 2px solid var(--color-teal-500);
+  outline-offset: 2px;
+}
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+.header-search {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  width: 240px;
+  height: 38px;
+
+  padding: 0 12px 0 34px;
+
+  border-radius: 8px;
+  border: 1px solid var(--color-neutral-200);
+
+  background: var(--color-neutral-50);
+
+  transition: border-color 0.18s ease;
+}
+
+.header-search:focus-within {
+  border-color: var(--color-teal-500);
+}
+
+.header-search__icon {
+  position: absolute;
+  left: 10px;
+
+  color: var(--color-neutral-500);
+  pointer-events: none;
+}
+
+.header-search__input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+
+  font-family: var(--font-family-body);
+  font-size: var(--text-sm);
+  color: var(--color-neutral-900);
+}
+
+.header-search__input::placeholder {
+  color: var(--color-neutral-500);
+}
+
+/* =========================================================
+   NOTIFICATION
+   ========================================================= */
+
+.header-notification {
+  position: relative;
+}
+
+.header-notification__badge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+
+  min-width: 15px;
+  height: 15px;
+  padding: 0 3px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 999px;
+
+  background: var(--color-coral-500);
+  color: white;
+
+  font-family: var(--font-family-mono);
+  font-size: 10px;
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+}
+
+.header-notification__dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+
+  width: 320px;
+  max-height: 400px;
+
+  display: flex;
+  flex-direction: column;
+
+  border-radius: 10px;
+  border: 1px solid var(--color-neutral-200);
+
+  background: var(--color-neutral-50);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+
+  overflow: hidden;
+  z-index: 60;
+}
+
+.header-notification__dropdown-title {
+  padding: 12px 16px;
+
+  font-family: var(--font-family-main);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-neutral-900);
+
+  border-bottom: 1px solid var(--color-neutral-200);
+}
+
+.header-notification__empty {
+  padding: 24px 16px;
+
+  text-align: center;
+
+  font-family: var(--font-family-body);
+  font-size: var(--text-sm);
+  color: var(--color-neutral-500);
+}
+
+.header-notification__list {
+  list-style: none;
+  margin: 0;
+  padding: 4px;
+
+  overflow-y: auto;
+}
+
+.header-notification__item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  padding: 10px 12px;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  transition: background-color 0.15s ease;
+}
+
+.header-notification__item:hover {
+  background: var(--color-neutral-100);
+}
+
+.header-notification__item--unread {
+  background: var(--color-teal-50);
+}
+
+.header-notification__item--unread:hover {
+  background: var(--color-teal-100);
+}
+
+.header-notification__item-title {
+  font-family: var(--font-family-body);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-neutral-900);
+}
+
+.header-notification__item-time {
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-caption);
+  color: var(--color-neutral-500);
+}
+
+/* =========================================================
+   SETTINGS
+   ========================================================= */
+
+.header-settings {
+  position: relative;
+}
+
+.header-settings__dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+
+  min-width: 180px;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 6px;
+
+  border-radius: 10px;
+  border: 1px solid var(--color-neutral-200);
+
+  background: var(--color-neutral-50);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+
+  z-index: 60;
+}
+
+.header-settings__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 9px 10px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: transparent;
+  color: var(--color-neutral-700);
+
+  font-family: var(--font-family-body);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+
+  text-align: left;
+  cursor: pointer;
+
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.header-settings__item:hover {
+  background: var(--color-teal-50);
+  color: var(--color-teal-700);
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 768px) {
+  .header {
+    padding: 0 12px;
+  }
+
+  .header-search {
+    width: 160px;
+  }
+
+  .header-notification__dropdown {
+    width: 280px;
+  }
+}
