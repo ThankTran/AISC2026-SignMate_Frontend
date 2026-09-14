@@ -66,6 +66,8 @@ const SidebarItem = ({ item, collapsed }) => {
           }`}
           onClick={() => setExpanded((prev) => !prev)}
           title={collapsed ? item.label : undefined}
+          aria-expanded={expanded}
+          aria-controls={`submenu-${item.label.replace(/\s+/g, "-")}`}
         >
           <span className="sidebar-item__icon">
             <Icon size={16} strokeWidth={1.8} />
