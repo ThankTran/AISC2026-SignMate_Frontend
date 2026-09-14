@@ -1,0 +1,48 @@
+/* =========================================================
+   MAIN LAYOUT
+   ========================================================= */
+
+.main-layout {
+  --sidebar-width: 106px;
+  --sidebar-collapsed-width: 58px;
+
+  min-height: 100vh;
+  width: 100%;
+
+  background: #f8f7f5;
+}
+
+/* =========================================================
+   CONTENT
+   ========================================================= */
+
+.main-layout__content {
+  min-height: 100vh;
+
+  margin-left: var(--sidebar-width);
+
+  transition: margin-left 0.25s ease;
+}
+
+/* =========================================================
+   COLLAPSED
+   ========================================================= */
+
+.main-layout--collapsed
+  .main-layout__content {
+  margin-left: var(--sidebar-collapsed-width);
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 768px) {
+  .main-layout {
+    --sidebar-width: 58px;
+  }
+
+  .main-layout__content {
+    margin-left: var(--sidebar-collapsed-width);
+  }
+}
