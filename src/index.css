@@ -97,6 +97,10 @@
   --font-size-caption-mobile: 12px;
   --font-size-number-lg-mobile: 22px;
   --font-size-number-sm-mobile: 13px;
+
+
+  --sidebar-width: 210px;
+  --sidebar-collapsed-width: 72px;
 }
 
 /* --------------------------------------------------------------------------
