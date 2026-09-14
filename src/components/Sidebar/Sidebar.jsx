@@ -1,4 +1,4 @@
-import { Menu } from "lucide-react";
+import { PanelLeftClose, PanelLeft } from "lucide-react";
 
 import { sidebarItems } from "./sidebarData";
 import SidebarItem from "./SidebarItem";
@@ -22,37 +22,28 @@ const Sidebar = ({
     >
       {/* ================= HEADER ================= */}
       <div className="sidebar__header">
-        {/* Logo A - trạng thái mở rộng */}
-        {!collapsed && (
-          <img
-            src="/logo-signmate_text.png"
-            alt="SignMate"
-            className="sidebar__logo sidebar__logo--full"
-          />
-        )}
-
-        {/* Logo B - trạng thái thu nhỏ */}
-        {collapsed && (
+        <div className="sidebar__logo-wrapper">
+          {/* Logo - dùng chung 1 ảnh cho cả 2 trạng thái */}
           <img
             src="/logo-signmate.png"
             alt="SignMate"
-            className="sidebar__logo sidebar__logo--collapsed"
+            className="sidebar__logo"
           />
-        )}
 
-        {/* Hamburger Menu */}
-        <button
-          type="button"
-          className="sidebar__toggle"
-          onClick={onToggle}
-          aria-label={
-            collapsed
-              ? "Mở sidebar"
-              : "Thu gọn sidebar"
-          }
-        >
-          <Menu size={19} strokeWidth={1.8} />
-        </button>
+          {/* Nút toggle - chỉ hiện khi hover vào vùng logo */}
+          <button
+            type="button"
+            className="sidebar__toggle-hover"
+            onClick={onToggle}
+            aria-label={collapsed ? "Mở sidebar" : "Thu gọn sidebar"}
+          >
+            {collapsed ? (
+              <PanelLeft size={17} strokeWidth={1.8} />
+            ) : (
+              <PanelLeftClose size={17} strokeWidth={1.8} />
+            )}
+          </button>
+        </div>
       </div>
 
       {/* ================= NAVIGATION ================= */}
@@ -60,10 +51,7 @@ const Sidebar = ({
         {sidebarItems.map((item, index) => {
           if (item.section) {
             return (
-              <div
-                className="sidebar__section"
-                key={item.section}
-              >
+              <div className="sidebar__section" key={item.section}>
                 <div className="sidebar__section-title">
                   {item.section}
                 </div>
