@@ -61,16 +61,16 @@
 .sidebar__logo {
   display: block;
   flex-shrink: 0;
-  width: 32px;
-  height: 32px;
+  width: 47px;
+  height: 47px;
   object-fit: contain;
   object-position: left;
 }
 
 .sidebar__logo-wrapper {
   position: relative;
-  width: 36px;
-  height: 36px;
+  width: 53px;
+  height: 53px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -252,7 +252,7 @@
 }
 
 .sidebar-item:hover .sidebar-item__icon {
-  color: var(--green);
+  color: var(--color-neutral-700);
 }
 
 /* =========================================================
@@ -260,17 +260,17 @@
    ========================================================= */
 
 .sidebar-item--active { 
-  background: var(--color-teal-50); 
-  color: var(--color-teal-700); 
+  background: var(--color-purple-50); 
+  color: var(--color-purple-700); 
 }
 
 .sidebar-item--active .sidebar-item__icon { 
-  color: var(--color-teal-500); 
+  color: var(--color-purple-500); 
 }
 
 
 .sidebar-item--active:hover {
-  background: var(--color-teal-100);
+  background: var(--color-purple-100);
 }
 
 /* =========================================================
@@ -280,14 +280,15 @@
 .sidebar-item--parent {
   font-family: inherit;
   text-align: left;
+  font-weight: var(--font-weight-medium);
 }
 
 .sidebar-item--active-parent {
-  color: var(--green-dark);
+  color: var(--color-purple-500);
 }
 
 .sidebar-item--active-parent .sidebar-item__icon {
-  color: var(--green);
+  color: var(--color-purple-500);
 }
 
 /* =========================================================
@@ -361,7 +362,7 @@
 }
 
 .sidebar-submenu__item:hover {
-  background: var(--hover-bg);
+  background: var(--color-teal-100);
   color: #686863;
 }
 
@@ -394,12 +395,12 @@
 /* Active */
 
 .sidebar-submenu__item--active {
-  background: var(--green-light);
-  color: var(--green);
+  background: var(--color-teal-50);
+  color: var(--color-teal-900);
 }
 
 .sidebar-submenu__item--active .sidebar-submenu__dot {
-  background: var(--green);
+  background: var(--color-teal-500);
 }
 
 .sidebar-submenu__item--active .sidebar-submenu__label {
@@ -407,7 +408,7 @@
 }
 
 .sidebar-submenu__item--active:hover {
-  background: var(--green-light);
+  background: var(--color-neutral-100);
 }
 
 /* =========================================================

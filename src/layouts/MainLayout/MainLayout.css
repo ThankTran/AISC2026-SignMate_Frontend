@@ -16,7 +16,16 @@
 .main-layout__content {
   margin-left: var(--sidebar-width);
 
+  display: flex;
+  flex-direction: column;
+
+  min-height: 100vh;
+
   transition: margin-left 0.25s ease;
+}
+
+.main-layout__body {
+  flex: 1;
 }
 
 /* =========================================================
@@ -35,6 +44,7 @@
 @media (max-width: 768px) {
   .main-layout {
     --sidebar-width: 58px;
+    --sidebar-collapsed-width: 58px;
   }
 
   .main-layout__content {
