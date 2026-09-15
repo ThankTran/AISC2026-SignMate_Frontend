@@ -44,21 +44,20 @@ export const sidebarItems = [
       {
         label: "Bạn bè",
         icon: "users",
-        path: "/friends",
-      },
-    ],
-  },
-
-  // =========================
-  // CÀI ĐẶT
-  // =========================
-  {
-    section: "CÀI ĐẶT",
-    children: [
-      {
-        label: "Tài khoản",
-        icon: "user",
-        path: "/account",
+        children: [
+          {
+            label: "Danh sách bạn bè",
+            path: "/friends/list",
+          },
+          {
+            label: "Lời mời kết bạn",
+            path: "/friends/friend-requests",
+          },
+          {
+            label: "Lời mời hẹn video call",
+            path: "/friends/video-call-invites",
+          },
+        ],
       },
     ],
   },
