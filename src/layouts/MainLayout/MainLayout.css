@@ -4,6 +4,7 @@
 
 .main-layout {
   min-height: 100vh;
+  min-height: 100dvh;
   width: 100%;
 
   background: #f8f7f5;
@@ -20,12 +21,15 @@
   flex-direction: column;
 
   min-height: 100vh;
+  min-height: 100dvh;
 
   transition: margin-left 0.25s ease;
 }
 
 .main-layout__body {
-  flex: 1;
+  flex: 0 0 auto;
+  min-height: calc(100vh - 64px);
+  min-height: calc(100dvh - 64px);
 }
 
 /* =========================================================

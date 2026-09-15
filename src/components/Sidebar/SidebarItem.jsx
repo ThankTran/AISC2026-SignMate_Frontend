@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
 
@@ -7,7 +7,6 @@ import {
   BookOpen,
   Video,
   Users,
-  UserRound,
   Trophy,
   Bot,
   BookMarked,
@@ -18,7 +17,6 @@ const ICONS = {
   book: BookOpen,
   video: Video,
   users: Users,
-  user: UserRound,
   trophy: Trophy,
   ai: Bot,
   learning: BookMarked,
@@ -40,12 +38,6 @@ const SidebarItem = ({ item, collapsed }) => {
     item.defaultOpen || hasActiveChild
   );
 
-  useEffect(() => {
-    if (hasActiveChild) {
-      setExpanded(true);
-    }
-  }, [hasActiveChild]);
-
   const Icon = ICONS[item.icon] || BookOpen;
 
   // =====================================================
@@ -62,7 +54,11 @@ const SidebarItem = ({ item, collapsed }) => {
         <button
           type="button"
           className={`sidebar-item sidebar-item--parent ${
-            hasActiveChild ? "sidebar-item--active-parent" : ""
+            hasActiveChild
+              ? "sidebar-item--active-parent"
+              : expanded
+                ? "sidebar-item--expanded-parent"
+                : ""
           }`}
           onClick={() => setExpanded((prev) => !prev)}
           title={collapsed ? item.label : undefined}
