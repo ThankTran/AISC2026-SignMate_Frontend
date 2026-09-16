@@ -7,6 +7,7 @@ import {
   Calendar,
   Check,
   Clock,
+  Plus,
   UserPlus,
 } from "lucide-react";
 
@@ -15,6 +16,7 @@ import FriendListItem from "../../components/Friends/FriendListItem";
 import {
   incomingScheduleRequestsData,
   incomingFriendRequestsData,
+  scheduledSessionsData,
   recentCallsData,
   friendsListData,
 } from "../../components/Friends/friendsData";
@@ -29,6 +31,29 @@ const friendFilters = [
   { label: "Đang online", value: "online" },
   { label: "Offline", value: "offline" },
 ];
+const calendarWeekdays = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"];
+const calendarMonthNames = [
+  "Tháng 1",
+  "Tháng 2",
+  "Tháng 3",
+  "Tháng 4",
+  "Tháng 5",
+  "Tháng 6",
+  "Tháng 7",
+  "Tháng 8",
+  "Tháng 9",
+  "Tháng 10",
+  "Tháng 11",
+  "Tháng 12",
+];
+
+const formatDateKey = (date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+};
 
 const FriendsPage = () => {
   const location = useLocation();
@@ -47,13 +72,26 @@ const FriendsPage = () => {
   const [scheduleTime, setScheduleTime] = useState("");
   const [scheduleTopic, setScheduleTopic] = useState("Luyện giao tiếp cơ bản");
   const [customScheduleTopic, setCustomScheduleTopic] = useState("");
-  const [scheduledSessions, setScheduledSessions] = useState([]);
+  const [scheduledSessions, setScheduledSessions] = useState(
+    scheduledSessionsData
+  );
   const [scheduleStep, setScheduleStep] = useState("details");
   const [showAllRequests, setShowAllRequests] = useState(false);
   const [showAllScheduleRequests, setShowAllScheduleRequests] = useState(false);
   const [friendFilter, setFriendFilter] = useState("all");
   const [isFriendFilterOpen, setIsFriendFilterOpen] = useState(false);
   const [showCallHistory, setShowCallHistory] = useState(false);
+  const [calendarMonthDate, setCalendarMonthDate] = useState(
+    new Date(2026, 8, 1)
+  );
+  const [quickInviteDate, setQuickInviteDate] = useState("");
+  const [quickInviteFriendId, setQuickInviteFriendId] = useState(
+    friendsListData[0]?.id || ""
+  );
+  const [quickInviteTime, setQuickInviteTime] = useState("19:30");
+  const [quickInviteTopic, setQuickInviteTopic] = useState(
+    "Luyện giao tiếp cơ bản"
+  );
   const callHistoryTriggerRef = useRef(null);
 
   useEffect(() => {
@@ -139,6 +177,129 @@ const FriendsPage = () => {
     [friends]
   );
 
+  const calendarAppointments = useMemo(() => {
+    const upcomingSessions = scheduledSessions.map((session) => ({
+      id: session.id,
+      name: session.friendName,
+      avatar: session.friendAvatar,
+      date: session.date,
+      time: session.time,
+      topic: session.topic,
+      status: session.status,
+      type: "upcoming",
+    }));
+
+    const pendingRequests = incomingScheduleRequests.map((request) => ({
+      id: request.id,
+      name: request.name,
+      avatar: request.avatar,
+      date: request.date,
+      time: request.time,
+      topic: request.topic,
+      status: "Đang chờ",
+      type: "pending",
+    }));
+
+    return [...upcomingSessions, ...pendingRequests].sort((a, b) =>
+      `${a.date} ${a.time}`.localeCompare(`${b.date} ${b.time}`)
+    );
+  }, [incomingScheduleRequests, scheduledSessions]);
+
+  const calendarAppointmentsByDate = useMemo(
+    () =>
+      calendarAppointments.reduce((groupedAppointments, appointment) => {
+        return {
+          ...groupedAppointments,
+          [appointment.date]: [
+            ...(groupedAppointments[appointment.date] || []),
+            appointment,
+          ],
+        };
+      }, {}),
+    [calendarAppointments]
+  );
+
+  const calendarTitle = `${calendarMonthNames[calendarMonthDate.getMonth()]} ${calendarMonthDate.getFullYear()}`;
+
+  const calendarMonthDays = useMemo(() => {
+    const firstDayOfMonth = new Date(
+      calendarMonthDate.getFullYear(),
+      calendarMonthDate.getMonth(),
+      1
+    );
+    const firstCalendarDay = new Date(firstDayOfMonth);
+    firstCalendarDay.setDate(
+      firstDayOfMonth.getDate() - firstDayOfMonth.getDay()
+    );
+
+    return Array.from({ length: 42 }, (_, index) => {
+      const date = new Date(firstCalendarDay);
+      date.setDate(firstCalendarDay.getDate() + index);
+
+      return {
+        dateKey: formatDateKey(date),
+        dayNumber: date.getDate(),
+        isCurrentMonth:
+          date.getMonth() === calendarMonthDate.getMonth() &&
+          date.getFullYear() === calendarMonthDate.getFullYear(),
+        isToday: formatDateKey(date) === "2026-09-16",
+      };
+    });
+  }, [calendarMonthDate]);
+
+  const goToPreviousMonth = () => {
+    setCalendarMonthDate(
+      (currentDate) =>
+        new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1)
+    );
+  };
+
+  const goToNextMonth = () => {
+    setCalendarMonthDate(
+      (currentDate) =>
+        new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1)
+    );
+  };
+
+  const goToTodayMonth = () => {
+    setCalendarMonthDate(new Date(2026, 8, 1));
+  };
+
+  const openQuickInvite = (dateKey) => {
+    setQuickInviteDate(dateKey);
+    setQuickInviteFriendId(friends[0]?.id || "");
+    setQuickInviteTime("19:30");
+    setQuickInviteTopic("Luyện giao tiếp cơ bản");
+  };
+
+  const closeQuickInvite = () => {
+    setQuickInviteDate("");
+  };
+
+  const handleQuickInviteSubmit = (event) => {
+    event.preventDefault();
+
+    const selectedFriend = friends.find(
+      (friend) => friend.id === quickInviteFriendId
+    );
+
+    if (!selectedFriend) return;
+
+    setScheduledSessions((prev) => [
+      {
+        id: `quick-session-${Date.now()}`,
+        friendName: selectedFriend.name,
+        friendAvatar: selectedFriend.avatar,
+        date: quickInviteDate,
+        time: quickInviteTime,
+        topic: quickInviteTopic.trim() || "Luyện giao tiếp cơ bản",
+        status: "Đợi xác nhận",
+      },
+      ...prev,
+    ]);
+    closeQuickInvite();
+  };
+
   const handleAcceptRequest = (request) => {
     setFriends((prev) => [
       {
@@ -170,7 +331,7 @@ const FriendsPage = () => {
         date: request.date,
         time: request.time,
         topic: request.topic,
-        status: "Đã nhận",
+        status: "Sắp diễn ra",
       },
       ...prev,
     ]);
@@ -225,7 +386,7 @@ const FriendsPage = () => {
       date: scheduleDate,
       time: scheduleTime,
       topic: finalTopic,
-      status: "Đã tạo",
+      status: "Đợi xác nhận",
     };
 
     setScheduledSessions((prev) => [newSession, ...prev]);
@@ -368,6 +529,7 @@ const FriendsPage = () => {
 
       {/* ================= LỜI HẸN ĐANG CHỜ ================= */}
       {isVideoInvitesView && (
+      <>
       <section className="friends-section friends-section--schedule-requests">
         <div className="friends-section__header">
           <div>
@@ -443,44 +605,148 @@ const FriendsPage = () => {
           </button>
         )}
       </section>
-      )}
 
-      {(isFriendsHome || isVideoInvitesView) && scheduledSessions.length > 0 && (
-        <section className="friends-section friends-section--scheduled">
-          <div className="friends-section__header">
-            <div>
-              <h2 className="text-h2">Lịch đã hẹn</h2>
-              <p className="friends-section__hint text-caption">
-                Các buổi luyện tập đang chờ xác nhận trong prototype.
-              </p>
+      <section className="friends-section friends-section--calendar">
+        <div className="friends-section__header">
+          <div>
+            <h2 className="text-h2">Lịch hẹn luyện tập</h2>
+            <p className="friends-section__hint text-caption">
+              Theo dõi buổi hẹn sắp diễn ra và các lời mời còn chờ bạn phản hồi.
+            </p>
+          </div>
+
+          <span className="friends-section__count text-caption">
+            {calendarAppointments.length} lịch hẹn
+          </span>
+        </div>
+
+        <div className="month-calendar">
+          <div className="month-calendar__toolbar">
+            <h3 className="month-calendar__title">{calendarTitle}</h3>
+
+            <div className="month-calendar__controls" aria-label="Điều khiển lịch">
+              <button type="button" className="month-calendar__manage">
+                <Calendar size={15} strokeWidth={1.8} />
+                <span>Quản lý trong lịch</span>
+              </button>
+              <button
+                type="button"
+                className="month-calendar__nav"
+                aria-label="Tháng trước"
+                onClick={goToPreviousMonth}
+              >
+                ‹
+              </button>
+              <button
+                type="button"
+                className="month-calendar__today"
+                onClick={goToTodayMonth}
+              >
+                Hôm nay
+              </button>
+              <button
+                type="button"
+                className="month-calendar__nav"
+                aria-label="Tháng sau"
+                onClick={goToNextMonth}
+              >
+                ›
+              </button>
             </div>
           </div>
 
-          <div className="scheduled-sessions">
-            {scheduledSessions.map((session) => (
-              <article className="scheduled-session" key={session.id}>
-                <img
-                  src={session.friendAvatar}
-                  alt={session.friendName}
-                  className="scheduled-session__avatar"
-                />
-
-                <div className="scheduled-session__content">
-                  <p className="scheduled-session__title">
-                    {session.friendName}
-                  </p>
-                  <p className="scheduled-session__meta">
-                    {session.date} lúc {session.time} · {session.topic}
-                  </p>
-                </div>
-
-                <span className="scheduled-session__badge">
-                  {session.status}
-                </span>
-              </article>
+          <div className="month-calendar__weekdays" aria-hidden="true">
+            {calendarWeekdays.map((weekday) => (
+              <span key={weekday}>{weekday}</span>
             ))}
           </div>
-        </section>
+
+          <div className="month-calendar__grid" aria-label={`Lịch tháng ${calendarTitle}`}>
+            {calendarMonthDays.map((day) => {
+              const appointments = calendarAppointmentsByDate[day.dateKey] || [];
+
+              return (
+                <div
+                  className={`month-calendar__day ${
+                    !day.isCurrentMonth ? "month-calendar__day--outside" : ""
+                  } ${day.isToday ? "month-calendar__day--today" : ""}`}
+                  key={day.dateKey}
+                >
+                  <div className="month-calendar__day-top">
+                    <span className="month-calendar__date">
+                      {day.dateKey.endsWith("-01")
+                        ? `${day.dayNumber}/${Number(day.dateKey.slice(5, 7))}`
+                        : day.dayNumber}
+                    </span>
+
+                    {day.isCurrentMonth && (
+                      <button
+                        type="button"
+                        className="month-calendar__add-day"
+                        aria-label={`Mời call ngày ${day.dateKey}`}
+                        title="Mời call"
+                        onClick={() => openQuickInvite(day.dateKey)}
+                      >
+                        <Plus size={14} strokeWidth={2} />
+                      </button>
+                    )}
+                  </div>
+
+                  <div className="month-calendar__events">
+                    {appointments.map((appointment) => (
+                      <article
+                        className={`month-calendar-event month-calendar-event--${appointment.type}`}
+                        key={`${appointment.type}-${appointment.id}`}
+                      >
+                        <div className="month-calendar-event__title">
+                          <Calendar size={14} strokeWidth={1.8} />
+                          <span>{appointment.name}</span>
+                        </div>
+                        <p className="month-calendar-event__topic">
+                          {appointment.time} · {appointment.topic}
+                        </p>
+                        <div className="month-calendar-event__footer">
+                          <span className="month-calendar-event__status">
+                            {appointment.status}
+                          </span>
+
+                          {appointment.type === "pending" && (
+                            <div className="month-calendar-event__actions">
+                              <button
+                                type="button"
+                                className="month-calendar-event__action month-calendar-event__action--accept"
+                                onClick={() =>
+                                  handleAcceptScheduleRequest(appointment)
+                                }
+                                aria-label={`Xác nhận lời hẹn của ${appointment.name}`}
+                                title="Xác nhận"
+                              >
+                                <Check size={13} strokeWidth={2.2} />
+                              </button>
+                              <button
+                                type="button"
+                                className="month-calendar-event__action month-calendar-event__action--decline"
+                                onClick={() =>
+                                  handleDeclineScheduleRequest(appointment.id)
+                                }
+                                aria-label={`Hủy lời hẹn của ${appointment.name}`}
+                                title="Hủy"
+                              >
+                                <X size={13} strokeWidth={2.2} />
+                              </button>
+                            </div>
+                          )}
+                        </div>
+                      </article>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+      </>
       )}
 
       {/* ================= CUỘC GỌI GẦN ĐÂY ================= */}
@@ -694,6 +960,101 @@ const FriendsPage = () => {
       </section>
       )}
 
+      {quickInviteDate && (
+        <div
+          className="schedule-modal"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="quick-invite-title"
+        >
+          <div className="schedule-modal__backdrop" onClick={closeQuickInvite} />
+
+          <div className="schedule-modal__panel">
+            <button
+              type="button"
+              className="schedule-modal__close"
+              onClick={closeQuickInvite}
+              aria-label="Đóng mời call"
+            >
+              <X size={17} strokeWidth={1.8} />
+            </button>
+
+            <div className="schedule-modal__header">
+              <div className="schedule-modal__calendar-icon">
+                <Plus size={20} strokeWidth={2} />
+              </div>
+              <div>
+                <p className="schedule-modal__eyebrow">Mời hẹn video call</p>
+                <h2 id="quick-invite-title" className="schedule-modal__title">
+                  Ngày {quickInviteDate}
+                </h2>
+              </div>
+            </div>
+
+            <form className="schedule-form" onSubmit={handleQuickInviteSubmit}>
+              <label className="schedule-form__field schedule-form__field--full">
+                <span>Chọn bạn bè</span>
+                <select
+                  value={quickInviteFriendId}
+                  onChange={(event) =>
+                    setQuickInviteFriendId(event.target.value)
+                  }
+                  required
+                >
+                  {friends.map((friend) => (
+                    <option key={friend.id} value={friend.id}>
+                      {friend.name}
+                    </option>
+                  ))}
+                </select>
+              </label>
+
+              <label className="schedule-form__field">
+                <span>Giờ bắt đầu</span>
+                <input
+                  type="time"
+                  value={quickInviteTime}
+                  onChange={(event) => setQuickInviteTime(event.target.value)}
+                  required
+                />
+              </label>
+
+              <label className="schedule-form__field">
+                <span>Chủ đề</span>
+                <input
+                  type="text"
+                  value={quickInviteTopic}
+                  onChange={(event) => setQuickInviteTopic(event.target.value)}
+                  placeholder="Ví dụ: Luyện phản xạ video call"
+                  required
+                />
+              </label>
+
+              <div className="schedule-form__summary">
+                <Calendar size={16} strokeWidth={1.8} />
+                <span>
+                  Lời mời sẽ được thêm vào lịch của bạn với trạng thái đợi xác nhận.
+                </span>
+              </div>
+
+              <div className="schedule-form__actions">
+                <button
+                  type="button"
+                  className="schedule-modal__secondary"
+                  onClick={closeQuickInvite}
+                >
+                  Hủy
+                </button>
+                <button type="submit" className="schedule-modal__primary">
+                  <Plus size={15} strokeWidth={2} />
+                  <span>Mời call</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
       {scheduleTarget && (
         <div
           className="schedule-modal"
@@ -723,7 +1084,7 @@ const FriendsPage = () => {
                   Đã tạo lịch hẹn
                 </h2>
                 <p className="schedule-modal__text">
-                  Buổi luyện với {scheduleTarget.name} đã được thêm vào mục Lịch đã hẹn.
+                  Buổi luyện với {scheduleTarget.name} đã được thêm vào lịch hẹn luyện tập.
                 </p>
 
                 <button
@@ -811,7 +1172,7 @@ const FriendsPage = () => {
                   <div className="schedule-form__summary">
                     <Clock size={16} strokeWidth={1.8} />
                     <span>
-                      Sau khi tạo lịch, buổi hẹn sẽ xuất hiện trong trang Bạn bè.
+                      Sau khi tạo lịch, buổi hẹn sẽ xuất hiện trong trang lời mời hẹn video call.
                     </span>
                   </div>
 

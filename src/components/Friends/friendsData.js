@@ -255,3 +255,24 @@ export const incomingScheduleRequestsData = [
     topic: "Ôn bảng chữ cái ký hiệu",
   },
 ];
+
+export const scheduledSessionsData = [
+  {
+    id: "session-1",
+    friendName: "Anh Tú",
+    friendAvatar: "https://i.pravatar.cc/150?img=14",
+    date: "2026-09-17",
+    time: "20:00",
+    topic: "Luyện hội thoại chào hỏi",
+    status: "Sắp diễn ra",
+  },
+  {
+    id: "session-2",
+    friendName: "Trung Kiên",
+    friendAvatar: "https://i.pravatar.cc/150?img=33",
+    date: "2026-09-19",
+    time: "09:30",
+    topic: "Ôn ký hiệu theo chủ đề gia đình",
+    status: "Sắp diễn ra",
+  },
+];
