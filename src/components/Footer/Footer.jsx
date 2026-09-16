@@ -16,27 +16,25 @@ import {
   Video,
 } from "lucide-react";
 
+import {
+  footerExploreLinks,
+  footerSocialLinks,
+  footerSupportLinks,
+} from "../../mockdata";
+
 import "./Footer.css";
 
-const exploreLinks = [
-  { label: "Lộ trình học", path: "/learning-path", icon: BookOpen },
-  { label: "Luyện tập với AI", path: "/practice-ai", icon: Bot },
-  { label: "Gọi video", path: "/video", icon: Video },
-  { label: "Xếp hạng", path: "/ranking", icon: Trophy },
-];
-
-const supportLinks = [
-  { label: "Câu hỏi thường gặp", path: "/faq", icon: MessageCircleQuestion },
-  { label: "Bạn bè & Cộng đồng", path: "/friends", icon: Users },
-  { label: "Điều khoản sử dụng", path: "/terms" },
-  { label: "Chính sách bảo mật", path: "/privacy" },
-];
-
-const socialLinks = [
-  { label: "Facebook", href: "https://facebook.com", icon: MessageCircle },
-  { label: "YouTube", href: "https://youtube.com", icon: PlayCircle },
-  { label: "Instagram", href: "https://instagram.com", icon: Camera },
-];
+const footerIconMap = {
+  bookOpen: BookOpen,
+  bot: Bot,
+  camera: Camera,
+  messageCircle: MessageCircle,
+  messageCircleQuestion: MessageCircleQuestion,
+  playCircle: PlayCircle,
+  trophy: Trophy,
+  users: Users,
+  video: Video,
+};
 
 const Footer = () => {
   const [email, setEmail] = useState("");
@@ -90,19 +88,23 @@ const Footer = () => {
           </p>
 
           <div className="footer__social">
-            {socialLinks.map(({ label, href, icon: Icon }) => (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="footer__social-btn"
-                aria-label={label}
-                title={label}
-              >
-                <Icon size={16} strokeWidth={1.8} />
-              </a>
-            ))}
+            {footerSocialLinks.map(({ label, href, icon }) => {
+              const Icon = footerIconMap[icon];
+
+              return (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="footer__social-btn"
+                  aria-label={label}
+                  title={label}
+                >
+                  {Icon && <Icon size={16} strokeWidth={1.8} />}
+                </a>
+              );
+            })}
           </div>
         </div>
 
@@ -113,14 +115,18 @@ const Footer = () => {
           </div>
 
           <ul className="footer__list">
-            {exploreLinks.map(({ label, path, icon: Icon }) => (
-              <li key={label}>
-                <Link to={path} className="footer__list-link">
-                  <Icon size={14} strokeWidth={1.8} />
-                  <span>{label}</span>
-                </Link>
-              </li>
-            ))}
+            {footerExploreLinks.map(({ label, path, icon }) => {
+              const Icon = footerIconMap[icon];
+
+              return (
+                <li key={label}>
+                  <Link to={path} className="footer__list-link">
+                    {Icon && <Icon size={14} strokeWidth={1.8} />}
+                    <span>{label}</span>
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
 
@@ -131,14 +137,18 @@ const Footer = () => {
           </div>
 
           <ul className="footer__list">
-            {supportLinks.map(({ label, path, icon: Icon }) => (
-              <li key={label}>
-                <Link to={path} className="footer__list-link">
-                  {Icon && <Icon size={14} strokeWidth={1.8} />}
-                  <span>{label}</span>
-                </Link>
-              </li>
-            ))}
+            {footerSupportLinks.map(({ label, path, icon }) => {
+              const Icon = footerIconMap[icon];
+
+              return (
+                <li key={label}>
+                  <Link to={path} className="footer__list-link">
+                    {Icon && <Icon size={14} strokeWidth={1.8} />}
+                    <span>{label}</span>
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
 
