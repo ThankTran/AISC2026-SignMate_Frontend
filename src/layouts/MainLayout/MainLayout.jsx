@@ -4,15 +4,9 @@ import { Outlet } from "react-router-dom";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
+import { currentUser, headerNotifications } from "../../mockdata";
 
 import "./MainLayout.css";
-
-// Dữ liệu mẫu - sau này thay bằng data thật từ API/context
-const mockNotifications = [
-  { id: 1, title: "Bạn có lời mời gọi video mới", time: "5 phút trước", read: false },
-  { id: 2, title: "Kết quả luyện tập AI đã sẵn sàng", time: "1 giờ trước", read: false },
-  { id: 3, title: "Bạn đã lên hạng #12 tuần này", time: "Hôm qua", read: true },
-];
 
 const MainLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -26,10 +20,11 @@ const MainLayout = () => {
       <Sidebar
         collapsed={collapsed}
         onToggle={() => setCollapsed((prev) => !prev)}
+        user={currentUser}
       />
 
       <div className="main-layout__content">
-        <Header notifications={mockNotifications} />
+        <Header notifications={headerNotifications} />
 
         <main className="main-layout__body">
           <Outlet />
