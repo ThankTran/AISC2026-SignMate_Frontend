@@ -1,0 +1,177 @@
+/* =========================================================
+   SIGN GUIDE MODAL (Hướng dẫn ký hiệu)
+   ========================================================= */
+
+.sign-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.sign-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 16, 24, 0.5);
+  backdrop-filter: blur(3px);
+}
+
+.sign-modal__card {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 20px;
+  padding: 26px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  animation: sign-modal-pop 0.25s ease-out;
+}
+
+@keyframes sign-modal-pop {
+  from {
+    transform: scale(0.92) translateY(10px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+.sign-modal__close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: var(--color-neutral-100, #f1efe8);
+  color: var(--color-neutral-700, #5f5e5a);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.sign-modal__close:hover {
+  background: var(--color-neutral-200, #d3d1c7);
+}
+
+.sign-modal__title {
+  font-family: var(--font-family-main);
+  font-size: 18px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-neutral-900, #444441);
+  line-height: 1.4;
+  margin-right: 36px;
+}
+
+/* ===== MEDIA ILLUSTRATION ===== */
+.sign-modal__media {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 22px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #f5f3ff 0%, #e8f5f0 100%);
+}
+
+.sign-modal__hand {
+  font-size: 96px;
+  line-height: 1;
+  filter: drop-shadow(0 8px 16px rgba(127, 119, 221, 0.3));
+}
+
+.sign-modal__media-caption {
+  font-family: var(--font-family-body);
+  font-size: 12px;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-neutral-500, #888780);
+}
+
+/* ===== STEPS ===== */
+.sign-modal__steps {
+  margin-top: 18px;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sign-modal__step {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.sign-modal__step-num {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--color-purple-50, #eeedfe);
+  color: var(--color-purple-700, #534ab7);
+  font-family: var(--font-family-mono);
+  font-size: 13px;
+  font-weight: var(--font-weight-bold);
+}
+
+.sign-modal__step-text {
+  font-family: var(--font-family-body);
+  font-size: 14px;
+  font-weight: var(--font-weight-regular);
+  color: var(--color-neutral-700, #5f5e5a);
+  line-height: 1.55;
+  padding-top: 3px;
+}
+
+/* ===== CTA BUTTON ===== */
+.sign-modal__cta {
+  margin-top: 22px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 20px;
+  border: none;
+  border-radius: 14px;
+  background: var(--color-purple-500, #7f77dd);
+  color: #fff;
+  font-family: var(--font-family-main);
+  font-size: 15px;
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.sign-modal__cta:hover {
+  background: var(--color-purple-700, #534ab7);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .sign-modal__card {
+    padding: 20px;
+  }
+
+  .sign-modal__title {
+    font-size: 16px;
+  }
+
+  .sign-modal__hand {
+    font-size: 72px;
+  }
+}

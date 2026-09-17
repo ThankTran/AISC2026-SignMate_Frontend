@@ -1,0 +1,363 @@
+/* =========================================================
+   CAMERA VIEWPORT
+   ========================================================= */
+
+.cam-viewport {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  min-height: 340px;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #12131c;
+}
+
+/* ===== STATUS BADGES (top-left) ===== */
+.cam-viewport__badges-top {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cam-viewport__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-family: var(--font-family-body);
+  font-size: 12px;
+  font-weight: var(--font-weight-semibold);
+  color: #fff;
+  backdrop-filter: blur(6px);
+  white-space: nowrap;
+}
+
+.cam-viewport__badge--camera {
+  background: rgba(55, 50, 80, 0.85);
+}
+.cam-viewport__badge--camera.cam-viewport__badge--waiting {
+  background: rgba(180, 140, 40, 0.85);
+}
+.cam-viewport__badge--camera.cam-viewport__badge--active {
+  background: rgba(45, 100, 75, 0.85);
+}
+.cam-viewport__badge--camera.cam-viewport__badge--off {
+  background: rgba(90, 90, 100, 0.85);
+}
+
+.cam-viewport__badge--recording {
+  background: rgba(180, 40, 40, 0.85);
+}
+
+.cam-viewport__badge--processing {
+  background: rgba(100, 90, 170, 0.75);
+}
+
+.cam-viewport__badge--paused {
+  background: rgba(100, 100, 100, 0.8);
+}
+
+/* Blinking red dot */
+.cam-viewport__rec-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ff4444;
+  animation: cam-rec-blink 1s ease-in-out infinite;
+}
+
+@keyframes cam-rec-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.2; }
+}
+
+/* ===== VIDEO AREA ===== */
+.cam-viewport__video {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.cam-viewport__video-element {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  object-fit: cover;
+  /* Mirror giống soi gương để giơ tay tự nhiên */
+  transform: scaleX(-1);
+}
+
+.cam-viewport__video-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: radial-gradient(
+    ellipse at 50% 60%,
+    rgba(20, 20, 34, 0.25) 0%,
+    rgba(18, 19, 28, 0.15) 60%,
+    rgba(18, 19, 28, 0.5) 100%
+  );
+}
+
+.cam-viewport__skeleton {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  object-fit: contain;
+}
+
+/* ===== ERROR OVERLAY (permission denied) ===== */
+.cam-viewport__error {
+  position: absolute;
+  inset: 0;
+  z-index: 9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 20px;
+  background: rgba(18, 19, 28, 0.82);
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.cam-viewport__error p {
+  font-family: var(--font-family-body);
+  font-size: 15px;
+  font-weight: var(--font-weight-semibold);
+  text-align: center;
+  max-width: 320px;
+  line-height: 1.5;
+}
+
+/* ===== CAMERA OFF / PLACEHOLDER ===== */
+.cam-viewport__camera-off {
+  position: absolute;
+  inset: 0;
+  z-index: 9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: #12131c;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.cam-viewport__camera-off svg {
+  opacity: 0.35;
+}
+
+.cam-viewport__camera-off p {
+  font-family: var(--font-family-body);
+  font-size: 14px;
+  font-weight: var(--font-weight-semibold);
+  color: rgba(255, 255, 255, 0.65);
+  text-align: center;
+  max-width: 260px;
+  line-height: 1.5;
+}
+
+/* ===== COUNTDOWN ===== */
+.cam-viewport__countdown {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(18, 19, 28, 0.55);
+  animation: cam-countdown-fade 0.9s ease-out;
+}
+
+.cam-viewport__countdown-num {
+  font-family: var(--font-family-mono);
+  font-size: 120px;
+  font-weight: var(--font-weight-bold);
+  color: #fff;
+  text-shadow: 0 0 40px rgba(127, 119, 221, 0.7), 0 0 80px rgba(127, 119, 221, 0.3);
+  animation: cam-countdown-pop 0.9s ease-out;
+}
+
+@keyframes cam-countdown-pop {
+  0% { transform: scale(2.2); opacity: 0; }
+  30% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(0.9); opacity: 0.9; }
+}
+
+@keyframes cam-countdown-fade {
+  0% { background: rgba(18, 19, 28, 0.7); }
+  100% { background: rgba(18, 19, 28, 0.4); }
+}
+
+/* ===== IDLE PROMPT ===== */
+.cam-viewport__idle-prompt {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.cam-viewport__idle-prompt p {
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: rgba(18, 19, 28, 0.55);
+  backdrop-filter: blur(4px);
+  color: #fff;
+  font-family: var(--font-family-body);
+  font-size: 13px;
+  font-weight: var(--font-weight-semibold);
+}
+
+/* ===== PAUSED OVERLAY ===== */
+.cam-viewport__paused-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 15;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: rgba(18, 19, 28, 0.6);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.cam-viewport__paused-overlay p {
+  font-family: var(--font-family-body);
+  font-size: 16px;
+  font-weight: var(--font-weight-semibold);
+}
+
+/* ===== BOTTOM-LEFT SIGN INFO (clickable -> mở đề bài) ===== */
+.cam-viewport__sign-info {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 12px;
+  border: none;
+  background: rgba(30, 28, 45, 0.85);
+  backdrop-filter: blur(6px);
+  color: inherit;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.cam-viewport__sign-info:hover {
+  background: rgba(60, 55, 95, 0.9);
+  transform: translateY(-1px);
+}
+
+.cam-viewport__sign-info:focus-visible {
+  outline: 2px solid var(--color-purple-200, #afa9ec);
+  outline-offset: 2px;
+}
+
+.cam-viewport__sign-quote {
+  font-family: var(--font-family-mono);
+  font-size: 18px;
+  font-weight: var(--font-weight-bold);
+  color: #fff;
+}
+
+.cam-viewport__sign-label {
+  font-family: var(--font-family-body);
+  font-size: 13px;
+  font-weight: var(--font-weight-medium);
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.cam-viewport__sign-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-purple-500, #7f77dd);
+  color: #fff;
+  flex-shrink: 0;
+}
+
+/* ===== BOTTOM-RIGHT CONFIDENCE ===== */
+.cam-viewport__confidence {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  border-radius: 10px;
+  background: rgba(30, 28, 45, 0.85);
+  backdrop-filter: blur(6px);
+}
+
+.cam-viewport__conf-label {
+  font-family: var(--font-family-mono);
+  font-size: 11px;
+  font-weight: var(--font-weight-bold);
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.5px;
+}
+
+.cam-viewport__conf-icon {
+  color: rgba(255, 255, 255, 0.6);
+}
+.cam-viewport__conf-icon--high { color: #4ade80; }
+.cam-viewport__conf-icon--medium { color: #fbbf24; }
+.cam-viewport__conf-icon--low { color: #f87171; }
+
+.cam-viewport__conf-value {
+  font-family: var(--font-family-mono);
+  font-size: 12px;
+  font-weight: var(--font-weight-bold);
+  color: rgba(255, 255, 255, 0.7);
+}
+.cam-viewport__conf-value--high { color: #4ade80; }
+.cam-viewport__conf-value--medium { color: #fbbf24; }
+.cam-viewport__conf-value--low { color: #f87171; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .cam-viewport {
+    aspect-ratio: 4 / 3;
+    min-height: 260px;
+    border-radius: 18px;
+  }
+
+  .cam-viewport__countdown-num {
+    font-size: 80px;
+  }
+
+  .cam-viewport__badges-top {
+    top: 10px;
+    left: 10px;
+    gap: 5px;
+  }
+
+  .cam-viewport__badge {
+    padding: 4px 9px;
+    font-size: 11px;
+  }
+}
