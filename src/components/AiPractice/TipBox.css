@@ -1,0 +1,74 @@
+/* =========================================================
+   TIP BOX
+   ========================================================= */
+
+.tip-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 20px;
+  border-radius: 14px;
+  background: #fff;
+  border: 1px solid var(--color-neutral-200, #d3d1c7);
+}
+
+.tip-box__content {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+.tip-box__icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--color-purple-50, #eeedfe);
+  color: var(--color-purple-500, #7f77dd);
+  margin-top: 1px;
+}
+
+.tip-box__text {
+  font-family: var(--font-family-body);
+  font-size: 14px;
+  font-weight: var(--font-weight-regular);
+  color: var(--color-neutral-700, #5f5e5a);
+  line-height: 1.5;
+}
+
+.tip-box__text strong {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-neutral-900, #444441);
+}
+
+.tip-box__counter {
+  flex-shrink: 0;
+  font-family: var(--font-family-mono);
+  font-size: 13px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-purple-500, #7f77dd);
+  background: var(--color-purple-50, #eeedfe);
+  padding: 5px 12px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .tip-box {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 16px;
+  }
+
+  .tip-box__counter {
+    align-self: flex-end;
+  }
+}

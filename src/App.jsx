@@ -7,6 +7,7 @@ import {
 import MainLayout from "./layouts/MainLayout/MainLayout";
 import LearningPathPage from "./pages/LearningPathPage/LearningPathPage";
 import LessonPage from "./pages/LessonPage/LessonPage";
+import AiPracticePage from "./pages/AiPracticePage/AiPracticePage";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route element={<MainLayout />}>
           <Route path="/learning-path" element={<LearningPathPage />} />
           <Route path="/learning-path/lesson/:lessonId" element={<LessonPage />} />
+          <Route path="/practice-ai" element={<AiPracticePage />} />
           <Route
             path="*"
             element={

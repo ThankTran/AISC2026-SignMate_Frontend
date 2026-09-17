@@ -1,0 +1,119 @@
+/* =========================================================
+   AI PRACTICE PAGE
+   ========================================================= */
+
+.ai-practice {
+  height: calc(100vh - 64px);
+  display: flex;
+  gap: 24px;
+  padding: 22px 28px;
+  background: #f8f9fa;
+  overflow-y: auto;
+}
+
+/* ===== LEFT COLUMN ===== */
+.ai-practice__left {
+  flex: 7;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ---- Top nav bar ---- */
+.ai-practice__topnav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.ai-practice__topnav-title {
+  font-family: var(--font-family-main);
+  font-size: 18px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-neutral-900, #444441);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.ai-practice__topnav-sep {
+  color: var(--color-neutral-300, #b4b2a9);
+  font-size: 18px;
+}
+
+.ai-practice__topnav-sub {
+  font-size: 15px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-purple-500, #7f77dd);
+}
+
+.ai-practice__topnav-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ai-practice__progress-bar {
+  width: 120px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--color-neutral-200, #d3d1c7);
+  overflow: hidden;
+}
+
+.ai-practice__progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--color-purple-500, #7f77dd), var(--color-teal-500, #1d9e75));
+  transition: width 0.5s ease;
+}
+
+.ai-practice__progress-text {
+  font-family: var(--font-family-mono);
+  font-size: 13px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-neutral-500, #888780);
+  white-space: nowrap;
+}
+
+/* ===== RIGHT COLUMN ===== */
+.ai-practice__right {
+  flex: 3;
+  min-width: 280px;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1100px) {
+  .ai-practice {
+    flex-direction: column;
+    padding: 18px 16px;
+  }
+
+  .ai-practice__right {
+    max-width: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .ai-practice {
+    height: auto;
+    min-height: calc(100vh - 64px);
+    padding: 14px 12px;
+    gap: 14px;
+  }
+
+  .ai-practice__topnav-title {
+    font-size: 15px;
+  }
+
+  .ai-practice__progress-bar {
+    width: 80px;
+  }
+}
