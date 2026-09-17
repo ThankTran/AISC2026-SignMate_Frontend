@@ -1,6 +1,6 @@
 import { PanelLeftClose, PanelLeft } from "lucide-react";
 
-import { sidebarItems } from "./sidebarData";
+import { sidebarItems } from "../../mockdata";
 import SidebarItem from "./SidebarItem";
 
 import "./Sidebar.css";
@@ -8,11 +8,7 @@ import "./Sidebar.css";
 const Sidebar = ({
   collapsed = false,
   onToggle,
-  user = {
-    name: "Cassie",
-    level: "Cơ bản",
-    avatar: "C",
-  },
+  user,
 }) => {
   return (
     <aside
