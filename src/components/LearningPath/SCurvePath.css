@@ -1,12 +1,12 @@
 /* =========================================================
-   S-CURVE LEARNING PATH
+   S-CURVE LEARNING PATH (THEO CHƯƠNG)
    ========================================================= */
 
 .lp-curve {
   position: relative;
   width: 100%;
-  margin-top: 4px;
-  aspect-ratio: 620 / 820;
+  margin-top: 12px;
+  aspect-ratio: 700 / 1650;
   max-width: 720px;
   margin-left: auto;
   margin-right: auto;
@@ -23,8 +23,42 @@
   z-index: 0;
 }
 
+.lp-curve__segment {
+  stroke-linecap: round;
+}
+
+/* Trong chương - đã đi qua (nét đứt xanh lá mềm mại) */
 .lp-curve__segment--done {
+  stroke: #0d8a6a;
+  stroke-dasharray: 14 8;
   animation: dash-scroll 28s linear infinite;
+}
+
+/* Trong chương - đoạn đang học (xanh lá phát sáng) */
+.lp-curve__segment--active {
+  stroke: #0d8a6a;
+  stroke-dasharray: 14 8;
+  animation: dash-scroll 14s linear infinite, segment-glow 1.8s ease-in-out infinite;
+}
+
+/* Trong chương - chưa mở khóa (xám mờ) */
+.lp-curve__segment--pending {
+  stroke: #d1d5db;
+  stroke-dasharray: 6 10;
+}
+
+/* Đường uốn lượn giữa các chương - nét to hơn, rõ hơn */
+.lp-curve__segment--transition {
+  stroke-width: 6.5;
+}
+
+.lp-curve__segment--transition.lp-curve__segment--done {
+  stroke-dasharray: 10 12;
+  animation: dash-scroll 22s linear infinite;
+}
+
+.lp-curve__segment--transition.lp-curve__segment--pending {
+  stroke-dasharray: 2 14;
 }
 
 @keyframes dash-scroll {
@@ -33,7 +67,14 @@
   }
 }
 
-/* ===== NODE ===== */
+@keyframes segment-glow {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.4; }
+}
+
+/* =========================================================
+   NODE BÀI HỌC
+   ========================================================= */
 
 .lp-node {
   position: absolute;
@@ -45,11 +86,19 @@
   gap: 8px;
 }
 
+.lp-node__link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
 .lp-node__icon {
   position: relative;
-  width: 52px;
-  height: 52px;
-  border-radius: 16px;
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -57,22 +106,44 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.lp-node__icon:hover {
+a:hover > .lp-node__icon:not(.lp-node__icon--locked) {
   transform: scale(1.08);
 }
 
-/* --- Ring behind icon --- */
+.lp-node__glyph {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+}
 
-.lp-node__ring {
-  position: absolute;
-  inset: -5px;
-  border-radius: 20px;
-  z-index: 0;
+/* --- Trạng thái: Hoàn thành --- */
+
+.lp-node__icon--completed {
+  background: #0d8a6a;
+  box-shadow: 0 4px 14px rgba(13, 138, 106, 0.25);
+}
+
+.lp-node__icon--completed .lp-node__glyph {
+  color: #fff;
 }
 
 .lp-node__ring--completed {
   border: 2.5px solid #0d8a6a;
   background: rgba(13, 138, 106, 0.08);
+}
+
+/* --- Trạng thái: Đang học (Active) --- */
+
+.lp-node__icon--active {
+  width: 64px;
+  height: 64px;
+  border-radius: 20px;
+  background: #0d8a6a;
+  box-shadow: 0 6px 20px rgba(13, 138, 106, 0.4);
+}
+
+.lp-node__icon--active .lp-node__glyph {
+  color: #fff;
 }
 
 .lp-node__ring--active {
@@ -83,34 +154,47 @@
 
 @keyframes pulse-ring {
   0%, 100% { transform: scale(1); opacity: 1; }
-  50%       { transform: scale(1.18); opacity: 0.45; }
+  50%      { transform: scale(1.22); opacity: 0.4; }
+}
+
+/* --- Trạng thái: Mở khóa (Unlocked) --- */
+
+.lp-node__icon--unlocked {
+  background: #fff;
+  border: 2.5px solid #0d8a6a;
+  box-shadow: 0 2px 10px rgba(13, 138, 106, 0.12);
+}
+
+.lp-node__icon--unlocked .lp-node__glyph {
+  color: #0d8a6a;
+}
+
+.lp-node__ring--unlocked {
+  border: none;
+  background: none;
+}
+
+/* --- Trạng thái: Khóa (Locked) --- */
+
+.lp-node__icon--locked {
+  background: #e5e7eb;
+  cursor: not-allowed;
+}
+
+.lp-node__icon--locked .lp-node__glyph {
+  color: #9ca3af;
 }
 
 .lp-node__ring--locked {
-  border: 2px solid #d1d5db;
-  background: rgba(209, 213, 219, 0.06);
-}
-
-/* --- Status colours --- */
-
-.lp-node--completed {
-  background: #0d8a6a;
-}
-
-.lp-node--active {
-  background: #0d8a6a;
-  box-shadow: 0 4px 18px rgba(13, 138, 106, 0.35);
-}
-
-.lp-node--locked {
-  background: #e5e7eb;
+  border: 2px dashed #d1d5db;
+  background: rgba(209, 213, 219, 0.12);
 }
 
 /* --- Label --- */
 
 .lp-node__label {
   font-family: var(--font-family-body);
-  font-size: 13px;
+  font-size: 12.5px;
   font-weight: 600;
   color: var(--color-neutral-700);
   text-align: center;
@@ -120,15 +204,215 @@
   text-overflow: ellipsis;
 }
 
+.lp-node__label--locked {
+  color: var(--color-neutral-300);
+}
+
 /* =========================================================
-   TOOLTIP CARD  (active node)
+   HEADER CHƯƠNG (Banner bo góc)
+   ========================================================= */
+
+.lp-chapter {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  width: 78%;
+  border-radius: 22px;
+  padding: 16px 22px 14px;
+  color: #fff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.lp-chapter--completed {
+  background: linear-gradient(135deg, #0d8a6a 0%, #10b981 100%);
+}
+
+.lp-chapter--active {
+  background: linear-gradient(135deg, #f97316 0%, #e05638 100%);
+  box-shadow: 0 10px 30px rgba(224, 86, 56, 0.3);
+}
+
+.lp-chapter--locked {
+  background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+  color: #6b7280;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.05);
+}
+
+.lp-chapter__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.lp-chapter__tag,
+.lp-chapter__status {
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-family: var(--font-family-mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.lp-chapter--locked .lp-chapter__tag,
+.lp-chapter--locked .lp-chapter__status {
+  background: rgba(107, 114, 128, 0.16);
+}
+
+.lp-chapter__title {
+  font-family: var(--font-family-display);
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.lp-chapter__desc {
+  font-family: var(--font-family-body);
+  font-size: 12.5px;
+  line-height: 1.45;
+  margin: 3px 0 10px;
+  opacity: 0.9;
+}
+
+.lp-chapter--locked .lp-chapter__desc {
+  opacity: 0.75;
+}
+
+.lp-chapter__foot {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.lp-chapter__bar {
+  flex: 1;
+  height: 8px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.28);
+  overflow: hidden;
+}
+
+.lp-chapter--locked .lp-chapter__bar {
+  background: rgba(107, 114, 128, 0.18);
+}
+
+.lp-chapter__bar i {
+  display: block;
+  height: 100%;
+  border-radius: 20px;
+  background: #fff;
+  transition: width 0.4s ease;
+}
+
+.lp-chapter__count {
+  font-family: var(--font-family-mono);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* =========================================================
+   NODE QUIZ CUỐI CHƯƠNG
+   ========================================================= */
+
+.lp-quiz {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px 10px 12px;
+  border-radius: 18px;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+a:hover > .lp-quiz {
+  transform: scale(1.04);
+}
+
+.lp-quiz--completed {
+  background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+}
+
+.lp-quiz--active {
+  background: linear-gradient(135deg, #7f77dd 0%, #a78bfa 100%);
+  animation: quiz-glow 2s ease-in-out infinite;
+}
+
+.lp-quiz--locked {
+  background: #e5e7eb;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+a:hover > .lp-quiz--locked {
+  transform: scale(1);
+}
+
+@keyframes quiz-glow {
+  0%, 100% { box-shadow: 0 8px 24px rgba(127, 119, 221, 0.35); }
+  50%      { box-shadow: 0 8px 36px rgba(127, 119, 221, 0.65); }
+}
+
+.lp-quiz__icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.lp-quiz--locked .lp-quiz__icon {
+  background: rgba(107, 114, 128, 0.16);
+  color: #9ca3af;
+}
+
+.lp-quiz__body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  color: #fff;
+}
+
+.lp-quiz__title {
+  font-family: var(--font-family-body);
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.lp-quiz__meta {
+  font-family: var(--font-family-mono);
+  font-size: 11.5px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.lp-quiz--locked .lp-quiz__title {
+  color: #6b7280;
+}
+
+.lp-quiz--locked .lp-quiz__meta {
+  color: #9ca3af;
+}
+
+/* =========================================================
+   TOOLTIP CARD  (node đang học)
    ========================================================= */
 
 .lp-tooltip {
   position: absolute;
   top: -6px;
   right: calc(100% + 18px);
-  width: 230px;
+  width: 232px;
   background: #fff;
   border: 1px solid #e2e8f0;
   border-radius: 14px;
@@ -142,7 +426,6 @@
   gap: 10px;
 }
 
-/* Arrow pointing toward the active node */
 .lp-tooltip::before {
   content: "";
   position: absolute;
@@ -154,6 +437,14 @@
   background: #fff;
   border-right: 1px solid #e2e8f0;
   border-top: 1px solid #e2e8f0;
+}
+
+.lp-tooltip__title {
+  font-family: var(--font-family-display);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-neutral-900);
+  margin: 0;
 }
 
 .lp-tooltip__desc {
@@ -222,5 +513,19 @@
   .lp-tooltip {
     width: 200px;
     padding: 12px;
+  }
+
+  .lp-chapter {
+    padding: 14px 16px 12px;
+  }
+
+  .lp-chapter__title {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 560px) {
+  .lp-chapter__desc {
+    display: none;
   }
 }

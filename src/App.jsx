@@ -6,6 +6,8 @@ import {
 
 import MainLayout from "./layouts/MainLayout/MainLayout";
 
+import ScrollToTop from "./components/ScrollToTop";
+
 import LearningPathPage from "./pages/LearningPathPage/LearningPathPage";
 import LessonPage from "./pages/LessonPage/LessonPage";
 import AiPracticePage from "./pages/AiPracticePage/AiPracticePage";
@@ -15,6 +17,7 @@ import FriendsPage from "./pages/Friends/FriendsPage";
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/learning-path" element={<LearningPathPage />} />
