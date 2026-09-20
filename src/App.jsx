@@ -11,6 +11,8 @@ import LessonPage from "./pages/LessonPage/LessonPage";
 import AiPracticePage from "./pages/AiPracticePage/AiPracticePage";
 import FriendsPage from "./pages/Friends/FriendsPage";
 import Dashboard from "./pages/Dashboard/Dashboard";
+import Profile from "./pages/Profile/Profile";
+import Stats from "./pages/Stats/Stats";
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
           <Route path="/friends/list" element={<FriendsPage />} />
           <Route path="/friends/friend-requests" element={<FriendsPage />} />
           <Route path="/friends/video-call-invites" element={<FriendsPage />} />
+          <Route path="/account/profile" element={<Profile />} />
+          <Route path="/account/stats" element={<Stats />} />
           <Route
             path="*"
             element={
