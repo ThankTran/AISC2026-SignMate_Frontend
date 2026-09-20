@@ -10,13 +10,14 @@ import LearningPathPage from "./pages/LearningPathPage/LearningPathPage";
 import LessonPage from "./pages/LessonPage/LessonPage";
 import AiPracticePage from "./pages/AiPracticePage/AiPracticePage";
 import FriendsPage from "./pages/Friends/FriendsPage";
-
+import Dashboard from "./pages/Dashboard/Dashboard";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route element={<MainLayout />}>
+          <Route path="/" element={<Dashboard />} />
           <Route path="/learning-path" element={<LearningPathPage />} />
           <Route path="/learning-path/lesson/:lessonId" element={<LessonPage />} />
           <Route path="/practice-ai" element={<AiPracticePage />} />
