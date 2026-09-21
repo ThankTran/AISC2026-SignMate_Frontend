@@ -1,25 +1,28 @@
-import { Hand, Lightbulb } from "lucide-react";
+import { Lightbulb } from "lucide-react";
 
 import VideoPlayerFrame from "../VideoPlayerFrame/VideoPlayerFrame";
 
 import "./MediaView.css";
 
-const MediaView = () => {
+const MediaView = ({ question }) => {
+  const { title, videoUrl, thumbLabel, icon: Icon } = question;
+
   return (
     <section className="lesson-media">
       {/* ---- Sub header ---- */}
       <div className="lesson-media__header">
         <span className="lesson-media__tag">KÝ HIỆU ĐANG HỌC</span>
         <h2 className="lesson-media__title">
-          Quan sát ký hiệu cẩn thận
+          Quan sát ký hiệu: {title}
         </h2>
       </div>
 
       {/* ---- Video player frame ---- */}
       <VideoPlayerFrame
-        videoUrl="/videos/loi-chao.mp4"
-        thumbLabel="Ký hiệu: Lời chào"
-        icon={<Hand size={44} strokeWidth={1.6} />}
+        key={question.id}
+        videoUrl={videoUrl}
+        thumbLabel={thumbLabel}
+        icon={<Icon size={44} strokeWidth={1.6} />}
         duration={28}
         initialTime={7}
         speeds={[0.5, 1, 1.5]}

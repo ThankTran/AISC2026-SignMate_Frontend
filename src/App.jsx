@@ -12,6 +12,7 @@ import LearningPathPage from "./pages/LearningPathPage/LearningPathPage";
 import LessonPage from "./pages/LessonPage/LessonPage";
 import QuizPage from "./pages/QuizPage/QuizPage";
 import QuizRouteGuard from "./pages/QuizPage/QuizRouteGuard";
+import QuizResultPage from "./pages/QuizResultPage/QuizResultPage";
 import AiPracticePage from "./pages/AiPracticePage/AiPracticePage";
 import FriendsPage from "./pages/Friends/FriendsPage";
 
@@ -31,6 +32,10 @@ function App() {
                 <QuizPage />
               </QuizRouteGuard>
             }
+          />
+          <Route
+            path="/learning-path/quiz/:quizId/result"
+            element={<QuizResultPage />}
           />
           <Route path="/practice-ai" element={<AiPracticePage />} />
           <Route path="/friends" element={<FriendsPage />} />

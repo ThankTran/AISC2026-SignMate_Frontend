@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   ArrowRight,
   BookOpen,
@@ -118,6 +118,7 @@ const formatTime = (seconds) => {
 };
 
 const QuizPage = () => {
+  const navigate = useNavigate();
   const { quizId } = useParams();
   const [answers, setAnswers] = useState({});
   const [current, setCurrent] = useState(INITIAL_INDEX);
@@ -152,6 +153,7 @@ const QuizPage = () => {
   const handleSubmit = () => {
     if (submitted) return;
     setSubmitted(true);
+    navigate(`/learning-path/quiz/${quizId}/result`);
   };
 
   const handleReset = () => {
