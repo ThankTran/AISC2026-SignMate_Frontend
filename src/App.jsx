@@ -15,6 +15,7 @@ import QuizRouteGuard from "./pages/QuizPage/QuizRouteGuard";
 import QuizResultPage from "./pages/QuizResultPage/QuizResultPage";
 import AiPracticePage from "./pages/AiPracticePage/AiPracticePage";
 import FriendsPage from "./pages/Friends/FriendsPage";
+import LeaderboardPage from "./pages/LeaderboardPage/LeaderboardPage";
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
             element={<QuizResultPage />}
           />
           <Route path="/practice-ai" element={<AiPracticePage />} />
+          <Route path="/ranking" element={<LeaderboardPage />} />
           <Route path="/friends" element={<FriendsPage />} />
           <Route path="/friends/list" element={<FriendsPage />} />
           <Route path="/friends/friend-requests" element={<FriendsPage />} />
