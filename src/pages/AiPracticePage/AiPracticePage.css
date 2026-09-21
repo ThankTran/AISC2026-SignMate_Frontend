@@ -3,8 +3,6 @@
    ========================================================= */
 
 .ai-practice {
-  flex: 1 0 auto;
-
   display: flex;
   gap: 24px;
   padding: 22px 28px;

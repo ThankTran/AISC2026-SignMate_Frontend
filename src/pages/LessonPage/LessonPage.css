@@ -3,7 +3,6 @@
    ========================================================= */
 
 .lesson {
-  flex: 1 0 auto;
   display: flex;
   flex-direction: column;
 
@@ -17,8 +16,6 @@
 
 /* ===== BODY ===== */
 .lesson__body {
-  flex: 1 0 auto;
-
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
   gap: 28px;

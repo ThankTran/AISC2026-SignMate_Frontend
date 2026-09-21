@@ -10,6 +10,8 @@ import ScrollToTop from "./components/ScrollToTop";
 
 import LearningPathPage from "./pages/LearningPathPage/LearningPathPage";
 import LessonPage from "./pages/LessonPage/LessonPage";
+import QuizPage from "./pages/QuizPage/QuizPage";
+import QuizRouteGuard from "./pages/QuizPage/QuizRouteGuard";
 import AiPracticePage from "./pages/AiPracticePage/AiPracticePage";
 import FriendsPage from "./pages/Friends/FriendsPage";
 
@@ -22,6 +24,14 @@ function App() {
         <Route element={<MainLayout />}>
           <Route path="/learning-path" element={<LearningPathPage />} />
           <Route path="/learning-path/lesson/:lessonId" element={<LessonPage />} />
+          <Route
+            path="/learning-path/quiz/:quizId"
+            element={
+              <QuizRouteGuard>
+                <QuizPage />
+              </QuizRouteGuard>
+            }
+          />
           <Route path="/practice-ai" element={<AiPracticePage />} />
           <Route path="/friends" element={<FriendsPage />} />
           <Route path="/friends/list" element={<FriendsPage />} />

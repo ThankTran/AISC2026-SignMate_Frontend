@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 
 import Sidebar from "../../components/Sidebar/Sidebar";
@@ -8,14 +8,15 @@ import { currentUser, headerNotifications } from "../../mockdata";
 
 import "./MainLayout.css";
 
-/* Màn hình chức năng dạng App/Dashboard: không hiển thị Footer chung */
-const FULL_PAGE_ROUTES = [/^\/learning-path\/lesson/, /^\/practice-ai/];
-
 const MainLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
   const { pathname } = useLocation();
 
-  const showFooter = !FULL_PAGE_ROUTES.some((re) => re.test(pathname));
+  useEffect(() => {
+    const bodyEl = document.querySelector(".main-layout__body");
+    if (bodyEl) bodyEl.scrollTop = 0;
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   return (
     <div
@@ -36,7 +37,7 @@ const MainLayout = () => {
           <div className="main-layout__page">
             <Outlet />
           </div>
-          {showFooter && <Footer />}
+          <Footer />
         </main>
       </div>
     </div>

@@ -16,163 +16,50 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
+import {
+  CHAPTERS,
+  getLastLessonStatus,
+  SON_CHUONG_LABEL,
+} from "../../mockdata";
+
 import "./SCurvePath.css";
 
-/* =========================================================
-   DỮ LIỆU LỘ TRÌNH THEO CHƯƠNG
-   (Tọa độ theo đơn vị % của container, khớp viewBox 700x1650)
-   ========================================================= */
-
-const CHAPTERS = [
-  {
-    id: 1,
-    tag: "Chương 1",
-    title: "Ký hiệu cơ bản",
-    desc: "Làm quen với bảng chữ cái, cách chào hỏi và giới thiệu bản thân.",
-    status: "completed",
-    done: 3,
-    total: 3,
-    header: { x: 50, y: 3.3 },
-    lessons: [
-      {
-        id: 1,
-        title: "Bảng chữ & Số",
-        status: "completed",
-        icon: <BookOpen size={22} strokeWidth={2.2} />,
-        x: 20,
-        y: 10.6,
-      },
-      {
-        id: 2,
-        title: "Chào hỏi cơ bản",
-        status: "completed",
-        icon: <MessageCircle size={22} strokeWidth={2.2} />,
-        x: 80,
-        y: 17.3,
-      },
-      {
-        id: 3,
-        title: "Thành viên gia đình",
-        status: "completed",
-        icon: <Users size={22} strokeWidth={2.2} />,
-        x: 20,
-        y: 23.9,
-      },
-    ],
-    quiz: { x: 80, y: 30.9, status: "completed", score: 90 },
-  },
-  {
-    id: 2,
-    tag: "Chương 2",
-    title: "Giao tiếp hằng ngày",
-    desc: "Màu sắc, hình dạng và các hoạt động quen thuộc trong cuộc sống.",
-    status: "active",
-    done: 1,
-    total: 3,
-    header: { x: 50, y: 37.3 },
-    lessons: [
-      {
-        id: 4,
-        title: "Màu sắc & Hình dạng",
-        status: "completed",
-        icon: <Palette size={22} strokeWidth={2.2} />,
-        x: 20,
-        y: 44.5,
-      },
-      {
-        id: 5,
-        title: "Hoạt động hằng ngày",
-        status: "active",
-        icon: <Sun size={24} strokeWidth={2} />,
-        x: 80,
-        y: 51.2,
-        tooltip: {
-          desc: "Ăn, ngủ, đi làm, học tập mỗi ngày",
-          duration: "12 phút",
-          xp: "+30 XP",
-        },
-      },
-      {
-        id: 6,
-        title: "Biểu cảm cảm xúc",
-        status: "unlocked",
-        icon: <Smile size={22} strokeWidth={2.2} />,
-        x: 20,
-        y: 57.9,
-      },
-    ],
-    quiz: { x: 80, y: 64.8, status: "locked" },
-  },
-  {
-    id: 3,
-    tag: "Chương 3",
-    title: "Gia đình & Bạn bè",
-    desc: "Các mối quan hệ thân thiết trong ngôn ngữ ký hiệu.",
-    status: "locked",
-    done: 0,
-    total: 3,
-    header: { x: 50, y: 72.1 },
-    lessons: [
-      {
-        id: 7,
-        title: "Ông bà & Cha mẹ",
-        status: "locked",
-        icon: <Home size={22} strokeWidth={2.2} />,
-        x: 20,
-        y: 79.4,
-      },
-      {
-        id: 8,
-        title: "Anh chị em",
-        status: "locked",
-        icon: <Hand size={22} strokeWidth={2.2} />,
-        x: 80,
-        y: 86.1,
-      },
-    ],
-    quiz: { x: 20, y: 93.6, status: "locked" },
-  },
-];
+/* Icons theo key trong dữ liệu (để dữ liệu thuần, tách khỏi component) */
+const CHAPTER_ICONS = {
+  bookOpen: <BookOpen size={22} strokeWidth={2.2} />,
+  messageCircle: <MessageCircle size={22} strokeWidth={2.2} />,
+  users: <Users size={22} strokeWidth={2.2} />,
+  palette: <Palette size={22} strokeWidth={2.2} />,
+  sun: <Sun size={24} strokeWidth={2} />,
+  smile: <Smile size={22} strokeWidth={2.2} />,
+  home: <Home size={22} strokeWidth={2.2} />,
+  hand: <Hand size={22} strokeWidth={2.2} />,
+};
 
 /* =========================================================
-   ĐƯỜNG NỐI SVG
+   ĐƯỜNG NỐI SVG (khớp viewBox 700x1650, tọa độ theo px)
    tone: done | active | pending
    ========================================================= */
 
 const SEGMENTS = [
-  // Chương 1 (hoàn thành - xanh lá)
-  { d: "M 350,100 C 350,140 140,140 140,175", tone: "done" },
-  { d: "M 140,175 C 390,175 310,285 560,285", tone: "done" },
-  { d: "M 560,285 C 310,285 390,395 140,395", tone: "done" },
-  { d: "M 140,395 C 350,395 400,510 560,510", tone: "done" },
-  // Nối Quiz Ch1 -> Header Ch2 (uốn lượn, đi qua chương đã mở)
+  // ---- Chương 1 (hoàn thành - xanh lá) ----
+  { d: "M 350,100 C 350,145 140,145 140,190", tone: "done" },
+  { d: "M 140,190 C 390,190 310,320 560,320", tone: "done" },
+  { d: "M 560,320 C 310,320 390,450 140,450", tone: "done" },
+  { d: "M 140,450 C 350,450 400,580 560,580", tone: "done" },
+  // Nối Quiz Ch1 -> Header Ch2 (uốn lượn sang chương tiếp theo)
   {
-    d: "M 560,510 C 730,540 730,660 560,660 C 440,660 300,625 155,588",
+    d: "M 560,580 C 730,610 730,760 560,760 C 440,760 300,770 155,770",
     tone: "done",
     transition: true,
   },
-  // Chương 2 (đang học)
-  { d: "M 350,660 C 350,700 140,700 140,735", tone: "done" },
-  { d: "M 140,735 C 390,735 310,845 560,845", tone: "active" },
-  { d: "M 560,845 C 310,845 390,955 140,955", tone: "pending" },
-  { d: "M 140,955 C 350,955 400,1070 560,1070", tone: "pending" },
-  // Nối Quiz Ch2 -> Header Ch3 (chương khóa - xám mờ)
-  {
-    d: "M 560,1070 C 730,1100 730,1210 560,1210 C 440,1210 300,1205 155,1165",
-    tone: "pending",
-    transition: true,
-  },
-  // Chương 3 (bị khóa - xám)
-  { d: "M 350,1235 C 350,1275 140,1275 140,1310", tone: "pending" },
-  { d: "M 140,1310 C 390,1310 310,1420 560,1420", tone: "pending" },
-  { d: "M 560,1420 C 310,1420 390,1545 140,1545", tone: "pending" },
+  // ---- Chương 2 (đang học) ----
+  { d: "M 350,800 C 350,850 140,850 140,900", tone: "done" },
+  { d: "M 140,900 C 390,900 310,1060 560,1060", tone: "active" },
+  { d: "M 560,1060 C 310,1060 390,1220 140,1220", tone: "pending" },
+  // Đoạn vào bài kiểm tra cuối chương (chưa mở khóa - xám)
+  { d: "M 140,1220 C 350,1220 400,1400 560,1400", tone: "pending" },
 ];
-
-const CHAPTER_STATUS_LABEL = {
-  completed: "Hoàn thành",
-  active: "Đang học",
-  locked: "Bị khóa",
-};
 
 /* =========================================================
    HEADER CHƯƠNG
@@ -190,7 +77,7 @@ const ChapterHeader = ({ chapter }) => {
       <div className="lp-chapter__head">
         <span className="lp-chapter__tag">{chapter.tag}</span>
         <span className="lp-chapter__status">
-          {CHAPTER_STATUS_LABEL[status]}
+          {SON_CHUONG_LABEL[status]}
         </span>
       </div>
 
@@ -218,13 +105,11 @@ const LessonIcon = ({ lesson }) => {
     lesson.status === "completed" ? (
       <Check size={24} strokeWidth={2.8} />
     ) : (
-      lesson.icon
+      CHAPTER_ICONS[lesson.icon]
     );
 
   return (
-    <div
-      className={`lp-node__icon lp-node__icon--${lesson.status}`}
-    >
+    <div className={`lp-node__icon lp-node__icon--${lesson.status}`}>
       <div className={`lp-node__ring lp-node__ring--${lesson.status}`} />
       <span className="lp-node__glyph">{glyph}</span>
     </div>
@@ -232,7 +117,8 @@ const LessonIcon = ({ lesson }) => {
 };
 
 const LessonNode = ({ lesson }) => {
-  const interactive = lesson.status === "completed" || lesson.status === "unlocked";
+  const interactive =
+    lesson.status === "completed" || lesson.status === "unlocked";
 
   return (
     <div
@@ -260,7 +146,7 @@ const LessonNode = ({ lesson }) => {
         </>
       )}
 
-      {/* Tooltip / Popover cho node đang học */}
+      {/* Tooltip cho node đang học */}
       {lesson.status === "active" && lesson.tooltip && (
         <div className="lp-tooltip">
           <p className="lp-tooltip__title">{lesson.title}</p>
@@ -287,28 +173,42 @@ const LessonNode = ({ lesson }) => {
 
 /* =========================================================
    NODE QUIZ CUỐI CHƯƠNG
+   (Chỉ mở khi hoàn thành bài học cuối cùng của chương)
    ========================================================= */
 
-const QUIZ_META = {
-  completed: (q) => `Điểm ${q.score}/100`,
-  active: () => "Mở khóa chương tiếp theo",
-  locked: () => "Đang khóa",
-};
+const QuizNode = ({ chapter }) => {
+  const { quiz } = chapter;
+  const quizUnlocked = getLastLessonStatus(chapter) === "completed";
+  const status = quizUnlocked
+    ? quiz.status === "completed"
+      ? "completed"
+      : "active"
+    : "locked";
 
-const QuizNode = ({ quiz, chapterId }) => {
-  const clickable = quiz.status !== "locked";
+  let meta = "Hoàn thành bài cuối của chương";
+  if (quizUnlocked) {
+    meta =
+      quiz.status === "completed"
+        ? `Điểm ${quiz.score}/100 · Xem lại`
+        : "Mở khóa chương tiếp theo";
+  }
+
   const core = (
-    <div className={`lp-quiz lp-quiz--${quiz.status}`}>
+    <div className={`lp-quiz lp-quiz--${status}`}>
       <div className="lp-quiz__icon">
-        {quiz.status === "locked" ? (
-          <Lock size={20} strokeWidth={2.4} />
-        ) : (
+        {quizUnlocked ? (
           <Trophy size={22} strokeWidth={2.2} />
+        ) : (
+          <Lock size={20} strokeWidth={2.4} />
         )}
       </div>
       <div className="lp-quiz__body">
-        <span className="lp-quiz__title">Bài kiểm tra Chương {chapterId}</span>
-        <span className="lp-quiz__meta">{QUIZ_META[quiz.status](quiz)}</span>
+        <span className="lp-quiz__title">
+          {quizUnlocked
+            ? `Bài kiểm tra Chương ${chapter.id} · Ôn tập`
+            : `Bài kiểm tra Chương ${chapter.id}`}
+        </span>
+        <span className="lp-quiz__meta">{meta}</span>
       </div>
     </div>
   );
@@ -316,10 +216,18 @@ const QuizNode = ({ quiz, chapterId }) => {
   return (
     <div
       className="lp-node"
-      style={{ top: `${quiz.y}%`, left: `${quiz.x}%` }}
+      style={{
+        top: `${quiz.y}%`,
+        left: `${quiz.x}%`,
+        ...(quizUnlocked ? {} : { pointerEvents: "none" }),
+      }}
     >
-      {clickable ? (
-        <Link className="lp-node__link" to={`/learning-path/lesson/${chapterId}-quiz`}>
+      {quizUnlocked ? (
+        <Link
+          className="lp-node__link"
+          to={`/learning-path/quiz/${chapter.id}`}
+          aria-label={`Bài kiểm tra ôn tập Chương ${chapter.id}`}
+        >
           {core}
         </Link>
       ) : (
@@ -367,13 +275,16 @@ const SCurvePath = () => {
       {/* ===== LESSON NODES ===== */}
       {CHAPTERS.map((ch) =>
         ch.lessons.map((lesson) => (
-          <LessonNode key={`${ch.id}-lesson-${lesson.id}`} lesson={lesson} />
+          <LessonNode
+            key={`${ch.id}-lesson-${lesson.id}`}
+            lesson={lesson}
+          />
         ))
       )}
 
-      {/* ===== QUIZ NODES ===== */}
+      {/* ===== QUIZ NODES (cuối mỗi chương) ===== */}
       {CHAPTERS.map((ch) => (
-        <QuizNode key={`ch-quiz-${ch.id}`} quiz={ch.quiz} chapterId={ch.id} />
+        <QuizNode key={`ch-quiz-${ch.id}`} chapter={ch} />
       ))}
     </div>
   );
