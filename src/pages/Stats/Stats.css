@@ -1,0 +1,354 @@
+.st {
+  --st-green: #4e7a62;
+  --st-green-soft: #e3f1e9;
+  --st-terracotta: #c0603f;
+  --st-purple: #7b6fd6;
+  --st-border: #ececf0;
+  --st-text: #1a1a1a;
+  --st-muted: #8b8f96;
+  --st-mono: ui-monospace, "SF Mono", Consolas, "Liberation Mono", monospace;
+
+  padding: 24px 36px 56px;
+  color: var(--st-text);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.st h1,
+.st h2,
+.st p {
+  margin: 0;
+}
+
+/* ================= Header ================= */
+.st-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+
+.st-header h1 {
+  font-size: 38px;
+  font-weight: 800;
+}
+
+.st-header p {
+  font-size: 18px;
+  color: #555;
+}
+
+/* ================= Nội dung ================= */
+.st-content {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  max-width: 950px;
+  margin: 0 auto;
+}
+
+.st-card {
+  background: #fff;
+  border: 1px solid var(--st-border);
+  border-radius: 18px;
+  box-shadow: 0 2px 8px rgba(30, 40, 60, 0.06);
+}
+
+.st-mono {
+  font-family: var(--st-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- 4 thẻ tổng quan ---------- */
+.st-summaries {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 46px;
+  padding: 0 4px;
+}
+
+.st-summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 22px 12px 20px;
+  text-align: center;
+  background: #fff;
+  border: 1px solid var(--st-border);
+  border-radius: 18px;
+  box-shadow: 0 2px 8px rgba(30, 40, 60, 0.06);
+}
+
+.st-summary__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 6px;
+  border-radius: 50%;
+}
+
+.st-summary__value {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.st-summary__label {
+  font-size: 14px;
+  color: var(--st-muted);
+}
+
+.st-summary--gold .st-summary__icon {
+  background: #fbf5dc;
+}
+.st-summary--gold .st-summary__value,
+.st-summary--fire .st-summary__value {
+  color: var(--st-terracotta);
+}
+
+.st-summary--fire .st-summary__icon {
+  background: #fdece4;
+}
+
+.st-summary--trophy .st-summary__icon {
+  background: #ecebfa;
+}
+.st-summary--trophy .st-summary__value {
+  color: var(--st-purple);
+}
+
+.st-summary--book .st-summary__icon {
+  background: var(--st-green-soft);
+}
+.st-summary--book .st-summary__value {
+  color: var(--st-green);
+}
+
+/* ---------- Thanh tiến độ dùng chung ---------- */
+.st-bar {
+  height: 10px;
+  background: #eef0ed;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.st-bar span {
+  display: block;
+  height: 100%;
+  background: var(--st-green);
+  border-radius: inherit;
+}
+
+/* ---------- Điểm kinh nghiệm ---------- */
+.st-xp {
+  padding: 26px 24px 24px;
+}
+
+.st-xp__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.st-xp__row h2 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.st-xp__total {
+  font-family: var(--st-mono);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--st-green);
+}
+
+.st-xp__row--sub {
+  margin: 4px 0 12px;
+  font-size: 14px;
+  color: var(--st-muted);
+}
+
+.st-bar--xp {
+  height: 12px;
+  background: var(--st-green-soft);
+}
+
+.st-xp__hint {
+  margin-top: 14px;
+  font-size: 14px;
+  color: #444;
+}
+
+.st-xp__hint strong {
+  font-weight: 700;
+  color: var(--st-green);
+}
+
+/* ---------- Tiến độ học ---------- */
+.st-progress {
+  padding: 26px 24px 30px;
+}
+
+.st-progress h2 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.st-progress__list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 22px;
+}
+
+.st-chapter {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.st-chapter__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  border-radius: 50%;
+}
+
+.st-chapter__badge--completed,
+.st-chapter__badge--active {
+  background: var(--st-green);
+}
+
+.st-chapter__badge--locked {
+  color: #f1ecd3;
+  background: #b5b5a8;
+}
+
+.st-chapter__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.st-chapter__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.st-chapter__title {
+  font-size: 15px;
+}
+
+.st-chapter__count {
+  font-family: var(--st-mono);
+  font-size: 13px;
+  color: var(--st-muted);
+}
+
+/* ---------- Xếp hạng ---------- */
+.st-rank {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+}
+
+.st-rank__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  background: #ecebfa;
+  border-radius: 50%;
+}
+
+.st-rank__main {
+  flex: 1;
+  min-width: 0;
+}
+
+.st-rank__label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--st-muted);
+}
+
+.st-rank__label--plain {
+  font-weight: 400;
+  letter-spacing: 0;
+  font-size: 14px;
+}
+
+.st-rank__value {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.st-rank__num {
+  font-family: var(--st-mono);
+  font-size: 34px;
+  font-weight: 700;
+  color: var(--st-purple);
+}
+
+.st-rank__desc {
+  font-size: 15px;
+}
+
+.st-rank__today {
+  text-align: right;
+}
+
+.st-rank__xp {
+  margin-top: 2px;
+  font-family: var(--st-mono);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--st-green);
+}
+
+/* ================= Responsive ================= */
+@media (max-width: 900px) {
+  .st-summaries {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    padding: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .st {
+    padding: 20px 16px 40px;
+  }
+
+  .st-header h1 {
+    font-size: 30px;
+  }
+
+  .st-header p {
+    font-size: 15px;
+  }
+
+  .st-rank {
+    flex-wrap: wrap;
+  }
+}
