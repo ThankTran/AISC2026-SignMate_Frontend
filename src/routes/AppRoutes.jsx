@@ -23,6 +23,7 @@ import FriendsPage from "../pages/Friends/FriendsPage";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Profile from "../pages/Profile/Profile";
 import Stats from "../pages/Stats/Stats";
+import VideoCallPage from "../pages/VideoCall/VideoCallPage";
 
 export default function AppRoutes() {
   return (
@@ -82,6 +83,8 @@ export default function AppRoutes() {
         <Route path="/learning-path/quiz/:quizId/result" element={<QuizResultPage />} />
         <Route path="/practice-ai" element={<AiPracticePage />} />
         <Route path="/ranking" element={<LeaderboardPage />} />
+        <Route path="/video" element={<VideoCallPage />} />
+        <Route path="/video-call" element={<VideoCallPage />} />
         <Route path="/friends" element={<FriendsPage />} />
         <Route path="/friends/list" element={<FriendsPage />} />
         <Route path="/friends/friend-requests" element={<FriendsPage />} />
