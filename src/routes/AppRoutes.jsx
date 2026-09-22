@@ -14,7 +14,11 @@ import Register from "../pages/Register/Register";
 
 import LearningPathPage from "../pages/LearningPathPage/LearningPathPage";
 import LessonPage from "../pages/LessonPage/LessonPage";
+import QuizPage from "../pages/QuizPage/QuizPage";
+import QuizRouteGuard from "../pages/QuizPage/QuizRouteGuard";
+import QuizResultPage from "../pages/QuizResultPage/QuizResultPage";
 import AiPracticePage from "../pages/AiPracticePage/AiPracticePage";
+import LeaderboardPage from "../pages/LeaderboardPage/LeaderboardPage";
 import FriendsPage from "../pages/Friends/FriendsPage";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Profile from "../pages/Profile/Profile";
@@ -42,9 +46,9 @@ export default function AppRoutes() {
           </PublicOnlyRoute>
         }
       />
-     {/* <Route path="/verify-email" element={<VerifyEmail />} /> */}
-      {/* <Route path="/forgot-password" element={<ForgotPassword />} />
-      <Route path="/reset-password" element={<ResetPassword />} />
+      {/* <Route path="/verify-email" element={<VerifyEmail />} /> */}
+      {/* <Route path="/forgot-password" element={<ForgotPassword />} /> */}
+      {/* <Route path="/reset-password" element={<ResetPassword />} /> */}
 
       {/* ---------- Cần đăng nhập, không sidebar ---------- */}
       {/* <Route
@@ -67,7 +71,17 @@ export default function AppRoutes() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/learning-path" element={<LearningPathPage />} />
         <Route path="/learning-path/lesson/:lessonId" element={<LessonPage />} />
+        <Route
+          path="/learning-path/quiz/:quizId"
+          element={
+            <QuizRouteGuard>
+              <QuizPage />
+            </QuizRouteGuard>
+          }
+        />
+        <Route path="/learning-path/quiz/:quizId/result" element={<QuizResultPage />} />
         <Route path="/practice-ai" element={<AiPracticePage />} />
+        <Route path="/ranking" element={<LeaderboardPage />} />
         <Route path="/friends" element={<FriendsPage />} />
         <Route path="/friends/list" element={<FriendsPage />} />
         <Route path="/friends/friend-requests" element={<FriendsPage />} />
