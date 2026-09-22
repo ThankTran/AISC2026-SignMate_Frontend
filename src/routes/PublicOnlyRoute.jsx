@@ -6,9 +6,9 @@ export default function PublicOnlyRoute({ children }) {
 
   if (loading) return null;
 
-  if (user && user.emailVerified) {
-    return <Navigate to="/dashboard" replace />;
-  }
+  // if (user) {
+  //   return <Navigate to="/dashboard" replace />;
+  // }
 
   return children;
 }

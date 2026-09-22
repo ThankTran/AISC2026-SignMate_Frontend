@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile, signOut } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { Eye, EyeOff } from "lucide-react";
 import { auth, db } from "../../lib/firebase";
@@ -39,8 +39,9 @@ export default function Register() {
         hasSetLevel: false,
         createdAt: new Date().toISOString(),
       });
-      await sendEmailVerification(user);
-      navigate("/verify-email", { state: { email } });
+      // Đăng xuất ngay sau khi tạo tài khoản để bắt buộc qua trang Login thật
+      await signOut(auth);
+      navigate("/login");
     } catch (err) {
       setError(err.code === "auth/email-already-in-use" ? "Email đã được sử dụng." : "Đăng ký thất bại.");
     } finally {

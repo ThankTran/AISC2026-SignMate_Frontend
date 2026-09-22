@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
 import { Eye, EyeOff } from "lucide-react";
-import { auth, db } from "../../lib/firebase";
+import { auth } from "../../lib/firebase";
 import AuthLayout from "../../layouts/AuthLayout/AuthLayout";
 import "./Login.css";
 
@@ -17,14 +16,9 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  async function routeAfterLogin(user) {
-    if (!user.emailVerified) {
-      navigate("/verify-email");
-      return;
-    }
-    const snap = await getDoc(doc(db, "users", user.uid));
-    const hasSetLevel = snap.exists() && snap.data().hasSetLevel;
-    navigate(hasSetLevel ? "/dashboard" : "/level");
+  // Tạm thời: đăng nhập xong vào thẳng Dashboard, chưa kiểm tra emailVerified / hasSetLevel
+  function routeAfterLogin() {
+    navigate("/dashboard");
   }
 
   async function handleSubmit(e) {
@@ -32,8 +26,8 @@ export default function Login() {
     setError("");
     setLoading(true);
     try {
-      const { user } = await signInWithEmailAndPassword(auth, email, password);
-      await routeAfterLogin(user);
+      await signInWithEmailAndPassword(auth, email, password);
+      routeAfterLogin();
     } catch (err) {
       setError("Email hoặc mật khẩu không đúng.");
     } finally {
@@ -44,8 +38,8 @@ export default function Login() {
   async function handleGoogle() {
     setError("");
     try {
-      const { user } = await signInWithPopup(auth, googleProvider);
-      await routeAfterLogin(user);
+      await signInWithPopup(auth, googleProvider);
+      routeAfterLogin();
     } catch (err) {
       setError("Đăng nhập Google thất bại.");
     }
@@ -94,15 +88,14 @@ export default function Login() {
         </button>
 
         <p className="login-divider">hoặc tiếp tục với</p>
-            
         <button type="button" className="login-google-btn" onClick={handleGoogle}>
-        <svg width="18" height="18" viewBox="0 0 48 48">
+          <svg width="18" height="18" viewBox="0 0 48 48">
             <path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.9 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.1 8 3l6-6C34.5 5.1 29.5 3 24 3 12.4 3 3 12.4 3 24s9.4 21 21 21 21-9.4 21-21c0-1.4-.1-2.7-.4-3.5z"/>
             <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 15.9 18.9 13 24 13c3.1 0 5.8 1.1 8 3l6-6C34.5 5.1 29.5 3 24 3 16 3 9.1 7.6 6.3 14.7z"/>
             <path fill="#4CAF50" d="M24 45c5.3 0 10.1-2 13.7-5.4l-6.3-5.3C29.4 35.6 26.8 36.5 24 36.5c-5.3 0-9.7-3.4-11.3-8.1l-6.5 5C9 40.4 15.9 45 24 45z"/>
             <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.2-4.3 5.6l6.3 5.3C40.9 36.4 45 30.8 45 24c0-1.4-.1-2.7-.4-3.5z"/>
-        </svg>
-        Tiếp tục với Google
+          </svg>
+          Tiếp tục với Google
         </button>
 
         <p className="login-footnote">
