@@ -6,6 +6,7 @@ import {
 
 import MainLayout from "./layouts/MainLayout/MainLayout";
 import FriendsPage from "./pages/Friends/FriendsPage";
+import VideoCallPage from "./pages/VideoCall/VideoCallPage";
 
 
 function App() {
@@ -13,6 +14,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route element={<MainLayout />}>
+          <Route path="/video" element={<VideoCallPage />} />
+          <Route path="/video-call" element={<VideoCallPage />} />
           <Route path="/friends" element={<FriendsPage />} />
           <Route path="/friends/list" element={<FriendsPage />} />
           <Route path="/friends/friend-requests" element={<FriendsPage />} />

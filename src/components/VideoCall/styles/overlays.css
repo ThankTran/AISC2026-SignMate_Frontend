@@ -1,0 +1,53 @@
+.vc-toast {
+  position: fixed;
+  left: 50%;
+  top: 22px;
+  transform: translateX(-50%);
+  z-index: 220;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: max-content;
+  max-width: 90vw;
+  padding: 14px 18px;
+  border: 1px solid #c5dbca;
+  background: #f5fff7;
+  color: #2e6749;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px #12321c25;
+  font-size: 12px;
+}
+.vc-toast > svg {
+  flex-shrink: 0;
+}
+.vc-toast button {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  display: grid;
+  place-items: center;
+}
+.vc-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: #0d251f99;
+  backdrop-filter: blur(7px);
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+.vc-modal {
+  max-width: 440px;
+  width: 100%;
+  color: var(--vc-ink);
+  box-shadow: 0 20px 100px #0002;
+}
+.vc-modal p {
+  font-size: 12px;
+  color: #819082;
+  margin-top: 12px;
+}
+.vc-modal h2 {
+  font-size: 22px;
+}
