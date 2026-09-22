@@ -1,0 +1,127 @@
+.vc-search {
+  position: relative;
+  min-height: calc(100dvh - 64px);
+  background:
+    radial-gradient(ellipse at 80% 10%, #51438c66, transparent 55%),
+    radial-gradient(ellipse at 10% 90%, #20544e55, transparent 50%), #251c4c;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  padding: 65px 24px 35px;
+  overflow: hidden;
+}
+.vc-back {
+  position: absolute;
+  left: 28px;
+  top: 25px;
+  border: 0;
+  background: none;
+  color: #c9c0e7;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px !important;
+}
+.vc-search-orb {
+  position: relative;
+  width: 155px;
+  height: 155px;
+  display: grid;
+  place-items: center;
+  margin: 5px 0 30px;
+  color: #89dab9;
+}
+.vc-search-orb > span {
+  position: absolute;
+  inset: 18px;
+  border: 1px solid #a495d750;
+  border-radius: 50%;
+  background: #aca0da0a;
+  animation: vc-ripple 3.6s ease-out infinite;
+}
+.vc-search-orb > span:nth-child(2) {
+  animation-delay: 1.2s;
+}
+.vc-search-orb > span:nth-child(3) {
+  animation-delay: 2.4s;
+}
+.vc-search-orb > svg {
+  animation: vc-float 4s ease-in-out infinite;
+}
+.vc-search .vc-eyebrow {
+  color: #afa0d5;
+  font-size: 9px;
+}
+.vc-search h1 {
+  font-size: 27px;
+  margin: 15px 0;
+}
+.vc-search > p {
+  font-size: 12px;
+  color: #b5a9d0;
+}
+.vc-search-checks {
+  text-align: left;
+  background: #ffffff0c;
+  border: 1px solid #ffffff13;
+  border-radius: 18px;
+  padding: 19px 25px;
+  width: min(350px, 100%);
+  margin: 27px 0;
+}
+.vc-search-checks > div {
+  display: flex;
+  gap: 13px;
+  align-items: center;
+  padding: 9px 0;
+  color: #9286b0;
+  font-size: 11px;
+  transition: color 0.4s;
+}
+.vc-search-checks > div > span {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #ffffff08;
+}
+.vc-search-checks > div.complete {
+  color: #d9f7e9;
+}
+.vc-search-checks > div.complete > span {
+  background: #328268;
+  color: #c4ffe2;
+}
+.vc-loader {
+  width: 11px;
+  height: 11px;
+  border: 1px solid #8a7fae;
+  border-top-color: #d6c6ff;
+  border-radius: 50%;
+  animation: vc-spin 1s linear infinite;
+}
+.vc-wait small {
+  display: block;
+  letter-spacing: 2px;
+  font-size: 9px;
+  color: #9486b3;
+}
+.vc-wait strong {
+  display: block;
+  font-family: var(--font-family-mono);
+  font-size: 16px;
+  font-weight: 400;
+  margin-top: 8px;
+}
+.vc-search-demo {
+  font-size: 9px;
+  color: #9486b3;
+  margin-top: 19px;
+}
+.vc-search .vc-text-button {
+  color: #c6b9e5;
+}

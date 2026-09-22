@@ -1,0 +1,137 @@
+.vc-partner {
+  text-align: left;
+  padding: 24px;
+  border-radius: 19px;
+}
+.vc-compatibility {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  background: #6558b5;
+  color: #fff;
+  padding: 14px 20px;
+  border-radius: 12px;
+}
+.vc-compatibility small {
+  font-size: 8px;
+  letter-spacing: 1.5px;
+  display: block;
+  color: #dcd4fc;
+}
+.vc-compatibility strong {
+  font-family: var(--font-family-mono);
+  font-size: 26px;
+  line-height: 1.2;
+}
+.vc-compatibility > span {
+  margin-left: auto;
+  text-align: right;
+  font-size: 10px;
+  color: #e2dcf8;
+  line-height: 1.7;
+}
+.vc-partner-main {
+  display: flex;
+  gap: 23px;
+  margin: 26px 0 22px;
+}
+.vc-partner-avatar {
+  position: relative;
+  flex-shrink: 0;
+}
+.vc-partner-avatar .vc-avatar {
+  width: 91px;
+  height: 91px;
+}
+.vc-partner-avatar > span:last-child {
+  position: absolute;
+  left: 0;
+  top: 76px;
+  white-space: nowrap;
+  font-size: 8px;
+  background: #fff;
+  border: 1px solid #dfe9df;
+  padding: 4px 7px;
+  border-radius: 20px;
+}
+.vc-partner-main h2 {
+  font-size: 25px;
+  margin-bottom: 5px;
+}
+.vc-partner-main p {
+  font-size: 11px;
+  color: #76857a;
+  margin-top: 9px;
+}
+.vc-partner-main .vc-location {
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 0;
+}
+.vc-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 24px;
+}
+.vc-stats > div {
+  padding: 13px;
+  background: #f1f5ef;
+  border-radius: 11px;
+  text-align: center;
+}
+.vc-stats strong {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font-family: var(--font-family-mono);
+  font-size: 18px;
+  font-weight: 500;
+}
+.vc-stats small {
+  display: block;
+  font-size: 9px;
+  color: #819081;
+  margin-top: 3px;
+}
+.vc-label {
+  font-size: 9px;
+  color: #93a092;
+  letter-spacing: 1.5px;
+}
+.vc-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin: 9px 0 18px;
+}
+.vc-tags span {
+  background: #ede9fc;
+  color: #7161a8;
+  border-radius: 20px;
+  padding: 5px 10px;
+  font-size: 10px;
+}
+.vc-prompt {
+  border-radius: 11px;
+  padding: 15px;
+  background: #f1edff;
+  border: 1px solid #e8e0ff;
+}
+.vc-prompt small {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  font-size: 8px;
+  letter-spacing: 1px;
+  color: #8576bb;
+  margin-bottom: 8px;
+}
+.vc-prompt strong {
+  font-size: 12px;
+  font-weight: 500;
+  color: #55477b;
+}
