@@ -135,17 +135,15 @@
   height: 36px;
   display: grid;
   place-items: center;
-  border: 1px solid currentColor;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px #0003;
+  border: 0;
+  background: transparent;
+  padding: 0;
 }
 .vc-self-mic.is-off {
-  color: #ff8e96;
-  background: #571d27ed;
+  color: #ff3744;
 }
 .vc-self-mic.is-on {
   color: #75edb3;
-  background: #123e2ded;
 }
 .vc-hidden {
   display: none;
