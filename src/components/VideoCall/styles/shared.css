@@ -6,8 +6,9 @@
   --vc-orange: #bc4c24;
   color: var(--vc-ink);
   padding: 26px 40px 40px;
+  width: 100%;
   max-width: 1440px;
-  margin: auto;
+  margin: 0 auto;
   font-size: 14px;
 }
 .vc-page button,
@@ -180,11 +181,11 @@
   font-size: 11px !important;
   padding: 15px;
 }
-.vc-stage-search {
+.vc-page.vc-stage-search {
   max-width: none;
   padding: 0;
 }
-.vc-stage-call {
+.vc-page.vc-stage-call {
   padding: 0;
   max-width: none;
 }

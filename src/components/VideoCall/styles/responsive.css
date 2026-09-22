@@ -65,6 +65,12 @@
     margin-left: 5px;
   }
 }
+@media (max-width: 1050px) {
+  .vc-chat {
+    bottom: 120px;
+    width: 295px;
+  }
+}
 @media (max-width: 800px) {
   .vc-setup-grid {
     grid-template-columns: 1fr;
@@ -230,15 +236,26 @@
     right: 15px;
     top: 16px;
   }
-  .vc-call-topic {
-    display: none;
+  .vc-call-header {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: calc(100% - 140px);
+    gap: 8px;
   }
-  .vc-call-xp {
-    margin-left: auto;
+  .vc-call-header > div {
+    padding: 6px 8px;
+    gap: 6px;
+  }
+  .vc-call-header strong {
+    font-size: 13px;
+  }
+  .vc-call-logo {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
   }
   .vc-self {
     right: 15px;
-    top: 80px;
+    top: 16px;
     width: 100px;
     height: 130px;
   }
@@ -258,26 +275,23 @@
     font-size: 9px;
   }
   .vc-chat {
-    bottom: 105px;
+    bottom: 122px;
     left: 12px;
     width: calc(100% - 65px);
-    max-height: 190px;
-  }
-  .vc-chat-heading {
-    padding: 9px 12px;
+    gap: 8px;
   }
   .vc-chat-messages {
-    min-height: 50px;
-    padding: 10px 12px;
+    height: min(180px, 28dvh);
+    padding: 24px 4px 0;
   }
   .vc-chat-messages p {
-    font-size: 10px;
+    font-size: 12px;
   }
   .vc-call-toolbar {
     gap: 7px;
     padding: 10px;
     border-radius: 22px;
-    bottom: 31px;
+    bottom: 48px;
     max-width: calc(100% - 20px);
   }
   .vc-call-toolbar button {
@@ -296,7 +310,7 @@
     bottom: 115px;
   }
   .vc-call-hint {
-    font-size: 7px;
+    font-size: 10px;
     bottom: 10px;
   }
   .vc-wave {

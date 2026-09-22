@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Hand,
   Sparkles,
   VideoOff,
   MicOff,
+  Mic,
   Flag,
   Ban,
-  Heart,
+  Columns2,
+  Minimize2,
 } from "lucide-react";
 import ParticipantAvatar from "./ParticipantAvatar";
 import { formatTime } from "../../utils/videoCall/formatTime";
@@ -19,18 +21,36 @@ import { demoRewards } from "../../mockdata/videoCall/review";
 
 export default function CallRoom({
   partner,
-  selected,
   duration,
   onEndCall,
   onSafetyAction,
   onNotice,
 }) {
   const [chatOpen, setChatOpen] = useState(true);
-  const [reaction, setReaction] = useState(0);
+  const [splitView, setSplitView] = useState(false);
+  const [reactions, setReactions] = useState([]);
+  const reactionId = useRef(0);
+  const reactionTimers = useRef(new Set());
+  useEffect(() => {
+    const timers = reactionTimers.current;
+    return () => {
+      timers.forEach(clearTimeout);
+      timers.clear();
+    };
+  }, []);
+  function sendReaction(emoji) {
+    const id = ++reactionId.current;
+    setReactions((current) => [...current.slice(-39), { id, emoji }]);
+    const timer = setTimeout(() => {
+      setReactions((current) => current.filter((item) => item.id !== id));
+      reactionTimers.current.delete(timer);
+    }, 2000);
+    reactionTimers.current.add(timer);
+  }
   const { mic, camera, previewRef, toggleMedia } = useLocalMedia(onNotice);
   const { messages, sendMessage } = useCallChat(duration);
   return (
-    <section className="vc-call vc-enter">
+    <section className={`vc-call vc-enter${splitView ? " vc-call--split" : ""}`}>
       <div className="vc-call-backdrop">
         <ParticipantAvatar person={partner} className="vc-remote-avatar" />
         <h1>{partner.name}</h1>
@@ -56,10 +76,6 @@ export default function CallRoom({
             </small>
           </div>
         </div>
-        <span className="vc-call-topic">
-          <Sparkles size={14} />
-          {selected[0]}
-        </span>
         <span className="vc-call-xp">
           <Sparkles size={15} /> XP +{demoRewards.callXp}
         </span>
@@ -78,7 +94,26 @@ export default function CallRoom({
             <span>Camera đang tắt</span>
           </div>
         )}
-        <small>Bạn {!mic && <MicOff size={12} />}</small>
+        <button
+          type="button"
+          className={`vc-self-mic ${mic ? "is-on" : "is-off"}`}
+          aria-label={mic ? "Tắt micro của bạn" : "Bật micro của bạn"}
+          title={mic ? "Micro đang bật — bấm để tắt" : "Micro đang tắt — bấm để bật"}
+          aria-pressed={mic}
+          onClick={() => toggleMedia("audio")}
+        >
+          {mic ? <Mic size={20} /> : <MicOff size={20} />}
+        </button>
+        <button
+          type="button"
+          className="vc-self-expand"
+          aria-label={splitView ? "Thu nhỏ camera của bạn" : "Chia đôi màn hình cuộc gọi"}
+          title={splitView ? "Thu nhỏ camera" : "Chia đôi màn hình"}
+          aria-pressed={splitView}
+          onClick={() => setSplitView((value) => !value)}
+        >
+          {splitView ? <Minimize2 size={18} /> : <Columns2 size={18} />}
+        </button>
       </div>
       {chatOpen && (
         <CallChat
@@ -88,11 +123,12 @@ export default function CallRoom({
           onClose={() => setChatOpen(false)}
         />
       )}
-      {reaction > 0 && (
-        <div className="vc-floating-reaction" key={reaction}>
-          <Heart size={64} fill="currentColor" />
+      {reactions.map((reaction) => (
+        <div className="vc-floating-reaction" key={reaction.id} aria-hidden="true"
+          style={{ left: `calc(55% + ${(reaction.id % 5 - 2) * 24}px)` }}>
+          {reaction.emoji}
         </div>
-      )}
+      ))}
       <CallToolbar
         mic={mic}
         camera={camera}
@@ -105,7 +141,7 @@ export default function CallRoom({
             "Chia sẻ màn hình sẽ khả dụng khi kết nối dịch vụ gọi video.",
           )
         }
-        onReact={() => setReaction((value) => value + 1)}
+        onReact={sendReaction}
         onEndCall={onEndCall}
       />
       <div className="vc-call-safety">

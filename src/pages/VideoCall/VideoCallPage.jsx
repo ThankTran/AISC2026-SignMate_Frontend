@@ -47,7 +47,6 @@ export default function VideoCallPage() {
         return (
           <CallRoom
             partner={flow.partner}
-            selected={flow.selected}
             duration={flow.duration}
             onEndCall={flow.endCall}
             onSafetyAction={flow.openSafetyDialog}

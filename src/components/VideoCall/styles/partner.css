@@ -1,3 +1,8 @@
+.vc-stage-match > .vc-centered {
+  width: 100%;
+  max-width: 960px;
+}
+
 .vc-partner {
   text-align: left;
   padding: 24px;
