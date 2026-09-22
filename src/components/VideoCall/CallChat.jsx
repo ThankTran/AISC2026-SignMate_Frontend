@@ -1,9 +1,49 @@
-import { useEffect, useRef, useState } from "react";
-import { MessageCircle, Send, X } from "lucide-react";
+import { useEffect, useId, useRef, useState } from "react";
+import { Send, Smile, X } from "lucide-react";
+import ParticipantAvatar from "./ParticipantAvatar";
+
+import { emojis } from "../../mockdata/videoCall/emojis";
+
 
 export default function CallChat({ partner, messages, onSend, onClose }) {
   const [draft, setDraft] = useState("");
+  const [emojiOpen, setEmojiOpen] = useState(false);
+  const inputRef = useRef(null);
+  const composerRef = useRef(null);
+  const emojiButtonRef = useRef(null);
+  const emojiPanelId = useId();
   const chatRef = useRef(null);
+  useEffect(() => {
+    if (!emojiOpen) return;
+    function dismiss(event) {
+      if (!composerRef.current?.contains(event.target)) setEmojiOpen(false);
+    }
+    function escape(event) {
+      if (event.key === "Escape") {
+        setEmojiOpen(false);
+        emojiButtonRef.current?.focus();
+      }
+    }
+    document.addEventListener("pointerdown", dismiss);
+    document.addEventListener("keydown", escape);
+    return () => {
+      document.removeEventListener("pointerdown", dismiss);
+      document.removeEventListener("keydown", escape);
+    };
+  }, [emojiOpen]);
+  function insertEmoji(emoji) {
+    const input = inputRef.current;
+    const start = input.selectionStart ?? draft.length;
+    const end = input.selectionEnd ?? start;
+    const next = draft.slice(0, start) + emoji + draft.slice(end);
+    if (next.length > 500) return;
+    setDraft(next);
+    requestAnimationFrame(() => {
+      if (!input.isConnected) return;
+      input.focus();
+      input.setSelectionRange(start + emoji.length, start + emoji.length);
+    });
+  }
   useEffect(() => {
     const element = chatRef.current;
     element?.scrollTo({
@@ -18,37 +58,51 @@ export default function CallChat({ partner, messages, onSend, onClose }) {
     if (!draft.trim()) return;
     onSend(draft.trim());
     setDraft("");
+    setEmojiOpen(false);
   }
   return (
-    <aside className="vc-chat">
-      <div className="vc-chat-heading">
-        <span>
-          <MessageCircle size={16} /> Trò chuyện
-        </span>
-        <button aria-label="Đóng trò chuyện" onClick={onClose}>
-          <X size={18} />
-        </button>
-      </div>
-      <div className="vc-chat-messages" ref={chatRef} aria-live="polite">
+    <aside className="vc-chat" aria-label="Trò chuyện trong cuộc gọi">
+      <div className="vc-chat-messages" ref={chatRef} role="log" aria-live="polite" aria-relevant="additions" tabIndex={0}>
         {messages.map((m, i) => (
-          <div key={i} className={m.mine ? "mine" : ""}>
-            <small>
-              {m.mine ? "BẠN" : partner.name.toUpperCase()} · {m.time}
-            </small>
-            <p>{m.text}</p>
+          <div key={i} className={`vc-chat-message${m.mine ? " mine" : ""}`}>
+            {m.mine ? <span className="vc-chat-avatar" aria-hidden="true">B</span> : <ParticipantAvatar person={partner} />}
+            <p><strong>{m.mine ? "Bạn" : partner.name}</strong> {m.text}</p>
           </div>
         ))}
       </div>
-      <form onSubmit={send}>
+      <form onSubmit={send} ref={composerRef} onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) setEmojiOpen(false);
+      }}>
         <input
+          ref={inputRef}
           aria-label="Tin nhắn"
-          placeholder="Nhắn tin…"
+          placeholder="Gửi lời nhắn…"
           value={draft}
           onChange={(e) => setDraft(e.target.value)}
           maxLength={500}
         />
+        <button type="button" ref={emojiButtonRef} aria-label="Chọn emoji"
+          aria-expanded={emojiOpen} aria-controls={emojiPanelId}
+          className={emojiOpen ? "vc-emoji-active" : ""}
+          onClick={() => setEmojiOpen((open) => !open)}>
+          <Smile size={18} />
+        </button>
+        {emojiOpen && (
+          <div className="vc-emoji-picker" id={emojiPanelId} role="group" aria-label="Danh sách emoji">
+            <span>Thêm cảm xúc</span>
+            <div className="vc-emoji-grid">
+              {emojis.map(([emoji, label]) => (
+                <button key={emoji} type="button" aria-label={label} title={label}
+                  onClick={() => insertEmoji(emoji)}>{emoji}</button>
+              ))}
+            </div>
+          </div>
+        )}
         <button aria-label="Gửi tin nhắn" disabled={!draft.trim()}>
           <Send size={18} />
+        </button>
+        <button type="button" aria-label="Đóng trò chuyện" onClick={onClose}>
+          <X size={18} />
         </button>
       </form>
     </aside>
