@@ -1,3 +1,6 @@
+import { BrowserRouter } from "react-router-dom";
+import { AuthProvider } from "./contexts/AuthContext";
+import AppRoutes from "./routes/AppRoutes";
 import {
   BrowserRouter,
   Routes,
@@ -23,6 +26,9 @@ import Stats from "./pages/Stats/Stats";
 function App() {
   return (
     <BrowserRouter>
+      <AuthProvider>
+        <AppRoutes />
+      </AuthProvider>
       <ScrollToTop />
       <Routes>
         <Route element={<MainLayout />}>
