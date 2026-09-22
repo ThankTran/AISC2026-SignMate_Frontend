@@ -3,6 +3,8 @@
    -------------------------------------------------------------------------- */
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Baloo+2:wght@400;500;600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
+@import "tailwindcss";
+
 /* --------------------------------------------------------------------------
    2. CSS VARIABLES (ROOT)
    -------------------------------------------------------------------------- */
@@ -126,6 +128,17 @@ body {
   color: var(--color-neutral-900);
   background-color: var(--color-neutral-50);
   line-height: 1.5;
+}
+
+/* ===== App Shell Full-Screen Fixed (chỉ 1 scrollbar duy nhất) ===== */
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+#root {
+  height: 100%;
 }
 
 /* --------------------------------------------------------------------------

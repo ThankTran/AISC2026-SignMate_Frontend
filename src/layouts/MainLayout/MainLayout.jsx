@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Outlet } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Outlet, useLocation } from "react-router-dom";
 
 import Sidebar from "../../components/Sidebar/Sidebar";
 import Header from "../../components/Header/Header";
@@ -10,6 +10,13 @@ import "./MainLayout.css";
 
 const MainLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    const bodyEl = document.querySelector(".main-layout__body");
+    if (bodyEl) bodyEl.scrollTop = 0;
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   return (
     <div
@@ -27,10 +34,11 @@ const MainLayout = () => {
         <Header notifications={headerNotifications} />
 
         <main className="main-layout__body">
-          <Outlet />
+          <div className="main-layout__page">
+            <Outlet />
+          </div>
+          <Footer />
         </main>
-
-        <Footer />
       </div>
     </div>
   );

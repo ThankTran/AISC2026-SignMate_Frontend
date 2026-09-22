@@ -1,0 +1,49 @@
+/* =========================================================
+   LEARNING PATH PAGE
+   ========================================================= */
+
+.lp-page {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 28px;
+  padding: 28px 32px;
+  min-height: 100%;
+  align-items: start;
+}
+
+/* =========================================================
+   LEFT COLUMN (MAIN)
+   ========================================================= */
+
+.lp-page__main {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* =========================================================
+   RIGHT COLUMN (SIDEBAR)
+   ========================================================= */
+
+.lp-page__sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: sticky;
+  top: 28px;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1100px) {
+  .lp-page {
+    grid-template-columns: 1fr;
+    padding: 20px 16px;
+  }
+
+  .lp-page__sidebar {
+    position: static;
+  }
+}

@@ -5,7 +5,7 @@ export const sidebarItems = [
   {
     label: "Trang chủ",
     icon: "home",
-    path: "/",
+    path: "/dashboard",
     end: true,
   },
 

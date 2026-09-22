@@ -1,0 +1,78 @@
+/* =========================================================
+   MEDIA VIEW  (Left column)
+   ========================================================= */
+
+.lesson-media {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ---- Sub header ---- */
+
+.lesson-media__header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.lesson-media__tag {
+  align-self: flex-start;
+
+  padding: 3px 12px;
+  border-radius: 20px;
+  background: var(--color-teal-50, #e1f5ee);
+  color: var(--color-teal-700, #0f6e56);
+
+  font-family: var(--font-family-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.lesson-media__title {
+  font-family: var(--font-family-main);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-neutral-900);
+  margin: 0;
+}
+
+/* ---- Tip box ---- */
+
+.lesson-media__tip {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid #c9e7df;
+  background: #e6f4f1;
+}
+
+.lesson-media__tip-icon {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #d0efe9;
+  color: var(--color-teal-700, #0f6e56);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lesson-media__tip-text {
+  font-family: var(--font-family-body);
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: #375a50;
+  margin: 0;
+}
+
+.lesson-media__tip-text strong {
+  color: var(--color-teal-900, #085041);
+}

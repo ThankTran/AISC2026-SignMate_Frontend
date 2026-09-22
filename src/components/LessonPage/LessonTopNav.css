@@ -1,0 +1,183 @@
+/* =========================================================
+   LESSON TOP NAV
+   ========================================================= */
+
+.lesson-topnav {
+  min-height: 66px;
+
+  position: sticky;
+  top: 0;
+  z-index: 50;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+
+  padding: 0 28px;
+
+  background: #fff;
+  border-bottom: 1px solid #ecebe6;
+}
+
+/* ---- Title ---- */
+
+.lesson-topnav__title {
+  font-family: var(--font-family-main);
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--color-teal-700, #0d8a6a);
+  margin: 0;
+
+  white-space: nowrap;
+}
+
+/* ---- Center ---- */
+
+.lesson-topnav__center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+
+  flex: 1 1 auto;
+  flex-shrink: 0;
+  min-width: 0;
+}
+
+.lesson-topnav__index,
+.lesson-topnav__pct {
+  font-family: var(--font-family-mono);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-neutral-700);
+
+  flex: none;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.lesson-topnav__index {
+  width: 46px;
+}
+
+.lesson-topnav__pct {
+  width: 54px;
+}
+
+/* Segments */
+
+.lesson-topnav__segments {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+
+  flex: none;
+  flex-shrink: 0;
+}
+
+.lesson-topnav__segment {
+  flex: 0 0 30px;
+  width: 30px;
+  height: 8px;
+  border: none;
+  border-radius: 4px;
+  padding: 0;
+  transition: background 0.2s ease, transform 0.12s ease;
+}
+
+button.lesson-topnav__segment {
+  cursor: pointer;
+}
+
+button.lesson-topnav__segment:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.15);
+}
+
+.lesson-topnav__segment--done {
+  background: var(--color-teal-500, #0d8a6a);
+}
+
+.lesson-topnav__segment--todo {
+  background: #d9dbe0;
+}
+
+/* ---- Right ---- */
+
+.lesson-topnav__right {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.lesson-topnav__hearts {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.lesson-topnav__heart--alive {
+  color: #ef4444;
+}
+
+.lesson-topnav__heart--lost {
+  color: #d1d5db;
+}
+
+.lesson-topnav__exit {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+
+  padding: 7px 14px;
+
+  border: 1px solid #e2e0da;
+  border-radius: 999px;
+
+  background: #fff;
+  color: var(--color-neutral-700);
+
+  font-family: var(--font-family-body);
+  font-size: 13px;
+  font-weight: 600;
+
+  text-decoration: none;
+
+  transition: background 0.18s ease, border-color 0.18s ease;
+}
+
+.lesson-topnav__exit:hover {
+  background: var(--color-neutral-100);
+  border-color: #d3d1c7;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .lesson-topnav {
+    padding: 0 16px;
+    gap: 12px;
+  }
+
+  .lesson-topnav__title {
+    font-size: 16px;
+  }
+
+  .lesson-topnav__segment {
+    flex: 0 0 18px;
+    width: 18px;
+  }
+
+  .lesson-topnav__right {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 640px) {
+  .lesson-topnav__center {
+    display: none;
+  }
+}

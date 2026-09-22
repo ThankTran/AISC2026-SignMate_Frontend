@@ -1,0 +1,161 @@
+/* =========================================================
+   AI ANALYTICS CARD
+   ========================================================= */
+
+.ai-analytics {
+  background: #fff;
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ===== HEADER ===== */
+.ai-analytics__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ai-analytics__title {
+  font-family: var(--font-family-main);
+  font-size: 15px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-neutral-900, #444441);
+}
+
+.ai-analytics__live {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #c084fc, #f472b6);
+  font-family: var(--font-family-mono);
+  font-size: 11px;
+  font-weight: var(--font-weight-bold);
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+
+.ai-analytics__live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fff;
+  animation: ai-live-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes ai-live-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+}
+
+/* ===== ACCURACY GAUGE ===== */
+.ai-analytics__gauge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 0;
+}
+
+.ai-analytics__gauge-ring {
+  position: relative;
+  width: 130px;
+  height: 130px;
+}
+
+.ai-analytics__gauge-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.ai-analytics__gauge-bg {
+  fill: none;
+  stroke: #e8e6f5;
+  stroke-width: 10;
+}
+
+.ai-analytics__gauge-fill {
+  fill: none;
+  stroke: url(#gauge-gradient);
+  stroke-width: 10;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.8s ease;
+}
+
+.ai-analytics__gauge-value {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.ai-analytics__gauge-num {
+  font-family: var(--font-family-mono);
+  font-size: 28px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-neutral-900, #444441);
+  line-height: 1;
+}
+
+.ai-analytics__gauge-label {
+  font-family: var(--font-family-body);
+  font-size: 11px;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-neutral-500, #888780);
+  margin-top: 2px;
+}
+
+/* ===== METRICS GRID ===== */
+.ai-analytics__metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.ai-analytics__metric {
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: var(--color-neutral-50, #fcf9f3);
+  border: 1px solid var(--color-neutral-100, #f1efe8);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.ai-analytics__metric-val {
+  font-family: var(--font-family-mono);
+  font-size: 18px;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-neutral-900, #444441);
+  line-height: 1.2;
+}
+
+.ai-analytics__metric-label {
+  font-family: var(--font-family-body);
+  font-size: 12px;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-neutral-500, #888780);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .ai-analytics {
+    padding: 18px;
+  }
+
+  .ai-analytics__gauge-ring {
+    width: 110px;
+    height: 110px;
+  }
+
+  .ai-analytics__gauge-num {
+    font-size: 24px;
+  }
+}

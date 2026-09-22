@@ -1,0 +1,37 @@
+/* =========================================================
+   LESSON PAGE
+   ========================================================= */
+
+.lesson {
+  display: flex;
+  flex-direction: column;
+
+  background: #f8f9fa;
+}
+
+/* ===== TOP NAV (flex none) ===== */
+.lesson__topnav {
+  flex-shrink: 0;
+}
+
+/* ===== BODY ===== */
+.lesson__body {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 28px;
+
+  padding: 22px 28px;
+}
+
+@media (max-width: 1100px) {
+  .lesson__body {
+    grid-template-columns: 1fr;
+    padding: 18px 16px;
+    align-content: start;
+  }
+}
+
+/* ===== FOOTER (flex none) ===== */
+.lesson__footer {
+  flex-shrink: 0;
+}
