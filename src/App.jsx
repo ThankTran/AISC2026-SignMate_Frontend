@@ -1,44 +1,13 @@
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-} from "react-router-dom";
-
-import MainLayout from "./layouts/MainLayout/MainLayout";
-
-import LearningPathPage from "./pages/LearningPathPage/LearningPathPage";
-import LessonPage from "./pages/LessonPage/LessonPage";
-import AiPracticePage from "./pages/AiPracticePage/AiPracticePage";
-import FriendsPage from "./pages/Friends/FriendsPage";
-import Dashboard from "./pages/Dashboard/Dashboard";
-import Profile from "./pages/Profile/Profile";
-import Stats from "./pages/Stats/Stats";
+import { BrowserRouter } from "react-router-dom";
+import { AuthProvider } from "./contexts/AuthContext";
+import AppRoutes from "./routes/AppRoutes";
 
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route element={<MainLayout />}>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/learning-path" element={<LearningPathPage />} />
-          <Route path="/learning-path/lesson/:lessonId" element={<LessonPage />} />
-          <Route path="/practice-ai" element={<AiPracticePage />} />
-          <Route path="/friends" element={<FriendsPage />} />
-          <Route path="/friends/list" element={<FriendsPage />} />
-          <Route path="/friends/friend-requests" element={<FriendsPage />} />
-          <Route path="/friends/video-call-invites" element={<FriendsPage />} />
-          <Route path="/account/profile" element={<Profile />} />
-          <Route path="/account/stats" element={<Stats />} />
-          <Route
-            path="*"
-            element={
-              <div style={{ padding: "40px" }}>
-                OK NHA
-              </div>
-            }
-          />
-        </Route>
-      </Routes>
+      <AuthProvider>
+        <AppRoutes />
+      </AuthProvider>
     </BrowserRouter>
   );
 }
