@@ -3,13 +3,20 @@ import { Link } from "react-router-dom";
 
 import "./LessonTopNav.css";
 
-const TOTAL_LESSONS = 8;
-const CURRENT_LESSON = 4;
-const COMPLETED_LESSONS = [1, 2, 3];
 const MAX_HEARTS = 5;
 
-const LessonTopNav = ({ hearts = MAX_HEARTS }) => {
-  const pct = Math.round((CURRENT_LESSON / TOTAL_LESSONS) * 100);
+const formatPct = (current, total) => {
+  const value = (current / total) * 100;
+  return Number.isInteger(value) ? String(value) : value.toFixed(1);
+};
+
+const LessonTopNav = ({
+  hearts = MAX_HEARTS,
+  currentQuestion = 1,
+  totalQuestions = 8,
+  onSegmentClick,
+}) => {
+  const pct = formatPct(currentQuestion, totalQuestions);
 
   return (
     <div className="lesson-topnav">
@@ -21,23 +28,28 @@ const LessonTopNav = ({ hearts = MAX_HEARTS }) => {
       {/* ---- Center: progress ---- */}
       <div className="lesson-topnav__center">
         <span className="lesson-topnav__index">
-          {CURRENT_LESSON}/{TOTAL_LESSONS}
+          {currentQuestion}/{totalQuestions}
         </span>
 
-        <div className="lesson-topnav__segments" aria-hidden="true">
-          {Array.from({ length: TOTAL_LESSONS }).map((_, i) => {
+        <div className="lesson-topnav__segments">
+          {Array.from({ length: totalQuestions }).map((_, i) => {
             const n = i + 1;
-            const done =
-              COMPLETED_LESSONS.includes(n) || n <= CURRENT_LESSON;
-            return (
-              <span
+            const done = n <= currentQuestion;
+            const cls = `lesson-topnav__segment ${
+              done
+                ? "lesson-topnav__segment--done"
+                : "lesson-topnav__segment--todo"
+            }`;
+            return onSegmentClick ? (
+              <button
                 key={n}
-                className={`lesson-topnav__segment ${
-                  done
-                    ? "lesson-topnav__segment--done"
-                    : "lesson-topnav__segment--todo"
-                }`}
+                type="button"
+                className={cls}
+                onClick={() => onSegmentClick(i)}
+                aria-label={`Chuyển đến câu hỏi ${n}`}
               />
+            ) : (
+              <span key={n} className={cls} />
             );
           })}
         </div>

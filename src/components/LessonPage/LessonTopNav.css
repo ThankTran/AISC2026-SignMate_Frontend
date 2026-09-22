@@ -5,6 +5,10 @@
 .lesson-topnav {
   min-height: 66px;
 
+  position: sticky;
+  top: 0;
+  z-index: 50;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -33,7 +37,11 @@
 .lesson-topnav__center {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 14px;
+
+  flex: 1 1 auto;
+  flex-shrink: 0;
   min-width: 0;
 }
 
@@ -43,7 +51,18 @@
   font-size: 13px;
   font-weight: 700;
   color: var(--color-neutral-700);
+
+  flex: none;
   white-space: nowrap;
+  text-align: center;
+}
+
+.lesson-topnav__index {
+  width: 46px;
+}
+
+.lesson-topnav__pct {
+  width: 54px;
 }
 
 /* Segments */
@@ -52,13 +71,28 @@
   display: flex;
   gap: 5px;
   align-items: center;
+
+  flex: none;
+  flex-shrink: 0;
 }
 
 .lesson-topnav__segment {
+  flex: 0 0 30px;
   width: 30px;
   height: 8px;
+  border: none;
   border-radius: 4px;
-  transition: background 0.2s ease;
+  padding: 0;
+  transition: background 0.2s ease, transform 0.12s ease;
+}
+
+button.lesson-topnav__segment {
+  cursor: pointer;
+}
+
+button.lesson-topnav__segment:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.15);
 }
 
 .lesson-topnav__segment--done {
@@ -133,6 +167,7 @@
   }
 
   .lesson-topnav__segment {
+    flex: 0 0 18px;
     width: 18px;
   }
 
