@@ -2,10 +2,10 @@ import { Flame, Star, Target } from "lucide-react";
 
 import "./ProgressWidget.css";
 
-const TOTAL = 8;
-const DONE = 3;
-const DONUT_PCT = 60;
-const BAR_PCT = 66;
+const TOTAL = 6;
+const DONE = 4;
+const DONUT_PCT = 67;
+const BAR_PCT = 67;
 
 const RADIUS = 42;
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS;

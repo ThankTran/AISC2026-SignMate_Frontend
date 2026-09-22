@@ -1,46 +1,11 @@
-import {
-  Check,
-  Circle,
-  Hand,
-  HandHeart,
-  Handshake,
-  HeartHandshake,
-  Star,
-  X,
-} from "lucide-react";
+import { Check, Circle, Star, X } from "lucide-react";
 
 import "./QuizSection.css";
 
-const CORRECT_ANSWER = "A";
+const QuizSection = ({ question, selected, result, onSelect, attempts }) => {
+  const { options, correctAnswer, question: questionText } = question;
+  const answered = result !== null;
 
-const ANSWERS = [
-  {
-    id: "A",
-    icon: Hand,
-    title: "Xin chào",
-    caption: "Lời chào hỏi",
-  },
-  {
-    id: "B",
-    icon: HandHeart,
-    title: "Cảm ơn",
-    caption: "Bày tỏ lòng biết ơn",
-  },
-  {
-    id: "C",
-    icon: Handshake,
-    title: "Tạm biệt",
-    caption: "Lời chào khi chia tay",
-  },
-  {
-    id: "D",
-    icon: HeartHandshake,
-    title: "Xin lỗi",
-    caption: "Bày tỏ sự xin lỗi",
-  },
-];
-
-const QuizSection = ({ selected, result, onSelect, attempts }) => {
   return (
     <section className="lesson-quiz">
       {/* ---- Header ---- */}
@@ -49,9 +14,7 @@ const QuizSection = ({ selected, result, onSelect, attempts }) => {
         CÂU HỎI TRẮC NGHIỆM
       </span>
 
-      <h2 className="lesson-quiz__question">
-        Chọn nghĩa đúng của ký hiệu trên
-      </h2>
+      <h2 className="lesson-quiz__question">{questionText}</h2>
 
       <p className="lesson-quiz__desc">
         Xem video bên trái và chọn đáp án phù hợp nhất.
@@ -59,19 +22,21 @@ const QuizSection = ({ selected, result, onSelect, attempts }) => {
 
       {/* ---- Answer grid ---- */}
       <div className="lesson-quiz__grid">
-        {ANSWERS.map((a) => {
-          const Icon = a.icon;
-          const isSelected = selected === a.id;
-          const isCorrect =
-            result !== null && a.id === CORRECT_ANSWER;
+        {options.map((option) => {
+          const Icon = option.icon;
+          const isSelected = selected === option.id;
+          const isCorrect = result !== null && option.id === correctAnswer;
           const isWrong =
-            result === "wrong" && isSelected && a.id !== CORRECT_ANSWER;
+            answered &&
+            !result.correct &&
+            isSelected &&
+            option.id !== correctAnswer;
           const showRadioCheck =
-            isSelected && (result === null || result === "correct");
+            isSelected && (result === null || result.correct);
 
           return (
             <button
-              key={a.id}
+              key={option.id}
               type="button"
               className={`lesson-quiz__card ${
                 isSelected && result === null
@@ -80,8 +45,8 @@ const QuizSection = ({ selected, result, onSelect, attempts }) => {
               } ${isCorrect ? "lesson-quiz__card--correct" : ""} ${
                 isWrong ? "lesson-quiz__card--wrong" : ""
               }`}
-              onClick={() => onSelect(a.id)}
-              disabled={result !== null}
+              onClick={() => onSelect(option.id)}
+              disabled={answered}
             >
               {/* Radio */}
               <span className="lesson-quiz__radio">
@@ -108,21 +73,41 @@ const QuizSection = ({ selected, result, onSelect, attempts }) => {
               </div>
 
               {/* Letter badge */}
-              <span className="lesson-quiz__card-badge">{a.id}</span>
+              <span className="lesson-quiz__card-badge">{option.id}</span>
 
               {/* Text */}
               <div className="lesson-quiz__card-text">
                 <span className="lesson-quiz__card-title">
-                  {a.title}
+                  {option.title}
                 </span>
                 <span className="lesson-quiz__card-caption">
-                  {a.caption}
+                  {option.caption}
                 </span>
               </div>
             </button>
           );
         })}
       </div>
+
+      {/* ---- AI result feedback ---- */}
+      {answered && (
+        <div
+          className={`lesson-quiz__ai ${
+            result.correct
+              ? "lesson-quiz__ai--ok"
+              : "lesson-quiz__ai--no"
+          }`}
+        >
+          {result.aiAccuracy != null && (
+            <span className="lesson-quiz__ai-accuracy">
+              Độ chính xác AI: {result.aiAccuracy}%
+            </span>
+          )}
+          {result.explanation && (
+            <p className="lesson-quiz__ai-explain">{result.explanation}</p>
+          )}
+        </div>
+      )}
 
       {/* ---- Attempts ---- */}
       <div className="lesson-quiz__attempts">

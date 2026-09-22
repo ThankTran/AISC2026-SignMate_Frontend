@@ -245,6 +245,72 @@
   font-weight: 700;
 }
 
+/* ---- AI feedback ---- */
+
+.lesson-quiz__ai {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  margin-top: 14px;
+  padding: 13px 15px;
+
+  border-radius: 13px;
+
+  animation: ai-in 0.4s ease;
+}
+
+@keyframes ai-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.lesson-quiz__ai--ok {
+  background: #e6f4f1;
+  border: 1px solid rgba(13, 138, 106, 0.28);
+}
+
+.lesson-quiz__ai--no {
+  background: #fef1f1;
+  border: 1px solid rgba(239, 68, 68, 0.28);
+}
+
+.lesson-quiz__ai-accuracy {
+  align-self: flex-start;
+
+  padding: 3px 11px;
+  border-radius: 999px;
+
+  font-family: var(--font-family-mono);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.lesson-quiz__ai--ok .lesson-quiz__ai-accuracy {
+  background: #d0efe9;
+  color: #0d8a6a;
+}
+
+.lesson-quiz__ai--no .lesson-quiz__ai-accuracy {
+  background: #fddcdc;
+  color: #dc2626;
+}
+
+.lesson-quiz__ai-explain {
+  margin: 0;
+
+  font-family: var(--font-family-body);
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--color-neutral-700);
+}
+
 /* =========================================================
    RESPONSIVE
    ========================================================= */

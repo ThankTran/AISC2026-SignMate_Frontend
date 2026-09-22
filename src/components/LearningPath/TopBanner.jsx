@@ -20,7 +20,7 @@ const TopBanner = () => {
           <div className="lp-banner__icon-circle">
             <Hand size={32} strokeWidth={1.8} />
           </div>
-          <span className="lp-banner__badge">8 bài học</span>
+          <span className="lp-banner__badge">6 bài học</span>
         </div>
       </div>
     </div>

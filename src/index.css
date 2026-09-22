@@ -130,6 +130,17 @@ body {
   line-height: 1.5;
 }
 
+/* ===== App Shell Full-Screen Fixed (chỉ 1 scrollbar duy nhất) ===== */
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+#root {
+  height: 100%;
+}
+
 /* --------------------------------------------------------------------------
    4. TYPOGRAPHY - CLASS DÙNG CHUNG
    -------------------------------------------------------------------------- */
