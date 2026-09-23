@@ -8,10 +8,10 @@
   --pf-text: #1a1a1a;
   --pf-muted: #7b7f87;
 
-  padding: 24px 36px 56px;
+  padding: 24px var(--page-gutter) 56px;
   color: var(--pf-text);
-  max-width: 1400px;
-  margin: 0 auto;
+  max-width: none;
+  margin: 0;
 }
 
 .pf h1,
@@ -358,7 +358,7 @@
 /* ================= Responsive ================= */
 @media (max-width: 800px) {
   .pf {
-    padding: 20px 16px 40px;
+    padding: 20px var(--page-gutter) 40px;
   }
 
   .pf-header h1 {

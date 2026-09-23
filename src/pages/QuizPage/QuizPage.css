@@ -18,7 +18,7 @@
   flex-direction: column;
   gap: 18px;
 
-  padding: 26px 32px 30px;
+  padding: 26px var(--page-gutter) 30px;
 
   background: var(--quiz-bg);
   color: var(--quiz-ink);
@@ -675,7 +675,7 @@
 
 @media (max-width: 1020px) {
   .quiz {
-    padding: 20px 16px 24px;
+    padding: 20px var(--page-gutter) 24px;
   }
 
   .quiz__grid {

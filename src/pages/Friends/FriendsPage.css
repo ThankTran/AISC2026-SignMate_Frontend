@@ -1,5 +1,5 @@
 .friends-page {
-  padding: 26px 32px 40px;
+  padding: 26px var(--page-gutter) 40px;
   min-height: 100%;
   background: var(--color-neutral-50);
 }
@@ -1592,7 +1592,7 @@
 
 @media (max-width: 768px) {
   .friends-page {
-    padding: 22px 16px 32px;
+    padding: 22px var(--page-gutter) 32px;
   }
 
   .friends-page__header {

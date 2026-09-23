@@ -5,7 +5,7 @@
 .ai-practice {
   display: flex;
   gap: 24px;
-  padding: 22px 28px;
+  padding: 22px var(--page-gutter) 22px;
   background: #f8f9fa;
 }
 
@@ -91,7 +91,7 @@
 @media (max-width: 1100px) {
   .ai-practice {
     flex-direction: column;
-    padding: 18px 16px;
+    padding: 18px var(--page-gutter) 18px;
   }
 
   .ai-practice__right {
@@ -101,7 +101,7 @@
 
 @media (max-width: 768px) {
   .ai-practice {
-    padding: 14px 12px;
+    padding: 14px var(--page-gutter) 14px;
     gap: 14px;
   }
 

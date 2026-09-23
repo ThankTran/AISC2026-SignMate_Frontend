@@ -21,7 +21,7 @@
   flex-direction: column;
   gap: 18px;
 
-  padding: 26px 32px 30px;
+  padding: 26px var(--page-gutter) 30px;
 
   background: var(--qr-bg);
   color: var(--qr-ink);
@@ -562,7 +562,7 @@
 
 @media (max-width: 1020px) {
   .qr {
-    padding: 20px 16px 24px;
+    padding: 20px var(--page-gutter) 24px;
   }
 
   .qr-hero {
