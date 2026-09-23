@@ -96,7 +96,7 @@ See [route definitions](src/routes/AppRoutes.jsx) and the [video-call feature gu
 ## 👥 Contributors
 
 - **[Trần Thị Hồng Thanh](https://github.com/ThankTran)**
-- **[Nguyễn Lan Anh](https://github.com/ngnlananh)**
+- **[Nguyễn Ngọc Lan Anh](https://github.com/ngnlananh)**
 - **[Đào Thị Mai Chi](https://github.com/maichidao)**
 
 Thanks to everyone building SignMate! See the [contribution history](https://github.com/ThankTran/AISC2026-SignMate_Frontend/graphs/contributors).
