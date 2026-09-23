@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from "react";
-import { Settings, UserRound, BarChart3 } from "lucide-react";
+import { useEffect, useId, useRef, useState } from "react";
+import { Settings, UserRound, BarChart3, LogOut } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContext";
 
 const HeaderSettings = ({
   items = [
@@ -9,8 +10,14 @@ const HeaderSettings = ({
   ],
 }) => {
   const [open, setOpen] = useState(false);
+  const [signingOut, setSigningOut] = useState(false);
+  const [error, setError] = useState("");
+  const pendingRef = useRef(false);
+  const triggerRef = useRef(null);
+  const dropdownId = useId();
   const wrapperRef = useRef(null);
   const navigate = useNavigate();
+  const { logout } = useAuth();
 
   const ICONS = {
     profile: UserRound,
@@ -35,20 +42,45 @@ const HeaderSettings = ({
     setOpen(false);
   };
 
+  const handleSignOut = async () => {
+    if (pendingRef.current) return;
+    pendingRef.current = true;
+    setSigningOut(true);
+    setError("");
+    try {
+      await logout();
+      setOpen(false);
+    } catch {
+      setError("Không thể đăng xuất. Vui lòng thử lại.");
+      setOpen(true);
+    } finally {
+      pendingRef.current = false;
+      setSigningOut(false);
+    }
+  };
+
   return (
-    <div className="header-settings" ref={wrapperRef}>
+    <div className="header-settings" ref={wrapperRef} onKeyDown={(event) => {
+      if (event.key === "Escape" && open) {
+        setOpen(false);
+        triggerRef.current?.focus();
+      }
+    }}>
       <button
+        ref={triggerRef}
         type="button"
         className="header-icon-btn"
         onClick={() => setOpen((prev) => !prev)}
         aria-label="Cài đặt"
+        aria-expanded={open}
+        aria-controls={dropdownId}
         title="Cài đặt"
       >
         <Settings size={18} strokeWidth={1.8} />
       </button>
 
       {open && (
-        <div className="header-settings__dropdown">
+        <div className="header-settings__dropdown" id={dropdownId} aria-busy={signingOut}>
           {items.map((item) => {
             const Icon = ICONS[item.icon] || UserRound;
 
@@ -57,6 +89,7 @@ const HeaderSettings = ({
                 key={item.path}
                 type="button"
                 className="header-settings__item"
+                disabled={signingOut}
                 onClick={() => handleSelect(item.path)}
               >
                 <Icon size={16} strokeWidth={1.8} />
@@ -64,6 +97,17 @@ const HeaderSettings = ({
               </button>
             );
           })}
+          <hr className="header-settings__divider" />
+          <button
+            type="button"
+            className="header-settings__item header-settings__item--logout"
+            disabled={signingOut}
+            onClick={handleSignOut}
+          >
+            <LogOut size={16} strokeWidth={1.8} />
+            <span>{signingOut ? "Đang đăng xuất…" : "Đăng xuất"}</span>
+          </button>
+          {error && <p className="header-settings__error" role="alert">{error}</p>}
         </div>
       )}
     </div>
