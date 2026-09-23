@@ -22,21 +22,23 @@ function useHandPointer(ref) {
     function tick(time) {
       const dt = previous ? Math.min((time - previous) / 1000, 0.05) : 0;
       previous = time;
-      const blend = 1 - Math.exp(-dt * (5 + Math.min(Math.hypot(pointer.vx, pointer.vy), 3) * 4));
+      const blend = 1 - Math.exp(-dt * (3.5 + Math.min(Math.hypot(pointer.vx, pointer.vy), 3) * 0.5));
       const targets = {
         x: pointer.x * pointer.activity * 12,
         y: pointer.y * pointer.activity * 8,
         rx: -pointer.y * pointer.activity * 4 - pointer.vy * 2,
         ry: pointer.x * pointer.activity * 7 + pointer.vx * 3,
-        rz: pointer.vx * 1.5,
+        // Gesture velocity determines the swing, not the cursor's screen side.
+        // Positive CSS rotation leans the fingertips right around the wrist.
+        rz: Math.max(-45, Math.min(45, pointer.vx * 20)),
       };
       let moving = false;
       for (const key of Object.keys(current)) {
         current[key] += (targets[key] - current[key]) * blend;
         if (Math.abs(current[key]) > 0.01) moving = true;
       }
-      pointer.vx *= Math.exp(-dt * 5);
-      pointer.vy *= Math.exp(-dt * 5);
+      pointer.vx *= Math.exp(-dt * 3);
+      pointer.vy *= Math.exp(-dt * 3);
       pointer.activity *= Math.exp(-dt * 1.5);
       paint();
       frame = moving || pointer.activity > 0.001 ? requestAnimationFrame(tick) : 0;
@@ -48,7 +50,7 @@ function useHandPointer(ref) {
       const y = event.clientY / window.innerHeight * 2 - 1;
       const dt = pointer.time === null ? 0 : (event.timeStamp - pointer.time) / 1000;
       const clamp = value => Math.max(-3, Math.min(3, value));
-      const blend = 1 - Math.exp(-dt * 30);
+      const blend = 1 - Math.exp(-dt * 14);
       if (dt > 0 && dt < 0.15) {
         pointer.vx += (clamp((x - pointer.x) / dt) - pointer.vx) * blend;
         pointer.vy += (clamp((y - pointer.y) / dt) - pointer.vy) * blend;

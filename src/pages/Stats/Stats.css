@@ -8,10 +8,10 @@
   --st-muted: #8b8f96;
   --st-mono: ui-monospace, "SF Mono", Consolas, "Liberation Mono", monospace;
 
-  padding: 24px 36px 56px;
+  padding: 24px var(--page-gutter) 56px;
   color: var(--st-text);
-  max-width: 1400px;
-  margin: 0 auto;
+  max-width: none;
+  margin: 0;
 }
 
 .st h1,
@@ -337,7 +337,7 @@
 
 @media (max-width: 640px) {
   .st {
-    padding: 20px 16px 40px;
+    padding: 20px var(--page-gutter) 40px;
   }
 
   .st-header h1 {

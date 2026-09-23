@@ -4,6 +4,7 @@
 
 /* --- App Shell: Full-Screen Fixed --- */
 .main-layout {
+  --page-gutter: 32px;
   height: 100vh;
   height: 100dvh;
   width: 100%;
@@ -69,6 +70,7 @@
 .main-layout__page > * {
   flex: 1 0 auto;
   min-width: 0;
+  width: 100%;
 }
 
 .main-layout__body > .footer {
@@ -90,6 +92,7 @@
 
 @media (max-width: 768px) {
   .main-layout {
+    --page-gutter: 16px;
     --sidebar-width: 58px;
     --sidebar-collapsed-width: 58px;
   }

@@ -14,7 +14,7 @@
   align-items: center;
   justify-content: space-between;
 
-  padding: 0 24px;
+  padding: 0 var(--page-gutter, 32px) 0;
   box-sizing: border-box;
 
   background: var(--color-neutral-50);
@@ -352,7 +352,7 @@
 
 @media (max-width: 768px) {
   .header {
-    padding: 0 12px;
+    padding: 0 var(--page-gutter, 16px) 0;
   }
 
   .header-search {

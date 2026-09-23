@@ -22,7 +22,7 @@
   gap: 22px;
   align-items: start;
 
-  padding: 26px 32px 36px;
+  padding: 26px var(--page-gutter) 36px;
 
   background: var(--lb-bg);
   color: var(--lb-ink);
@@ -1083,7 +1083,7 @@
 @media (max-width: 1100px) {
   .lb {
     grid-template-columns: 1fr;
-    padding: 20px 16px 28px;
+    padding: 20px var(--page-gutter) 28px;
     gap: 18px;
   }
 
