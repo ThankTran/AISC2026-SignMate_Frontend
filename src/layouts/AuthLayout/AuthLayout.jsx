@@ -1,4 +1,5 @@
 import "./AuthLayout.css";
+import HandScene from "../../components/HandScene/HandScene";
 
 export default function AuthLayout({ children }) {
   return (
@@ -11,6 +12,7 @@ export default function AuthLayout({ children }) {
         <p className="auth-tagline">
           Học ngôn ngữ ký hiệu cùng AI - dành cho tất cả mọi người.
         </p>
+        <HandScene />
       </div>
 
       <div className="auth-panel">{children}</div>

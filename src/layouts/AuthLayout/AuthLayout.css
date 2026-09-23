@@ -1,10 +1,10 @@
 .auth-layout {
   display: flex;
   min-height: 100vh;
-  background-image: url("/BG_authenciation.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background:
+    radial-gradient(ellipse at 0% 95%, #d9d2ed 0%, transparent 55%),
+    radial-gradient(ellipse at 95% 0%, #bcd8c9 0%, transparent 60%),
+    linear-gradient(120deg, #eee0d1, #eef0dc);
 }
 
 .auth-illustration {
@@ -18,16 +18,16 @@
 .auth-logo {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
 }
 .auth-logo-icon {
-  height: 28px;
+  height: 46px;
   width: auto;
 }
 .auth-logo-text {
   font-family: var(--font-family-display);
   font-weight: 700;
-  font-size: 20px;
+  font-size: 30px;
   color: var(--color-neutral-900);
 }
 
