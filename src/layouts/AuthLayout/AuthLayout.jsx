@@ -15,7 +15,7 @@ export default function AuthLayout({ children }) {
         <HandScene />
       </div>
 
-      <div className="auth-panel">{children}</div>
+      <div className="auth-panel"><div className="auth-mobile-brand"><img src="/logo-signmate.png" alt="SignMate" width="64" height="64"/><p>Học ngôn ngữ ký hiệu cùng AI — dành cho tất cả mọi người.</p></div>{children}</div>
     </div>
   );
 }

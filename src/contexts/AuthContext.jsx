@@ -1,14 +1,18 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { onAuthStateChanged, signOut } from "firebase/auth";
+import { AuthContext } from '../hooks/useAuth';
+import LoadingScreen from "../components/ui/LoadingScreen";
+import { useEffect, useState, useCallback } from "react";
+import { onAuthStateChanged, signOut, reload } from "firebase/auth";
 import { auth } from "../lib/firebase";
 
-const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [registering, setRegistering] = useState(false);
   const [signingOut, setSigningOut] = useState(false);
 
+  const [authRevision,setAuthRevision]=useState(0);
+  const refreshUser=useCallback(async()=>{if(auth.currentUser){await reload(auth.currentUser);await auth.currentUser.getIdToken(true);setUser(auth.currentUser);setAuthRevision(value=>value+1);}},[]);
   async function logout() {
     setSigningOut(true);
     try {
@@ -30,10 +34,8 @@ export function AuthProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, loading, signingOut, logout }}>
-      {!loading && children}
+    <AuthContext.Provider value={{ user, authRevision, refreshUser, loading, signingOut, logout, registering, setRegistering }}>
+      {loading ? <LoadingScreen /> : children}
     </AuthContext.Provider>
   );
 }
-
-export const useAuth = () => useContext(AuthContext);
