@@ -1,15 +1,24 @@
 import { auth } from "../lib/firebase";
+import {errorMessage} from './errorMessages';
+import {notifySessionExpired,withTokenRetry} from './sessionExpiry';
 
 const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || "http://localhost:8080").replace(/\/$/, "");
 export class ApiError extends Error {
-  constructor(status, message) { super(message); this.name = "ApiError"; this.status = status; }
+  constructor(status, message, code) { super(errorMessage({status,code,message})); this.name="ApiError"; this.status=status; this.code=code; this.rawMessage=message; }
 }
 export async function api(path, { method = "GET", body, signal } = {}) {
   await auth.authStateReady();
   const user = auth.currentUser;
-  if (!user) throw new ApiError(401, "Vui lòng đăng nhập để tiếp tục.");
+  if (!user) throw new ApiError(401, "Vui lòng đăng nhập để tiếp tục.","UNAUTHORIZED");
   const send = async (forceRefresh) => {
-    const token = await user.getIdToken(forceRefresh);
+    let token;
+    try{token=await user.getIdToken(forceRefresh);}catch(error){
+      if(['auth/user-token-expired','auth/invalid-user-token','auth/user-disabled'].includes(error.code)){
+        if(auth.currentUser?.uid===user.uid)await notifySessionExpired(user.uid);
+        throw new ApiError(401,error.message,'UNAUTHORIZED');
+      }
+      throw new ApiError(0,error.message,'NETWORK_ERROR');
+    }
     try {
       return await fetch(`${API_BASE_URL}${path}`, {
     method, signal: signal ?? AbortSignal.timeout(15000),
@@ -20,16 +29,15 @@ export async function api(path, { method = "GET", body, signal } = {}) {
     } catch (error) {
       if (error.name === "AbortError") throw error;
       if (error.name === "TimeoutError") {
-        throw new ApiError(0, "Máy chủ phản hồi quá lâu. Vui lòng thử lại.");
+        throw new ApiError(0, "Máy chủ phản hồi quá lâu. Vui lòng thử lại.","TIMEOUT");
       }
-      throw new ApiError(0, "Không kết nối được máy chủ. Vui lòng kiểm tra kết nối mạng và bảo đảm backend đang chạy.");
+      throw new ApiError(0, "Không kết nối được máy chủ.","NETWORK_ERROR");
     }
   };
-  let response = await send(false);
-  if (response.status === 401) response = await send(true);
+  const response = await withTokenRetry(send,async()=>{if(auth.currentUser?.uid===user.uid)await notifySessionExpired(user.uid);});
   if (response.status === 204) return null;
   const data = await response.json().catch(() => null);
-  if (!response.ok) throw new ApiError(response.status, data?.message || `API lỗi HTTP ${response.status}`);
+  if (!response.ok) throw new ApiError(response.status, data?.message || `API lỗi HTTP ${response.status}`,data?.code);
   return data;
 }
 const post = (path, body) => api(path, { method: "POST", body });

@@ -13,6 +13,7 @@ import ApiState from "../../components/ApiState";
 import { useApiResource } from "../../hooks/useApiResource";
 import { learningApi } from "../../services/api";
 import { checkLessonAnswer, finishLesson } from "../../services/lessonApi";
+import LearningAccessGuard from '../../components/LearningAccessGuard';
 
 const ICONS = { hand: Hand, handHeart: HandHeart, handshake: Handshake,
   heartHandshake: HeartHandshake, heartPulse: HeartPulse, home: Home, users: Users, bookOpen: BookOpen };
@@ -81,6 +82,7 @@ export function LessonSession({ lesson, checkAnswer=checkLessonAnswer, finishAtt
     document.addEventListener('keydown', keydown);
     return () => document.removeEventListener('keydown', keydown);
   });
+  if(error?.status===403)return <LearningAccessGuard error={error}><ApiState error={error}/></LearningAccessGuard>;
   return <div className="lesson">
     <LessonTopNav title={lesson.title} completed={questionIndex + (result ? 1 : 0)} hearts={hearts} currentQuestion={questionIndex + 1} totalQuestions={lesson.questions.length} />
     {error && <p role="alert">{error.message} <button type="button" disabled={checking}
@@ -104,7 +106,7 @@ export default function LessonPage() {
   const { lessonId } = useParams();
   const load = useCallback(() => learningApi.lesson(lessonId), [lessonId]);
   const { data, error } = useApiResource(load);
-  if (!data || String(data.id) !== lessonId) return <ApiState error={error} />;
+  if (!data || String(data.id) !== lessonId) return <LearningAccessGuard error={error}><ApiState error={error} /></LearningAccessGuard>;
   if (!data.questions?.length) return <p role="status">Bài học đang được cập nhật. Vui lòng quay lại lộ trình để chọn bài khác.</p>;
   return <LessonSession key={lessonId} lesson={data} />;
 }
