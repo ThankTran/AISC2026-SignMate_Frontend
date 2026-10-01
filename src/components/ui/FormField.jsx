@@ -1,0 +1,3 @@
+import { useState } from 'react';
+import { Eye,EyeOff } from 'lucide-react';
+export default function FormField({id,label,error,type='text',...props}) { const [visible,setVisible]=useState(false);const secret=type==='password';return <div className="auth-field"><label htmlFor={id}>{label}</label><div className="auth-input-wrap"><input {...props} id={id} type={secret&&visible?'text':type} aria-invalid={!!error} aria-describedby={error?`${id}-error`:undefined}/>{secret&&<button type="button" onClick={()=>setVisible(v=>!v)} aria-label={visible?'Ẩn mật khẩu':'Hiện mật khẩu'} aria-pressed={visible}>{visible?<EyeOff size={20}/>:<Eye size={20}/>}</button>}</div>{error&&<p id={`${id}-error`} role="alert" className="auth-field-error">{error}</p>}</div>; }
