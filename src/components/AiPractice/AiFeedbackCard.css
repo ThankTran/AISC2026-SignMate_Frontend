@@ -30,7 +30,7 @@
 
 .ai-feedback__title {
   font-family: var(--font-family-main);
-  font-size: 14px;
+  font-size: var(--font-size-h3);
   font-weight: var(--font-weight-bold);
   color: var(--color-neutral-900, #444441);
 }

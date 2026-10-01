@@ -2,30 +2,11 @@
    OUT OF HEARTS MODAL
    ========================================================= */
 
-.ooh-modal {
-  position: fixed;
-  inset: 0;
-  z-index: 200;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  padding: 20px;
-}
 
 /* Backdrop */
 
-.ooh-modal__backdrop {
-  position: absolute;
-  inset: 0;
 
-  background: rgba(17, 24, 39, 0.55);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-
-  animation: ooh-fade-in 0.3s ease;
-}
 
 @keyframes ooh-fade-in {
   from { opacity: 0; }
@@ -35,7 +16,6 @@
 /* Card */
 
 .ooh-modal__card {
-  position: relative;
 
   width: 100%;
   max-width: 400px;
@@ -50,10 +30,6 @@
   background: #fff;
 
   text-align: center;
-
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
-
-  animation: ooh-card-in 0.4s cubic-bezier(0.22, 1.2, 0.36, 1);
 }
 
 @keyframes ooh-card-in {
@@ -100,7 +76,7 @@
   margin: 0;
 
   font-family: var(--font-family-main);
-  font-size: 22px;
+  font-size: var(--font-size-h2);
   font-weight: 800;
   color: #1f2937;
 }

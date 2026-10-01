@@ -51,7 +51,7 @@ export default function TopicSelection({
     <div className="vc-enter">
       <header className="vc-heading">
         <span className="vc-eyebrow">MỖI CUỘC TRÒ CHUYỆN, MỘT KẾT NỐI MỚI</span>
-        <h1>
+        <h1 className="text-h1">
           Tìm bạn luyện tập<span className="vc-heading-dot">.</span>
         </h1>
         <p>
@@ -67,7 +67,7 @@ export default function TopicSelection({
               <MessageCircle size={21} />
             </span>
             <div>
-              <h2>Hôm nay, bạn muốn nói về…</h2>
+              <h2 className="text-h2">Hôm nay, bạn muốn nói về…</h2>
               <p>Chọn những chủ đề khiến bạn hứng thú</p>
             </div>
             <span className="vc-count">{selected.length} đã chọn</span>
@@ -115,7 +115,7 @@ export default function TopicSelection({
             </button>
           </form>
           <div className="vc-suggestions">
-            <h3>
+            <h3 className="text-h3">
               <Sparkles size={16} /> Một chút cảm hứng để bắt đầu
             </h3>
             {conversationPrompts.map((t) => (

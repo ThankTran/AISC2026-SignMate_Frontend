@@ -24,7 +24,7 @@
 
 .lesson-topnav__title {
   font-family: var(--font-family-main);
-  font-size: 19px;
+  font-size: var(--font-size-h1);
   font-weight: 700;
   color: var(--color-teal-700, #0d8a6a);
   margin: 0;
@@ -47,7 +47,7 @@
 
 .lesson-topnav__index,
 .lesson-topnav__pct {
-  font-family: var(--font-family-mono);
+
   font-size: 13px;
   font-weight: 700;
   color: var(--color-neutral-700);
@@ -55,6 +55,8 @@
   flex: none;
   white-space: nowrap;
   text-align: center;
+
+  font-family: var(--font-family-mono);
 }
 
 .lesson-topnav__index {
@@ -63,6 +65,8 @@
 
 .lesson-topnav__pct {
   width: 54px;
+
+  font-family: var(--font-family-mono);
 }
 
 /* Segments */
@@ -115,6 +119,8 @@ button.lesson-topnav__segment:hover {
   display: flex;
   align-items: center;
   gap: 4px;
+
+  font-family: var(--font-family-mono);
 }
 
 .lesson-topnav__heart--alive {
@@ -156,14 +162,14 @@ button.lesson-topnav__segment:hover {
    RESPONSIVE
    ========================================================= */
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .lesson-topnav {
     padding: 0 var(--page-gutter) 0;
     gap: 12px;
   }
 
   .lesson-topnav__title {
-    font-size: 16px;
+    font-size: var(--font-size-h1);
   }
 
   .lesson-topnav__segment {
@@ -180,4 +186,12 @@ button.lesson-topnav__segment:hover {
   .lesson-topnav__center {
     display: none;
   }
+}.lesson-topnav__mobile-progress { display:none; }
+@media(max-width:768px) {
+ .lesson-topnav { flex-wrap:wrap; }
+ .lesson-topnav__center { display:flex; flex:0 0 100%; order:3; width:100%; }
+ .lesson-topnav__segments { display:none; }
+ .lesson-topnav__mobile-progress { display:block; height:6px; flex:1; border:0; accent-color:var(--color-teal-500); }
 }
+.lesson-topnav{flex-wrap:wrap;padding-block:12px}.lesson-topnav__title{white-space:normal;min-width:0}.lesson-topnav__center{flex:1 1 280px}.lesson-topnav__segments{flex-shrink:1;min-width:0}.lesson-topnav__segment{flex-shrink:1}.lesson-topnav__right{flex-wrap:wrap;min-width:0}
+@media(max-width:768px){.lesson-topnav__title{flex:1 1 100%;}.lesson-topnav__right{width:100%;justify-content:space-between}}

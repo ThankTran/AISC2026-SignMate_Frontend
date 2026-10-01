@@ -5,15 +5,15 @@ import VideoPlayerFrame from "../VideoPlayerFrame/VideoPlayerFrame";
 import "./MediaView.css";
 
 const MediaView = ({ question }) => {
-  const { title, videoUrl, thumbLabel, icon: Icon } = question;
+  const { videoUrl } = question;
 
   return (
     <section className="lesson-media">
       {/* ---- Sub header ---- */}
       <div className="lesson-media__header">
         <span className="lesson-media__tag">KÝ HIỆU ĐANG HỌC</span>
-        <h2 className="lesson-media__title">
-          Quan sát ký hiệu: {title}
+        <h2 className="lesson-media__title text-h2">
+          Quan sát ký hiệu
         </h2>
       </div>
 
@@ -21,10 +21,6 @@ const MediaView = ({ question }) => {
       <VideoPlayerFrame
         key={question.id}
         videoUrl={videoUrl}
-        thumbLabel={thumbLabel}
-        icon={<Icon size={44} strokeWidth={1.6} />}
-        duration={28}
-        initialTime={7}
         speeds={[0.5, 1, 1.5]}
         slowMo
         replayLabel="Xem lại"

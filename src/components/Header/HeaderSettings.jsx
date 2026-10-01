@@ -1,10 +1,14 @@
+import Avatar from "../ui/Avatar";
+import { useCurrentUser } from "../../hooks/useCurrentUser";
+import { useConfirm } from "../../hooks/useConfirm";
 import { useEffect, useId, useRef, useState } from "react";
-import { Settings, UserRound, BarChart3, LogOut } from "lucide-react";
+import { UserRound, BarChart3, LogOut } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "../../hooks/useAuth";
 
 const HeaderSettings = ({
   items = [
+    { label: "Trợ giúp", icon: "help", path: "/faq" },
     { label: "Hồ sơ", icon: "profile", path: "/account/profile" },
     { label: "Thống kê", icon: "stats", path: "/account/stats" },
   ],
@@ -17,6 +21,8 @@ const HeaderSettings = ({
   const dropdownId = useId();
   const wrapperRef = useRef(null);
   const navigate = useNavigate();
+  const user = useCurrentUser();
+  const confirm = useConfirm();
   const { logout } = useAuth();
 
   const ICONS = {
@@ -44,6 +50,8 @@ const HeaderSettings = ({
 
   const handleSignOut = async () => {
     if (pendingRef.current) return;
+    setOpen(false); triggerRef.current?.focus();
+    if (!await confirm({ title: "Đăng xuất?", message: "Bạn muốn đăng xuất khỏi SignMate?", confirmLabel: "Đăng xuất" })) return;
     pendingRef.current = true;
     setSigningOut(true);
     setError("");
@@ -71,12 +79,12 @@ const HeaderSettings = ({
         type="button"
         className="header-icon-btn"
         onClick={() => setOpen((prev) => !prev)}
-        aria-label="Cài đặt"
+        aria-label="Menu tài khoản" aria-haspopup="true"
         aria-expanded={open}
         aria-controls={dropdownId}
-        title="Cài đặt"
+        title="Tài khoản"
       >
-        <Settings size={18} strokeWidth={1.8} />
+        <Avatar user={user} size={36} />
       </button>
 
       {open && (

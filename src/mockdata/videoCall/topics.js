@@ -8,7 +8,7 @@ export const topicOptions = [
   { label: "Giáo dục", icon: "graduation" },
 ];
 export const defaultTopics = ["Gia đình", "Du lịch"];
-export const defaultPrompt = "Kể về một ngày điển hình của bạn bằng NNKH";
+export const defaultPrompt = "Kể về một ngày điển hình của bạn bằng ngôn ngữ ký hiệu";
 export const conversationPrompts = [
   "Bạn nghĩ sao về bộ phim mới ra mắt cuối tuần qua?",
   "Chia sẻ một địa điểm du lịch yêu thích của bạn.",

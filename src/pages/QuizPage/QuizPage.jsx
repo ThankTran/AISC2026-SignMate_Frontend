@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import {useProgress} from "../../hooks/useProgress";
+import { useConfirm } from "../../hooks/useConfirm";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
-  ArrowRight,
   BookOpen,
-  Check,
   CircleCheck,
   Clock,
   Hand,
@@ -21,10 +21,9 @@ import {
 import VideoPlayerFrame from "../../components/VideoPlayerFrame/VideoPlayerFrame";
 
 import "./QuizPage.css";
-
-const TOTAL_QUESTIONS = 10;
-const INITIAL_INDEX = 3;
-const INITIAL_SECONDS = 12 * 60 + 52;
+import { learningApi } from "../../services/api";
+import { useApiResource } from "../../hooks/useApiResource";
+import ApiState from "../../components/ApiState";
 
 const OPTION_ICONS = {
   hand: Hand,
@@ -39,127 +38,114 @@ const OPTION_ICONS = {
   sparkles: Sparkles,
 };
 
-const LETTERS = ["A", "B", "C", "D"];
-
-const SIGN_POOL = [
-  {
-    title: "Xin chào",
-    desc: "Động tác chào hỏi",
-    icon: "hand",
-  },
-  {
-    title: "Cảm ơn",
-    desc: "Động tác bày tỏ lòng biết ơn",
-    icon: "thumbsUp",
-  },
-  {
-    title: "Tạm biệt",
-    desc: "Động tác chia tay tạm biệt",
-    icon: "handshake",
-  },
-  {
-    title: "Đồng ý",
-    desc: "Động tác gật đầu đồng tình",
-    icon: "circleCheck",
-  },
-  {
-    title: "Xin lỗi",
-    desc: "Động tác xin lỗi chân thành",
-    icon: "heart",
-  },
-  {
-    title: "Bạn bè",
-    desc: "Động tác thể hiện tình bạn",
-    icon: "users",
-  },
-  {
-    title: "Gia đình",
-    desc: "Động tác chỉ những người thân",
-    icon: "home",
-  },
-  {
-    title: "Học tập",
-    desc: "Động tác thể hiện việc học",
-    icon: "bookOpen",
-  },
-  {
-    title: "Sức khỏe",
-    desc: "Động tác thể hiện sự khỏe mạnh",
-    icon: "heartPulse",
-  },
-  {
-    title: "Vui vẻ",
-    desc: "Động tác thể hiện niềm vui",
-    icon: "sparkles",
-  },
-];
-
-const QUESTIONS = SIGN_POOL.map((sign, i) => ({
-  id: i + 1,
-  category: "Ngôn ngữ ký hiệu",
-  target: sign.title,
-  videoUrl: `/videos/sign-${i + 1}.mp4`,
-  prompt: `Xem video minh họa và chọn ký hiệu đúng cho từ “${sign.title}”.`,
-  options: LETTERS.map((letter, j) => {
-    const item = SIGN_POOL[(i + j) % SIGN_POOL.length];
-    return {
-      key: letter,
-      title: item.title,
-      desc: item.desc,
-      icon: item.icon,
-    };
-  }),
-}));
-
 const formatTime = (seconds) => {
   const m = Math.floor(seconds / 60);
   const s = seconds % 60;
   return `${m}:${String(s).padStart(2, "0")}`;
 };
 
-const QuizPage = () => {
+const QuizSession = ({ quiz }) => {
+ const {recordQuiz}=useProgress();
+  const confirm = useConfirm();
+  const confirmExit = async (event) => { event.preventDefault(); if (await confirm({ title: "Thoát bài kiểm tra?", message: "Tiến độ chưa hoàn tất trong phiên này có thể không được lưu.", confirmLabel: "Thoát" })) navigate('/learning-path'); };
+  const QUESTIONS = quiz.questions.map((q) => ({ ...q, category: "Ngôn ngữ ký hiệu",
+    prompt: "Xem video minh họa và chọn ký hiệu đúng." }));
+  const TOTAL_QUESTIONS = QUESTIONS.length;
+  const [sessionId] = useState(() => crypto.randomUUID());
+  const [error, setError] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [pendingOption, setPendingOption] = useState(null);
+  const busy = useRef(false);
+  const mounted = useRef(true);
+  const [feedback, setFeedback] = useState({});
+  useEffect(() => {
+    mounted.current = true;
+    return () => { mounted.current = false; };
+  }, []);
   const navigate = useNavigate();
   const { quizId } = useParams();
   const [answers, setAnswers] = useState({});
-  const [current, setCurrent] = useState(INITIAL_INDEX);
+  const [current, setCurrent] = useState(0);
   const [videoPlaying, setVideoPlaying] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(INITIAL_SECONDS);
-  const [submitted, setSubmitted] = useState(false);
+  const totalSeconds = quiz.durationSeconds || quiz.timeLimitSeconds || 20 * 60;
+  const [timeLeft, setTimeLeft] = useState(totalSeconds);
+  const [expired, setExpired] = useState(false);
+  const finished = useRef(false);
+  const [deadline] = useState(() => Date.now() + totalSeconds * 1000);
+  const autoAttempted = useRef(false);
+  const autoSubmit = useRef(null);
 
   const question = QUESTIONS[current];
-  const TargetIcon = OPTION_ICONS[question.options[0].icon];
-  const answeredCount = Object.keys(answers).length;
   const isAnswered = (q) => answers[q.id] != null;
-  const isLastQuestion = current >= TOTAL_QUESTIONS - 1;
+  const allAnswered = QUESTIONS.every(isAnswered);
 
   useEffect(() => {
-    if (timeLeft <= 0) return undefined;
-    const timer = setTimeout(() => {
-      setTimeLeft((s) => s - 1);
-    }, 1000);
-    return () => clearTimeout(timer);
-  }, [timeLeft]);
+    const timer = setInterval(() => {
+      const remaining = Math.max(0, Math.ceil((deadline - Date.now()) / 1000));
+      setTimeLeft(remaining);
+      if (!remaining && !finished.current) { setExpired(true); autoSubmit.current?.(); }
+    }, 250);
+    return () => clearInterval(timer);
+  }, [deadline]);
 
-  const handleSelect = (key) => {
-    if (submitted) return;
-    setAnswers((prev) => ({ ...prev, [question.id]: key }));
+  const submitAnswers = async (nextAnswers, automatic = false) => {
+    if (busy.current || finished.current) return;
+    if (!automatic && !await confirm({ title: "Nộp bài kiểm tra?", message: allAnswered ? "Bạn đã trả lời tất cả câu hỏi. Nộp bài để xem kết quả?" : `Còn ${TOTAL_QUESTIONS - Object.keys(nextAnswers).length} câu chưa trả lời. Các câu này được tính là chưa đúng.`, confirmLabel: "Nộp bài" })) return;
+    if (busy.current || finished.current) return;
+    busy.current = true;
+    const elapsedSeconds = Math.min(totalSeconds, Math.max(0, Math.round((new Date().getTime() - (deadline - totalSeconds * 1000)) / 1000)));
+    setSubmitting(true);
+    setError(null);
+    try {
+      const result = await learningApi.submitQuiz(quizId, { userSessionId: sessionId, answers: nextAnswers });
+      if (!mounted.current) return;
+      finished.current = true;
+      recordQuiz(quizId,{result,answers:nextAnswers,questions:QUESTIONS,elapsedSeconds});
+      navigate(`/learning-path/quiz/${quizId}/result`, { state: { result, answers: nextAnswers, questions: QUESTIONS, elapsedSeconds } });
+    } catch (err) { if (mounted.current) setError(err); }
+    finally { busy.current = false; if (mounted.current) setSubmitting(false); }
+  };
+
+  useEffect(() => { autoSubmit.current = () => { if (!busy.current && !autoAttempted.current) { autoAttempted.current = true; void submitAnswers(answers, true); } }; });
+
+  const handleSelect = async (key) => {
+    if (expired || busy.current || answers[question.id] != null) return;
+    busy.current = true;
+    setSubmitting(true);
+    setPendingOption(key);
+    setError(null);
+    try {
+      const result = await learningApi.checkQuiz(quizId, { questionId: question.id, selectedOptionId: key });
+      if (!mounted.current) return;
+      const nextAnswers = { ...answers, [question.id]: key };
+      setAnswers(nextAnswers);
+      setFeedback((prev) => ({ ...prev, [question.id]: result }));
+    } catch (err) {
+      if (mounted.current) setError(err.status === 404 || err.status === 405
+        ? new Error("Máy chủ chưa có API chấm câu mới. Hãy khởi động lại backend rồi chọn đáp án lại.")
+        : err);
+    }
+    finally {
+      busy.current = false;
+      if (mounted.current) { setSubmitting(false); setPendingOption(null); }
+    }
+  };
+
+  const goToQuestion = (index) => {
+    if (busy.current || finished.current) return;
+    setCurrent(index);
+    setError(null);
   };
 
   const handleNext = () => {
-    if (submitted || isLastQuestion) return;
-    setCurrent((i) => Math.min(i + 1, TOTAL_QUESTIONS - 1));
-  };
-
-  const handleSubmit = () => {
-    if (submitted) return;
-    setSubmitted(true);
-    navigate(`/learning-path/quiz/${quizId}/result`);
-  };
-
-  const handleReset = () => {
-    setSubmitted(false);
-    setAnswers({});
-    setCurrent(0);
+    if (busy.current || finished.current || !isAnswered(question)) return;
+    if (allAnswered) {
+      void submitAnswers(answers);
+      return;
+    }
+    // At the end, return to any question skipped using the numbered navigation.
+    goToQuestion(current < TOTAL_QUESTIONS - 1
+      ? current + 1 : QUESTIONS.findIndex((item) => !isAnswered(item)));
   };
 
   return (
@@ -167,21 +153,22 @@ const QuizPage = () => {
       {/* ===== HEADER ===== */}
       <header className="quiz__header">
         <div className="quiz__header-left">
-          <h1 className="quiz__header-title">
+          <h1 className="quiz__header-title text-h1">
             Bài kiểm tra tổng hợp — Chương {quizId}
           </h1>
           <span className="quiz__difficulty">Độ khó: Nâng cao</span>
         </div>
 
         <div className="quiz__header-right">
-          <div className="quiz__timer">
+          <div className={`quiz__timer ${timeLeft <= 10 ? "quiz__timer--urgent" : timeLeft <= 60 ? "quiz__timer--warning" : ""}`}>
             <Clock size={16} strokeWidth={2.2} />
             <span className="quiz__timer-value">
               {timeLeft === 0 ? "00:00" : formatTime(timeLeft)}
             </span>
           </div>
 
-          <Link to="/learning-path" className="quiz__exit">
+          <span className="sr-only" role="status" aria-live="polite">{timeLeft <= 0 ? "Hết giờ, đang nộp bài." : timeLeft <= 10 ? "Còn 10 giây hoặc ít hơn." : timeLeft <= 60 ? "Còn một phút hoặc ít hơn." : ""}</span>
+          <Link onClick={confirmExit} to="/learning-path" className="quiz__exit">
             <X size={15} strokeWidth={2.5} />
             Thoát
           </Link>
@@ -200,34 +187,12 @@ const QuizPage = () => {
         </div>
 
         <div className="quiz__prompt">
-          <span className="quiz__prompt-icon">
+          <button type="button" className="quiz__prompt-icon" aria-label="Hướng dẫn" aria-describedby="quiz-help">
             <MessageCircleQuestion size={19} strokeWidth={2} />
-          </span>
-          <p className="quiz__prompt-text">{question.prompt}</p>
+          </button>
+          <p id="quiz-help" role="tooltip" className="quiz__prompt-text">{question.prompt}</p>
         </div>
       </div>
-
-      {/* ===== SUBMITTED RESULT ===== */}
-      {submitted && (
-        <div className="quiz__result">
-          <span className="quiz__result-icon">
-            <Check size={20} strokeWidth={3} />
-          </span>
-          <div className="quiz__result-body">
-            <p className="quiz__result-title">Đã nộp bài kiểm tra!</p>
-            <p className="quiz__result-sub">
-              Bạn đã trả lời {answeredCount} / {TOTAL_QUESTIONS} câu hỏi.
-            </p>
-          </div>
-          <button
-            type="button"
-            className="quiz__result-reset"
-            onClick={handleReset}
-          >
-            Làm lại
-          </button>
-        </div>
-      )}
 
       {/* ===== MAIN GRID ===== */}
       <div className="quiz__grid">
@@ -248,11 +213,6 @@ const QuizPage = () => {
           <VideoPlayerFrame
             key={question.id}
             videoUrl={question.videoUrl}
-            thumbLabel={`Ký hiệu: ${question.target}`}
-            icon={TargetIcon && <TargetIcon size={44} strokeWidth={1.6} />}
-            duration={28}
-            initialTime={7}
-            speeds={[1, 1.25, 1.5, 2]}
             replayLabel="Phát lại"
             onPlayStateChange={setVideoPlaying}
           />
@@ -272,8 +232,14 @@ const QuizPage = () => {
                   type="button"
                   key={option.key}
                   className={`quiz-answer ${
-                    selected ? "quiz-answer--selected" : ""
+                    feedback[question.id] ? selected
+                      ? feedback[question.id].correct ? "quiz-answer--correct" : "quiz-answer--incorrect"
+                      : option.key === feedback[question.id].correctOptionId ? "quiz-answer--correct" : ""
+                      : pendingOption === option.key ? "quiz-answer--pending" : ""
                   }`}
+                  disabled={submitting || isAnswered(question)}
+                  aria-pressed={selected || pendingOption === option.key}
+                  aria-busy={pendingOption === option.key}
                   onClick={() => handleSelect(option.key)}
                 >
                   <span className="quiz-answer__badge">{option.key}</span>
@@ -285,11 +251,44 @@ const QuizPage = () => {
                   <div className="quiz-answer__body">
                     <span className="quiz-answer__title">{option.title}</span>
                     <span className="quiz-answer__desc">{option.desc}</span>
+                    {pendingOption === option.key && <span className="quiz-answer__verdict">Đang chấm…</span>}
+                    {selected && feedback[question.id] && (
+                      <span className="quiz-answer__verdict">
+                        {feedback[question.id].correct ? "✓ Chính xác" : "✕ Chưa đúng"}
+                      </span>
+                    )}
                   </div>
                 </button>
               );
             })}
           </div>
+          <div className="quiz-answers__actions">
+            <p id="quiz-next-hint" className="quiz-answers__feedback" role="status">
+              {submitting ? pendingOption ? "Đang chấm đáp án…" : "Đang lưu kết quả…"
+                : !isAnswered(question) ? "Chọn một đáp án để tiếp tục." : ""}
+            </p>
+            <div className="quiz-answers__buttons">
+            <button type="button" className="quiz__finish-early" disabled={submitting || current === 0} onClick={() => goToQuestion(current - 1)}>← Câu trước</button>
+            {!allAnswered && <button type="button" className="quiz__finish-early"
+              disabled={submitting} onClick={() => submitAnswers(answers, expired)}>
+              Nộp bài
+            </button>}
+            <button type="button" className="quiz__next"
+              aria-describedby={!isAnswered(question) ? "quiz-next-hint" : undefined}
+              disabled={submitting || !isAnswered(question)}
+              onClick={handleNext}>
+              {allAnswered ? "Xem kết quả" : current === TOTAL_QUESTIONS - 1
+                ? "Đến câu chưa trả lời" : "Câu tiếp theo →"}
+            </button>
+            </div>
+          </div>
+          {!allAnswered && <p className="quiz-answers__submit-note">Có thể nộp ngay. Câu chưa trả lời được tính là chưa đúng.</p>}
+          {error && <div className="quiz-answers__error" role="alert">
+            <p>{error.message}</p>
+            {expired || Object.keys(answers).length === TOTAL_QUESTIONS
+              ? <button type="button" disabled={submitting} onClick={() => submitAnswers(answers, expired)}>Thử lưu lại kết quả</button>
+              : <p>Vui lòng thử lại thao tác vừa thực hiện.</p>}
+          </div>}
         </section>
       </div>
 
@@ -308,7 +307,9 @@ const QuizPage = () => {
                     ? "quiz__dot--answered"
                     : ""
                 }`}
-                onClick={() => setCurrent(i)}
+                disabled={submitting}
+                aria-current={i === current ? "step" : undefined}
+                onClick={() => goToQuestion(i)}
                 aria-label={`Câu hỏi ${i + 1}`}
               >
                 {i + 1}
@@ -327,31 +328,16 @@ const QuizPage = () => {
             </span>
           </div>
         </div>
-
-        <div className="quiz__nav-actions">
-          {!submitted && !isLastQuestion && (
-            <button
-              type="button"
-              className="quiz__next"
-              onClick={handleNext}
-            >
-              Câu tiếp theo
-              <ArrowRight size={16} strokeWidth={2.4} />
-            </button>
-          )}
-
-          <button
-            type="button"
-            className="quiz__submit"
-            onClick={handleSubmit}
-          >
-            Nộp câu trả lời
-            <Check size={17} strokeWidth={2.6} />
-          </button>
-        </div>
       </div>
     </div>
   );
 };
 
-export default QuizPage;
+export default function QuizPage() {
+  const { quizId } = useParams();
+  const load = useCallback(() => learningApi.quiz(quizId), [quizId]);
+  const { data, error } = useApiResource(load);
+  if (!data || String(data.chapterId) !== quizId) return <ApiState error={error} />;
+  if (!data.questions?.length) return <p role="status">Bài kiểm tra đang được cập nhật.</p>;
+  return <QuizSession key={quizId} quiz={data} />;
+}

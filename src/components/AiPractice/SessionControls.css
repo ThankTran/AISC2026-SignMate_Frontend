@@ -10,7 +10,7 @@
 
 .session-ctrl__label {
   font-family: var(--font-family-main);
-  font-size: 11px;
+  font-size: var(--font-size-caption);
   font-weight: var(--font-weight-bold);
   color: var(--color-neutral-500, #888780);
   letter-spacing: 1.2px;

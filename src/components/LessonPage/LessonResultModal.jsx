@@ -1,3 +1,5 @@
+import {useProgress} from "../../hooks/useProgress";
+import Modal from "../ui/Modal";
 import {
   ArrowRight,
   Check,
@@ -9,53 +11,17 @@ import {
 
 import "./LessonResultModal.css";
 
-const DEFAULT_SUMMARY = {
-  label: "BÀI HỌC 12 · CHƯƠNG 3",
-  title: "Ngôn ngữ ký hiệu - Ký hiệu cơ bản",
-  score: 94,
-  xp: 50,
-  level: 3,
-  time: "02:15",
-  timeUnit: "phút",
-  timeNote: "Nhanh hơn TB 45s",
-  nextLesson: "Ký hiệu nâng cao",
-  breakdown: [
-    { label: "Chào hỏi", pct: 98 },
-    { label: "Số đếm", pct: 96 },
-    { label: "Màu sắc", pct: 89 },
-    { label: "Gia đình", pct: 92 },
-    { label: "Động từ", pct: 95 },
-  ],
-};
-
 const XP_SEGMENTS = 10;
 
-const LessonResultModal = ({ summary = {}, onClose, onRetake, onNext }) => {
-  const {
-    label = DEFAULT_SUMMARY.label,
-    title = DEFAULT_SUMMARY.title,
-    score = DEFAULT_SUMMARY.score,
-    xp = DEFAULT_SUMMARY.xp,
-    level = DEFAULT_SUMMARY.level,
-    time = DEFAULT_SUMMARY.time,
-    timeUnit = DEFAULT_SUMMARY.timeUnit,
-    timeNote = DEFAULT_SUMMARY.timeNote,
-    nextLesson = DEFAULT_SUMMARY.nextLesson,
-    breakdown = DEFAULT_SUMMARY.breakdown,
-  } = summary;
-
-  const xpFilled = Math.round((xp / 100) * XP_SEGMENTS);
+const LessonResultModal = ({ lessonId, summary = {}, onClose, onRetake, onNext }) => {
+ const progress=useProgress();const lesson=progress.lessons.find(row=>row.id===Number(lessonId));
+ const {score=0,xp=0,time='—',timeUnit='phút',timeNote='',breakdown=[]}=progress.lessonResults[lessonId]||summary;
+ const label=lesson?`BÀI HỌC ${lesson.id} · CHƯƠNG ${lesson.chapterId}`:'KẾT QUẢ BÀI HỌC';
+ const title=lesson?.title||'Bài học',level=progress.stats.xpLevel,nextLesson=progress.nextLesson?.title||'Ôn tập lộ trình';
+ const xpFilled=Math.floor((progress.stats.xp%1000)/1000*XP_SEGMENTS);
 
   return (
-    <div
-      className="lrm"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="lrm-title"
-    >
-      <div className="lrm__backdrop" onClick={onClose} />
-
-      <div className="lrm__card">
+    <Modal className="lrm__card" labelledBy="lrm-title" onClose={onClose}>
         {/* ===== HERO BANNER ===== */}
         <header className="lrm__hero">
           <button
@@ -72,7 +38,7 @@ const LessonResultModal = ({ summary = {}, onClose, onRetake, onNext }) => {
           </span>
 
           <span className="lrm__hero-tag">{label}</span>
-          <h2 className="lrm__hero-title" id="lrm-title">
+          <h2 className="lrm__hero-title text-h2" id="lrm-title">
             Hoàn thành bài học!
           </h2>
           <p className="lrm__hero-subtitle">{title}</p>
@@ -85,13 +51,13 @@ const LessonResultModal = ({ summary = {}, onClose, onRetake, onNext }) => {
             <span className="lrm-stat__flag">ĐẠT</span>
             <span className="lrm-stat__note">
               <Check size={14} strokeWidth={2.6} />
-              Độ chính xác AI
+              Độ chính xác
             </span>
           </div>
 
           <div className="lrm-stat lrm-stat--xp">
             <span className="lrm-stat__value">+{xp} XP</span>
-            <span className="lrm-stat__level">Lv {level}</span>
+            <span className="lrm-stat__level">Level {level}</span>
             <div className="lrm-xpbar" aria-hidden="true">
               {Array.from({ length: XP_SEGMENTS }).map((_, i) => (
                 <span
@@ -117,7 +83,7 @@ const LessonResultModal = ({ summary = {}, onClose, onRetake, onNext }) => {
         {/* ===== ACCURACY BREAKDOWN ===== */}
         <section className="lrm-breakdown">
           <div className="lrm-breakdown__head">
-            <h3 className="lrm-breakdown__title">
+            <h3 className="lrm-breakdown__title text-h3">
               Độ chính xác theo phần
             </h3>
             <span className="lrm-breakdown__count">{breakdown.length} phần</span>
@@ -179,8 +145,7 @@ const LessonResultModal = ({ summary = {}, onClose, onRetake, onNext }) => {
             </button>
           </div>
         </footer>
-      </div>
-    </div>
+    </Modal>
   );
 };
 

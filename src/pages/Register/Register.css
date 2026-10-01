@@ -11,16 +11,16 @@
 }
 
 .register-card h1 {
-  font-family: var(--font-family-display);
+  font-family: var(--font-family-main);
   font-weight: 700;
-  font-size: 22px;
+  font-size: var(--font-size-h1);
   margin: 0 0 4px;
   color: var(--color-neutral-900);
 }
 
 .register-subtitle {
   color: var(--color-neutral-500);
-  font-size: 13px;
+  font-size: max(14px, var(--font-size-caption));
   margin: 0 0 18px;
 }
 
@@ -31,7 +31,7 @@
 
 .register-field label {
   display: block;
-  font-size: 12px;
+  font-size: max(14px, var(--font-size-caption));
   font-weight: 600;
   margin-bottom: 5px;
   color: var(--color-neutral-900);
@@ -44,9 +44,9 @@
   padding: 10px 16px;
   border: 1px solid var(--color-neutral-200);
   border-radius: 999px;
-  font-size: 13px;
+  font-size: max(14px, var(--font-size-caption));
   font-family: var(--font-family-body);
-  outline: none;
+  outline: 2px solid transparent;
   transition: border-color .15s;
   background: #FFFFFF;
   color: var(--color-neutral-900);
@@ -69,8 +69,8 @@
 
 .register-error {
   color: var(--color-coral-700);
-  font-size: 12px;
-  margin: -6px 0 10px;
+  font-size: max(14px, var(--font-size-caption));
+  margin: 0 0 14px;
   text-align: left;
 }
 
@@ -81,7 +81,7 @@
   border: none;
   border-radius: 999px;
   padding: 13px;
-  font-size: 14px;
+  font-size: max(14px, var(--font-size-caption));
   font-weight: 700;
   cursor: pointer;
   margin-top: 4px;
@@ -96,7 +96,7 @@
   align-items: center;
   gap: 10px;
   color: var(--color-neutral-500);
-  font-size: 12px;
+  font-size: max(14px, var(--font-size-caption));
   margin: 16px 0;
 }
 .register-divider::before,
@@ -117,7 +117,7 @@
   border: 1px solid var(--color-neutral-200);
   border-radius: 999px;
   padding: 11px;
-  font-size: 13px;
+  font-size: max(14px, var(--font-size-caption));
   font-weight: 600;
   cursor: pointer;
   color: var(--color-neutral-900);
@@ -125,7 +125,7 @@
 .register-google-btn:hover { background: var(--color-neutral-100); }
 
 .register-terms {
-  font-size: 11px;
+  font-size: max(14px, var(--font-size-caption));
   line-height: 1.5;
   color: var(--color-neutral-500);
   margin-top: 14px;
@@ -137,7 +137,7 @@
 }
 
 .register-footnote {
-  font-size: 13px;
+  font-size: max(14px, var(--font-size-caption));
   color: var(--color-neutral-700);
   margin-top: 12px;
 }

@@ -4,19 +4,19 @@ const CIRCUMFERENCE = 2 * Math.PI * 54;
 const RADIUS = 54;
 
 const AiAnalyticsCard = ({ accuracy, stability, speed, posture, clarity, isActive }) => {
-  const dashOffset = CIRCUMFERENCE - (accuracy / 100) * CIRCUMFERENCE;
+  const dashOffset = CIRCUMFERENCE - ((accuracy ?? 0) / 100) * CIRCUMFERENCE;
 
   return (
     <div className="ai-analytics">
       {/* ---- Header ---- */}
       <div className="ai-analytics__header">
-        <h3 className="ai-analytics__title">
+        <h2 className="ai-analytics__title text-h2">
           AI Analytics - Phản hồi thời gian thực
-        </h3>
+        </h2>
         {isActive && (
           <span className="ai-analytics__live">
             <span className="ai-analytics__live-dot" />
-            LIVE
+            DEMO
           </span>
         )}
       </div>
@@ -47,7 +47,7 @@ const AiAnalyticsCard = ({ accuracy, stability, speed, posture, clarity, isActiv
             />
           </svg>
           <div className="ai-analytics__gauge-value">
-            <span className="ai-analytics__gauge-num">{accuracy}%</span>
+            <span className="ai-analytics__gauge-num">{accuracy == null ? "--" : `${accuracy}%`}</span>
             <span className="ai-analytics__gauge-label">Độ chính xác</span>
           </div>
         </div>
@@ -56,19 +56,19 @@ const AiAnalyticsCard = ({ accuracy, stability, speed, posture, clarity, isActiv
       {/* ---- Metrics Grid ---- */}
       <div className="ai-analytics__metrics">
         <div className="ai-analytics__metric">
-          <span className="ai-analytics__metric-val">{stability}%</span>
+          <span className="ai-analytics__metric-val">{stability == null ? "--" : `${stability}%`}</span>
           <span className="ai-analytics__metric-label">Độ ổn định</span>
         </div>
         <div className="ai-analytics__metric">
-          <span className="ai-analytics__metric-val">{speed}s</span>
+          <span className="ai-analytics__metric-val">{speed == null ? "--" : `${speed}s`}</span>
           <span className="ai-analytics__metric-label">Tốc độ</span>
         </div>
         <div className="ai-analytics__metric">
-          <span className="ai-analytics__metric-val">{posture}%</span>
+          <span className="ai-analytics__metric-val">{posture == null ? "--" : `${posture}%`}</span>
           <span className="ai-analytics__metric-label">Tư thế</span>
         </div>
         <div className="ai-analytics__metric">
-          <span className="ai-analytics__metric-val">{clarity}%</span>
+          <span className="ai-analytics__metric-val">{clarity == null ? "--" : `${clarity}%`}</span>
           <span className="ai-analytics__metric-label">Độ rõ ràng</span>
         </div>
       </div>

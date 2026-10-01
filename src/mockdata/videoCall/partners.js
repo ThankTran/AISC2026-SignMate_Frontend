@@ -9,7 +9,7 @@ export const demoPartners = [
     rating: 4.8,
     friends: 12,
     avatar: "https://i.pravatar.cc/300?img=47",
-    bio: "Mình đang học NNKH để giao tiếp tốt hơn với em gái khiếm thính. Rất mong được cùng bạn luyện tập mỗi ngày!",
+    bio: "Mình đang học ngôn ngữ ký hiệu để giao tiếp tốt hơn với em gái khiếm thính. Rất mong được cùng bạn luyện tập mỗi ngày!",
   },
   {
     id: "minh-anh",
@@ -21,7 +21,7 @@ export const demoPartners = [
     rating: 4.8,
     friends: 12,
     avatar: "https://i.pravatar.cc/300?img=49",
-    bio: "Mình đang học NNKH để giao tiếp tốt hơn với em gái khiếm thính. Rất mong được cùng bạn luyện tập mỗi ngày!",
+    bio: "Mình đang học ngôn ngữ ký hiệu để giao tiếp tốt hơn với em gái khiếm thính. Rất mong được cùng bạn luyện tập mỗi ngày!",
   },
 ];
 export const initialChatMessages = [

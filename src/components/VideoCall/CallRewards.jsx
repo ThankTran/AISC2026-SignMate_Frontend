@@ -1,9 +1,11 @@
+import AddFriendButton from "../Friends/AddFriendButton";
+import { VIDEO_DEMO } from "../../services/videoCall/config";
 import { ArrowRight, Check, Users, Trophy, Home, Heart } from "lucide-react";
 import { Link } from "react-router-dom";
 import CallButton from "./CallButton";
 import { demoRewards as rewards } from "../../mockdata/videoCall/review";
 
-export default function CallRewards({ onContinue }) {
+export default function CallRewards({ onContinue, partner }) {
   const progress = Math.round((rewards.currentXp / rewards.nextLevelXp) * 100);
   return (
     <section className="vc-centered vc-thanks vc-enter">
@@ -15,11 +17,11 @@ export default function CallRewards({ onContinue }) {
           <i key={i} style={{ "--i": i }} />
         ))}
       </div>
-      <h1>Cảm ơn bạn đã đánh giá!</h1>
+      <h1 className="text-h1">Cảm ơn bạn đã đánh giá!</h1>
       <p>
         Mỗi kết nối đều có ý nghĩa.
         <br />
-        Cảm ơn bạn đã cùng xây dựng cộng đồng SignConnect.
+        Cảm ơn bạn đã cùng xây dựng cộng đồng SignMate.
       </p>
       <div className="vc-panel vc-rewards">
         <div className="vc-section-title">
@@ -27,8 +29,8 @@ export default function CallRewards({ onContinue }) {
             <Trophy size={22} />
           </span>
           <div>
-            <h2>Một buổi học, nhiều niềm vui</h2>
-            <p>Thành tích của bạn trong phiên demo</p>
+            <h2 className="text-h2">Một buổi học, nhiều niềm vui</h2>
+            <p>{VIDEO_DEMO ? "Thành tích của bạn trong phiên demo" : "Tổng kết phiên luyện tập"}</p>
           </div>
         </div>
         <div className="vc-reward-grid">
@@ -48,7 +50,7 @@ export default function CallRewards({ onContinue }) {
           </div>
         </div>
         <div className="vc-level">
-          <strong>Cấp độ {rewards.level}</strong>
+          <strong>Level {rewards.level}</strong>
           <small>
             {rewards.currentXp.toLocaleString("vi-VN")} /{" "}
             {rewards.nextLevelXp.toLocaleString("vi-VN")} XP ({progress}%)
@@ -57,7 +59,7 @@ export default function CallRewards({ onContinue }) {
         <div
           className="vc-progress"
           role="progressbar"
-          aria-label={`Tiến độ cấp độ ${rewards.level + 1}`}
+          aria-label={`Tiến độ Level ${rewards.level + 1}`}
           aria-valuenow={rewards.currentXp}
           aria-valuemin={0}
           aria-valuemax={rewards.nextLevelXp}
@@ -67,11 +69,12 @@ export default function CallRewards({ onContinue }) {
         <p>
           Bạn chỉ còn{" "}
           <strong>{rewards.nextLevelXp - rewards.currentXp} XP</strong> nữa để
-          đạt Cấp độ {rewards.level + 1}!
+          đạt Level {rewards.level + 1}!
         </p>
       </div>
+      <AddFriendButton person={partner} />
       <div className="vc-actions">
-        <Link className="vc-button vc-secondary" to="/">
+        <Link className="vc-button vc-secondary" to="/dashboard">
           <Home size={16} /> Về trang chủ
         </Link>
         <CallButton onClick={onContinue}>

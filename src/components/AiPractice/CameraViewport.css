@@ -30,7 +30,7 @@
   padding: 5px 12px;
   border-radius: 999px;
   font-family: var(--font-family-body);
-  font-size: 12px;
+  font-size: var(--font-size-caption);
   font-weight: var(--font-weight-semibold);
   color: #fff;
   backdrop-filter: blur(6px);
@@ -177,15 +177,19 @@
   justify-content: center;
   background: rgba(18, 19, 28, 0.55);
   animation: cam-countdown-fade 0.9s ease-out;
+
+  font-family: var(--font-family-mono);
 }
 
 .cam-viewport__countdown-num {
-  font-family: var(--font-family-mono);
+
   font-size: 120px;
   font-weight: var(--font-weight-bold);
   color: #fff;
   text-shadow: 0 0 40px rgba(127, 119, 221, 0.7), 0 0 80px rgba(127, 119, 221, 0.3);
   animation: cam-countdown-pop 0.9s ease-out;
+
+  font-family: var(--font-family-mono);
 }
 
 @keyframes cam-countdown-pop {
@@ -315,7 +319,7 @@
 
 .cam-viewport__conf-label {
   font-family: var(--font-family-mono);
-  font-size: 11px;
+  font-size: var(--font-size-caption);
   font-weight: var(--font-weight-bold);
   color: rgba(255, 255, 255, 0.5);
   letter-spacing: 0.5px;
@@ -330,7 +334,7 @@
 
 .cam-viewport__conf-value {
   font-family: var(--font-family-mono);
-  font-size: 12px;
+  font-size: var(--font-size-caption);
   font-weight: var(--font-weight-bold);
   color: rgba(255, 255, 255, 0.7);
 }
@@ -348,7 +352,9 @@
 
   .cam-viewport__countdown-num {
     font-size: 80px;
-  }
+
+  font-family: var(--font-family-mono);
+}
 
   .cam-viewport__badges-top {
     top: 10px;
@@ -358,6 +364,6 @@
 
   .cam-viewport__badge {
     padding: 4px 9px;
-    font-size: 11px;
+    font-size: var(--font-size-caption);
   }
 }

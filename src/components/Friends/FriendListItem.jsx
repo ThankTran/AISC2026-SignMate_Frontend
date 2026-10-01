@@ -36,7 +36,7 @@ const FriendListItem = ({ friend, onSchedule, onCall }) => {
       <div className="friend-item__actions">
         <button
           type="button"
-          className="friend-item__schedule-btn"
+          className="friend-item__schedule-btn" aria-label={`Hẹn lịch với ${friend.name}`}
           onClick={() => onSchedule?.(friend)}
         >
           <Calendar size={14} strokeWidth={1.8} />
@@ -47,7 +47,8 @@ const FriendListItem = ({ friend, onSchedule, onCall }) => {
           type="button"
           className="friend-item__call-btn"
           aria-label={`Gọi video cho ${friend.name}`}
-          title={`Gọi video cho ${friend.name}`}
+          title={friend.isOnline ? `Gọi video cho ${friend.name}` : "Đang offline, hãy hẹn lịch"}
+          disabled={!friend.isOnline}
           onClick={() => onCall?.(friend)}
         >
           <Video size={16} strokeWidth={1.8} />

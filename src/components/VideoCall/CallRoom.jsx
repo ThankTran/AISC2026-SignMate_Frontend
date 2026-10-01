@@ -1,3 +1,5 @@
+import { useConfirm } from "../../hooks/useConfirm";
+import { VIDEO_DEMO } from "../../services/videoCall/config";
 import { useEffect, useRef, useState } from "react";
 import {
   Hand,
@@ -25,8 +27,11 @@ export default function CallRoom({
   onEndCall,
   onSafetyAction,
   onNotice,
+  mediaOptions,
 }) {
-  const [chatOpen, setChatOpen] = useState(true);
+  const confirm = useConfirm();
+  const [chatOpen, setChatOpen] = useState(() => window.innerWidth > 768);
+  const [readMessages, setReadMessages] = useState(0);
   const [splitView, setSplitView] = useState(false);
   const [reactions, setReactions] = useState([]);
   const reactionId = useRef(0);
@@ -47,14 +52,14 @@ export default function CallRoom({
     }, 2000);
     reactionTimers.current.add(timer);
   }
-  const { mic, camera, previewRef, toggleMedia } = useLocalMedia(onNotice);
+  const { mic, camera, previewRef, toggleMedia } = useLocalMedia(onNotice, mediaOptions);
   const { messages, sendMessage } = useCallChat(duration);
   return (
     <section className={`vc-call vc-enter${splitView ? " vc-call--split" : ""}`}>
       <div className="vc-call-backdrop">
         <ParticipantAvatar person={partner} className="vc-remote-avatar" />
-        <h1>{partner.name}</h1>
-        <span>Phòng luyện tập demo</span>
+        <h1 className="text-h1">{partner.name}</h1>
+        <span>{VIDEO_DEMO ? "Phòng luyện tập demo" : "Phòng luyện tập"}</span>
         <p>
           Camera của đối tác sẽ hiển thị tại đây khi kết nối dịch vụ gọi video.
         </p>
@@ -70,9 +75,9 @@ export default function CallRoom({
             <Hand size={24} />
           </span>
           <div>
-            <strong>SignConnect</strong>
+            <strong>SignMate</strong>
             <small>
-              <i /> Phiên demo · {formatTime(duration)}
+              <i /> {VIDEO_DEMO ? "Phiên demo · " : ""}{formatTime(duration)}
             </small>
           </div>
         </div>
@@ -120,7 +125,7 @@ export default function CallRoom({
           partner={partner}
           messages={messages}
           onSend={sendMessage}
-          onClose={() => setChatOpen(false)}
+          onClose={() => { setReadMessages(messages.length); setChatOpen(false); }}
         />
       )}
       {reactions.map((reaction) => (
@@ -135,14 +140,10 @@ export default function CallRoom({
         chatOpen={chatOpen}
         onToggleMic={() => toggleMedia("audio")}
         onToggleCamera={() => toggleMedia("video")}
-        onToggleChat={() => setChatOpen((open) => !open)}
-        onShareScreen={() =>
-          onNotice(
-            "Chia sẻ màn hình sẽ khả dụng khi kết nối dịch vụ gọi video.",
-          )
-        }
+        unreadCount={chatOpen ? 0 : Math.max(0, messages.length - readMessages)}
+        onToggleChat={() => { setReadMessages(messages.length); setChatOpen((open) => !open); }}
         onReact={sendReaction}
-        onEndCall={onEndCall}
+        onEndCall={async () => { if (await confirm({title:"Kết thúc cuộc gọi?",message:"Bạn sẽ chuyển đến phần đánh giá buổi luyện tập.",confirmLabel:"Kết thúc"})) onEndCall(); }}
       />
       <div className="vc-call-safety">
         <button

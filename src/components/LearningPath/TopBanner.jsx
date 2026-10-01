@@ -2,13 +2,13 @@ import { Hand } from "lucide-react";
 
 import "./TopBanner.css";
 
-const TopBanner = () => {
+const TopBanner = ({totalLessons = 0}) => {
   return (
     <div className="lp-banner">
       <div className="lp-banner__content">
         <div className="lp-banner__left">
           <span className="lp-banner__tag">ĐANG HỌC</span>
-          <h1 className="lp-banner__title">
+          <h1 className="lp-banner__title text-h1">
             Nền tảng Ngôn ngữ Ký hiệu Việt Nam
           </h1>
           <p className="lp-banner__subtitle">
@@ -20,7 +20,7 @@ const TopBanner = () => {
           <div className="lp-banner__icon-circle">
             <Hand size={32} strokeWidth={1.8} />
           </div>
-          <span className="lp-banner__badge">6 bài học</span>
+          <span className="lp-banner__badge">{totalLessons} bài học</span>
         </div>
       </div>
     </div>

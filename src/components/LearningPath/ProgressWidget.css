@@ -13,8 +13,8 @@
 }
 
 .lp-progress__title {
-  font-family: var(--font-family-mono);
-  font-size: 12px;
+  font-family: var(--font-family-main);
+  font-size: var(--font-size-h3);
   font-weight: 700;
   letter-spacing: 0.06em;
   color: var(--color-neutral-500);
@@ -29,7 +29,7 @@
   background: var(--color-teal-50);
   color: var(--color-teal-700);
   font-family: var(--font-family-body);
-  font-size: 12px;
+  font-size: var(--font-size-caption);
   font-weight: 700;
 }
 
@@ -62,16 +62,18 @@
 }
 
 .lp-progress__donut-pct {
-  font-family: var(--font-family-mono);
+
   font-size: 28px;
   font-weight: 800;
   color: var(--color-neutral-900);
   line-height: 1;
+
+  font-family: var(--font-family-mono);
 }
 
 .lp-progress__donut-sub {
   font-family: var(--font-family-body);
-  font-size: 12px;
+  font-size: var(--font-size-caption);
   color: var(--color-neutral-500);
 }
 
@@ -131,15 +133,17 @@
 }
 
 .lp-stat__value {
-  font-family: var(--font-family-mono);
+
   font-size: 14px;
   font-weight: 700;
   color: var(--color-neutral-900);
+
+  font-family: var(--font-family-mono);
 }
 
 .lp-stat__label {
   font-family: var(--font-family-body);
-  font-size: 11px;
+  font-size: var(--font-size-caption);
   color: var(--color-neutral-500);
 }
 
@@ -147,7 +151,7 @@
    RESPONSIVE
    ========================================================= */
 
-@media (max-width: 1100px) {
+@media (max-width: 1024px) {
   .lp-progress {
     padding: 18px;
   }

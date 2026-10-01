@@ -1,4 +1,7 @@
-import { Routes, Route } from "react-router-dom";
+import {ForgotPassword,ResetPassword,VerifyEmail,Level,Onboarding,AuthAction} from "../pages/AccountSetup/AccountSetup";
+import InfoPage from "../pages/InfoPage";
+import NotFoundPage from "../pages/NotFoundPage";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 import MainLayout from "../layouts/MainLayout/MainLayout";
 import ProtectedRoute from "./ProtectedRoute";
@@ -19,7 +22,9 @@ import QuizRouteGuard from "../pages/QuizPage/QuizRouteGuard";
 import QuizResultPage from "../pages/QuizResultPage/QuizResultPage";
 import AiPracticePage from "../pages/AiPracticePage/AiPracticePage";
 import LeaderboardPage from "../pages/LeaderboardPage/LeaderboardPage";
-import FriendsPage from "../pages/Friends/FriendsPage";
+import FriendListPage from "../pages/Friends/FriendListPage";
+import FriendRequestsPage from "../pages/Friends/FriendRequestsPage";
+import VideoCallInvitesPage from "../pages/Friends/VideoCallInvitesPage";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Profile from "../pages/Profile/Profile";
 import Stats from "../pages/Stats/Stats";
@@ -47,20 +52,13 @@ export default function AppRoutes() {
           </PublicOnlyRoute>
         }
       />
-      {/* <Route path="/verify-email" element={<VerifyEmail />} /> */}
-      {/* <Route path="/forgot-password" element={<ForgotPassword />} /> */}
-      {/* <Route path="/reset-password" element={<ResetPassword />} /> */}
-
-      {/* ---------- Cần đăng nhập, không sidebar ---------- */}
-      {/* <Route
-        path="/level"
-        element={
-          <ProtectedRoute>
-            <Level />
-          </ProtectedRoute>
-        }
-      /> */}
-
+      <Route path="/forgot-password" element={<ForgotPassword/>}/>
+      <Route path="/reset-password" element={<ResetPassword/>}/>
+      <Route path="/verify-email" element={<VerifyEmail/>}/>
+      <Route path="/auth/action" element={<AuthAction/>}/>
+      <Route path="/level" element={<ProtectedRoute setup><Level/></ProtectedRoute>}/>
+      <Route path="/onboarding" element={<ProtectedRoute setup><Onboarding/></ProtectedRoute>}/>
+      {['faq','terms','privacy','contact'].map(page=><Route key={page} path={`/${page}`} element={<InfoPage page={page}/>}/>)}
       {/* ---------- Cần đăng nhập, có sidebar (MainLayout) ---------- */}
       <Route
         element={
@@ -84,18 +82,16 @@ export default function AppRoutes() {
         <Route path="/practice-ai" element={<AiPracticePage />} />
         <Route path="/ranking" element={<LeaderboardPage />} />
         <Route path="/video" element={<VideoCallPage />} />
-        <Route path="/video-call" element={<VideoCallPage />} />
-        <Route path="/friends" element={<FriendsPage />} />
-        <Route path="/friends/list" element={<FriendsPage />} />
-        <Route path="/friends/friend-requests" element={<FriendsPage />} />
-        <Route path="/friends/video-call-invites" element={<FriendsPage />} />
+        <Route path="/video-call" element={<Navigate to="/video" replace />} />
+        <Route path="/friends" element={<Navigate to="/friends/list" replace />} />
+        <Route path="/friends/list" element={<FriendListPage />} />
+        <Route path="/friends/friend-requests" element={<FriendRequestsPage />} />
+        <Route path="/friends/video-call-invites" element={<VideoCallInvitesPage />} />
         <Route path="/account/profile" element={<Profile />} />
         <Route path="/account/stats" element={<Stats />} />
-        <Route
-          path="*"
-          element={<div style={{ padding: "40px" }}>OK NHA</div>}
-        />
+
       </Route>
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 }

@@ -1,3 +1,4 @@
+import { VIDEO_DEMO } from "../../services/videoCall/config";
 import { useState } from "react";
 import { ArrowRight, Check, Sparkles, Star, Flag, Ban } from "lucide-react";
 import ParticipantAvatar from "./ParticipantAvatar";
@@ -29,7 +30,7 @@ export default function CallReview({
       <span className="vc-success-pill">
         <Check size={14} /> Cuộc gọi kết thúc · {formatTime(duration)}
       </span>
-      <h1>
+      <h1 className="text-h1">
         Mỗi lời góp ý,
         <br />
         một bước tiến bộ.
@@ -43,7 +44,7 @@ export default function CallReview({
         <ParticipantAvatar person={partner} />
         <div>
           <strong>{partner.name}</strong>
-          <small>Người nghe · NNKH cơ bản</small>
+          <small>Người nghe · ngôn ngữ ký hiệu cơ bản</small>
           <span>{selected[0]}</span>
         </div>
         <div className="vc-review-duration">
@@ -52,7 +53,7 @@ export default function CallReview({
         </div>
       </div>
       <div className="vc-panel vc-rating">
-        <h2>Bạn cảm thấy buổi trò chuyện này thế nào?</h2>
+        <h2 className="text-h2">Bạn cảm thấy buổi trò chuyện này thế nào?</h2>
         <div className="vc-stars" onMouseLeave={() => setHoverRating(0)}>
           {[1, 2, 3, 4, 5].map((n) => (
             <button
@@ -78,7 +79,7 @@ export default function CallReview({
       {rating > 0 && (
         <div className="vc-review-extra vc-enter">
           <div className="vc-panel">
-            <h3>Điều gì nổi bật nhất?</h3>
+            <h3 className="text-h3">Điều gì nổi bật nhất?</h3>
             <div className="vc-feedback-tags">
               {highlights.map((t) => (
                 <button
@@ -124,7 +125,7 @@ export default function CallReview({
         Gửi đánh giá <ArrowRight size={18} />
       </CallButton>
       <small className="vc-local-note">
-        Đánh giá demo được lưu trong phiên trình duyệt này.
+        {VIDEO_DEMO ? "Đánh giá demo được lưu trong phiên trình duyệt này." : "Đánh giá được lưu trên trình duyệt này."}
       </small>
     </section>
   );

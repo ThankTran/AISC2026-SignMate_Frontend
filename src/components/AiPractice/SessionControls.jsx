@@ -1,15 +1,13 @@
-import { Camera, CameraOff, Mic, MicOff, Square } from "lucide-react";
+import { Camera, CameraOff, Square } from "lucide-react";
 
 import "./SessionControls.css";
 
 const SessionControls = ({
   phase,
   onToggleCamera,
-  onToggleMic,
   onStart,
   onStop,
   cameraOn,
-  micOn,
 }) => {
   const isRunning = phase === "recording" || phase === "countdown";
 
@@ -39,25 +37,7 @@ const SessionControls = ({
           {cameraOn ? "On" : "Off"}
         </button>
 
-        <button
-          type="button"
-          className={`session-ctrl__toggle ${
-            micOn ? "session-ctrl__toggle--active" : "session-ctrl__toggle--off"
-          }`}
-          onClick={onToggleMic}
-          aria-label={micOn ? "Tắt mic" : "Bật mic"}
-        >
-          {micOn ? (
-            <Mic size={16} strokeWidth={2} />
-          ) : (
-            <MicOff
-              size={16}
-              strokeWidth={2}
-              className="session-ctrl__toggle-off-ic"
-            />
-          )}
-          Mic {micOn ? "On" : "Off"}
-        </button>
+
       </div>
 
       {/* ---- Primary action ---- */}

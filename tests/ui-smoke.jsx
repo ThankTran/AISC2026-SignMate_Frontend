@@ -1,0 +1,40 @@
+import TestProgress from './TestProgress';
+import {act,useState} from 'react';
+import {createRoot} from 'react-dom/client';
+import {MemoryRouter} from 'react-router-dom';
+import Modal from '../src/components/ui/Modal';
+import {ConfirmProvider} from '../src/components/ui/ConfirmDialog';
+import {ToastProvider} from '../src/components/ui/ToastProvider';
+import {useToast} from '../src/hooks/useToast';
+import {useConfirm} from '../src/hooks/useConfirm';
+import SidebarItem from '../src/components/Sidebar/SidebarItem';
+import {FriendsProvider} from '../src/contexts/FriendsContext';
+import HeaderNotification from '../src/components/Header/HeaderNotification';
+import FormField from '../src/components/ui/FormField';
+import '../src/index.css';
+import '../src/components/Sidebar/Sidebar.css';
+import '../src/components/Header/Header.css';
+globalThis.IS_REACT_ACT_ENVIRONMENT=true;
+function Fixture(){const [open,setOpen]=useState(false),[value,setValue]=useState(0),[accepted,setAccepted]=useState('');const toast=useToast(),confirm=useConfirm();return <main style={{padding:24}}><h1 className="text-h1">Shared UI verification</h1><h2 className="text-h2">Section heading</h2><button id="launch" onClick={()=>setOpen(true)}>Open modal</button><button id="confirm" onClick={async()=>setAccepted(String(await confirm({title:'Confirm action',message:'Continue?'})))}>Confirm</button><span id="accepted">{accepted}</span><button id="toast" onClick={()=>{setValue(1);toast({type:'success',message:'Saved',undo:()=>setValue(0)});}}>Toast undo</button><span id="value">{value}</span><Modal open={open} onClose={()=>setOpen(false)} labelledBy="test-title"><h2 id="test-title">Modal</h2><input id="first" aria-label="First"/><button id="last" onClick={()=>setOpen(false)}>Close</button></Modal><div style={{width:64}}><SidebarItem collapsed item={{label:'Friends',icon:'users',children:[{label:'Invites',path:'/friends/friend-requests'}]}}/></div><HeaderNotification notifications={[{id:1,title:'Video call',read:false}]}/><FormField id="password" label="Password" type="password" error="Required" value="" onChange={()=>{}}/></main>;}
+const root=createRoot(document.getElementById('root'));
+const results=[];
+const check=(name,ok)=>{results.push(`${ok?'PASS':'FAIL'} ${name}`);document.getElementById('results').textContent=results.join('\n');if(!ok)throw Error(name);};
+const click=async el=>{await act(async()=>el.click());};
+const key=async(key,shiftKey=false)=>{await act(async()=>document.activeElement.dispatchEvent(new KeyboardEvent('keydown',{key,shiftKey,bubbles:true})));};
+try{
+ await act(async()=>root.render(<MemoryRouter><TestProgress><FriendsProvider><ToastProvider><ConfirmProvider><Fixture/></ConfirmProvider></ToastProvider></FriendsProvider></TestProgress></MemoryRouter>));
+ document.getElementById('launch').focus();await click(document.getElementById('launch'));
+ check('portal and aria-modal',!!document.querySelector('body > .ui-modal-backdrop [aria-modal="true"]'));
+ check('background inert and scroll lock',document.getElementById('root').inert && document.body.style.overflow==='hidden');
+ check('initial focus',document.activeElement.id==='first');await key('Tab',true);check('reverse focus trap',document.activeElement.id==='last');await key('Tab');check('forward focus trap',document.activeElement.id==='first');await key('Escape');
+ check('Escape closes and restores focus',!document.querySelector('[aria-modal="true"]')&&document.activeElement.id==='launch'&&!document.getElementById('root').inert);
+ await click(document.getElementById('launch'));await click(document.querySelector('.ui-modal-backdrop'));check('outside click closes',!document.querySelector('[aria-modal="true"]'));
+ await click(document.getElementById('confirm'));await key('Escape');check('cancel resolves false',document.getElementById('accepted').textContent==='false');
+ await click(document.getElementById('toast'));check('toast live region',!!document.querySelector('.ui-toasts[aria-live]'));await click([...document.querySelectorAll('.ui-toast button')].find(b=>b.textContent==='Hoàn tác'));check('undo restores value',document.getElementById('value').textContent==='0');
+ const parent=document.querySelector('.sidebar-item--parent');await click(parent);check('collapsed submenu and controls',!!document.getElementById(parent.getAttribute('aria-controls')));document.querySelector('.sidebar-flyout a').focus();await key('Escape');check('flyout Escape returns focus',document.activeElement===parent&&!document.querySelector('.sidebar-flyout'));
+ await click(document.querySelector('[aria-label="Hiện mật khẩu"]'));check('password toggle semantics',document.getElementById('password').type==='text'&&!!document.querySelector('[aria-label="Ẩn mật khẩu"][aria-pressed="true"]'));
+ check('field error association',document.getElementById('password').getAttribute('aria-describedby')==='password-error');
+ check('H1 desktop/mobile scale',getComputedStyle(document.querySelector('h1')).fontSize===(innerWidth<=768?'24px':'32px'));
+ check('H2 desktop/mobile scale',getComputedStyle(document.querySelector('h2')).fontSize===(innerWidth<=768?'20px':'24px'));
+ document.title='PASS — Shared UI verification';
+}catch(error){document.title='FAIL — Shared UI verification';document.getElementById('results').textContent+='\n'+error.stack;}

@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 
 /* Tự động cuộn lên đầu trang (Khung Main) mỗi khi chuyển Route */
 const ScrollToTop = () => {
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
 
   useEffect(() => {
     const mainEl = document.querySelector(".main-layout__body");
@@ -11,7 +11,7 @@ const ScrollToTop = () => {
       mainEl.scrollTo({ top: 0, behavior: "instant" });
     }
     window.scrollTo(0, 0);
-  }, [pathname]);
+  }, [pathname, search]);
 
   return null;
 };

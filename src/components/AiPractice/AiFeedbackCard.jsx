@@ -9,7 +9,7 @@ const AiFeedbackCard = ({ feedback }) => {
         <span className="ai-feedback__icon">
           <Star size={16} strokeWidth={2} />
         </span>
-        <h4 className="ai-feedback__title">Nhận xét của AI</h4>
+        <h2 className="ai-feedback__title text-h2">Nhận xét của AI</h2>
       </div>
       <p className="ai-feedback__text">{feedback}</p>
     </div>

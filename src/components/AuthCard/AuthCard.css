@@ -7,8 +7,8 @@
   padding: 36px 32px;
 }
 .auth-card h1 {
-  font-family: var(--font-family-display);
-  font-size: 24px;
+  font-family: var(--font-family-main);
+  font-size: var(--font-size-h1);
   margin: 0 0 4px;
   color: var(--color-neutral-900);
 }
@@ -33,7 +33,7 @@
   border-radius: 10px;
   font-size: 14px;
   font-family: var(--font-family-body);
-  outline: none;
+  outline: 2px solid transparent;
   transition: border-color .15s;
 }
 .field input:focus { border-color: var(--color-teal-500); }
@@ -46,7 +46,7 @@
   display: inline-flex;
   align-items: center;
 }
-.field-error { color: var(--color-coral-700); font-size: 12px; margin-top: 4px; }
+.field-error { color: var(--color-coral-700); font-size: var(--font-size-caption); margin-top: 4px; }
 
 .btn-primary {
   width: 100%;

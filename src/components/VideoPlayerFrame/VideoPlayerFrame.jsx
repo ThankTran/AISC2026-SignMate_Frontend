@@ -1,304 +1,45 @@
-import { useEffect, useRef, useState } from "react";
-
-import {
-  Clock,
-  Hand,
-  Pause,
-  Play,
-  RotateCcw,
-} from "lucide-react";
-
-import "./VideoPlayerFrame.css";
-
-const DEFAULT_DURATION = 28;
-const DEFAULT_INITIAL_TIME = 7;
-const DEFAULT_SPEEDS = [0.5, 1, 1.5];
-
-const formatTime = (s) => {
-  const m = Math.floor(s / 60);
-  const sec = Math.floor(s % 60);
-  return `${m}:${String(sec).padStart(2, "0")}`;
-};
-
-const VideoPlayerFrame = ({
-  videoUrl,
-  thumbLabel = "Ký hiệu: Lời chào",
-  icon = <Hand size={44} strokeWidth={1.6} />,
-  duration = DEFAULT_DURATION,
-  initialTime = DEFAULT_INITIAL_TIME,
-  speeds = DEFAULT_SPEEDS,
-  slowMo = false,
-  replayLabel = "Xem lại",
-  onPlayStateChange,
-}) => {
+import { useRef, useState } from 'react';
+import { Hand, Pause, Play, RotateCcw, LoaderCircle } from 'lucide-react';
+import './VideoPlayerFrame.css';
+const formatTime = (value) => `${Math.floor(value / 60)}:${String(Math.floor(value % 60)).padStart(2, '0')}`;
+function VideoSource({ videoUrl, poster, loop = false, muted = true, slowMo = false, onPlayStateChange }) {
+  const video = useRef(null);
+  const [playing, setPlaying] = useState(false);
+  const [loading, setLoading] = useState(Boolean(videoUrl));
+  const [error, setError] = useState(false);
+  const [ended, setEnded] = useState(false);
+  const [duration, setDuration] = useState(0);
+  const [time, setTime] = useState(0);
   const [speed, setSpeed] = useState(1);
-  const [slowmo, setSlowmo] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTime, setCurrentTime] = useState(initialTime);
-  const [replaySpin, setReplaySpin] = useState(0);
-  const [showReplayToast, setShowReplayToast] = useState(false);
-  const [seekTooltip, setSeekTooltip] = useState(null);
-  const [dragging, setDragging] = useState(false);
-  const [hovering, setHovering] = useState(false);
-
-  const seekBarRef = useRef(null);
-  const toastTimer = useRef(null);
-  const hoverIgnoreUntil = useRef(0);
-
-  const progressPct = (currentTime / duration) * 100;
-  const ended = currentTime >= duration;
-
-  useEffect(() => {
-    onPlayStateChange?.(isPlaying);
-  }, [isPlaying, onPlayStateChange]);
-
-  useEffect(
-    () => () => {
-      if (toastTimer.current) clearTimeout(toastTimer.current);
-    },
-    []
-  );
-
-  useEffect(() => {
-    if (!isPlaying) return undefined;
-    const t = setInterval(() => {
-      setCurrentTime((prev) => {
-        const next = prev + 0.25;
-        return next >= duration ? duration : next;
-      });
-    }, 250);
-    return () => clearInterval(t);
-  }, [isPlaying, duration]);
-
-  const centerVisible = !isPlaying || hovering;
-
-  const handlePlayerMouseMove = () => {
-    if (!isPlaying) return;
-    if (Date.now() < hoverIgnoreUntil.current) return;
-    setHovering(true);
-  };
-
-  const handlePlayerMouseLeave = () => {
-    setHovering(false);
-  };
-
-  const handlePlayPause = () => {
-    if (ended) {
-      setCurrentTime(0);
-      setIsPlaying(true);
-      setHovering(false);
-      hoverIgnoreUntil.current = Date.now() + 700;
-      return;
-    }
-    if (isPlaying) {
-      setIsPlaying(false);
-    } else {
-      setIsPlaying(true);
-      setHovering(false);
-      hoverIgnoreUntil.current = Date.now() + 700;
-    }
-  };
-
-  const handleReplay = () => {
-    setCurrentTime(0);
-    setIsPlaying(true);
-    setHovering(false);
-    hoverIgnoreUntil.current = Date.now() + 700;
-    setReplaySpin((k) => k + 1);
-
-    if (toastTimer.current) clearTimeout(toastTimer.current);
-    setShowReplayToast(true);
-    toastTimer.current = setTimeout(() => {
-      setShowReplayToast(false);
-    }, 2200);
-  };
-
-  const seekFromClientX = (clientX) => {
-    const rect = seekBarRef.current.getBoundingClientRect();
-    const ratio = Math.min(
-      1,
-      Math.max(0, (clientX - rect.left) / rect.width)
-    );
-    return { x: ratio * 100, time: ratio * duration };
-  };
-
-  const handleSeekMouseMove = (e) => {
-    const { x, time } = seekFromClientX(e.clientX);
-    setSeekTooltip({ x, time });
-    if (dragging) setCurrentTime(time);
-  };
-
-  const handleSeekMouseEnter = (e) => {
-    const { x, time } = seekFromClientX(e.clientX);
-    setSeekTooltip({ x, time });
-  };
-
-  const handleSeekMouseLeave = () => {
-    if (!dragging) setSeekTooltip(null);
-  };
-
-  const handleSeekPointerDown = (e) => {
-    e.currentTarget.setPointerCapture?.(e.pointerId);
-    setDragging(true);
-    const { x, time } = seekFromClientX(e.clientX);
-    setSeekTooltip({ x, time });
-    setCurrentTime(time);
-  };
-
-  const handleSeekPointerUp = () => setDragging(false);
-
-  const handleSeekPointerMove = (e) => {
-    const { x, time } = seekFromClientX(e.clientX);
-    setSeekTooltip({ x, time });
-    if (dragging) setCurrentTime(time);
-  };
-
-  return (
-    <div className="vp-frame" data-video-src={videoUrl}>
-      {videoUrl && (
-        <video
-          className="vp-frame__video"
-          src={videoUrl}
-          muted
-          playsInline
-          preload="metadata"
-          aria-hidden="true"
-        />
-      )}
-
-      <div
-        className="vp-frame__player"
-        onMouseMove={handlePlayerMouseMove}
-        onMouseLeave={handlePlayerMouseLeave}
-      >
-        <div
-          className="vp-frame__thumb"
-          onClick={handlePlayPause}
-        >
-          <div className="vp-frame__thumb-icon">{icon}</div>
-          <span className="vp-frame__thumb-label">{thumbLabel}</span>
-
-          <button
-            type="button"
-            className={`vp-frame__center-btn ${
-              centerVisible ? "" : "vp-frame__center-btn--hidden"
-            } ${isPlaying && !ended ? "vp-frame__center-btn--pause" : ""}`}
-            onClick={(e) => {
-              e.stopPropagation();
-              handlePlayPause();
-            }}
-            aria-label={isPlaying && !ended ? "Tạm dừng" : "Phát video"}
-          >
-            {isPlaying && !ended ? (
-              <Pause size={22} fill="currentColor" />
-            ) : (
-              <Play size={22} fill="currentColor" />
-            )}
-          </button>
-
-          {showReplayToast && (
-            <div className="vp-frame__toast" role="status">
-              <RotateCcw
-                size={14}
-                strokeWidth={2.5}
-                className="vp-frame__toast-icon"
-              />
-              Đang phát lại từ đầu...
-            </div>
-          )}
+  function updatePlaying(value) { setPlaying(value); onPlayStateChange?.(value); }
+  async function play() {
+    if (!video.current) return;
+    try { if (ended) { video.current.currentTime = 0; setEnded(false); } await video.current.play(); }
+    catch { setError(true); setLoading(false); }
+  }
+  function seek(next) { if (!video.current || !duration) return; video.current.currentTime = Math.max(0, Math.min(duration, next)); setTime(video.current.currentTime); setEnded(false); }
+  function changeSpeed(value) { setSpeed(value); if (video.current) video.current.playbackRate = value; }
+  return <div className="vp-frame">
+    <div className="vp-frame__player">
+      {!videoUrl ? <div className="vp-frame__thumb" role="status"><Hand size={44} /><p>Video đang được cập nhật</p></div> : <>
+        <div className="vp-frame__screen">
+          <video ref={video} className="vp-frame__video" src={videoUrl} poster={poster} playsInline muted={muted} loop={loop} preload="metadata"
+            onLoadedMetadata={(event) => { setDuration(Number.isFinite(event.currentTarget.duration) ? event.currentTarget.duration : 0); event.currentTarget.playbackRate = speed; setLoading(false); }}
+            onTimeUpdate={(event) => setTime(event.currentTarget.currentTime)} onWaiting={() => setLoading(true)} onCanPlay={() => setLoading(false)}
+            onPlay={() => { updatePlaying(true); setEnded(false); }} onPause={() => updatePlaying(false)} onEnded={() => { setEnded(true); updatePlaying(false); }}
+            onError={() => { setError(true); setLoading(false); updatePlaying(false); }} aria-label="Video minh họa ký hiệu" />
+          {loading && !error && <span className="vp-frame__loading" role="status"><LoaderCircle className="vp-frame__spinner" /> Đang tải video…</span>}
         </div>
-
-        <div className="vp-frame__seek">
-          <div
-            ref={seekBarRef}
-            className="vp-frame__seek-bar"
-            onMouseMove={handleSeekMouseMove}
-            onMouseEnter={handleSeekMouseEnter}
-            onMouseLeave={handleSeekMouseLeave}
-            onPointerDown={handleSeekPointerDown}
-            onPointerUp={handleSeekPointerUp}
-            onPointerMove={handleSeekPointerMove}
-            role="slider"
-            aria-label="Thanh tiến trình video"
-            aria-valuemin={0}
-            aria-valuemax={Math.round(duration)}
-            aria-valuenow={Math.round(currentTime)}
-          >
-            <div
-              className="vp-frame__seek-fill"
-              style={{ width: `${progressPct}%` }}
-            />
-            <span
-              className="vp-frame__seek-knob"
-              style={{ left: `${progressPct}%` }}
-            />
-
-            {seekTooltip && (
-              <span
-                className="vp-frame__seek-tooltip"
-                style={{ left: `${seekTooltip.x}%` }}
-              >
-                {formatTime(seekTooltip.time)}
-              </span>
-            )}
-          </div>
-
-          <span className="vp-frame__seek-time">
-            {formatTime(currentTime)} / {formatTime(duration)}
-          </span>
-        </div>
-      </div>
-
-      <div className="vp-frame__controls">
-        <div className="vp-frame__speeds">
-          {speeds.map((s) => (
-            <button
-              key={s}
-              type="button"
-              className={`vp-frame__speed ${
-                speed === s && !slowmo ? "vp-frame__speed--active" : ""
-              }`}
-              onClick={() => {
-                setSpeed(s);
-                setSlowmo(false);
-              }}
-            >
-              {s}x
-            </button>
-          ))}
-        </div>
-
-        {slowMo && (
-          <button
-            type="button"
-            className={`vp-frame__btn ${
-              slowmo ? "vp-frame__btn--active" : ""
-            }`}
-            onClick={() => setSlowmo((v) => !v)}
-          >
-            <Clock size={15} strokeWidth={2} />
-            Slow-mo
-          </button>
-        )}
-
-        <button
-          type="button"
-          className={`vp-frame__btn ${
-            showReplayToast ? "vp-frame__btn--flash" : ""
-          }`}
-          onClick={handleReplay}
-        >
-          <RotateCcw
-            key={replaySpin}
-            size={15}
-            strokeWidth={2}
-            className="vp-frame__btn-spin"
-          />
-          {replayLabel}
-        </button>
-      </div>
+        {error ? <div role="alert">Không thể tải video. <button type="button" onClick={() => { setError(false); setLoading(true); video.current?.load(); }}>Thử lại</button></div> : <>
+          <button type="button" className="vp-frame__btn" onClick={() => playing ? video.current.pause() : play()} aria-label={ended ? 'Xem lại' : playing ? 'Tạm dừng' : 'Phát video'}>{playing ? <Pause size={18} /> : ended ? <RotateCcw size={18} /> : <Play size={18} />}{ended ? 'Xem lại' : playing ? 'Tạm dừng' : 'Phát video'}</button>
+          <input className="vp-frame__range" type="range" tabIndex={0} min={0} max={duration || 0} step="0.1" value={time} disabled={!duration} aria-label="Tiến trình video" aria-valuetext={`${formatTime(time)} trên ${formatTime(duration)}`}
+            onChange={(event) => seek(Number(event.target.value))} onKeyDown={(event) => { const next = { ArrowLeft: time - 2, ArrowRight: time + 2, Home: 0, End: duration }[event.key]; if (next !== undefined) { event.preventDefault(); seek(next); } }} />
+          <span className="vp-frame__seek-time">{formatTime(time)} / {formatTime(duration)}</span>
+        </>}
+      </>}
     </div>
-  );
-};
+    {videoUrl && <div className="vp-frame__controls">{[0.5, 1, 1.5].map((value) => <button type="button" key={value} className={`vp-frame__speed ${speed === value ? 'vp-frame__speed--active' : ''}`} aria-pressed={speed === value} onClick={() => changeSpeed(value)}>{value}x</button>)}{slowMo && <button type="button" className="vp-frame__btn" aria-pressed={speed === 0.5} onClick={() => changeSpeed(0.5)}>Slow-mo</button>}</div>}
+  </div>;
+}
 
-export default VideoPlayerFrame;
+export default function VideoPlayerFrame(props) { return <VideoSource key={props.videoUrl || "placeholder"} {...props} />; }

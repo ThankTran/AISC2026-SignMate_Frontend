@@ -29,7 +29,7 @@
 
 .header__title {
   font-family: var(--font-family-main);
-  font-size: var(--text-lg);
+  font-size: var(--font-size-h1);
   font-weight: var(--font-weight-semibold);
   color: var(--color-neutral-900);
 
@@ -87,51 +87,15 @@
    SEARCH
    ========================================================= */
 
-.header-search {
-  position: relative;
 
-  display: flex;
-  align-items: center;
 
-  width: 240px;
-  height: 38px;
 
-  padding: 0 12px 0 34px;
 
-  border-radius: 8px;
-  border: 1px solid var(--color-neutral-200);
 
-  background: var(--color-neutral-50);
 
-  transition: border-color 0.18s ease;
-}
 
-.header-search:focus-within {
-  border-color: var(--color-teal-500);
-}
 
-.header-search__icon {
-  position: absolute;
-  left: 10px;
 
-  color: var(--color-neutral-500);
-  pointer-events: none;
-}
-
-.header-search__input {
-  width: 100%;
-  border: none;
-  outline: none;
-  background: transparent;
-
-  font-family: var(--font-family-body);
-  font-size: var(--text-sm);
-  color: var(--color-neutral-900);
-}
-
-.header-search__input::placeholder {
-  color: var(--color-neutral-500);
-}
 
 /* =========================================================
    NOTIFICATION
@@ -160,7 +124,7 @@
   color: white;
 
   font-family: var(--font-family-mono);
-  font-size: 10px;
+  font-size: var(--font-size-caption);
   font-weight: var(--font-weight-bold);
   line-height: 1;
 }
@@ -341,7 +305,7 @@
 .header-settings__error {
   max-width: 240px;
   margin: 6px 10px;
-  font-size: 12px;
+  font-size: var(--font-size-caption);
   line-height: 1.5;
   color: var(--color-coral-700);
 }
@@ -355,11 +319,10 @@
     padding: 0 var(--page-gutter, 16px) 0;
   }
 
-  .header-search {
-    width: 160px;
-  }
+
 
   .header-notification__dropdown {
     width: 280px;
   }
 }
+.header__left { display:flex; align-items:center; gap:12px; min-width:0; }.header-icon-btn { min-width:44px; min-height:44px; }.header-notification__item { width:100%; text-align:left; border:0; cursor:pointer; }.notification-read-all { padding:12px 16px; min-height:44px; color:var(--color-teal-700); }.header-notification__dropdown { max-width:calc(100vw - 32px); }.header__title { font-family:var(--font-family-main); font-size:var(--font-size-h3); }

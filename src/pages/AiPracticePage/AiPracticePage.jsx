@@ -1,3 +1,4 @@
+import Modal from "../../components/ui/Modal";
 import { useState, useEffect, useCallback, useRef } from "react";
 
 import "./AiPracticePage.css";
@@ -10,108 +11,11 @@ import SessionControls from "../../components/AiPractice/SessionControls";
 import SignGuideModal from "../../components/AiPractice/SignGuideModal";
 
 /* ===== Mock data ===== */
-const SIGNS = [
-  {
-    sign: "1",
-    label: "ASL Number One",
-    tip: "Giữ một ngón tay trỏ hướng lên trên, các ngón còn lại nắm chặt.",
-    steps: [
-      "Giơ bàn tay hướng về phía trước.",
-      "Dựng ngón tay trỏ thẳng lên, các ngón còn lại nắm chặt.",
-      "Giữ tư thế ổn định trong vài giây.",
-    ],
-  },
-  {
-    sign: "2",
-    label: "ASL Number Two",
-    tip: "Giữ hai ngón tay trỏ và giữa hướng lên trên, duỗi thẳng.",
-    steps: [
-      "Giơ bàn tay hướng về phía trước.",
-      "Duỗi thẳng ngón trỏ và ngón giữa, tạo hình chữ V.",
-      "Gập các ngón áp út và út vào lòng bàn tay.",
-    ],
-  },
-  {
-    sign: "3",
-    label: "ASL Number Three",
-    tip: "Giữ ba ngón trỏ, giữa, và út hướng lên trên.",
-    steps: [
-      "Giơ bàn tay hướng về phía trước.",
-      "Duỗi thẳng ngón trỏ, ngón giữa và ngón cái.",
-      "Gập ngón áp út và ngón út vào lòng bàn tay.",
-    ],
-  },
-  {
-    sign: "4",
-    label: "ASL Number Four",
-    tip: "Giữ bốn ngón tay duỗi thẳng và hướng lên trên. Gập ngón cái vào lòng bàn tay.",
-    steps: [
-      "Giơ bàn tay hướng về phía trước.",
-      "Duỗi thẳng 4 ngón tay (ngón trỏ, giữa, áp út, út).",
-      "Gập ngón tay cái vào sát lòng bàn tay.",
-    ],
-  },
-  {
-    sign: "5",
-    label: "ASL Number Five",
-    tip: "Mở rộng cả năm ngón tay, tất cả hướng lên trên.",
-    steps: [
-      "Giơ bàn tay hướng về phía trước.",
-      "Duỗi thẳng và tách đều cả 5 ngón tay.",
-      "Giữ lòng bàn tay úp ra trước mặt.",
-    ],
-  },
-  {
-    sign: "6",
-    label: "ASL Number Six",
-    tip: "Chạm đầu ngón cái vào đầu ngón út, ba ngón giữa duỗi lên.",
-    steps: [
-      "Giơ bàn tay hướng về phía trước.",
-      "Chạm đầu ngón cái vào đầu ngón út.",
-      "Duỗi thẳng ba ngón trỏ, giữa và áp út lên trên.",
-    ],
-  },
-  {
-    sign: "7",
-    label: "ASL Number Seven",
-    tip: "Chạm đầu ngón cái vào đầu ngón áp út, ba ngón giữa duỗi lên.",
-    steps: [
-      "Giơ bàn tay hướng về phía trước.",
-      "Chạm đầu ngón cái vào đầu ngón áp út.",
-      "Duỗi thẳng ngón trỏ, giữa và út lên trên.",
-    ],
-  },
-  {
-    sign: "8",
-    label: "ASL Number Eight",
-    tip: "Chạm đầu ngón cái vào đầu ngón giữa, các ngón còn lại duỗi lên.",
-    steps: [
-      "Giơ bàn tay hướng về phía trước.",
-      "Chạm đầu ngón cái vào đầu ngón giữa.",
-      "Duỗi thẳng ngón trỏ, áp út và út lên trên.",
-    ],
-  },
-  {
-    sign: "9",
-    label: "ASL Number Nine",
-    tip: "Chạm đầu ngón cái vào đầu ngón trỏ, các ngón còn lại duỗi lên.",
-    steps: [
-      "Giơ bàn tay hướng về phía trước.",
-      "Chạm đầu ngón cái vào đầu ngón trỏ tạo vòng khép.",
-      "Duỗi thẳng ngón giữa, áp út và út lên trên.",
-    ],
-  },
-  {
-    sign: "10",
-    label: "ASL Number Ten",
-    tip: "Nắm chặt tay rồi giơ ngón cái lên và lắc nhẹ qua lại.",
-    steps: [
-      "Nắm chặt bàn tay lại.",
-      "Giơ ngón cái hướng lên trên.",
-      "Lắc nhẹ cổ tay qua lại để thể hiện số 10.",
-    ],
-  },
-];
+const SIGNS = Array.from({length:10}, (_, index) => ({
+ sign:String(index + 1), label:`VSL: Số ${index + 1}`,
+ tip:'Đặt camera ngang tầm mắt, giữ đủ sáng và để cả hai tay trong khung hình.',
+ steps:['Video và hướng dẫn VSL đang được cập nhật sau khi nhóm nội dung xác minh.'],
+}));
 
 const TOTAL_SIGNS = SIGNS.length;
 
@@ -126,29 +30,29 @@ const AI_FEEDBACKS = [
 const CAMERA_DENIED_MSG =
   "Vui lòng cho phép truy cập Camera để thực hiện bài tập";
 
-const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
-const randFloat = (min, max) => +(Math.random() * (max - min) + min).toFixed(1);
 
 /* ===== MAIN COMPONENT ===== */
 const AiPracticePage = () => {
   /* ---- Core state ---- */
   const [phase, setPhase] = useState("idle"); // idle | countdown | recording | paused
   const [countdown, setCountdown] = useState(3);
-  const [signIndex] = useState(3); // start at sign "4" (index 3)
+  const [signIndex, setSignIndex] = useState(0); // Bắt đầu từ ký hiệu đầu tiên
 
   /* ---- AI metrics (simulated) ---- */
-  const [accuracy, setAccuracy] = useState(100);
-  const [stability, setStability] = useState(100);
-  const [speed, setSpeed] = useState(1.2);
-  const [posture, setPosture] = useState(100);
-  const [clarity, setClarity] = useState(100);
-  const [confidence, setConfidence] = useState(92);
+  const [accuracy, setAccuracy] = useState(null);
+  const [stability, setStability] = useState(null);
+  const [speed, setSpeed] = useState(null);
+  const [posture, setPosture] = useState(null);
+  const [clarity, setClarity] = useState(null);
+  const [confidence, setConfidence] = useState(null);
 
   /* ---- Webcam / device state ---- */
   const [stream, setStream] = useState(null);
   const [cameraError, setCameraError] = useState(null);
   const [cameraOn, setCameraOn] = useState(false);
-  const [micOn, setMicOn] = useState(false);
+  const [summary, setSummary] = useState(null);
+  const samples = useRef({sum:0,count:0,seconds:0});
+  const cameraRequest = useRef(0);
 
   /* ---- Popup đề bài ---- */
   const [guideOpen, setGuideOpen] = useState(false);
@@ -161,7 +65,9 @@ const AiPracticePage = () => {
 
   /* ---- Dọn dẹp MediaStream khi rời trang ---- */
   useEffect(() => {
+    const requestRef = cameraRequest;
     return () => {
+      requestRef.current++;
       streamRef.current?.getTracks().forEach((t) => t.stop());
       streamRef.current = null;
     };
@@ -195,13 +101,13 @@ const AiPracticePage = () => {
     }
 
     metricsTimer.current = setInterval(() => {
-      setAccuracy(rand(88, 100));
-      setStability(rand(85, 100));
-      setSpeed(randFloat(0.8, 2.0));
-      setPosture(rand(87, 100));
-      setClarity(rand(90, 100));
-      setConfidence(rand(78, 99));
-    }, 1500);
+      samples.current.seconds += 0.2;
+      const target = 85 + 7 * Math.sin(samples.current.seconds / 3);
+      setAccuracy(value => { const next = Math.round((value ?? 85) + (target - (value ?? 85)) * 0.15); return next; });
+      samples.current.sum += target; samples.current.count++;
+      const lerp = (value) => Math.round((value ?? 85) + (target - (value ?? 85)) * 0.15);
+      setStability(lerp); setPosture(lerp); setClarity(lerp); setConfidence(lerp); setSpeed(1.2);
+    }, 200);
 
     return () => clearInterval(metricsTimer.current);
   }, [phase]);
@@ -211,6 +117,9 @@ const AiPracticePage = () => {
   /* Yêu cầu bật Camera (trả về true nếu thành công) */
   const activateCamera = async () => {
     setCameraError(null);
+    const request = ++cameraRequest.current;
+    streamRef.current?.getTracks().forEach(track => track.stop());
+    streamRef.current = null; setStream(null); setCameraOn(false);
     try {
       if (!navigator.mediaDevices?.getUserMedia) {
         setCameraError("Trình duyệt của bạn không hỗ trợ truy cập Camera.");
@@ -221,6 +130,7 @@ const AiPracticePage = () => {
         video: true,
         audio: false,
       });
+      if (request !== cameraRequest.current || document.hidden) { media.getTracks().forEach(track => track.stop()); return false; }
       streamRef.current = media;
       setStream(media);
       setCameraOn(true);
@@ -253,17 +163,21 @@ const AiPracticePage = () => {
         if (!ok) return;
       }
       // 2) Bắt đầu đếm ngược 3... 2... 1...
+      setSummary(null); samples.current = {sum:0,count:0,seconds:0};
       startCountdown();
     }
   };
 
-  const handleStop = () => {
+  const handleStop = ({showSummary=true} = {}) => {
     setPhase("paused");
+    if(showSummary && (phase === "recording" || phase === "countdown") && samples.current.count>0) setSummary({accuracy:Math.round(samples.current.sum / samples.current.count),seconds:Math.round(samples.current.seconds)});
+    cameraRequest.current++; streamRef.current?.getTracks().forEach(track => track.stop()); streamRef.current=null; setStream(null); setCameraOn(false);
     if (metricsTimer.current) clearInterval(metricsTimer.current);
   };
 
   const handleToggleCamera = async () => {
     if (cameraOn) {
+      handleStop();
       // TẮT triệt để: dừng mọi video track của luồng camera phần cứng
       streamRef.current?.getVideoTracks().forEach((t) => t.stop());
       setStream(null);
@@ -274,16 +188,15 @@ const AiPracticePage = () => {
     await activateCamera();
   };
 
-  const handleToggleMic = () => {
-    const track = streamRef.current?.getAudioTracks()[0];
-    if (!track) {
-      setMicOn((v) => !v);
-      return;
-    }
-    const next = !track.enabled;
-    track.enabled = next;
-    setMicOn(next);
-  };
+  function changeSign(next) {
+    handleStop({showSummary:false}); setSignIndex(next); setPhase('idle'); setSummary(null);
+    setAccuracy(null); setStability(null); setSpeed(null); setPosture(null); setClarity(null); setConfidence(null);
+  }
+  useEffect(() => {
+    const hide = () => { if (document.hidden && (cameraOn || phase === "recording" || phase === "countdown")) handleStop({showSummary:false}); };
+    document.addEventListener('visibilitychange', hide);
+    return () => document.removeEventListener('visibilitychange', hide);
+  });
 
   /* ---- Guide popup ---- */
   const handleOpenGuide = () => setGuideOpen(true);
@@ -299,10 +212,10 @@ const AiPracticePage = () => {
       <div className="ai-practice__left">
         {/* ---- Top nav bar ---- */}
         <div className="ai-practice__topnav">
-          <h1 className="ai-practice__topnav-title">
+          <h1 className="ai-practice__topnav-title text-h1">
             Luyện tập ký hiệu
             <span className="ai-practice__topnav-sep">·</span>
-            <span className="ai-practice__topnav-sub">ASL: Số đếm 1–10</span>
+            <span className="ai-practice__topnav-sub">VSL: Số đếm 1–10</span>
           </h1>
 
           <div className="ai-practice__topnav-right">
@@ -318,6 +231,8 @@ const AiPracticePage = () => {
           </div>
         </div>
 
+        <p className="ai-practice__demo" role="note">Chế độ demo · Chỉ số minh họa, chưa đánh giá cử chỉ từ camera.</p>
+        <nav className="ai-practice__sign-nav" aria-label="Chọn ký hiệu"><button type="button" disabled={signIndex === 0} onClick={() => changeSign(signIndex - 1)}>← Ký hiệu trước</button><button type="button" disabled={signIndex === TOTAL_SIGNS - 1} onClick={() => changeSign(signIndex + 1)}>Ký hiệu sau →</button></nav>
         {/* ---- Camera viewport ---- */}
         <CameraViewport
           phase={phase}
@@ -329,6 +244,7 @@ const AiPracticePage = () => {
           cameraError={cameraError}
           cameraOn={cameraOn}
           onOpenGuide={handleOpenGuide}
+          onRetry={activateCamera}
         />
 
         {/* ---- Tip box ---- */}
@@ -350,19 +266,18 @@ const AiPracticePage = () => {
           isActive={phase === "recording"}
         />
 
-        <AiFeedbackCard feedback={AI_FEEDBACKS[feedbackIndex]} />
+        <AiFeedbackCard feedback={phase === "recording" ? `Phản hồi demo: ${AI_FEEDBACKS[feedbackIndex]}` : "Bắt đầu phiên demo để xem cách hiển thị phản hồi. Nội dung VSL đang được cập nhật."} />
 
         <SessionControls
           phase={phase}
           cameraOn={cameraOn}
-          micOn={micOn}
           onToggleCamera={handleToggleCamera}
-          onToggleMic={handleToggleMic}
           onStart={handleStart}
           onStop={handleStop}
         />
       </div>
 
+      {summary && <Modal labelledBy="ai-summary-title" onClose={() => setSummary(null)}><h2 id="ai-summary-title" className="text-h2">Tổng kết phiên demo</h2><p>Độ chính xác TB (minh họa): {summary.accuracy == null ? '--' : `${summary.accuracy}%`}</p><p>Thời gian: {summary.seconds} giây</p><button type="button" onClick={handleStart}>Thử lại</button><button type="button" disabled={signIndex === TOTAL_SIGNS - 1} onClick={() => changeSign(signIndex + 1)}>Ký hiệu tiếp theo</button></Modal>}
       {/* ===== POPUP: Đề bài / Hướng dẫn ký hiệu ===== */}
       {guideOpen && (
         <SignGuideModal

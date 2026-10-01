@@ -25,7 +25,7 @@
   color: var(--color-teal-700, #0f6e56);
 
   font-family: var(--font-family-mono);
-  font-size: 11px;
+  font-size: var(--font-size-caption);
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -33,7 +33,7 @@
 
 .lesson-media__title {
   font-family: var(--font-family-main);
-  font-size: 22px;
+  font-size: var(--font-size-h2);
   font-weight: 700;
   color: var(--color-neutral-900);
   margin: 0;
