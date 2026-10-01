@@ -1,0 +1,2 @@
+const names=['Minh Anh','Hoàng Nam','Khánh Linh','Gia Hân','Tuấn Kiệt','Ngọc Mai','Hải Đăng','Thanh Trúc'];
+export const leaderboard=Array.from({length:28},(_,index)=>({id:`sample-${index}`,name:`${names[index%names.length]} ${index+1}`,previousWeeklyXp:180+(index*83)%1700,weeklyXp:120+(index*137)%1700,totalXp:1000+(index%4)*1000+index*21+120+(index*137)%1700,curriculumLevel:['Cơ bản','Trung cấp'][index%2]}));
