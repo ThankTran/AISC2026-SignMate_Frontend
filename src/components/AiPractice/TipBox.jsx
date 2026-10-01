@@ -2,7 +2,7 @@ import { Info } from "lucide-react";
 
 import "./TipBox.css";
 
-const TipBox = ({ tip, signIndex, totalSigns }) => {
+const TipBox = ({ tip }) => {
   return (
     <div className="tip-box">
       <div className="tip-box__content">
@@ -14,9 +14,7 @@ const TipBox = ({ tip, signIndex, totalSigns }) => {
         </p>
       </div>
 
-      <span className="tip-box__counter">
-        Ký hiệu {signIndex} / {totalSigns}
-      </span>
+
     </div>
   );
 };
