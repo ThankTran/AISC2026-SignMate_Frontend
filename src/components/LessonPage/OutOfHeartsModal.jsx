@@ -1,19 +1,21 @@
+import { useConfirm } from "../../hooks/useConfirm";
+import Modal from "../ui/Modal";
 import { HeartCrack, Heart } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import "./OutOfHeartsModal.css";
 
 const OutOfHeartsModal = () => {
+  const confirm = useConfirm();
+  const navigate = useNavigate();
+  const confirmExit = async (event) => { event.preventDefault(); if (await confirm({ title: "Thoát bài học?", message: "Tiến độ chưa hoàn tất trong phiên này có thể không được lưu.", confirmLabel: "Thoát" })) navigate('/learning-path'); };
   return (
-    <div className="ooh-modal">
-      <div className="ooh-modal__backdrop" />
-
-      <div className="ooh-modal__card" role="dialog" aria-modal="true">
+    <Modal className="ooh-modal__card" labelledBy="ooh-title" closeOnOutside={false} closeOnEscape={false}>
         <div className="ooh-modal__card__icon">
           <HeartCrack size={52} strokeWidth={1.6} />
         </div>
 
-        <h2 className="ooh-modal__card__title">
+        <h2 id="ooh-title" className="ooh-modal__card__title text-h2">
           Bạn đã hết tim mất rồi!
         </h2>
 
@@ -22,16 +24,15 @@ const OutOfHeartsModal = () => {
           để luyện tập thêm nhé.
         </p>
 
-        <button type="button" className="ooh-modal__card__primary">
+        <Link to="/practice-ai" className="ooh-modal__card__primary">
           <Heart size={16} fill="currentColor" />
-          Nạp thêm tim / Luyện tập
-        </button>
+          Luyện tập với AI
+        </Link>
 
-        <Link to="/learning-path" className="ooh-modal__card__secondary">
+        <Link onClick={confirmExit} to="/learning-path" className="ooh-modal__card__secondary">
           Thoát bài học
         </Link>
-      </div>
-    </div>
+    </Modal>
   );
 };
 

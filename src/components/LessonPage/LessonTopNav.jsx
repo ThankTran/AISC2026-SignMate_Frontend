@@ -1,5 +1,6 @@
+import { useConfirm } from "../../hooks/useConfirm";
 import { Heart, X } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import "./LessonTopNav.css";
 
@@ -11,18 +12,23 @@ const formatPct = (current, total) => {
 };
 
 const LessonTopNav = ({
+  title,
+  completed = 0,
   hearts = MAX_HEARTS,
   currentQuestion = 1,
   totalQuestions = 8,
   onSegmentClick,
 }) => {
-  const pct = formatPct(currentQuestion, totalQuestions);
+  const pct = formatPct(completed, totalQuestions);
 
+  const confirm = useConfirm();
+  const navigate = useNavigate();
+  const confirmExit = async (event) => { event.preventDefault(); if (await confirm({ title: "Thoát bài học?", message: "Tiến độ chưa hoàn tất trong phiên này có thể không được lưu.", confirmLabel: "Thoát" })) navigate('/learning-path'); };
   return (
     <div className="lesson-topnav">
       {/* ---- Left: lesson title ---- */}
-      <h1 className="lesson-topnav__title">
-        Bài 4: Chào hỏi cơ bản
+      <h1 className="lesson-topnav__title text-h1">
+        {title}
       </h1>
 
       {/* ---- Center: progress ---- */}
@@ -31,10 +37,11 @@ const LessonTopNav = ({
           {currentQuestion}/{totalQuestions}
         </span>
 
+        <progress className="lesson-topnav__mobile-progress" max={totalQuestions} value={completed} aria-label="Tiến độ bài học" />
         <div className="lesson-topnav__segments">
           {Array.from({ length: totalQuestions }).map((_, i) => {
             const n = i + 1;
-            const done = n <= currentQuestion;
+            const done = n <= completed;
             const cls = `lesson-topnav__segment ${
               done
                 ? "lesson-topnav__segment--done"
@@ -75,7 +82,7 @@ const LessonTopNav = ({
           ))}
         </div>
 
-        <Link to="/learning-path" className="lesson-topnav__exit">
+        <Link onClick={confirmExit} to="/learning-path" className="lesson-topnav__exit">
           <X size={14} strokeWidth={2.5} />
           Thoát bài học
         </Link>

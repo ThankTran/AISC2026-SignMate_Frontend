@@ -88,7 +88,7 @@
 
 .lesson-footer__note {
   font-family: var(--font-family-body);
-  font-size: 12.5px;
+  font-size: var(--font-size-caption);
   font-weight: 600;
   color: #6b7280;
   white-space: nowrap;
@@ -273,7 +273,7 @@
    RESPONSIVE
    ========================================================= */
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .lesson-footer {
     padding: 12px var(--page-gutter) 12px;
   }
@@ -286,7 +286,7 @@
 
 @media (max-width: 640px) {
   .lesson-footer__text {
-    font-size: 12.5px;
+    font-size: var(--font-size-caption);
   }
 
   .lesson-footer__btn {

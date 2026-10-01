@@ -3,6 +3,7 @@ import { ArrowRight, Check, X } from "lucide-react";
 import "./LessonFooter.css";
 
 const LessonFooter = ({
+  lessonTitle,
   selected,
   result,
   checking,
@@ -88,7 +89,7 @@ const LessonFooter = ({
       <div className="lesson-footer__left">
         <span className="lesson-footer__dot" />
         <p className="lesson-footer__text">
-          <strong>Bài 4</strong> — Câu {questionIndex} trong {totalQuestions}
+          <strong>{lessonTitle}</strong> — Câu {questionIndex} trong {totalQuestions}
           <span className="lesson-footer__sep">·</span>
           Còn {Math.max(0, remainingQuestions)} câu nữa
         </p>

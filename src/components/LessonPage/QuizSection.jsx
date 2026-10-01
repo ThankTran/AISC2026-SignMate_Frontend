@@ -2,7 +2,7 @@ import { Check, Circle, Star, X } from "lucide-react";
 
 import "./QuizSection.css";
 
-const QuizSection = ({ question, selected, result, onSelect, attempts }) => {
+const QuizSection = ({ question, selected, result, onSelect }) => {
   const { options, correctAnswer, question: questionText } = question;
   const answered = result !== null;
 
@@ -14,15 +14,15 @@ const QuizSection = ({ question, selected, result, onSelect, attempts }) => {
         CÂU HỎI TRẮC NGHIỆM
       </span>
 
-      <h2 className="lesson-quiz__question">{questionText}</h2>
+      <h2 className="lesson-quiz__question text-h2">{questionText}</h2>
 
       <p className="lesson-quiz__desc">
         Xem video bên trái và chọn đáp án phù hợp nhất.
       </p>
 
       {/* ---- Answer grid ---- */}
-      <div className="lesson-quiz__grid">
-        {options.map((option) => {
+      <div className="lesson-quiz__grid" role="radiogroup" aria-label={questionText}>
+        {options.map((option, index) => {
           const Icon = option.icon;
           const isSelected = selected === option.id;
           const isCorrect = result !== null && option.id === correctAnswer;
@@ -37,7 +37,7 @@ const QuizSection = ({ question, selected, result, onSelect, attempts }) => {
           return (
             <button
               key={option.id}
-              type="button"
+              type="button" role="radio" aria-checked={isSelected}
               className={`lesson-quiz__card ${
                 isSelected && result === null
                   ? "lesson-quiz__card--selected"
@@ -46,6 +46,8 @@ const QuizSection = ({ question, selected, result, onSelect, attempts }) => {
                 isWrong ? "lesson-quiz__card--wrong" : ""
               }`}
               onClick={() => onSelect(option.id)}
+              tabIndex={isSelected || (!selected && index === 0) ? 0 : -1}
+              onKeyDown={(event) => { const direction = ['ArrowRight','ArrowDown'].includes(event.key) ? 1 : ['ArrowLeft','ArrowUp'].includes(event.key) ? -1 : 0; if (direction && !answered) { event.preventDefault(); const next=(index+direction+options.length)%options.length; onSelect(options[next].id); event.currentTarget.parentElement.querySelectorAll('[role="radio"]')[next]?.focus(); } }}
               disabled={answered}
             >
               {/* Radio */}
@@ -73,7 +75,7 @@ const QuizSection = ({ question, selected, result, onSelect, attempts }) => {
               </div>
 
               {/* Letter badge */}
-              <span className="lesson-quiz__card-badge">{option.id}</span>
+              <span className="lesson-quiz__card-badge">{String.fromCharCode(65 + index)}</span>
 
               {/* Text */}
               <div className="lesson-quiz__card-text">
@@ -109,11 +111,7 @@ const QuizSection = ({ question, selected, result, onSelect, attempts }) => {
         </div>
       )}
 
-      {/* ---- Attempts ---- */}
-      <div className="lesson-quiz__attempts">
-        <span className="lesson-quiz__attempts-arrow">→</span>
-        Lần thử {attempts} / 3
-      </div>
+
     </section>
   );
 };
