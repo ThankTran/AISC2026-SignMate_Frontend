@@ -8,7 +8,7 @@ export const friendFilters = [
   { label: "Offline", value: "offline" },
 ];
 
-export const calendarWeekdays = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"];
+export const calendarWeekdays = ["T2", "T3", "T4", "T5", "T6", "T7", "CN"];
 
 export const calendarMonthNames = [
   "Tháng 1",
