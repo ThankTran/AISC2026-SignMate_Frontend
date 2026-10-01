@@ -3,7 +3,7 @@ export const feedbackHighlights = [
   "Kiên nhẫn",
   "Tích cực & vui vẻ",
   "Chủ đề hay",
-  "NNKH tốt",
+  "ngôn ngữ ký hiệu tốt",
   "Đúng giờ",
   "Hỗ trợ học tập",
   "Cần cải thiện giao tiếp",

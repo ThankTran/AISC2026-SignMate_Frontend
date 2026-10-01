@@ -1,3 +1,6 @@
+import { useSearchParams } from "react-router-dom";
+import { useFriends } from "../useFriends";
+import { VIDEO_DEMO } from "../../services/videoCall/config";
 import { useCallback, useEffect, useState } from "react";
 import { demoPartners } from "../../mockdata/videoCall/partners";
 import { defaultPrompt, defaultTopics } from "../../mockdata/videoCall/topics";
@@ -13,7 +16,14 @@ import {
 const MATCHING_DELAY_MS = 5200;
 
 export function useVideoCallFlow() {
-  const [stage, setStage] = useState("topics");
+  const [params, setParams] = useSearchParams();
+  const {friends} = useFriends();
+  const stages = ['topics','search','match','devices','call','review','thanks'];
+  const requested = params.get('step');
+  const directFriend = friends.find(friend => String(friend.id) === params.get('friend'));
+  const stage = stages.includes(requested) ? requested : directFriend ? 'devices' : 'topics';
+  const setStage = useCallback(next => setParams(previous => { const updated = new URLSearchParams(previous); updated.set('step',next); return updated; }),[setParams]);
+  const [mediaOptions,setMediaOptions] = useState({});
   const [selected, setSelected] = useState(defaultTopics);
   const [prompt, setPrompt] = useState(defaultPrompt);
   const [elapsed, setElapsed] = useState(0);
@@ -22,13 +32,9 @@ export function useVideoCallFlow() {
   const [blockedIds, setBlockedIds] = useState([]);
   const [notice, setNotice] = useState("");
   const [safetyAction, setSafetyAction] = useState(null);
-  const partner = demoPartners[partnerIndex];
-  const closeSafetyDialog = useCallback(() => setSafetyAction(null), []);
-  const dismissNotice = useCallback(() => setNotice(""), []);
-
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "instant" });
-  }, [stage]);
+  const partner = directFriend || demoPartners[partnerIndex];
+  const closeSafetyDialog = useCallback(() => setSafetyAction(null), [setSafetyAction]);
+  const dismissNotice = useCallback(() => setNotice(""), [setNotice]);
 
   useEffect(() => {
     if (stage !== "search" && stage !== "call") return;
@@ -41,7 +47,7 @@ export function useVideoCallFlow() {
     if (stage !== "search") return;
     const timer = setTimeout(() => setStage("match"), MATCHING_DELAY_MS);
     return () => clearTimeout(timer);
-  }, [stage]);
+  }, [stage, setStage]);
 
   function search(findAnother = false) {
     const index = findAvailablePartner(
@@ -52,7 +58,7 @@ export function useVideoCallFlow() {
     );
     if (index < 0) {
       setNotice(
-        "Bạn đã chặn tất cả hồ sơ demo. Tải lại trang để bắt đầu phiên demo mới.",
+        VIDEO_DEMO ? "Bạn đã chặn tất cả hồ sơ demo. Tải lại trang để bắt đầu phiên demo mới." : "Hiện chưa có đối tác khả dụng.",
       );
       return;
     }
@@ -61,7 +67,8 @@ export function useVideoCallFlow() {
     setStage("search");
   }
 
-  function startCall() {
+  function startCall(options) {
+    setMediaOptions(options);
     setDuration(0);
     setStage("call");
   }
@@ -93,7 +100,7 @@ export function useVideoCallFlow() {
     if (safetyAction === "block") {
       setBlockedIds((current) => [...new Set([...current, partner.id])]);
       if (stage === "call") setStage("review");
-      setNotice("Đã chặn hồ sơ trong phiên demo.");
+      setNotice(VIDEO_DEMO ? "Đã chặn hồ sơ trong phiên demo." : "Đã chặn hồ sơ trong phiên này.");
     } else {
       if (!reason.trim()) return;
       if (!saveCallReport({ partner: partner.name, reason: reason.trim() })) {
@@ -102,13 +109,16 @@ export function useVideoCallFlow() {
         );
         return;
       }
-      setNotice("Đã lưu báo cáo demo trên trình duyệt.");
+      setNotice(VIDEO_DEMO ? "Đã lưu báo cáo demo trên trình duyệt." : "Đã lưu báo cáo trên trình duyệt.");
     }
     closeSafetyDialog();
   }
 
   return {
     stage,
+    mediaOptions,
+    checkDevices: () => setStage("devices"),
+    showMatch: () => setStage("match"),
     selected,
     prompt,
     elapsed,

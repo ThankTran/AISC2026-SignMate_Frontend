@@ -28,15 +28,15 @@
   margin-bottom: 30px;
 }
 .vc-call-backdrop h1 {
-  font-size: 28px;
+  font-size: var(--font-size-h1);
 }
 .vc-call-backdrop > span {
-  font-size: 12px;
+  font-size: var(--font-size-caption);
   color: #b0c8bd;
   margin-top: 8px;
 }
 .vc-call-backdrop > p {
-  font-size: 10px;
+  font-size: var(--font-size-caption);
   color: #78988d;
   max-width: 310px;
   text-align: center;
@@ -76,7 +76,7 @@
   display: flex;
   align-items: center;
   gap: 7px;
-  font-size: 10px;
+  font-size: var(--font-size-caption);
   color: #a7bfb3;
   margin-top: 4px;
 }
@@ -92,10 +92,12 @@
   color: #cbdfa0;
   border-radius: 20px;
   padding: 8px 12px;
-  font-size: 10px;
+  font-size: var(--font-size-caption);
   display: flex;
   gap: 6px;
   align-items: center;
+
+  font-family: var(--font-family-mono);
 }
 .vc-self {
   position: absolute;
@@ -119,7 +121,7 @@
   color: #87a99c;
 }
 .vc-self > div > span {
-  font-size: 10px;
+  font-size: var(--font-size-caption);
 }
 .vc-self video {
   width: 100%;
@@ -160,25 +162,35 @@
   border-radius: 10px;
   background: #10261fcc;
   color: #fff;
+
+  font-family: var(--font-family-mono);
 }
 .vc-self-expand {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.2s ease;
+
+  font-family: var(--font-family-mono);
 }
 .vc-self:hover .vc-self-expand,
 .vc-self-expand:focus-visible {
   opacity: 1;
   pointer-events: auto;
+
+  font-family: var(--font-family-mono);
 }
 @media (hover: none) {
   .vc-self-expand {
     opacity: 1;
     pointer-events: auto;
-  }
+
+  font-family: var(--font-family-mono);
+}
 }
 .vc-self-expand:hover {
   background: #367d65;
+
+  font-family: var(--font-family-mono);
 }
 .vc-call--split .vc-call-backdrop {
   inset: 0 50% 0 0;
@@ -202,13 +214,15 @@
 .vc-call--split .vc-self-expand {
   top: 24px;
   right: 25px;
+
+  font-family: var(--font-family-mono);
 }
 .vc-call--split .vc-self-mic {
   top: 24px;
   bottom: auto;
   left: 24px;
 }
-@media (max-width: 560px) {
+@media (max-width: 640px) {
   .vc-call--split .vc-call-backdrop {
     padding: 20px 10px;
   }
@@ -218,10 +232,10 @@
     margin-bottom: 20px;
   }
   .vc-call--split .vc-call-backdrop h1 {
-    font-size: 18px;
+    font-size: var(--font-size-h1);
   }
   .vc-call--split .vc-call-backdrop > span {
-    font-size: 10px;
+    font-size: var(--font-size-caption);
   }
   .vc-call--split .vc-self-mic {
     top: 16px;
@@ -230,7 +244,9 @@
   .vc-call--split .vc-self-expand {
     top: 16px;
     right: 15px;
-  }
+
+  font-family: var(--font-family-mono);
+}
 }
 .vc-wave {
   display: flex;
@@ -298,7 +314,7 @@
   place-items: center;
   background: #367d65;
   color: #fff;
-  font-size: 11px;
+  font-size: var(--font-size-caption);
 }
 .vc-chat-messages p {
   font-size: 13px;
@@ -330,7 +346,7 @@
   background: none;
   border: 0;
   color: #fff;
-  font-size: 12px;
+  font-size: var(--font-size-caption);
 }
 .vc-chat input::placeholder { color: #d0ddd6; }
 .vc-emoji-picker {
@@ -349,7 +365,7 @@
   display: block;
   margin-bottom: 8px;
   color: #c3ddcf;
-  font-size: 11px;
+  font-size: var(--font-size-caption);
 }
 .vc-emoji-grid {
   display: grid;
@@ -454,7 +470,7 @@
   bottom: 12px;
   left: 50%;
   transform: translateX(-50%);
-  font-size: 11px;
+  font-size: var(--font-size-caption);
   line-height: 16px;
   color: #d4e8dd;
   text-shadow: 0 1px 4px #000;

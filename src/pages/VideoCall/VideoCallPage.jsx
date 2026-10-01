@@ -1,3 +1,5 @@
+import FirstCallGuide from "../../components/VideoCall/FirstCallGuide";
+import DeviceCheck from "../../components/VideoCall/DeviceCheck";
 import TopicSelection from "../../components/VideoCall/TopicSelection";
 import MatchingScreen from "../../components/VideoCall/MatchingScreen";
 import PartnerMatch from "../../components/VideoCall/PartnerMatch";
@@ -5,7 +7,8 @@ import CallRoom from "../../components/VideoCall/CallRoom";
 import CallReview from "../../components/VideoCall/CallReview";
 import CallRewards from "../../components/VideoCall/CallRewards";
 import SafetyDialog from "../../components/VideoCall/SafetyDialog";
-import CallNotice from "../../components/VideoCall/CallNotice";
+import { useEffect } from "react";
+import { useToast } from "../../hooks/useToast";
 import VideoCallHeader from "../../components/VideoCall/VideoCallHeader";
 import { useVideoCallFlow } from "../../hooks/videoCall/useVideoCallFlow";
 import { useBodyScrollLock } from "../../hooks/videoCall/useBodyScrollLock";
@@ -13,7 +16,10 @@ import "./VideoCallPage.css";
 
 export default function VideoCallPage() {
   const flow = useVideoCallFlow();
-  useBodyScrollLock(flow.stage === "call" || Boolean(flow.safetyAction));
+  const toast = useToast();
+  const { notice, dismissNotice } = flow;
+  useEffect(() => { if (notice) { toast({ message: notice }); dismissNotice(); } }, [notice, dismissNotice, toast]);
+  useBodyScrollLock(flow.stage === "call");
 
   function renderStage() {
     switch (flow.stage) {
@@ -38,16 +44,19 @@ export default function VideoCallPage() {
             partner={flow.partner}
             selected={flow.selected}
             prompt={flow.prompt}
-            onStartCall={flow.startCall}
+            onStartCall={flow.checkDevices}
             onFindAnother={() => flow.search(true)}
             onEditTopics={flow.showTopics}
           />
         );
+      case "devices":
+        return <DeviceCheck onReady={flow.startCall} onBack={flow.showMatch} />;
       case "call":
         return (
           <CallRoom
             partner={flow.partner}
             duration={flow.duration}
+            mediaOptions={flow.mediaOptions}
             onEndCall={flow.endCall}
             onSafetyAction={flow.openSafetyDialog}
             onNotice={flow.showNotice}
@@ -65,7 +74,7 @@ export default function VideoCallPage() {
           />
         );
       case "thanks":
-        return <CallRewards onContinue={flow.showTopics} />;
+        return <CallRewards partner={flow.partner} onContinue={flow.showTopics} />;
       default:
         return null;
     }
@@ -73,10 +82,8 @@ export default function VideoCallPage() {
 
   return (
     <div className={`vc-page vc-stage-${flow.stage}`}>
-      {flow.notice && (
-        <CallNotice message={flow.notice} onDismiss={flow.dismissNotice} />
-      )}
       {!["call", "search"].includes(flow.stage) && <VideoCallHeader />}
+      {flow.stage==='topics'&&<FirstCallGuide/>}
       {renderStage()}
       {flow.safetyAction && (
         <SafetyDialog

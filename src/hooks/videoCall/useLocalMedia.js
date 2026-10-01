@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-export function useLocalMedia(onError) {
+export function useLocalMedia(onError, options = {}) {
   const [mic, setMic] = useState(false);
   const [camera, setCamera] = useState(false);
   const streamRef = useRef(null);
@@ -33,7 +33,7 @@ export function useLocalMedia(onError) {
     pendingRef.current.add(kind);
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: kind === "video",
+        video: kind === "video" ? options.deviceId ? {deviceId:{exact:options.deviceId}} : true : false,
         audio: kind === "audio",
       });
       // Permission may resolve after the call screen has unmounted.
@@ -60,5 +60,11 @@ export function useLocalMedia(onError) {
       pendingRef.current.delete(kind);
     }
   }
+  useEffect(() => {
+    const timer = setTimeout(() => { void toggleMedia('video'); if (options.mic) void toggleMedia('audio'); }, 0);
+    return () => clearTimeout(timer);
+    // Device settings apply once when entering a room.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return { mic, camera, previewRef, toggleMedia };
 }

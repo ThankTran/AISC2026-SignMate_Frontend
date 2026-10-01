@@ -9,7 +9,7 @@
 | `src/hooks/videoCall/useVideoCallFlow.js` | Điều phối bước hiện tại, lựa chọn chủ đề, thời gian, hồ sơ bị chặn và gửi đánh giá/báo cáo. |
 | `src/hooks/videoCall/useLocalMedia.js` | Xin quyền camera/micro, bật/tắt track, dọn thiết bị khi rời phòng; xử lý quyền được cấp sau khi component đã unmount. |
 | `src/hooks/videoCall/useCallChat.js` | Tin nhắn của phiên gọi, giữ lịch sử khi đóng/mở khung chat. |
-| `src/hooks/videoCall/useDialogFocus.js` | Giữ focus trong dialog, hỗ trợ Escape và trả focus khi đóng. |
+| `src/hooks/useDialogFocus.js` | Giữ focus trong dialog, hỗ trợ Escape và trả focus khi đóng. |
 | `src/hooks/videoCall/useBodyScrollLock.js` | Khóa cuộn nền khi gọi hoặc mở dialog. |
 | `src/mockdata/videoCall/` | Dữ liệu thuần: chủ đề, gợi ý, hồ sơ, tin nhắn mở đầu, nhãn đánh giá và XP demo. Không import React hay component icon. |
 | `src/services/videoCall/demoSessionStorage.js` | Ranh giới lưu đánh giá/báo cáo demo. Trả về thất bại khi storage không khả dụng. |

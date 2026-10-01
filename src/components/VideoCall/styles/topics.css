@@ -18,9 +18,11 @@
 }
 .vc-count {
   margin-left: auto;
-  font-size: 10px;
+  font-size: var(--font-size-caption);
   white-space: nowrap;
   color: #6b8173;
+
+  font-family: var(--font-family-mono);
 }
 .vc-topics {
   display: flex;
@@ -37,7 +39,7 @@
   color: #617168;
   padding: 12px 15px;
   border-radius: 12px;
-  font-size: 12px !important;
+  font-size: var(--font-size-caption);
   transition:
     background 0.2s,
     transform 0.2s,
@@ -63,11 +65,11 @@
 }
 .vc-custom input {
   border: 0;
-  outline: 0;
+  outline: 2px solid transparent;
   min-width: 0;
   flex: 1;
   background: transparent;
-  font-size: 11px;
+  font-size: var(--font-size-caption);
 }
 .vc-custom button {
   border: 0;
@@ -87,7 +89,7 @@
   display: flex;
   align-items: center;
   gap: 9px;
-  font-size: 12px;
+  font-size: var(--font-size-h3);
   margin-bottom: 14px;
 }
 .vc-suggestions > button {
@@ -102,7 +104,7 @@
   padding: 13px;
   background: #f3f6f1;
   margin-top: 9px;
-  font-size: 11px;
+  font-size: var(--font-size-caption);
   line-height: 1.7;
   color: #69796d;
   transition: background 0.2s;
@@ -119,7 +121,7 @@
   display: flex;
   align-items: center;
   gap: 7px;
-  font-size: 10px;
+  font-size: var(--font-size-caption);
   color: #879b88;
   margin-top: 24px;
 }
@@ -145,18 +147,18 @@
   background: #ffffff75;
   padding: 6px 11px;
   border-radius: 20px;
-  font-size: 10px;
+  font-size: var(--font-size-caption);
   letter-spacing: 0.4px;
 }
 .vc-ai-card h2 {
-  font-size: 27px;
+  font-size: var(--font-size-h2);
   line-height: 1.3;
   font-weight: 800;
   margin-bottom: 13px;
   letter-spacing: -1px;
 }
 .vc-ai-card > p {
-  font-size: 12px;
+  font-size: var(--font-size-caption);
   color: #7b719e;
   max-width: 330px;
 }
@@ -230,10 +232,10 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 10px;
+  font-size: var(--font-size-caption);
 }
 .vc-online small {
-  font-size: 9px;
+  font-size: var(--font-size-caption);
   color: #82779d;
   display: block;
   margin-top: 3px;
@@ -257,14 +259,14 @@
   height: 30px;
   border: 2px solid #f5f1fe;
   margin-right: -8px;
-  font-size: 10px;
+  font-size: var(--font-size-caption);
 }
 .vc-match-aside > .vc-button {
   justify-content: space-between;
 }
 .vc-under-button {
   text-align: center;
-  font-size: 9px;
+  font-size: var(--font-size-caption);
   color: #8c958d;
   display: flex;
   align-items: center;
@@ -277,7 +279,7 @@
   gap: 26px;
   margin-top: 31px;
   color: #8d998f;
-  font-size: 10px;
+  font-size: var(--font-size-caption);
 }
 .vc-bottom-steps > span {
   display: flex;

@@ -1,3 +1,4 @@
+import { VIDEO_DEMO } from "../../services/videoCall/config";
 import {
   CheckCheck,
   Sparkles,
@@ -22,7 +23,7 @@ export default function PartnerMatch({
       <span className="vc-success-pill">
         <CheckCheck size={15} /> Ghép cặp thành công!
       </span>
-      <h1>
+      <h1 className="text-h1">
         Người bạn tiếp theo
         <br />
         trên hành trình của bạn.
@@ -45,11 +46,11 @@ export default function PartnerMatch({
           <div className="vc-partner-avatar">
             <ParticipantAvatar person={partner} />
             <span>
-              <i /> Hồ sơ demo
+              <i /> {VIDEO_DEMO ? "Hồ sơ demo" : "Bạn học"}
             </span>
           </div>
           <div>
-            <h2>{partner.name}</h2>
+            <h2 className="text-h2">{partner.name}</h2>
             <p className="vc-location">
               <MapPin size={13} />
               {partner.city} · Người nghe

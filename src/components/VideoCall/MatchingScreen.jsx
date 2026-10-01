@@ -1,3 +1,4 @@
+import { VIDEO_DEMO } from "../../services/videoCall/config";
 import { ArrowLeft, Check, Hand } from "lucide-react";
 import { formatTime } from "../../utils/videoCall/formatTime";
 import { matchingSteps } from "../../mockdata/videoCall/topics";
@@ -15,7 +16,7 @@ export default function MatchingScreen({ elapsed, onCancel }) {
         <Hand size={48} />
       </div>
       <span className="vc-eyebrow">ĐANG KẾT NỐI NHỮNG ĐÔI TAY</span>
-      <h1>
+      <h1 className="text-h1">
         Một kết nối mới đang đến<span className="vc-dots">...</span>
       </h1>
       <p>
@@ -42,7 +43,7 @@ export default function MatchingScreen({ elapsed, onCancel }) {
         <strong>{formatTime(elapsed)}</strong>
       </div>
       <span className="vc-search-demo">
-        Đang mô phỏng ghép cặp · Hồ sơ demo
+        {VIDEO_DEMO ? "Đang mô phỏng ghép cặp · Hồ sơ demo" : "Đang tìm đối tác"}
       </span>
       <button className="vc-text-button" onClick={onCancel}>
         Hủy tìm kiếm

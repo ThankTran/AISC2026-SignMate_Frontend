@@ -23,7 +23,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 11px !important;
+  font-size: var(--font-size-caption);
 }
 .vc-search-orb {
   position: relative;
@@ -53,14 +53,14 @@
 }
 .vc-search .vc-eyebrow {
   color: #afa0d5;
-  font-size: 9px;
+  font-size: var(--font-size-caption);
 }
 .vc-search h1 {
-  font-size: 27px;
+  font-size: var(--font-size-h1);
   margin: 15px 0;
 }
 .vc-search > p {
-  font-size: 12px;
+  font-size: var(--font-size-caption);
   color: #b5a9d0;
 }
 .vc-search-checks {
@@ -78,7 +78,7 @@
   align-items: center;
   padding: 9px 0;
   color: #9286b0;
-  font-size: 11px;
+  font-size: var(--font-size-caption);
   transition: color 0.4s;
 }
 .vc-search-checks > div > span {
@@ -107,7 +107,7 @@
 .vc-wait small {
   display: block;
   letter-spacing: 2px;
-  font-size: 9px;
+  font-size: var(--font-size-caption);
   color: #9486b3;
 }
 .vc-wait strong {
@@ -118,7 +118,7 @@
   margin-top: 8px;
 }
 .vc-search-demo {
-  font-size: 9px;
+  font-size: var(--font-size-caption);
   color: #9486b3;
   margin-top: 19px;
 }

@@ -1,12 +1,5 @@
-import { useEffect } from "react";
-
+import { useEffect } from 'react';
+import { lockDocumentScroll } from '../../utils/scrollLock';
 export function useBodyScrollLock(active) {
-  useEffect(() => {
-    if (!active) return;
-    const previous = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = previous;
-    };
-  }, [active]);
+  useEffect(() => { if (active) return lockDocumentScroll(); }, [active]);
 }

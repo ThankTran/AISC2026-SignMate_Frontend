@@ -1,30 +1,21 @@
+import { VIDEO_DEMO } from "../../services/videoCall/config";
 import { useState } from "react";
-import { useDialogFocus } from "../../hooks/videoCall/useDialogFocus";
+import Modal from "../ui/Modal";
 import CallButton from "./CallButton";
 
 export default function SafetyDialog({ action, partner, onClose, onConfirm }) {
   const [reason, setReason] = useState("");
-  const dialogRef = useDialogFocus(onClose);
   const isBlock = action === "block";
 
   return (
-    <div className="vc-modal-backdrop" onClick={onClose}>
-      <section
-        ref={dialogRef}
-        className="vc-panel vc-modal"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="vc-safety-title"
-        aria-describedby="vc-safety-description"
-        onClick={(event) => event.stopPropagation()}
-      >
-        <h2 id="vc-safety-title">
+    <Modal className="vc-panel vc-modal" onClose={onClose} labelledBy="vc-safety-title" describedBy="vc-safety-description">
+        <h2 id="vc-safety-title" className="text-h2">
           {isBlock ? `Chặn ${partner.name}?` : "Báo cáo buổi trò chuyện"}
         </h2>
         <p id="vc-safety-description">
           {isBlock
-            ? "Hồ sơ này sẽ không xuất hiện khi ghép cặp trong phiên demo hiện tại."
-            : "Báo cáo demo được lưu trên trình duyệt, chưa gửi đến đội ngũ hỗ trợ."}
+            ? (VIDEO_DEMO ? "Hồ sơ này sẽ không xuất hiện khi ghép cặp trong phiên demo hiện tại." : "Hồ sơ này sẽ không xuất hiện khi ghép cặp trong phiên hiện tại.")
+            : (VIDEO_DEMO ? "Báo cáo demo được lưu trên trình duyệt, chưa gửi đến đội ngũ hỗ trợ." : "Báo cáo được lưu trên trình duyệt, chưa gửi đến đội ngũ hỗ trợ.")}
         </p>
         {!isBlock && (
           <textarea
@@ -45,7 +36,6 @@ export default function SafetyDialog({ action, partner, onClose, onConfirm }) {
             Xác nhận
           </CallButton>
         </div>
-      </section>
-    </div>
+    </Modal>
   );
 }

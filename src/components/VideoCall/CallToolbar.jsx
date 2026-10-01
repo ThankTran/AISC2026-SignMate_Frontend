@@ -8,7 +8,6 @@ import {
   MicOff,
   PhoneOff,
   Smile,
-  MonitorUp,
 } from "lucide-react";
 
 export default function CallToolbar({
@@ -18,7 +17,7 @@ export default function CallToolbar({
   onToggleMic,
   onToggleCamera,
   onToggleChat,
-  onShareScreen,
+  unreadCount = 0,
   onReact,
   onEndCall,
 }) {
@@ -73,7 +72,6 @@ export default function CallToolbar({
           onClick: onToggleChat,
           active: chatOpen,
         },
-        { icon: MonitorUp, label: "Chia sẻ màn hình", onClick: onShareScreen },
       ].map(({ icon: Icon, label, onClick, active }) => (
         <button
           key={label}
@@ -83,7 +81,7 @@ export default function CallToolbar({
           className={active ? "active" : ""}
           onClick={onClick}
         >
-          <Icon size={21} />
+          <Icon size={21} />{label === "Trò chuyện" && unreadCount > 0 && <span className="vc-unread" aria-label={`${unreadCount} tin mới`}>{unreadCount}</span>}
         </button>
       ))}
       <button type="button" ref={reactionButtonRef}

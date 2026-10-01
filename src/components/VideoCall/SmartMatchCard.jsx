@@ -33,7 +33,7 @@ export default function SmartMatchCard({ canSearch, onSearch }) {
             <Sparkles size={22} />
           </span>
         </div>
-        <h2>
+        <h2 className="text-h2">
           Một người bạn.
           <br />
           Nhiều điều để sẻ chia.
