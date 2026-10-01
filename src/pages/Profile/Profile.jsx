@@ -1,7 +1,7 @@
 import DataState from "../../components/ui/DataState";
 import { useState, useRef } from 'react';
 import { updateProfile, updatePassword, reauthenticateWithCredential, EmailAuthProvider, reauthenticateWithPopup, GoogleAuthProvider, deleteUser } from 'firebase/auth';
-import { doc, setDoc, deleteDoc } from 'firebase/firestore';
+import { doc, deleteDoc } from 'firebase/firestore';
 import { auth, db } from '../../lib/firebase';
 import { useCurrentUser } from '../../hooks/useCurrentUser';
 import { useToast } from '../../hooks/useToast';
@@ -34,11 +34,9 @@ export default function ProfilePage() {
   busy.current=true;setSaving(true);setError('');
   try {
    const next={...profile,...patch};if(!next.name.trim())throw new Error('Tên không được để trống.');
-   const oldName=user.displayName;
-   await updateProfile(user,{displayName:next.name});
-   try {await setDoc(doc(db,'users',user.uid),{...next,displayName:next.name,email:user.email},{merge:true});}
-   catch(error){await updateProfile(user,{displayName:oldName}).catch(()=>{});throw error;}
-   try {await accountApi.update(next);} catch {toast({type:'info',message:'Đã lưu Firebase. Chưa đồng bộ được với máy chủ SignMate; hãy thử lưu lại khi có kết nối.'});return true;}
+   const saved=await accountApi.update(next);
+   current._updateProfile(saved);
+   await updateProfile(user,{displayName:saved.name});
    toast({type:'success',message:'Đã lưu hồ sơ.'});return true;
   } catch(err){setError(err.message);toast({type:'error',message:'Chưa lưu hoàn tất hồ sơ. Vui lòng thử lại.'});return false;}
   finally{busy.current=false;setSaving(false);}

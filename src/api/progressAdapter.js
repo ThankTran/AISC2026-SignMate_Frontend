@@ -22,6 +22,7 @@ export function adaptProgress({dashboard = {}, stats: detail = {}, leaderboard =
   const xpTarget = numeric(raw.xpTarget, xpLevel * 1000);
   const curriculumLevel = raw.curriculumLevel || dashboard.curriculumLevel || 'Cơ bản';
   return {user: dashboard.user, stats: {...raw, xp, xpLevel, curriculumLevel, level: curriculumLevel,
+      rank: raw.weeklyRank ?? raw.rank ?? null, weeklyRank: raw.weeklyRank ?? raw.rank ?? null, allTimeRank: raw.allTimeRank ?? null,
       xpTarget, xpRemaining: numeric(raw.xpRemaining ?? dashboard.xpRemaining, Math.max(0,xpTarget - xp)),
       streak: numeric(raw.streak), bestStreak: numeric(raw.bestStreak), weeklyXp: numeric(raw.weeklyXp),
       xpToday: numeric(raw.xpToday), lessonsLearned: numeric(raw.lessonsLearned, completedLessons),

@@ -44,6 +44,8 @@ const post = (path, body) => api(path, { method: "POST", body });
 const patch = (path, body) => api(path, { method: "PATCH", body });
 const remove = (path) => api(path, { method: "DELETE" });
 export const accountApi = {
+  sync: (name) => post('/api/auth/sync', {name}),
+  curriculumLevel: (level) => patch('/api/me/curriculum-level', {level}),
   deleteAccount: () => remove('/api/me'),
   me: () => api("/api/me"),
   update: (profile) => patch("/api/me", profile),
