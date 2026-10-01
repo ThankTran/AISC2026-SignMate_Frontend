@@ -18,7 +18,7 @@ import Register from "../pages/Register/Register";
 import LearningPathPage from "../pages/LearningPathPage/LearningPathPage";
 import LessonPage from "../pages/LessonPage/LessonPage";
 import QuizPage from "../pages/QuizPage/QuizPage";
-import QuizRouteGuard from "../pages/QuizPage/QuizRouteGuard";
+
 import QuizResultPage from "../pages/QuizResultPage/QuizResultPage";
 import AiPracticePage from "../pages/AiPracticePage/AiPracticePage";
 import LeaderboardPage from "../pages/LeaderboardPage/LeaderboardPage";
@@ -72,11 +72,7 @@ export default function AppRoutes() {
         <Route path="/learning-path/lesson/:lessonId" element={<LessonPage />} />
         <Route
           path="/learning-path/quiz/:quizId"
-          element={
-            <QuizRouteGuard>
-              <QuizPage />
-            </QuizRouteGuard>
-          }
+          element={<QuizPage />}
         />
         <Route path="/learning-path/quiz/:quizId/result" element={<QuizResultPage />} />
         <Route path="/practice-ai" element={<AiPracticePage />} />

@@ -17,7 +17,7 @@ import { checkLessonAnswer, finishLesson } from "../../services/lessonApi";
 const ICONS = { hand: Hand, handHeart: HandHeart, handshake: Handshake,
   heartHandshake: HeartHandshake, heartPulse: HeartPulse, home: Home, users: Users, bookOpen: BookOpen };
 
-function LessonSession({ lesson }) {
+export function LessonSession({ lesson, checkAnswer=checkLessonAnswer, finishAttempt=finishLesson }) {
  const {recordLesson}=useProgress();
   const navigate = useNavigate();
   const [sessionId, setSessionId] = useState(() => crypto.randomUUID());
@@ -41,17 +41,23 @@ function LessonSession({ lesson }) {
     if (!selected || result || busy.current) return;
     busy.current = true; setChecking(true); setError(null);
     try {
-      const answer = await checkLessonAnswer({ lessonId: lesson.id, questionId: raw.id,
+      const answer = await checkAnswer({ lessonId: lesson.id, questionId: raw.id,
         selectedOptionId: selected, userSessionId: sessionId });
       setResult(answer); setHearts(answer.hearts);
+      if (isLast && answer.hearts <= 0) await finishCurrentAttempt();
     } catch (err) { setError(err); }
     finally { busy.current = false; setChecking(false); }
+  }
+  async function finishCurrentAttempt() {
+    const completed=await finishAttempt({lessonId:lesson.id,userSessionId:sessionId});
+    setSummary(completed);
+    recordLesson(lesson.id,{...completed,sessionId});
   }
   async function complete() {
     if (busy.current) return;
     busy.current = true; setChecking(true); setError(null);
     try {
-      const completed=await finishLesson({ lessonId: lesson.id, userSessionId: sessionId }); recordLesson(lesson.id,{...completed,sessionId});setSummary(completed);
+      await finishCurrentAttempt();
     } catch (err) { setError(err); }
     finally { busy.current = false; setChecking(false); }
   }
@@ -67,7 +73,7 @@ function LessonSession({ lesson }) {
   }
   useEffect(() => {
     const keydown = (event) => {
-      if (summary || hearts <= 0 || checking || document.querySelector('[role="dialog"]') || /INPUT|TEXTAREA|SELECT/.test(event.target.tagName)) return;
+      if (summary || (hearts <= 0 && !(isLast && result)) || checking || document.querySelector('[role="dialog"]') || /INPUT|TEXTAREA|SELECT/.test(event.target.tagName)) return;
       const index = 'abcd'.indexOf(event.key.toLowerCase());
       if (index >= 0 && !result && question.options[index]) { event.preventDefault(); setSelected(question.options[index].id); }
       if (event.key === 'Enter' && !event.target.closest('a,.vp-frame,.lesson-topnav')) { event.preventDefault(); if (result) advance(); else handleCheck(); }
@@ -91,7 +97,7 @@ function LessonSession({ lesson }) {
       firstTimeCorrect={result?.correct === true} onCheck={handleCheck} onAdvance={advance} />
     {summary && <LessonResultModal lessonId={lesson.id} summary={summary} onClose={() => navigate("/learning-path")} onRetake={retake}
       onNext={() => navigate("/learning-path")} />}
-    {hearts <= 0 && !summary && <OutOfHeartsModal />}
+    {hearts <= 0 && !(isLast && result) && !summary && <OutOfHeartsModal />}
   </div>;
 }
 export default function LessonPage() {

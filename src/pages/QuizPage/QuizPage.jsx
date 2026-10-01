@@ -1,3 +1,4 @@
+import QuizRouteGuard from "./QuizRouteGuard";
 import {useProgress} from "../../hooks/useProgress";
 import { useConfirm } from "../../hooks/useConfirm";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -148,6 +149,7 @@ const QuizSession = ({ quiz }) => {
       ? current + 1 : QUESTIONS.findIndex((item) => !isAnswered(item)));
   };
 
+  if(error?.status===403)return <QuizRouteGuard error={error}/>;
   return (
     <div className="quiz">
       {/* ===== HEADER ===== */}
@@ -337,7 +339,7 @@ export default function QuizPage() {
   const { quizId } = useParams();
   const load = useCallback(() => learningApi.quiz(quizId), [quizId]);
   const { data, error } = useApiResource(load);
-  if (!data || String(data.chapterId) !== quizId) return <ApiState error={error} />;
+  if (!data || String(data.chapterId) !== quizId) return <QuizRouteGuard error={error}><ApiState error={error} /></QuizRouteGuard>;
   if (!data.questions?.length) return <p role="status">Bài kiểm tra đang được cập nhật.</p>;
   return <QuizSession key={quizId} quiz={data} />;
 }

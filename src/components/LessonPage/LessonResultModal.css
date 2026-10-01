@@ -608,3 +608,7 @@
     align-items: flex-start;
   }
 }
+.lrm--failed .lrm__hero{background:var(--color-neutral-100);color:var(--color-neutral-900)}
+.lrm--failed .lrm__hero-title,.lrm--failed .lrm__hero-subtitle{color:var(--color-neutral-900)}
+.lrm--failed .lrm-stat__flag,.lrm--failed .lrm-stat__pct{color:var(--color-coral-700)}
+.lrm--failed .lrm-stat__flag{background:var(--color-coral-50)}

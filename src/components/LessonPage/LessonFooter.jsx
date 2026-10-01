@@ -14,7 +14,6 @@ const LessonFooter = ({
   remainingQuestions,
   isLast,
   correctAnswerName,
-  firstTimeCorrect,
 }) => {
   const hasSelection = Boolean(selected);
 
@@ -48,9 +47,7 @@ const LessonFooter = ({
             </p>
             <span className="lesson-footer__status-sub">
               {correct
-                ? firstTimeCorrect
-                  ? "+10 XP"
-                  : `Độ chính xác AI: ${result.aiAccuracy ?? "--"}%`
+                ? "XP được tổng kết khi hoàn thành bài học."
                 : `Đáp án đúng là: ${correctAnswerName}`}
             </span>
           </div>

@@ -1,7 +1,9 @@
+import {useApiResource} from "../../hooks/useApiResource";
+import {learningApi} from "../../services/api";
 import VideoPlayerFrame from "../../components/VideoPlayerFrame/VideoPlayerFrame";
 import Modal from "../../components/ui/Modal";
-import { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useState, useCallback } from "react";
+import { Link, useParams, useLocation } from "react-router-dom";
 import { ArrowRight, ChevronRight, CircleCheckBig, CircleX, RotateCcw, Star, Target, Trophy } from "lucide-react";
 import {useProgress} from "../../hooks/useProgress";
 import EmptyState from "../../components/ui/EmptyState";
@@ -80,8 +82,16 @@ function QuizResult({ result, questions = [], elapsedSeconds }) {
   </div>;
 }
 export default function QuizResultPage() {
- const {quizId}=useParams();const {quizResults,status,error,retry}=useProgress();const data=quizResults[quizId];
- if(status!=='ready'||error)return <ApiState error={error} retry={retry}/>;
- if(!data)return <EmptyState title="Chưa có kết quả kiểm tra" description="Hoàn thành bài kiểm tra để xem kết quả và câu trả lời."/>;
+ const {quizId}=useParams(),{state}=useLocation(),progress=useProgress();
+ const routed=String(state?.result?.chapterId)===quizId?state:null;
+ const mock=progress.source==='mock'?progress.quizResults[quizId]:null;
+ const load=useCallback(async()=>{
+  if(routed||mock)return routed||mock;
+  const result=await learningApi.quizResult(quizId);
+  return {result,questions:result.questions||[],elapsedSeconds:result.elapsedSeconds};
+ },[quizId,routed,mock]);
+ const {data,error}=useApiResource(load);
+ if(error?.status===404)return <EmptyState title="Chưa có kết quả kiểm tra" description="Hoàn thành bài kiểm tra để xem kết quả và câu trả lời."/>;
+ if(!data||error)return <ApiState error={error}/>;
  return <QuizResult result={data.result} questions={data.questions} elapsedSeconds={data.elapsedSeconds}/>;
 }
