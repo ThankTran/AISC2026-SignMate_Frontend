@@ -61,7 +61,8 @@ export const learningApi = {
 };
 export const socialApi = {
   search: (q) => api(`/api/users/search?q=${encodeURIComponent(q)}`),
-  friends: () => api("/api/friends"), requests: () => api("/api/friends/requests"),
+  friends: () => api("/api/friends"), requests: (direction='incoming') => api(`/api/friends/requests?direction=${encodeURIComponent(direction)}`),
+  ping: () => post('/api/me/presence'),
   request: (userId) => post("/api/friends/requests", { userId }),
   decide: (id, action) => patch(`/api/friends/requests/${id}`, { action }),
   remove: (id) => remove(`/api/friends/${id}`),

@@ -28,10 +28,10 @@ import "./FriendsPage.css";
 
 const FriendsWorkspace = ({ view = "list", Content }) => {
   const toast = useToast();
-  const { status,error,retry,friends,setFriends,incomingRequests,setIncomingRequests,incomingScheduleRequests,setIncomingScheduleRequests,scheduledSessions,setScheduledSessions,sentRequests:requestedCallIds,addFriend } = useFriends();
+  const { source,decideRequest,status,error,retry,friends,setFriends,incomingRequests,setIncomingRequests,incomingScheduleRequests,setIncomingScheduleRequests,scheduledSessions,setScheduledSessions,sentRequests:requestedCallIds,addFriend } = useFriends();
   const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState("");
-  const [requestingCallId, setRequestingCallId] = useState(null);
+  const [requestingCallId, setRequestingCallId] = useState(null); const [pendingRequestId,setPendingRequestId]=useState(null);
   const [scheduleTarget, setScheduleTarget] = useState(null);
   const [scheduleDate, setScheduleDate] = useState("");
   const [scheduleTime, setScheduleTime] = useState("");
@@ -127,13 +127,13 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
 
   const recentConversationCalls = useMemo(
     () =>
-      recentCallsData.filter(
+      (source==='mock'?recentCallsData:[]).filter(
         (call) =>
           !call.isFriend &&
           call.wasConnected &&
           !friends.some((friend) => friend.name === call.name)
       ),
-    [friends]
+    [friends,source]
   );
 
   const calendarAppointments = useMemo(() => {
@@ -225,6 +225,7 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
   };
 
   const openQuickInvite = (dateKey) => {
+    if(source==='server'){toast({type:'info',message:'Lịch hẹn đang được cập nhật.'});return;}
     setQuickInviteDate(dateKey);
     setQuickInviteFriendId(friends[0]?.id || "");
     setQuickInviteTime("19:30");
@@ -260,7 +261,12 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
     closeQuickInvite();
   };
 
-  const handleAcceptRequest = (request) => {
+  const handleAcceptRequest = async (request) => {
+    if(source==='server'){
+      if(pendingRequestId)return;setPendingRequestId(request.id);
+      try{const undo=await decideRequest(request,'accept');toast({type:'success',message:'Đã kết bạn. Hoàn tác sẽ hủy kết bạn.',undo});}
+      catch(error){toast({type:'error',error});}finally{setPendingRequestId(null);}return;
+    }
     toast({ type: 'success', message: `Đã chấp nhận kết bạn với ${request.name}.`, undo: () => {
       setFriends(prev => prev.filter(item => item.id !== `friend-${request.id}`));
       setIncomingRequests(prev => prev.some(item => item.id === request.id) ? prev : [request, ...prev]);
@@ -280,8 +286,13 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
     );
   };
 
-  const handleDeclineRequest = (requestId) => {
+  const handleDeclineRequest = async (requestId) => {
     const request = incomingRequests.find(item => item.id === requestId);
+    if(source==='server'){
+      if(pendingRequestId||!request)return;setPendingRequestId(requestId);
+      try{const undo=await decideRequest(request,'reject');toast({type:'info',message:'Đã từ chối. Hoàn tác sẽ gửi lại lời mời kết bạn.',undo});}
+      catch(error){toast({type:'error',error});}finally{setPendingRequestId(null);}return;
+    }
     toast({ type: 'info', message: 'Đã từ chối lời mời kết bạn.', undo: () => { if (request) setIncomingRequests(prev => prev.some(item => item.id === requestId) ? prev : [request, ...prev]); } });
     setIncomingRequests((prev) =>
       prev.filter((item) => item.id !== requestId)
@@ -317,20 +328,14 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
   };
 
   // ===== Gửi lời mời kết bạn từ card cuộc gọi gần đây =====
-  const handleAddFriend = (callId) => {
-    if (requestingCallId || requestedCallIds.includes(callId)) return;
-
+  const handleAddFriend = async (callId) => {
+    if(requestingCallId||requestedCallIds.includes(callId))return;
     setRequestingCallId(callId);
-
-    // TODO: gọi API gửi lời mời kết bạn thật tại đây
-    setTimeout(() => {
-      toast({ type: 'success', message: 'Đã gửi lời mời kết bạn.' });
-      addFriend(callId);
-      setRequestingCallId(null);
-    }, 500);
+    try{await addFriend(callId);toast({type:'success',message:'Đã gửi lời mời kết bạn.'});}
+    catch(error){toast({type:'error',error});}finally{setRequestingCallId(null);}
   };
-
   const handleSchedule = (friend) => {
+    if(source==='server'){toast({type:'info',message:'Lịch hẹn đang được kết nối với máy chủ. Bạn có thể gọi trực tiếp cho bạn đang online.'});return;}
     setScheduleTarget(friend);
     setScheduleDate("");
     setScheduleTime("");
@@ -381,7 +386,7 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
         </p>
       </div>
 
-      <DataState status={status} error={error} retry={retry}><Content {...{searchValue,setSearchValue,isFriendsHome,callHistoryTriggerRef,setShowCallHistory,recentConversationCalls,handleAddFriend,requestingCallId,requestedCallIds,showCallHistory,filteredFriends,selectedFriendFilterLabel,friendFilter,filterRef,isFriendFilterOpen,setIsFriendFilterOpen,setFriendFilter,visibleFriendCount,setVisibleFriendCount,handleSchedule,handleCall,isFriendRequestsView,incomingRequests,visibleRequests,handleAcceptRequest,handleDeclineRequest,showAllRequests,setShowAllRequests,hiddenRequestCount,isVideoInvitesView,incomingScheduleRequests,visibleScheduleRequests,handleAcceptScheduleRequest,handleDeclineScheduleRequest,showAllScheduleRequests,setShowAllScheduleRequests,hiddenScheduleRequestCount,calendarAppointments,calendarTitle,calendarMonthDays,calendarAppointmentsByDate,goToPreviousMonth,goToNextMonth,goToTodayMonth,openQuickInvite}} /></DataState>
+      <DataState status={status} error={error} retry={retry}><Content {...{pendingRequestId,searchValue,setSearchValue,isFriendsHome,callHistoryTriggerRef,setShowCallHistory,recentConversationCalls,handleAddFriend,requestingCallId,requestedCallIds,showCallHistory,filteredFriends,selectedFriendFilterLabel,friendFilter,filterRef,isFriendFilterOpen,setIsFriendFilterOpen,setFriendFilter,visibleFriendCount,setVisibleFriendCount,handleSchedule,handleCall,isFriendRequestsView,incomingRequests,visibleRequests,handleAcceptRequest,handleDeclineRequest,showAllRequests,setShowAllRequests,hiddenRequestCount,isVideoInvitesView,incomingScheduleRequests,visibleScheduleRequests,handleAcceptScheduleRequest,handleDeclineScheduleRequest,showAllScheduleRequests,setShowAllScheduleRequests,hiddenScheduleRequestCount,calendarAppointments,calendarTitle,calendarMonthDays,calendarAppointmentsByDate,goToPreviousMonth,goToNextMonth,goToTodayMonth,openQuickInvite}} /></DataState>
       {quickInviteDate && (
         <Modal className="schedule-modal__panel" labelledBy="quick-invite-title" onClose={closeQuickInvite}>
             <button

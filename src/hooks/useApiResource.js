@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 // The supplied loader must be stable (an exported function or useCallback).
-export function useApiResource(loader, refreshKey = 0) {
+export function useApiResource(loader, refreshKey = 0, {keepPrevious=false} = {}) {
   const [resource, setResource] = useState({ data: null, error: null });
   useEffect(() => {
     let active = true;
@@ -10,5 +10,7 @@ export function useApiResource(loader, refreshKey = 0) {
     );
     return () => { active = false; };
   }, [loader, refreshKey]);
-  return resource.loader === loader && resource.refreshKey === refreshKey ? resource : { data: null, error: null };
+  if(resource.loader===loader&&resource.refreshKey===refreshKey)return resource;
+  if(keepPrevious&&resource.loader===loader&&resource.data)return {...resource,error:null,refreshing:true};
+  return { data: null, error: null };
 }

@@ -1,4 +1,5 @@
 import { Calendar, Video } from "lucide-react";
+import Avatar from '../ui/Avatar';
 
 import "./FriendListItem.css";
 
@@ -7,11 +8,7 @@ const FriendListItem = ({ friend, onSchedule, onCall }) => {
     <div className="friend-item">
       <div className="friend-item__left">
         <div className="friend-item__avatar-wrap">
-          <img
-            src={friend.avatar}
-            alt={friend.name}
-            className="friend-item__avatar"
-          />
+          <Avatar user={friend} size={48}/>
 
           <span
             className={`friend-item__status-dot ${

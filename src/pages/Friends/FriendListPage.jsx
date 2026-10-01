@@ -5,6 +5,7 @@ import Modal from "../../components/ui/Modal";
 import RecentCallCard from "../../components/Friends/RecentCallCard";
 import FriendListItem from "../../components/Friends/FriendListItem";
 import { friendFilters } from "./friendsPageConfig";
+import FriendSearchResults from '../../components/Friends/FriendSearchResults';
 function Content({searchValue,setSearchValue,isFriendsHome,callHistoryTriggerRef,setShowCallHistory,recentConversationCalls,handleAddFriend,requestingCallId,requestedCallIds,showCallHistory,filteredFriends,selectedFriendFilterLabel,friendFilter,filterRef,isFriendFilterOpen,setIsFriendFilterOpen,setFriendFilter,visibleFriendCount,setVisibleFriendCount,handleSchedule,handleCall}) { return <>
       {isFriendsHome && (
         <div className="friends-search" role="search">
@@ -38,6 +39,7 @@ function Content({searchValue,setSearchValue,isFriendsHome,callHistoryTriggerRef
         </div>
       )}
 
+      {isFriendsHome&&<FriendSearchResults query={searchValue} onAdd={handleAddFriend} sentRequests={requestedCallIds} pendingId={requestingCallId}/>}
       {/* ================= CUỘC GỌI GẦN ĐÂY ================= */}
       {isFriendsHome && (
       <section className="friends-section friends-section--recent">

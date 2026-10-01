@@ -1663,3 +1663,4 @@
 .month-calendar__day, .month-calendar__day:hover { background:var(--color-neutral-50); }
 .month-calendar-event { background:var(--color-teal-50); border:1px solid var(--color-teal-100); box-shadow:none; }
 @media(max-width:768px){.friends-page .friends-recent-calls{grid-auto-flow:row;grid-auto-columns:auto;grid-template-columns:minmax(0,1fr);overflow:visible}}
+.friend-search-results{list-style:none;padding:0;display:grid;gap:12px}.friend-search-results li{display:flex;align-items:center;gap:12px;padding:16px;border:1px solid var(--color-neutral-200);border-radius:12px}.friend-search-results li>div{flex:1;min-width:0}.friend-search-results button,.friend-search-results a{min-height:44px;padding:10px 14px;border-radius:10px;background:var(--color-teal-50);color:var(--color-teal-700)}@media(max-width:640px){.friend-search-results li{flex-wrap:wrap}.friend-search-results li>button,.friend-search-results li>a{margin-left:56px}}

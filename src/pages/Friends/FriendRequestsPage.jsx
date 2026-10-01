@@ -2,7 +2,8 @@ import EmptyState from "../../components/ui/EmptyState";
 import FriendsWorkspace from "./FriendsWorkspace";
 import { X, Check } from "lucide-react";
 import { REQUEST_PREVIEW_LIMIT } from "./friendsPageConfig";
-function Content({isFriendRequestsView,incomingRequests,visibleRequests,handleAcceptRequest,handleDeclineRequest,showAllRequests,setShowAllRequests,hiddenRequestCount}) { return <>
+import Avatar from '../../components/ui/Avatar';
+function Content({isFriendRequestsView,incomingRequests,visibleRequests,handleAcceptRequest,handleDeclineRequest,showAllRequests,setShowAllRequests,hiddenRequestCount,pendingRequestId}) { return <>
       {/* ================= LỜI MỜI KẾT BẠN ================= */}
       {isFriendRequestsView && (
       <section className="friends-section friends-section--requests">
@@ -24,11 +25,7 @@ function Content({isFriendRequestsView,incomingRequests,visibleRequests,handleAc
             {visibleRequests.map((request) => (
               <article className="friend-request-card" key={request.id}>
                 <div className="friend-request-card__avatar-wrap">
-                  <img
-                    src={request.avatar}
-                    alt={request.name}
-                    className="friend-request-card__avatar"
-                  />
+                  <Avatar user={request} size={48}/>
                   <span className="friend-request-card__indicator" />
                 </div>
 
@@ -49,6 +46,7 @@ function Content({isFriendRequestsView,incomingRequests,visibleRequests,handleAc
                   <button
                     type="button"
                     className="friend-request-card__accept"
+                    disabled={!!pendingRequestId}
                     onClick={() => handleAcceptRequest(request)}
                   >
                     <Check size={15} strokeWidth={1.8} />
@@ -58,6 +56,7 @@ function Content({isFriendRequestsView,incomingRequests,visibleRequests,handleAc
                   <button
                     type="button"
                     className="friend-request-card__decline"
+                    disabled={!!pendingRequestId}
                     onClick={() => handleDeclineRequest(request.id)}
                     aria-label={`Từ chối lời mời của ${request.name}`}
                     title={`Từ chối lời mời của ${request.name}`}
