@@ -57,7 +57,6 @@ export const learningApi = {
   path: () => api("/api/learning-path"),
   lesson: (id) => api(`/api/lessons/${id}`),
   quiz: (id) => api(`/api/chapters/${id}/quiz`),
-  checkQuiz: (id, body) => post(`/api/chapters/${id}/quiz/check-answer`, body),
   submitQuiz: (id, body) => post(`/api/chapters/${id}/quiz/submit`, body),
   quizResult: (id) => api(`/api/chapters/${id}/quiz/result`),
 };

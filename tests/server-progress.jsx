@@ -62,6 +62,10 @@ try{
  check('hearts exhausted mid-lesson shows hearts dialog without finish',finished===1&&!document.querySelector('[role="dialog"]')?.textContent.includes('Chưa đạt, hãy thử lại')&&!!document.querySelector('[role="dialog"]'));
  await render(<MemoryRouter><TestProgress><LessonResultModal lessonId={1} summary={{passed:true,score:100,xp:0,xpPreviouslyAwarded:true}} onRetake={()=>{}} onClose={()=>{}} onNext={()=>{}}/></TestProgress></MemoryRouter>);
  check('passed retake shows exact zero XP with explanation',document.body.textContent.includes('Đã nhận XP bài này trước đó')&&document.body.textContent.includes('+0 XP')&&!!button('Bài tiếp theo'));
+ learningApi.quiz=async()=>({chapterId:1,questions:[{id:1,prompt:'Quan sát ký hiệu',options:[{key:'A',title:'Một'},{key:'B',title:'Hai'}]}]});
+ await render(<MemoryRouter key="exam-quiz" initialEntries={['/quiz/1']}><TestProgress><ConfirmProvider><Routes><Route path="/quiz/:quizId" element={<QuizPage/>}/></Routes></ConfirmProvider></TestProgress></MemoryRouter>);
+ await click(button('Một'));check('quiz selection shows no grading before submission',!document.body.textContent.includes('Chính xác')&&!document.body.textContent.includes('Chưa đúng')&&button('Một').getAttribute('aria-pressed')==='true');
+ await click(button('Hai'));check('quiz answer can change before submission',button('Hai').getAttribute('aria-pressed')==='true'&&button('Một').getAttribute('aria-pressed')==='false');
  learningApi.quiz=async()=>{throw Object.assign(Error('Locked'),{status:403});};
  await render(<MemoryRouter key="locked-quiz" initialEntries={['/quiz/1']}><TestProgress><ToastProvider><Routes><Route path="/quiz/:quizId" element={<QuizPage/>}/><Route path="/learning-path" element={<p id="path-destination">Lộ trình</p>}/></Routes></ToastProvider></TestProgress></MemoryRouter>);
  check('API 403 redirects quiz to path with Vietnamese toast',!!document.querySelector('#path-destination')&&document.body.textContent.includes('Hãy hoàn thành các bài học'));

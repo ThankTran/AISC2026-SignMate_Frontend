@@ -18,7 +18,6 @@ import {
 import { Link } from "react-router-dom";
 
 import {
-  getLastLessonStatus,
   SON_CHUONG_LABEL,
 } from "../../mockdata";
 
@@ -152,7 +151,7 @@ const LessonNode = ({ lesson }) => {
 
 const QuizNode = ({ chapter }) => {
   const { quiz } = chapter;
-  const quizUnlocked = getLastLessonStatus(chapter) === "completed";
+  const quizUnlocked = ["unlocked", "completed"].includes(quiz.status);
   const status = quizUnlocked
     ? quiz.status === "completed"
       ? "completed"
@@ -164,7 +163,7 @@ const QuizNode = ({ chapter }) => {
     meta =
       quiz.status === "completed"
         ? `Điểm ${quiz.score}/100 · Xem lại`
-        : "Mở khóa chương tiếp theo";
+        : "Đạt từ 70% để mở chương tiếp theo";
   }
 
   const core = (
@@ -179,7 +178,7 @@ const QuizNode = ({ chapter }) => {
       <div className="lp-quiz__body">
         <span className="lp-quiz__title">
           {quizUnlocked
-            ? `Bài kiểm tra Chương ${chapter.id} · Ôn tập`
+            ? `Bài kiểm tra Chương ${chapter.id}`
             : `Bài kiểm tra Chương ${chapter.id}`}
         </span>
         <span className="lp-quiz__meta">{meta}</span>
@@ -227,8 +226,8 @@ const SCurvePath = () => {
       const canvasHeight = lessons.length ? height - 40 : 110;
       const entryTone = first?.status === "completed" ? "done"
         : first?.status === "active" || first?.status === "unlocked" ? "active" : "pending";
-      const quizTone = last?.status === "completed"
-        ? chapter.quiz.status === "completed" ? "done" : "active" : "pending";
+      const quizTone = chapter.quiz.status === "completed" ? "done"
+        : chapter.quiz.status === "unlocked" ? "active" : "pending";
       return (
         <section className="lp-curve__chapter" key={chapter.id} aria-label={chapter.title}>
           <ChapterHeader chapter={chapter} />

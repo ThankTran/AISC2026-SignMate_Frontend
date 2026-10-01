@@ -49,16 +49,15 @@ const QuizSession = ({ quiz }) => {
  const {recordQuiz}=useProgress();
   const confirm = useConfirm();
   const confirmExit = async (event) => { event.preventDefault(); if (await confirm({ title: "Thoát bài kiểm tra?", message: "Tiến độ chưa hoàn tất trong phiên này có thể không được lưu.", confirmLabel: "Thoát" })) navigate('/learning-path'); };
-  const QUESTIONS = quiz.questions.map((q) => ({ ...q, category: "Ngôn ngữ ký hiệu",
-    prompt: "Xem video minh họa và chọn ký hiệu đúng." }));
+  const [QUESTIONS] = useState(() => quiz.questions.map(q => { const options=[...q.options]; for(let i=options.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[options[i],options[j]]=[options[j],options[i]];} return {...q,options,category:"Ngôn ngữ ký hiệu"}; }));
   const TOTAL_QUESTIONS = QUESTIONS.length;
   const [sessionId] = useState(() => crypto.randomUUID());
   const [error, setError] = useState(null);
   const [submitting, setSubmitting] = useState(false);
-  const [pendingOption, setPendingOption] = useState(null);
+
   const busy = useRef(false);
   const mounted = useRef(true);
-  const [feedback, setFeedback] = useState({});
+
   useEffect(() => {
     mounted.current = true;
     return () => { mounted.current = false; };
@@ -109,29 +108,11 @@ const QuizSession = ({ quiz }) => {
 
   useEffect(() => { autoSubmit.current = () => { if (!busy.current && !autoAttempted.current) { autoAttempted.current = true; void submitAnswers(answers, true); } }; });
 
-  const handleSelect = async (key) => {
-    if (expired || busy.current || answers[question.id] != null) return;
-    busy.current = true;
-    setSubmitting(true);
-    setPendingOption(key);
+  const handleSelect = (key) => {
+    if(expired || busy.current || finished.current)return;
+    setAnswers(previous=>({...previous,[question.id]:key}));
     setError(null);
-    try {
-      const result = await learningApi.checkQuiz(quizId, { questionId: question.id, selectedOptionId: key });
-      if (!mounted.current) return;
-      const nextAnswers = { ...answers, [question.id]: key };
-      setAnswers(nextAnswers);
-      setFeedback((prev) => ({ ...prev, [question.id]: result }));
-    } catch (err) {
-      if (mounted.current) setError(err.status === 404 || err.status === 405
-        ? new Error("Máy chủ chưa có API chấm câu mới. Hãy khởi động lại backend rồi chọn đáp án lại.")
-        : err);
-    }
-    finally {
-      busy.current = false;
-      if (mounted.current) { setSubmitting(false); setPendingOption(null); }
-    }
   };
-
   const goToQuestion = (index) => {
     if (busy.current || finished.current) return;
     setCurrent(index);
@@ -233,15 +214,9 @@ const QuizSession = ({ quiz }) => {
                 <button
                   type="button"
                   key={option.key}
-                  className={`quiz-answer ${
-                    feedback[question.id] ? selected
-                      ? feedback[question.id].correct ? "quiz-answer--correct" : "quiz-answer--incorrect"
-                      : option.key === feedback[question.id].correctOptionId ? "quiz-answer--correct" : ""
-                      : pendingOption === option.key ? "quiz-answer--pending" : ""
-                  }`}
-                  disabled={submitting || isAnswered(question)}
-                  aria-pressed={selected || pendingOption === option.key}
-                  aria-busy={pendingOption === option.key}
+                  className={`quiz-answer ${selected ? "quiz-answer--selected" : ""}`}
+                  disabled={submitting || expired}
+                  aria-pressed={selected}
                   onClick={() => handleSelect(option.key)}
                 >
                   <span className="quiz-answer__badge">{option.key}</span>
@@ -253,12 +228,7 @@ const QuizSession = ({ quiz }) => {
                   <div className="quiz-answer__body">
                     <span className="quiz-answer__title">{option.title}</span>
                     <span className="quiz-answer__desc">{option.desc}</span>
-                    {pendingOption === option.key && <span className="quiz-answer__verdict">Đang chấm…</span>}
-                    {selected && feedback[question.id] && (
-                      <span className="quiz-answer__verdict">
-                        {feedback[question.id].correct ? "✓ Chính xác" : "✕ Chưa đúng"}
-                      </span>
-                    )}
+                    {selected && <span className="quiz-answer__verdict">✓ Đã chọn</span>}
                   </div>
                 </button>
               );
@@ -266,7 +236,7 @@ const QuizSession = ({ quiz }) => {
           </div>
           <div className="quiz-answers__actions">
             <p id="quiz-next-hint" className="quiz-answers__feedback" role="status">
-              {submitting ? pendingOption ? "Đang chấm đáp án…" : "Đang lưu kết quả…"
+              {submitting ? "Đang lưu kết quả…"
                 : !isAnswered(question) ? "Chọn một đáp án để tiếp tục." : ""}
             </p>
             <div className="quiz-answers__buttons">
@@ -279,7 +249,7 @@ const QuizSession = ({ quiz }) => {
               aria-describedby={!isAnswered(question) ? "quiz-next-hint" : undefined}
               disabled={submitting || !isAnswered(question)}
               onClick={handleNext}>
-              {allAnswered ? "Xem kết quả" : current === TOTAL_QUESTIONS - 1
+              {allAnswered ? "Nộp bài" : current === TOTAL_QUESTIONS - 1
                 ? "Đến câu chưa trả lời" : "Câu tiếp theo →"}
             </button>
             </div>

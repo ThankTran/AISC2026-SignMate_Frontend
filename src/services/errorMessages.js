@@ -1,5 +1,6 @@
 export const ERROR_MESSAGES={
- LESSON_LOCKED:'Bài học chưa mở. Hãy hoàn thành bài trước trong lộ trình.',
+ LESSON_LOCKED:'Bài học chưa mở. Hãy hoàn thành bài trước và đạt ít nhất 70% bài kiểm tra chương trước.',
+ QUIZ_RATE_LIMIT:'Bạn đã nộp nhiều bài kiểm tra trong giờ này. Hãy ôn lại nội dung và thử lại sau.',
  LESSON_UNPUBLISHED:'Video bài học đang được cập nhật. Hãy chọn một bài đã sẵn sàng.',
  QUIZ_LOCKED:'Hãy hoàn thành các bài học trong chương trước khi làm bài kiểm tra.',
  ATTEMPT_CLOSED:'Lượt học đã kết thúc. Hãy chọn Luyện tập lại để bắt đầu lượt mới.',
