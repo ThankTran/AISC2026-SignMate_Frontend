@@ -1,3 +1,6 @@
+import {curriculumLevel} from '../../utils/learningLevels';
+import { Link } from "react-router-dom";
+import Avatar from "../ui/Avatar";
 import { PanelLeftClose, PanelLeft } from "lucide-react";
 
 import { sidebarItems } from "../../mockdata";
@@ -20,14 +23,14 @@ const Sidebar = ({
       <div className="sidebar__header">
         <div className="sidebar__logo-wrapper">
           {/* Logo - dùng chung 1 ảnh cho cả 2 trạng thái */}
-          <img
+          <Link to="/dashboard" aria-label="SignMate — Trang chủ"><img
             src="/logo-signmate.png"
             alt="SignMate"
             className="sidebar__logo"
-          />
+          /></Link>
 
           {/* Nút toggle - chỉ hiện khi hover vào vùng logo */}
-          <button
+          {onToggle && <button
             type="button"
             className="sidebar__toggle-hover"
             onClick={onToggle}
@@ -38,7 +41,7 @@ const Sidebar = ({
             ) : (
               <PanelLeftClose size={17} strokeWidth={1.8} />
             )}
-          </button>
+          </button>}
         </div>
       </div>
 
@@ -76,10 +79,8 @@ const Sidebar = ({
       </nav>
 
       {/* ================= USER ================= */}
-      <div className="sidebar__user">
-        <div className="sidebar__user-avatar">
-          {user.avatar}
-        </div>
+      <Link to="/account/profile" className="sidebar__user" aria-label="Hồ sơ của bạn">
+        <Avatar user={user} size={40} />
 
         {!collapsed && (
           <div className="sidebar__user-info">
@@ -88,11 +89,11 @@ const Sidebar = ({
             </span>
 
             <span className="sidebar__user-level">
-              Cấp độ: {user.level}
+              Cấp độ: {curriculumLevel(user)}
             </span>
           </div>
         )}
-      </div>
+      </Link>
     </aside>
   );
 };

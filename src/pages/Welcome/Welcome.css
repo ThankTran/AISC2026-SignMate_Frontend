@@ -8,7 +8,7 @@
 }
 .welcome-logo { display: flex; align-items: center; gap: 8px; }
 .welcome-logo-icon { height: 26px; width: auto; }
-.welcome-logo-text { font-family: var(--font-family-display); font-weight: 700; font-size: 19px; color: var(--color-neutral-900); }
+.welcome-logo-text { font-family: var(--font-family-main); font-weight: 700; font-size: 19px; color: var(--color-neutral-900); }
 
 .btn-primary-pill {
   background: var(--color-teal-500);
@@ -80,8 +80,8 @@
 
 .hero-content { flex: 1; }
 .hero-content h1 {
-  font-family: var(--font-family-display);
-  font-size: 40px;
+  font-family: var(--font-family-main);
+  font-size: var(--font-size-h1);
   line-height: 1.15;
   margin: 0 0 16px;
   color: var(--color-neutral-900);
@@ -111,12 +111,16 @@
 .challenges, .explore {
   padding: 56px 48px;
   text-align: center;
+
+  font-family: var(--font-family-mono);
 }
 .challenges h2, .explore h2 {
-  font-family: var(--font-family-display);
-  font-size: 28px;
+
+  font-size: var(--font-size-h2);
   color: var(--color-neutral-900);
   margin: 0 0 8px;
+
+  font-family: var(--font-family-mono);
 }
 .section-subtitle {
   color: var(--color-neutral-500);
@@ -151,10 +155,12 @@
 .challenge-icon--purple { background: var(--color-purple-50); color: var(--color-purple-500); }
 .challenge-icon--teal { background: var(--color-teal-50); color: var(--color-teal-500); }
 
-.challenge-card h3 { font-size: 16px; margin: 0 0 8px; color: var(--color-neutral-900); }
+.challenge-card h3 { font-size: var(--font-size-h3); margin: 0 0 8px; color: var(--color-neutral-900); }
 .challenge-card p { font-size: 14px; line-height: 1.6; color: var(--color-neutral-700); margin: 0; }
 
-.explore { background: var(--color-neutral-50); }
+.explore { background: var(--color-neutral-50);
+  font-family: var(--font-family-mono);
+}
 .explore-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -162,8 +168,12 @@
   max-width: 1100px;
   margin: 32px auto 0;
   text-align: left;
+
+  font-family: var(--font-family-mono);
 }
-.explore-col { text-align: center; }
+.explore-col { text-align: center;
+  font-family: var(--font-family-mono);
+}
 .explore-icon {
   width: 56px; height: 56px;
   border-radius: 50%;
@@ -171,10 +181,18 @@
   color: var(--color-teal-500);
   display: inline-flex; align-items: center; justify-content: center;
   margin-bottom: 16px;
+
+  font-family: var(--font-family-mono);
 }
-.explore-col h3 { font-size: 17px; margin: 0 0 10px; color: var(--color-neutral-900); }
-.explore-col p { font-size: 14px; color: var(--color-neutral-700); line-height: 1.6; margin: 0 0 16px; text-align: left; }
-.explore-col ul { list-style: none; padding: 0; margin: 0; text-align: left; }
+.explore-col h3 { font-size: var(--font-size-h3); margin: 0 0 10px; color: var(--color-neutral-900);
+  font-family: var(--font-family-mono);
+}
+.explore-col p { font-size: 14px; color: var(--color-neutral-700); line-height: 1.6; margin: 0 0 16px; text-align: left;
+  font-family: var(--font-family-mono);
+}
+.explore-col ul { list-style: none; padding: 0; margin: 0; text-align: left;
+  font-family: var(--font-family-mono);
+}
 .explore-col li {
   font-size: 13px;
   color: var(--color-neutral-700);
@@ -183,6 +201,8 @@
   border: 1px solid var(--color-neutral-200);
   border-radius: 10px;
   margin-bottom: 8px;
+
+  font-family: var(--font-family-mono);
 }
 
 .welcome-footer {
@@ -196,12 +216,14 @@
 }
 .welcome-footer-brand p { font-size: 13px; color: var(--color-neutral-500); margin-top: 10px; max-width: 280px; }
 .welcome-footer-cols { display: flex; gap: 48px; }
-.welcome-footer-cols h4 { font-size: 13px; color: var(--color-neutral-900); margin: 0 0 10px; }
+.welcome-footer-cols h4 { font-size: var(--font-size-h3); color: var(--color-neutral-900); margin: 0 0 10px; }
 .welcome-footer-cols a { display: block; font-size: 13px; color: var(--color-neutral-500); text-decoration: none; margin-bottom: 8px; }
 .welcome-footer-cols a:hover { color: var(--color-teal-500); }
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .hero { flex-direction: column; }
   .challenges-grid { grid-template-columns: 1fr; }
-  .explore-grid { grid-template-columns: 1fr; }
+  .explore-grid { grid-template-columns: 1fr;
+  font-family: var(--font-family-mono);
+}
 }

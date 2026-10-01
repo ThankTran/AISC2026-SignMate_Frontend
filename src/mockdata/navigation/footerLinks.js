@@ -11,9 +11,3 @@ export const footerSupportLinks = [
   { label: "Điều khoản sử dụng", path: "/terms" },
   { label: "Chính sách bảo mật", path: "/privacy" },
 ];
-
-export const footerSocialLinks = [
-  { label: "Facebook", href: "https://facebook.com", icon: "messageCircle" },
-  { label: "YouTube", href: "https://youtube.com", icon: "playCircle" },
-  { label: "Instagram", href: "https://instagram.com", icon: "camera" },
-];

@@ -1,3 +1,4 @@
+import {Link} from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Plus, User, VideoOff, Lightbulb, BookOpen, GraduationCap, Users } from "lucide-react";
 import heroImage from "../../assets/hero.png";
@@ -79,7 +80,7 @@ export default function Welcome() {
         </div>
 
         <div className="hero-content">
-          <h1>
+          <h1 className="text-display">
             SignMate - Kết nối qua<br />
             <span className="highlight">ngôn ngữ ký hiệu</span>
           </h1>
@@ -106,7 +107,7 @@ export default function Welcome() {
       <hr className="section-divider" />
 
       <section className="challenges">
-        <h2>Thách thức hiện tại</h2>
+        <h2 className="text-h2">Thách thức hiện tại</h2>
         <p className="section-subtitle">Tại sao việc học ngôn ngữ ký hiệu lại khó khăn?</p>
 
         <div className="challenges-grid">
@@ -115,7 +116,7 @@ export default function Welcome() {
               <div className={`challenge-icon challenge-icon--${tone}`}>
                 <Icon size={18} />
               </div>
-              <h3>{title}</h3>
+              <h3 className="text-h3">{title}</h3>
               <p>{desc}</p>
             </div>
           ))}
@@ -123,13 +124,13 @@ export default function Welcome() {
       </section>
 
       <section className="explore">
-        <h2>Khám phá SignMate</h2>
+        <h2 className="text-h2">Khám phá SignMate</h2>
 
         <div className="explore-grid">
-          {EXPLORE.map(({ icon: Icon, title, desc, bullets }, i) => (
+          {EXPLORE.map(({ icon: Icon, title, desc, bullets }) => (
             <div className="explore-col" key={title}>
               <div className="explore-icon"><Icon size={26} /></div>
-              <h3>{title}</h3>
+              <h3 className="text-h3">{title}</h3>
               <p>{desc}</p>
               <ul>
                 {bullets.map((b) => <li key={b}>{b}</li>)}
@@ -149,20 +150,16 @@ export default function Welcome() {
         </div>
         <div className="welcome-footer-cols">
           <div>
-            <h4>Pháp lý</h4>
-            <a href="/terms">Điều khoản</a>
-            <a href="/privacy">Chính sách bảo mật</a>
+            <h2 className="text-h3">Pháp lý</h2>
+            <Link to="/terms">Điều khoản</Link>
+            <Link to="/privacy">Chính sách bảo mật</Link>
           </div>
           <div>
-            <h4>Công ty</h4>
-            <a href="/about">Về chúng tôi</a>
-            <a href="/contact">Liên hệ</a>
+            <h2 className="text-h3">Công ty</h2>
+            <Link to="/faq">Câu hỏi thường gặp</Link>
+            <Link to="/contact">Liên hệ</Link>
           </div>
-          <div>
-            <h4>Mạng xã hội</h4>
-            <a href="#">Facebook</a>
-            <a href="#">Instagram</a>
-          </div>
+
         </div>
       </footer>
     </div>

@@ -13,7 +13,7 @@ export const sidebarItems = [
   // MODULE
   // =========================
   {
-    section: "MODULE",
+    section: "Học & kết nối",
     children: [
       {
         label: "Học",
