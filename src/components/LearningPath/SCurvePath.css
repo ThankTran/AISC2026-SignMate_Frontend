@@ -31,7 +31,7 @@
 .lp-curve__segment--done {
   stroke: #0d8a6a;
   stroke-dasharray: 14 8;
-  animation: dash-scroll 28s linear infinite;
+  animation: none;
 }
 
 /* Trong chương - đoạn đang học (xanh lá phát sáng) */
@@ -54,7 +54,7 @@
 
 .lp-curve__segment--transition.lp-curve__segment--done {
   stroke-dasharray: 10 12;
-  animation: dash-scroll 22s linear infinite;
+  animation: none;
 }
 
 .lp-curve__segment--transition.lp-curve__segment--pending {
@@ -194,7 +194,7 @@ a:hover > .lp-node__icon:not(.lp-node__icon--locked) {
 
 .lp-node__label {
   font-family: var(--font-family-body);
-  font-size: 12.5px;
+  font-size: var(--font-size-caption);
   font-weight: 600;
   color: var(--color-neutral-700);
   text-align: center;
@@ -251,7 +251,7 @@ a:hover > .lp-node__icon:not(.lp-node__icon--locked) {
   padding: 2px 9px;
   border-radius: 20px;
   font-family: var(--font-family-mono);
-  font-size: 9.5px;
+  font-size: var(--font-size-caption);
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -264,8 +264,8 @@ a:hover > .lp-node__icon:not(.lp-node__icon--locked) {
 }
 
 .lp-chapter__title {
-  font-family: var(--font-family-display);
-  font-size: 15.5px;
+  font-family: var(--font-family-main);
+  font-size: var(--font-size-h3);
   font-weight: 700;
   line-height: 1.2;
   margin: 0;
@@ -273,7 +273,7 @@ a:hover > .lp-node__icon:not(.lp-node__icon--locked) {
 
 .lp-chapter__desc {
   font-family: var(--font-family-body);
-  font-size: 11.5px;
+  font-size: var(--font-size-caption);
   line-height: 1.4;
   margin: 2px 0 9px;
   opacity: 0.9;
@@ -313,10 +313,12 @@ a:hover > .lp-node__icon:not(.lp-node__icon--locked) {
 }
 
 .lp-chapter__count {
-  font-family: var(--font-family-mono);
-  font-size: 10.5px;
+
+  font-size: var(--font-size-caption);
   font-weight: 700;
   white-space: nowrap;
+
+  font-family: var(--font-family-mono);
 }
 
 /* =========================================================
@@ -339,12 +341,12 @@ a:hover > .lp-quiz {
 }
 
 .lp-quiz--completed {
-  background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+  background: var(--color-teal-500);
 }
 
 .lp-quiz--active {
-  background: linear-gradient(135deg, #7f77dd 0%, #a78bfa 100%);
-  animation: quiz-glow 2s ease-in-out infinite;
+  background: var(--color-teal-500);
+  animation: none;
 }
 
 .lp-quiz--locked {
@@ -395,7 +397,7 @@ a:hover > .lp-quiz--locked {
 
 .lp-quiz__meta {
   font-family: var(--font-family-mono);
-  font-size: 11.5px;
+  font-size: var(--font-size-caption);
   font-weight: 600;
   color: rgba(255, 255, 255, 0.92);
 }
@@ -444,7 +446,7 @@ a:hover > .lp-quiz--locked {
 }
 
 .lp-tooltip__title {
-  font-family: var(--font-family-display);
+  font-family: var(--font-family-main);
   font-size: 16px;
   font-weight: 700;
   color: var(--color-neutral-900);
@@ -463,7 +465,7 @@ a:hover > .lp-quiz--locked {
   display: flex;
   gap: 14px;
   font-family: var(--font-family-mono);
-  font-size: 12px;
+  font-size: var(--font-size-caption);
   font-weight: 600;
 }
 
@@ -472,6 +474,8 @@ a:hover > .lp-quiz--locked {
   display: inline-flex;
   align-items: center;
   gap: 5px;
+
+  font-family: var(--font-family-mono);
 }
 
 .lp-tooltip__time {
@@ -480,6 +484,8 @@ a:hover > .lp-quiz--locked {
 
 .lp-tooltip__xp {
   color: #d97706;
+
+  font-family: var(--font-family-mono);
 }
 
 .lp-tooltip__btn {
@@ -509,7 +515,7 @@ a:hover > .lp-quiz--locked {
    RESPONSIVE
    ========================================================= */
 
-@media (max-width: 1100px) {
+@media (max-width: 1024px) {
   .lp-curve {
     max-width: 560px;
   }
@@ -525,12 +531,129 @@ a:hover > .lp-quiz--locked {
   }
 
   .lp-chapter__title {
-    font-size: 14px;
+    font-size: var(--font-size-h3);
   }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 640px) {
   .lp-chapter__desc {
     display: none;
   }
 }
+/* Chapter layout grows with the API curriculum, independent of stored x/y. */
+.lp-curve {
+  aspect-ratio: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-width: 0;
+}
+
+.lp-curve__chapter {
+  min-width: 0;
+  container-type: inline-size;
+}
+
+.lp-curve__chapter .lp-chapter {
+  position: relative;
+  transform: none;
+  width: 100%;
+  max-width: none;
+  box-sizing: border-box;
+}
+
+.lp-chapter__head {
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.lp-chapter__title {
+  overflow-wrap: anywhere;
+}
+
+.lp-curve__lessons {
+  position: relative;
+}
+
+.lp-curve__bridge {
+  position: relative;
+  height: 150px;
+}
+
+.lp-curve__lessons .lp-node {
+  width: 40%;
+  max-width: 180px;
+  transform: translate(-50%, -28px);
+}
+
+.lp-node__link {
+  max-width: 100%;
+}
+
+.lp-node__label {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  max-width: 100%;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.lp-node__label--locked {
+  color: #6b7280;
+}
+
+.lp-quiz-row {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.lp-quiz-row .lp-node__link,
+.lp-quiz {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.lp-quiz__body {
+  min-width: 0;
+}
+
+.lp-quiz__title,
+.lp-quiz__meta {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.lp-curve__chapter .lp-tooltip {
+  top: 116px;
+  right: auto;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(260px, 90cqw);
+  box-sizing: border-box;
+}
+
+.lp-tooltip::before {
+  top: -6px;
+  right: calc(50% - 6px);
+  transform: rotate(-45deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lp-curve *, .lp-curve *::before {
+    animation: none;
+  }
+}
+.lp-node__ring { position:absolute; inset:-6px; border-radius:inherit; pointer-events:none; }
+.lp-curve__segment { animation:none; }
+.lp-curve__segment--active { animation:dash-scroll 20s linear infinite; }
+.lp-quiz--active { background:var(--color-teal-50); border-color:var(--color-teal-500); color:var(--color-teal-700); }
+.lp-quiz--active .lp-quiz__icon { background:var(--color-teal-500); color:white; }
+.lp-tooltip__btn { text-decoration:none; }
+@media(prefers-reduced-motion:reduce) { .lp-curve *, .lp-curve *::before, .lp-curve *::after { animation:none; transition:none; } }
+.lp-node__icon--active { background:var(--color-coral-500); }
+.lp-node__ring--active { border-color:var(--color-coral-500); }
+.lp-curve__segment--active { stroke:var(--color-coral-500); }
+.lp-chapter--locked { opacity:.75; }

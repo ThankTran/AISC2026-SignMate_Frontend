@@ -1,27 +1,29 @@
+import {useProgress} from "../../hooks/useProgress";
 import { Flame, Star, Target } from "lucide-react";
 
 import "./ProgressWidget.css";
 
-const TOTAL = 6;
-const DONE = 4;
-const DONUT_PCT = 67;
-const BAR_PCT = 67;
 
 const RADIUS = 42;
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
-const OFFSET = CIRCUMFERENCE - (DONUT_PCT / 100) * CIRCUMFERENCE;
 
-const STATS = [
-  { icon: <Flame size={18} />, value: "7 ngày", label: "Chuỗi ngày", color: "#ef4444" },
-  { icon: <Star size={18} />, value: "2.340", label: "Tổng XP", color: "#f59e0b" },
-  { icon: <Target size={18} />, value: "87%", label: "Độ chính xác", color: "#0d8a6a" },
-];
 
 const ProgressWidget = () => {
+  const {stats,chapters}=useProgress();
+  const TOTAL = chapters.reduce((sum, chapter) => sum + chapter.total, 0);
+  const DONE = chapters.reduce((sum, chapter) => sum + chapter.done, 0);
+  const DONUT_PCT = TOTAL ? Math.round(DONE / TOTAL * 100) : 0;
+  const BAR_PCT = DONUT_PCT;
+  const OFFSET = CIRCUMFERENCE - (DONUT_PCT / 100) * CIRCUMFERENCE;
+  const STATS = [
+    { icon: <Flame size={18} />, value: `${stats.streak} ngày`, label: "Chuỗi ngày", color: "var(--color-coral-500)" },
+    { icon: <Star size={18} />, value: stats.xp, label: "Tổng XP", color: "var(--color-teal-700)" },
+    { icon: <Target size={18} />, value: DONE, label: "Bài hoàn thành", color: "var(--color-teal-700)" },
+  ];
   return (
     <div className="lp-progress">
-      <h3 className="lp-progress__title">TIẾN ĐỘ CẤP ĐỘ</h3>
-      <span className="lp-progress__level">Cơ bản</span>
+      <h2 className="lp-progress__title text-h2">TIẾN ĐỘ CẤP ĐỘ</h2>
+      <span className="lp-progress__level">{stats.level}</span>
 
       {/* Donut */}
       <div className="lp-progress__donut-wrap">

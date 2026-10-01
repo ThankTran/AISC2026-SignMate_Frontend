@@ -1,55 +1,18 @@
+import EmptyState from "../../components/ui/EmptyState";
+import {curriculumLevel, xpLevel} from '../../utils/learningLevels';
+import { useDashboard,useLeaderboard } from "../../hooks/useLearningData";
+import Skeleton from "../../components/ui/Skeleton";
+import Avatar from "../../components/ui/Avatar";
+import { useCurrentUser } from "../../hooks/useCurrentUser";
 import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import ApiState from "../../components/ApiState";
+import { getContinueTarget, percent } from "./learningProgress";
 import { Award, Flame, Trophy, Check, Lock, Star } from "lucide-react";
 import "./Dashboard.css";
 
-// DATA MẪU
-const user = {
-  name: "Cassie",
-  level: "Cơ bản",
-  xp: 800,
-  streak: 12,
-  bestStreak: 20,
-  rank: 20,
-};
-
-const chapters = [
-  { id: 1, title: "Chào hỏi", done: 10, total: 10, status: "completed" },
-  { id: 2, title: "Gia đình", done: 6, total: 10, status: "active" },
-  { id: 3, title: "Trường học", status: "locked", unlockAfter: "Chương 2" },
-  { id: 4, title: "Mua bán", status: "locked", unlockAfter: "Chương 3" },
-];
-
-const leaderboard = {
-  month: [
-    { id: 1, name: "Nguyễn Văn A", score: 1240 },
-    { id: 2, name: "Nguyễn Văn B", score: 1105 },
-    { id: 3, name: "Nguyễn Văn C", score: 980 },
-    { id: 4, name: "Nguyễn Văn D", score: 920 },
-    { id: 5, name: "Nguyễn Văn E", score: 860 },
-    { id: 6, name: "Nguyễn Văn F", score: 855 },
-  ],
-  all: [
-    { id: 1, name: "Nguyễn Văn B", score: 5320 },
-    { id: 2, name: "Nguyễn Văn A", score: 5105 },
-    { id: 3, name: "Nguyễn Văn E", score: 4870 },
-    { id: 4, name: "Nguyễn Văn C", score: 4210 },
-    { id: 5, name: "Nguyễn Văn F", score: 3960 },
-    { id: 6, name: "Nguyễn Văn D", score: 3800 },
-  ],
-};
-
 const MEDALS = ["🥇", "🥈", "🥉"];
 
-const getInitials = (name) =>
-  name
-    .split(" ")
-    .filter(Boolean)
-    .map((w) => w[0])
-    .slice(-2)
-    .join("")
-    .toUpperCase();
-
-const percent = (done, total) => Math.round((done / total) * 100);
 
 function StatCard({ icon, value, label }) {
   return (
@@ -62,11 +25,11 @@ function StatCard({ icon, value, label }) {
 }
 
 function ChapterItem({ chapter }) {
-  const { id, title, done, total, status, unlockAfter } = chapter;
+  const { id, title, done, total, status, quiz } = chapter;
 
   if (status === "locked") {
     return (
-      <div className="db-chapter db-chapter--locked">
+      <div className="db-chapter db-chapter--locked" tabIndex={0} title="Hoàn thành các bài học trước để mở khóa chương này." aria-label={`${title}: Hoàn thành các bài học trước để mở khóa.`}>
         <span className="db-chapter__lead">
           <Lock size={26} strokeWidth={1.8} />
         </span>
@@ -74,7 +37,7 @@ function ChapterItem({ chapter }) {
           <p className="db-chapter__title">
             Chương {id} · {title}
           </p>
-          <p className="db-chapter__sub">Mở khóa sau khi hoàn thành {unlockAfter}</p>
+          <p className="db-chapter__sub">{total} bài học · Chưa mở khóa</p>
         </div>
       </div>
     );
@@ -82,7 +45,7 @@ function ChapterItem({ chapter }) {
 
   if (status === "completed") {
     return (
-      <div className="db-chapter db-chapter--completed">
+      <Link to="/learning-path" className="db-chapter db-chapter--completed">
         <span className="db-chapter__lead db-chapter__lead--check">
           <Check size={30} strokeWidth={2.4} />
         </span>
@@ -91,36 +54,47 @@ function ChapterItem({ chapter }) {
             Chương {id} · {title}
           </p>
           <p className="db-chapter__sub db-chapter__sub--green">
-            {done}/{total} bài
+            {done}/{total} bài học · {quiz.status === "completed" ? "Đã hoàn thành kiểm tra" : "Chờ kiểm tra cuối chương"}
           </p>
         </div>
         <Star className="db-chapter__star" size={34} fill="#f6c945" stroke="#e0a800" />
-      </div>
+      </Link>
     );
   }
 
   return (
-    <div className="db-chapter db-chapter--active">
+    <Link to="/learning-path" className="db-chapter db-chapter--active">
       <span className="db-chapter__lead db-chapter__lead--num">{id}</span>
       <div className="db-chapter__body">
         <p className="db-chapter__title">
           Chương {id} · {title}
         </p>
         <p className="db-chapter__sub db-chapter__sub--green">
-          {done}/{total} bài · Đang học
+          {done}/{total} bài học · Đang học
         </p>
       </div>
       <div className="db-chapter__bar" aria-hidden="true">
         <span style={{ width: `${percent(done, total)}%` }} />
       </div>
-    </div>
+    </Link>
   );
 }
 
 function Dashboard() {
-  const [tab, setTab] = useState("month");
-  const current = chapters.find((c) => c.status === "active");
-  const currentPercent = percent(current.done, current.total);
+  const currentUser = useCurrentUser();
+  const [tab, setTab] = useState("all");
+  const navigate = useNavigate();
+  const { data, error, retry } = useDashboard();
+  const board = useLeaderboard(tab);
+  if (!data || error) return error ? <ApiState error={error} retry={retry} /> : <Skeleton />;
+  if(!data.chapters.length)return <EmptyState title="Chưa có tiến độ học" description="Mở lộ trình để bắt đầu bài học đầu tiên."/>;
+  const { chapters } = data;
+  const user = { ...currentUser, ...data.stats, name: currentUser.name, photoURL: currentUser.photoURL };
+  const target = getContinueTarget(chapters);
+  const current = target?.chapter;
+  const currentPercent = current ? percent(current.done, current.total) : 0;
+  const allCompleted = chapters.length > 0 && chapters.every((chapter) =>
+    chapter.done === chapter.total && chapter.quiz.status === "completed");
 
   return (
     <div className="db">
@@ -128,9 +102,9 @@ function Dashboard() {
       <section className="db-welcome">
         <div className="db-welcome__text">
           <p className="db-welcome__eyebrow">CHÀO MỪNG TRỞ LẠI</p>
-          <h1 className="db-welcome__title">
+          <h1 className="db-welcome__title text-h1">
             Chào {user.name} <span aria-hidden="true">👋</span>
-            <span className="db-welcome__level">Cấp độ: {user.level}</span>
+            <span className="db-welcome__level">Cấp độ: {curriculumLevel(user)} · Level {xpLevel(user.xp)}</span>
           </h1>
           <p className="db-welcome__desc">
             Hôm nay là ngày học thứ {user.streak} liên tiếp - giữ vững phong độ nhé.
@@ -162,27 +136,31 @@ function Dashboard() {
           <section className="db-continue">
             <div className="db-continue__info">
               <p className="db-continue__eyebrow">TIẾP TỤC HỌC</p>
-              <h2 className="db-continue__title">
-                Chương {current.id} · {current.title}
+              <h2 className="db-continue__title text-h2">
+                {current ? `Chương ${current.id} · ${current.title}`
+                  : allCompleted ? "Bạn đã hoàn thành lộ trình!" : "Chưa có bài học khả dụng"}
               </h2>
-              <div className="db-continue__bar" aria-hidden="true">
+              {current && <div className="db-continue__bar" aria-hidden="true">
                 <span style={{ width: `${currentPercent}%` }} />
-              </div>
+              </div>}
               <p className="db-continue__meta">
-                {current.done}/{current.total} bài · {currentPercent}%
+                {current ? `${current.done}/${current.total} bài học · ${currentPercent}% · 1 bài kiểm tra cuối chương`
+                  : allCompleted ? "Ôn tập các bài học trong lộ trình." : "Xem lộ trình để biết các bài học hiện có."}
               </p>
             </div>
-            <button type="button" className="db-continue__btn">
-              Tiếp tục →
+            <button type="button" className="db-continue__btn"
+              onClick={() => navigate(target?.path ?? "/learning-path")}>
+              {target?.label ?? "Xem lộ trình →"}
             </button>
           </section>
 
           <section className="db-path">
             <div className="db-path__head">
-              <h2>Lộ trình của bạn</h2>
-              <span>Thiết kế theo cấp độ {user.level}</span>
+              <h2 className="text-h2">Lộ trình của bạn</h2>
+              <span>Thiết kế theo cấp độ {curriculumLevel(user)}</span>
             </div>
             <div className="db-path__list">
+              {chapters.length === 0 && <p>Chưa có chương học. Vui lòng quay lại sau.</p>}
               {chapters.map((c) => (
                 <ChapterItem key={c.id} chapter={c} />
               ))}
@@ -192,17 +170,17 @@ function Dashboard() {
 
         {/* ===== Cột phải: bảng xếp hạng ===== */}
         <aside className="db-board">
-          <h2 className="db-board__title">BẢNG XẾP HẠNG</h2>
+          <h2 className="db-board__title text-h2">BẢNG XẾP HẠNG</h2>
 
           <div className="db-board__tabs" role="tablist">
             <button
               type="button"
               role="tab"
-              aria-selected={tab === "month"}
-              className={tab === "month" ? "is-active" : ""}
-              onClick={() => setTab("month")}
+              aria-selected={tab === "level"}
+              className={tab === "level" ? "is-active" : ""}
+              onClick={() => setTab("level")}
             >
-              Tháng này
+              Cùng Level
             </button>
             <button
               type="button"
@@ -215,16 +193,18 @@ function Dashboard() {
             </button>
           </div>
 
+          {!board.data && (board.error ? <ApiState error={board.error} /> : <Skeleton />)}
+          {board.data?.entries.length === 0 && <p>Chưa có dữ liệu xếp hạng.</p>}
           <ol className="db-board__list">
-            {leaderboard[tab].map((p, i) => (
+            {(board.data?.entries || []).slice(0,6).map((p, i) => (
               <li key={p.id} className="db-rank">
                 <span className="db-rank__pos">
                   {i < 3 ? MEDALS[i] : `#${i + 1}`}
                 </span>
-                <span className="db-rank__avatar">{getInitials(p.name)}</span>
+                <Avatar user={p} size={36} />
                 <span className="db-rank__name">{p.name}</span>
                 <span className="db-rank__score">
-                  {p.score.toLocaleString("vi-VN")}
+                  {p.weeklyXp.toLocaleString("vi-VN")}
                 </span>
               </li>
             ))}
@@ -232,7 +212,7 @@ function Dashboard() {
 
           <div className="db-rank db-rank--me">
             <span className="db-rank__pos">#{user.rank}</span>
-            <span className="db-rank__avatar">{getInitials(user.name)}</span>
+            <Avatar user={user} size={36} />
             <span className="db-rank__name">{user.name}</span>
             <span className="db-rank__score">
               {user.xp.toLocaleString("vi-VN")}

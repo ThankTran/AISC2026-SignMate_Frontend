@@ -1,3 +1,4 @@
+import {useChapters} from "../../hooks/useProgress";
 import {
   BookOpen,
   Check,
@@ -17,7 +18,6 @@ import {
 import { Link } from "react-router-dom";
 
 import {
-  CHAPTERS,
   getLastLessonStatus,
   SON_CHUONG_LABEL,
 } from "../../mockdata";
@@ -37,42 +37,18 @@ const CHAPTER_ICONS = {
 };
 
 /* =========================================================
-   ĐƯỜNG NỐI SVG (khớp viewBox 700x1650, tọa độ theo px)
-   tone: done | active | pending
-   ========================================================= */
-
-const SEGMENTS = [
-  // ---- Chương 1 (hoàn thành - xanh lá) ----
-  { d: "M 350,100 C 350,145 140,145 140,190", tone: "done" },
-  { d: "M 140,190 C 390,190 310,320 560,320", tone: "done" },
-  { d: "M 560,320 C 310,320 390,450 140,450", tone: "done" },
-  { d: "M 140,450 C 350,450 400,580 560,580", tone: "done" },
-  // Nối Quiz Ch1 -> Header Ch2 (uốn lượn sang chương tiếp theo)
-  {
-    d: "M 560,580 C 730,610 730,760 560,760 C 440,760 300,770 155,770",
-    tone: "done",
-    transition: true,
-  },
-  // ---- Chương 2 (đang học) ----
-  { d: "M 350,800 C 350,850 140,850 140,900", tone: "done" },
-  { d: "M 140,900 C 390,900 310,1060 560,1060", tone: "active" },
-  { d: "M 560,1060 C 310,1060 390,1220 140,1220", tone: "pending" },
-  // Đoạn vào bài kiểm tra cuối chương (chưa mở khóa - xám)
-  { d: "M 140,1220 C 350,1220 400,1400 560,1400", tone: "pending" },
-];
-
-/* =========================================================
    HEADER CHƯƠNG
+   tone: done | active | pending
    ========================================================= */
 
 const ChapterHeader = ({ chapter }) => {
   const { status } = chapter;
-  const pct = Math.round((chapter.done / chapter.total) * 100);
+  const pct = chapter.total ? Math.round((chapter.done / chapter.total) * 100) : 0;
 
   return (
     <div
       className={`lp-chapter lp-chapter--${status}`}
-      style={{ top: `${chapter.header.y}%`, left: `${chapter.header.x}%` }}
+
     >
       <div className="lp-chapter__head">
         <span className="lp-chapter__tag">{chapter.tag}</span>
@@ -81,7 +57,7 @@ const ChapterHeader = ({ chapter }) => {
         </span>
       </div>
 
-      <h3 className="lp-chapter__title">{chapter.title}</h3>
+      <h2 className="lp-chapter__title text-h2">{chapter.title}</h2>
       <p className="lp-chapter__desc">{chapter.desc}</p>
 
       <div className="lp-chapter__foot">
@@ -89,7 +65,7 @@ const ChapterHeader = ({ chapter }) => {
           <i style={{ width: `${pct}%` }} />
         </div>
         <span className="lp-chapter__count">
-          {chapter.done}/{chapter.total} Bài học
+          {chapter.total ? `${chapter.done}/${chapter.total} Bài học` : "Nội dung đang cập nhật"}
         </span>
       </div>
     </div>
@@ -105,7 +81,7 @@ const LessonIcon = ({ lesson }) => {
     lesson.status === "completed" ? (
       <Check size={24} strokeWidth={2.8} />
     ) : (
-      CHAPTER_ICONS[lesson.icon]
+      CHAPTER_ICONS[lesson.icon] ?? CHAPTER_ICONS.bookOpen
     );
 
   return (
@@ -118,12 +94,12 @@ const LessonIcon = ({ lesson }) => {
 
 const LessonNode = ({ lesson }) => {
   const interactive =
-    lesson.status === "completed" || lesson.status === "unlocked";
+    lesson.status === "completed" || lesson.status === "unlocked" || lesson.status === "active";
 
   return (
     <div
       className="lp-node"
-      style={{ top: `${lesson.y}%`, left: `${lesson.x}%` }}
+      style={{ top: lesson.layoutY, left: `${lesson.layoutX}%` }}
     >
       {interactive ? (
         <Link
@@ -159,11 +135,9 @@ const LessonNode = ({ lesson }) => {
               <Star size={13} /> {lesson.tooltip.xp}
             </span>
           </div>
-          <Link to={`/learning-path/lesson/${lesson.id}`}>
-            <button className="lp-tooltip__btn" type="button">
+          <Link className="lp-tooltip__btn" to={`/learning-path/lesson/${lesson.id}`}>
               <Play size={16} fill="currentColor" />
               Bắt đầu học
-            </button>
           </Link>
         </div>
       )}
@@ -215,12 +189,7 @@ const QuizNode = ({ chapter }) => {
 
   return (
     <div
-      className="lp-node"
-      style={{
-        top: `${quiz.y}%`,
-        left: `${quiz.x}%`,
-        ...(quizUnlocked ? {} : { pointerEvents: "none" }),
-      }}
+      className="lp-quiz-row"
     >
       {quizUnlocked ? (
         <Link
@@ -242,52 +211,69 @@ const QuizNode = ({ chapter }) => {
    ========================================================= */
 
 const SCurvePath = () => {
-  const segClass = (seg) =>
-    `lp-curve__segment lp-curve__segment--${seg.tone}${
-      seg.transition ? " lp-curve__segment--transition" : ""
-    }`;
-
-  return (
-    <div className="lp-curve">
-      {/* ===== SVG BACKBONE ===== */}
-      <svg
-        className="lp-curve__svg"
-        viewBox="0 0 700 1650"
-        fill="none"
-        preserveAspectRatio="xMidYMid meet"
-      >
-        {SEGMENTS.map((seg, i) => (
-          <path
-            key={i}
-            d={seg.d}
-            strokeWidth="5"
-            strokeLinecap="round"
-            className={segClass(seg)}
-          />
-        ))}
-      </svg>
-
-      {/* ===== CHAPTER HEADERS ===== */}
-      {CHAPTERS.map((ch) => (
-        <ChapterHeader key={`ch-header-${ch.id}`} chapter={ch} />
-      ))}
-
-      {/* ===== LESSON NODES ===== */}
-      {CHAPTERS.map((ch) =>
-        ch.lessons.map((lesson) => (
-          <LessonNode
-            key={`${ch.id}-lesson-${lesson.id}`}
-            lesson={lesson}
-          />
-        ))
-      )}
-
-      {/* ===== QUIZ NODES (cuối mỗi chương) ===== */}
-      {CHAPTERS.map((ch) => (
-        <QuizNode key={`ch-quiz-${ch.id}`} chapter={ch} />
-      ))}
-    </div>
-  );
-};
+ const chapters=useChapters();return (
+  <div className="lp-curve">
+    {chapters.map((chapter, chapterIndex) => {
+      // Each chapter owns its layout; persisted coordinates may overlap or
+      // describe an older curriculum with fewer chapters.
+      let height = 110;
+      const lessons = chapter.lessons.map((lesson, index) => {
+        const positioned = { ...lesson, layoutX: lesson.status === "active" ? 50 : index % 2 ? 70 : 30, layoutY: height };
+        height += lesson.status === "active" && lesson.tooltip ? 340 : 190;
+        return positioned;
+      });
+      const first = lessons[0];
+      const last = lessons.at(-1);
+      const canvasHeight = lessons.length ? height - 40 : 110;
+      const entryTone = first?.status === "completed" ? "done"
+        : first?.status === "active" || first?.status === "unlocked" ? "active" : "pending";
+      const quizTone = last?.status === "completed"
+        ? chapter.quiz.status === "completed" ? "done" : "active" : "pending";
+      return (
+        <section className="lp-curve__chapter" key={chapter.id} aria-label={chapter.title}>
+          <ChapterHeader chapter={chapter} />
+          <div className="lp-curve__lessons" style={{ height: canvasHeight }}>
+            <svg className="lp-curve__svg" viewBox={`0 0 100 ${canvasHeight}`}
+              fill="none" preserveAspectRatio="none" aria-hidden="true">
+              <path
+                d={first
+                  ? `M 50,0 C 50,55 ${first.layoutX},55 ${first.layoutX},${first.layoutY}`
+                  : `M 50,0 L 50,${canvasHeight}`}
+                className={`lp-curve__segment lp-curve__segment--${entryTone}`}
+                strokeWidth="4" vectorEffect="non-scaling-stroke" />
+              {lessons.slice(1).map((lesson, index) => {
+                const previous = lessons[index];
+                const middle = (previous.layoutY + lesson.layoutY) / 2;
+                const tone = previous.status === "completed"
+                  ? lesson.status === "completed" ? "done" : "active"
+                  : "pending";
+                return <path key={lesson.id}
+                  d={`M ${previous.layoutX},${previous.layoutY} C ${previous.layoutX},${middle} ${lesson.layoutX},${middle} ${lesson.layoutX},${lesson.layoutY}`}
+                  className={`lp-curve__segment lp-curve__segment--${tone}`}
+                  strokeWidth="4" vectorEffect="non-scaling-stroke" />;
+              })}
+              {last && <path
+                d={`M ${last.layoutX},${last.layoutY} C ${last.layoutX},${canvasHeight - 65} 50,${canvasHeight - 65} 50,${canvasHeight}`}
+                className={`lp-curve__segment lp-curve__segment--${quizTone}`}
+                strokeWidth="4" vectorEffect="non-scaling-stroke" />}
+            </svg>
+            {lessons.map((lesson) => <LessonNode key={lesson.id} lesson={lesson} />)}
+          </div>
+          <QuizNode chapter={chapter} />
+          {chapterIndex < chapters.length - 1 && (
+            <div className="lp-curve__bridge" aria-hidden="true">
+              <svg className="lp-curve__svg" viewBox="0 0 100 150"
+                fill="none" preserveAspectRatio="none">
+                <path d="M 50,0 C 50,35 78,35 78,75 C 78,115 50,115 50,150"
+                  className={`lp-curve__segment lp-curve__segment--transition lp-curve__segment--${chapter.quiz.status === "completed" ? "done" : "pending"}`}
+                  strokeWidth="4" vectorEffect="non-scaling-stroke" />
+              </svg>
+            </div>
+          )}
+        </section>
+      );
+    })}
+  </div>
+);};
 
 export default SCurvePath;
