@@ -67,6 +67,8 @@ export const socialApi = {
   decide: (id, action) => patch(`/api/friends/requests/${id}`, { action }),
   remove: (id) => remove(`/api/friends/${id}`),
   notifications: () => api("/api/notifications"),
+  unreadCount: () => api('/api/notifications/unread-count'),
+  readAll: () => patch('/api/notifications/read-all'),
   read: (id) => patch(`/api/notifications/${id}/read`),
 };
 export const callApi = {

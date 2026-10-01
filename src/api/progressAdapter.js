@@ -1,10 +1,7 @@
 // Convert server DTOs to the existing view model. Never infer completion or XP awards.
+import {adaptNotifications} from './notificationAdapter.js';
+export {adaptNotifications} from './notificationAdapter.js';
 const numeric = (value, fallback = 0) => value != null && Number.isFinite(Number(value)) ? Number(value) : fallback;
-export function adaptNotifications(rows = []) {
-  return rows.map(row => ({...row, title: row.title || row.message || 'Thông báo',
-    time: row.time || (row.createdAt ? new Date(row.createdAt).toLocaleString('vi-VN') : ''),
-    path: row.path || (row.type?.startsWith('call') ? '/friends/video-call-invites' : row.type?.startsWith('friend') ? '/friends/friend-requests' : row.type?.includes('ai') ? '/practice-ai' : '/learning-path')}));
-}
 export function adaptLeaderboard(response = {}) {
   return (response.entries || []).map(row => ({...row, weeklyXp: numeric(row.weeklyXp),
     totalXp: numeric(row.totalXp ?? row.xp), xpLevel: numeric(row.xpLevel ?? row.level, 1),

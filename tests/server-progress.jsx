@@ -29,6 +29,7 @@ accountApi.dashboard=async()=>{loads++;if(offline)throw Error('Mất mạng');if
 accountApi.stats=async()=>({xp:serverXp,xpLevel:1});
 accountApi.leaderboard=async scope=>({entries:[{id:scope,rank:1,xp:serverXp,isMe:true}]});
 socialApi.notifications=async()=>notes;
+socialApi.unreadCount=async()=>({count:notes.filter(row=>!row.read).length});
 socialApi.read=async id=>{reads.push(id);notes=notes.map(row=>({...row,read:true}));};
 function Probe(){current=useProgress();return <p>{current.status}: {current.stats.xp}</p>;}
 const profile={uid:'fixture-only',_profileStatus:'ready',hasSetLevel:true,onboardingComplete:true,name:'Người kiểm thử'};
