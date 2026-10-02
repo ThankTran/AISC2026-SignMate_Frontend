@@ -98,6 +98,7 @@ const LessonNode = ({ lesson }) => {
   return (
     <div
       className="lp-node"
+      title={lesson.unavailableReason || undefined}
       style={{ top: lesson.layoutY, left: `${lesson.layoutX}%` }}
     >
       {interactive ? (
@@ -117,6 +118,7 @@ const LessonNode = ({ lesson }) => {
             }`}
           >
             {lesson.title}
+            {lesson.published===false&&<span className="text-caption"> · Đang cập nhật</span>}
           </span>
         </>
       )}

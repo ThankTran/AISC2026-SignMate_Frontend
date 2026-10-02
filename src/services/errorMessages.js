@@ -1,4 +1,5 @@
 export const ERROR_MESSAGES={
+ CONTENT_UPDATED:'Nội dung bài học đã được cập nhật. Hãy tải lại trang để bắt đầu phiên mới.',
  NO_HEARTS:'Bạn đã hết tim. Hãy chờ hồi tim hoặc chuyển sang luyện tập AI.',
  PRACTICE_DAILY_LIMIT:'Bạn đã dùng đủ 5 phiên luyện AI hôm nay. Hãy tiếp tục học theo lộ trình hoặc quay lại ngày mai.',
  REQUEST_COOLDOWN:'Lời mời đã bị từ chối. Bạn có thể gửi lại sau 7 ngày.',

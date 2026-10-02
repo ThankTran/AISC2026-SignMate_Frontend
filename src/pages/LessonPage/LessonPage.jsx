@@ -34,7 +34,7 @@ export function LessonSession({ lesson, checkAnswer=checkLessonAnswer, finishAtt
   const [questions] = useState(() => lesson.questions.map(q => { const options = [...q.options]; for (let i=options.length-1;i>0;i--) { const j=Math.floor(Math.random()*(i+1)); [options[i],options[j]]=[options[j],options[i]]; } return {...q,options}; }));
   const raw = questions[questionIndex];
   const question = { ...raw, icon: ICONS[raw.options[0]?.icon] || Hand,
-    question: "Ký hiệu trong video có nghĩa là gì?",
+    question: raw.prompt || "Ký hiệu trong video có nghĩa là gì?",
     correctAnswer: result?.correctOptionId,
     options: raw.options.map((option) => ({ ...option, icon: ICONS[option.icon] || Hand })) };
   const isLast = questionIndex === lesson.questions.length - 1;
