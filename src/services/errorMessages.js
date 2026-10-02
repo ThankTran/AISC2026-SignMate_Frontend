@@ -1,4 +1,6 @@
 export const ERROR_MESSAGES={
+ EMAIL_NOT_VERIFIED:'Hãy xác minh email để tiếp tục. Bạn có thể gửi lại email xác minh trên trang tiếp theo.',
+ PAYLOAD_TOO_LARGE:'Nội dung gửi lên quá lớn. Hãy rút gọn nội dung rồi thử lại.',
  CONTENT_UPDATED:'Nội dung bài học đã được cập nhật. Hãy tải lại trang để bắt đầu phiên mới.',
  NO_HEARTS:'Bạn đã hết tim. Hãy chờ hồi tim hoặc chuyển sang luyện tập AI.',
  PRACTICE_DAILY_LIMIT:'Bạn đã dùng đủ 5 phiên luyện AI hôm nay. Hãy tiếp tục học theo lộ trình hoặc quay lại ngày mai.',

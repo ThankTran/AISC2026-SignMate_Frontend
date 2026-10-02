@@ -2,6 +2,9 @@ import { auth } from "../lib/firebase";
 import {errorMessage} from './errorMessages';
 import {notifySessionExpired,withTokenRetry} from './sessionExpiry';
 
+if (import.meta.env.PROD && !import.meta.env.VITE_API_BASE_URL?.trim()) {
+  throw new Error('Thiếu VITE_API_BASE_URL trong cấu hình production. Hãy đặt URL backend trước khi build.');
+}
 const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || "http://localhost:8080").replace(/\/$/, "");
 export class ApiError extends Error {
   constructor(status, message, code, details={}) { super(errorMessage({status,code,message})); this.name="ApiError"; this.status=status; this.code=code; this.rawMessage=message; this.details=details; }
@@ -37,7 +40,11 @@ export async function api(path, { method = "GET", body, signal } = {}) {
   const response = await withTokenRetry(send,async()=>{if(auth.currentUser?.uid===user.uid)await notifySessionExpired(user.uid);});
   if (response.status === 204) return null;
   const data = await response.json().catch(() => null);
-  if (!response.ok) throw new ApiError(response.status, data?.message || `API lỗi HTTP ${response.status}`,data?.code,data||{});
+  if (!response.ok) {
+    if(data?.code==='EMAIL_NOT_VERIFIED')window.dispatchEvent(new CustomEvent('signmate:email-verification-required'));
+    const details={...data,requestId:response.headers.get('X-Request-Id')||data?.requestId,retryAfter:Number(response.headers.get('Retry-After'))||data?.retryAfter};
+    throw new ApiError(response.status, data?.message || `API lỗi HTTP ${response.status}`,data?.code,details);
+  }
   return data;
 }
 const post = (path, body) => api(path, { method: "POST", body });

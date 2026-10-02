@@ -31,6 +31,15 @@ export function AuthProvider({ children }) {
     }
   },[navigate,toast]);
   useEffect(()=>onSessionExpired(uid=>auth.currentUser?.uid===uid?logout({expired:true}):undefined),[logout]);
+  useEffect(()=>{
+    const requireVerification=()=>{
+      if(window.location.pathname==='/verify-email')return;
+      navigate('/verify-email',{replace:true});
+      toast({type:'info',message:'Hãy xác minh email để tiếp tục.'});
+    };
+    window.addEventListener('signmate:email-verification-required',requireVerification);
+    return()=>window.removeEventListener('signmate:email-verification-required',requireVerification);
+  },[navigate,toast]);
 
   useEffect(() => {
     return onAuthStateChanged(auth, (u) => {
