@@ -1,4 +1,9 @@
 export const ERROR_MESSAGES={
+ REQUEST_COOLDOWN:'Lời mời đã bị từ chối. Bạn có thể gửi lại sau 7 ngày.',
+ FRIEND_REQUEST_LIMIT:'Bạn đã gửi đủ 30 lời mời hôm nay. Hãy thử lại vào ngày mai.',
+ USER_BLOCKED:'Không thể kết nối với người dùng này. Hãy chọn người học khác.',
+ UNDO_EXPIRED:'Đã hết thời gian Hoàn tác. Lời mời vẫn ở trạng thái từ chối.',
+ PROFILE_PRIVATE:'Thông tin này đang được giới hạn quyền xem.',
  LESSON_LOCKED:'Bài học chưa mở. Hãy hoàn thành bài trước và đạt ít nhất 70% bài kiểm tra chương trước.',
  QUIZ_RATE_LIMIT:'Bạn đã nộp nhiều bài kiểm tra trong giờ này. Hãy ôn lại nội dung và thử lại sau.',
  LESSON_UNPUBLISHED:'Video bài học đang được cập nhật. Hãy chọn một bài đã sẵn sàng.',

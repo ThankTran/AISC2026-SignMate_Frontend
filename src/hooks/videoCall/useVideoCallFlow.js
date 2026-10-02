@@ -1,3 +1,4 @@
+import { socialApi } from '../../services/api';
 import { useSearchParams } from "react-router-dom";
 import { useFriends } from "../useFriends";
 import { VIDEO_DEMO } from "../../services/videoCall/config";
@@ -96,11 +97,12 @@ export function useVideoCallFlow() {
     setStage("thanks");
   }
 
-  function confirmSafetyAction(reason) {
+  async function confirmSafetyAction(reason) {
     if (safetyAction === "block") {
+      if(import.meta.env.VITE_USE_MOCK!=='true')await socialApi.block(partner.id);
       setBlockedIds((current) => [...new Set([...current, partner.id])]);
       if (stage === "call") setStage("review");
-      setNotice(VIDEO_DEMO ? "Đã chặn hồ sơ trong phiên demo." : "Đã chặn hồ sơ trong phiên này.");
+      setNotice(import.meta.env.VITE_USE_MOCK==='true' ? "Đã chặn hồ sơ trong phiên demo." : "Đã chặn người dùng.");
     } else {
       if (!reason.trim()) return;
       if (!saveCallReport({ partner: partner.name, reason: reason.trim() })) {

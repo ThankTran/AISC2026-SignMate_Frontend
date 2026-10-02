@@ -30,7 +30,7 @@ function ServerFriendsProvider({children}) {
  const addFriend=async id=>{const result=await socialApi.request(id);retry();return result;};
  const decideRequest=async(request,action)=>{
   await socialApi.decide(request.friendshipId,action);retry();
-  return async()=>{if(action==='accept')await socialApi.remove(request.friendshipId);else await socialApi.request(request.id);retry();};
+  return async()=>{if(action==='accept')await socialApi.remove(request.friendshipId);else await socialApi.undoRejection(request.friendshipId);retry();};
  };
  const value=data||empty;
  return <FriendsContext.Provider value={{...value,source:'server',status:!enabled?'idle':error?'error':data?'ready':'loading',error,retry,

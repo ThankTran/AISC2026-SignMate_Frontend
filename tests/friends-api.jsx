@@ -13,6 +13,7 @@ socialApi.friends=async()=>{if(fail)throw new ApiError(503,'raw detail','SERVICE
 socialApi.requests=async direction=>direction==='incoming'?incoming:outgoing;
 socialApi.ping=async()=>({updated:true});
 socialApi.decide=async(id,action)=>{calls.push(['decide',id,action]);if(action==='accept')friends=[{...incoming[0],status:'accepted'}];incoming=[];};
+socialApi.undoRejection=async id=>{calls.push(['undoRejection',id]);incoming=[{id:'bob',name:'Bob',friendshipId:'ab',status:'pending',direction:'incoming'}];};
 socialApi.request=async id=>{calls.push(['request',id]);outgoing=[{id,name:'Bob',friendshipId:'ba',status:'pending',direction:'outgoing'}];return outgoing[0];};
 socialApi.remove=async id=>{calls.push(['remove',id]);friends=[];};
 socialApi.search=async query=>{calls.push(['search',query]);return [{id:'alice',name:'Alice',mutualFriends:2}];};
@@ -23,7 +24,7 @@ try{
  await render('test-only');check('friends and incoming/outgoing requests come from server',current.source==='server'&&current.friends.length===0&&current.incomingRequests[0].id==='bob');
  const request=current.incomingRequests[0];let undo;
  await act(async()=>{undo=await current.decideRequest(request,'reject');});check('reject uses friendship id and refreshes incoming',calls.some(row=>row.join()==='decide,ab,reject')&&current.incomingRequests.length===0);
- await act(async()=>undo());check('undo rejection sends a new outgoing invitation',calls.some(row=>row.join()==='request,bob')&&current.sentRequests.includes('bob'));
+ await act(async()=>undo());check('undo rejection restores original incoming request',calls.some(row=>row.join()==='undoRejection,ab')&&current.incomingRequests[0]?.friendshipId==='ab');
  incoming=[request];await act(async()=>current.retry());
  await act(async()=>{undo=await current.decideRequest(request,'accept');});check('accept refreshes actual friend list',current.friends[0].id==='bob');
  await act(async()=>undo());check('undo acceptance removes friendship through API',current.friends.length===0&&calls.some(row=>row.join()==='remove,ab'));

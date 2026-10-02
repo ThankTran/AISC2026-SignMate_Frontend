@@ -61,6 +61,9 @@ export const learningApi = {
   quizResult: (id) => api(`/api/chapters/${id}/quiz/result`),
 };
 export const socialApi = {
+  block: (userId) => post('/api/blocks', {userId}),
+  unblock: (id) => remove(`/api/blocks/${id}`),
+  undoRejection: (id) => post(`/api/friends/requests/${id}/undo-rejection`),
   search: (q) => api(`/api/users/search?q=${encodeURIComponent(q)}`),
   friends: () => api("/api/friends"), requests: (direction='incoming') => api(`/api/friends/requests?direction=${encodeURIComponent(direction)}`),
   ping: () => post('/api/me/presence'),
