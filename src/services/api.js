@@ -68,6 +68,7 @@ export const learningApi = {
   quizResult: (id) => api(`/api/chapters/${id}/quiz/result`),
 };
 export const socialApi = {
+  profile: (id) => api(`/api/users/${id}/profile`),
   block: (userId) => post('/api/blocks', {userId}),
   unblock: (id) => remove(`/api/blocks/${id}`),
   undoRejection: (id) => post(`/api/friends/requests/${id}/undo-rejection`),
@@ -84,14 +85,15 @@ export const socialApi = {
 };
 export const callApi = {
   topics: () => api("/api/calls/topics"), history: () => api("/api/calls"),
-  invitations: () => api("/api/calls?invitations=true"),
+  invitations: () => api("/api/calls?invitations=incoming"),
   invite: (partnerId, topic) => post("/api/calls", { partnerId, topic }),
   get: (id) => api(`/api/calls/${id}`),
   decide: (id, action) => patch(`/api/calls/${id}`, { action }),
   end: (id) => post(`/api/calls/${id}/end`),
+  ping: (id) => post(`/api/calls/${id}/ping`),
   review: (id, body) => post(`/api/calls/${id}/reviews`, body),
   report: (id, reason) => post(`/api/calls/${id}/reports`, { reason }),
-  match: (topic) => post("/api/matching", { topic }),
+  match: (topics) => post("/api/matching", { topics }),
   cancelMatch: () => remove("/api/matching"),
   signal: (id, type, payload) => post(`/api/calls/${id}/signals`, { type, payload }),
   signals: (id, after = 0) => api(`/api/calls/${id}/signals?after=${after}`),

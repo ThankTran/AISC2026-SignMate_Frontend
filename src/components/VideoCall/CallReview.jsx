@@ -93,10 +93,10 @@ export default function CallReview({
               ))}
             </div>
           </div>
-          <div className="vc-xp-strip">
+          {VIDEO_DEMO && <div className="vc-xp-strip">
             <Sparkles size={16} /> XP bạn sẽ nhận{" "}
             <strong>+{demoRewards.personalXp}</strong>
-          </div>
+          </div>}
           <label className="vc-panel vc-notes">
             Ghi chú thêm <small>(tùy chọn)</small>
             <textarea
@@ -125,7 +125,7 @@ export default function CallReview({
         Gửi đánh giá <ArrowRight size={18} />
       </CallButton>
       <small className="vc-local-note">
-        {VIDEO_DEMO ? "Đánh giá demo được lưu trong phiên trình duyệt này." : "Đánh giá được lưu trên trình duyệt này."}
+        {VIDEO_DEMO ? "Đánh giá demo được lưu trong phiên trình duyệt này." : "Đánh giá được lưu vào lịch sử cuộc gọi của bạn."}
       </small>
     </section>
   );

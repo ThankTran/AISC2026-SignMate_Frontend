@@ -23,7 +23,7 @@ export default function CallRewards({ onContinue, partner }) {
         <br />
         Cảm ơn bạn đã cùng xây dựng cộng đồng SignMate.
       </p>
-      <div className="vc-panel vc-rewards">
+      {VIDEO_DEMO && <div className="vc-panel vc-rewards">
         <div className="vc-section-title">
           <span className="vc-icon-tile">
             <Trophy size={22} />
@@ -71,7 +71,7 @@ export default function CallRewards({ onContinue, partner }) {
           <strong>{rewards.nextLevelXp - rewards.currentXp} XP</strong> nữa để
           đạt Level {rewards.level + 1}!
         </p>
-      </div>
+      </div>}
       <AddFriendButton person={partner} />
       <div className="vc-actions">
         <Link className="vc-button vc-secondary" to="/dashboard">

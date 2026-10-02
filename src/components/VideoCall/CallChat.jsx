@@ -5,7 +5,9 @@ import ParticipantAvatar from "./ParticipantAvatar";
 import { emojis } from "../../mockdata/videoCall/emojis";
 
 
-export default function CallChat({ partner, messages, onSend, onClose }) {
+export default function CallChat({ partner, messages, onSend, onClose, status = 'ready', error }) {
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState('');
   const [draft, setDraft] = useState("");
   const [emojiOpen, setEmojiOpen] = useState(false);
   const inputRef = useRef(null);
@@ -53,16 +55,20 @@ export default function CallChat({ partner, messages, onSend, onClose }) {
         : "smooth",
     });
   }, [messages]);
-  function send(event) {
+  async function send(event) {
     event.preventDefault();
-    if (!draft.trim()) return;
-    onSend(draft.trim());
-    setDraft("");
-    setEmojiOpen(false);
+    if (!draft.trim() || sending) return;
+    setSending(true); setSendError('');
+    try { await onSend(draft.trim()); setDraft(''); setEmojiOpen(false); }
+    catch (failure) { setSendError(failure.message); }
+    finally { setSending(false); }
   }
   return (
     <aside className="vc-chat" aria-label="Trò chuyện trong cuộc gọi">
       <div className="vc-chat-messages" ref={chatRef} role="log" aria-live="polite" aria-relevant="additions" tabIndex={0}>
+        {status === 'loading' && <p>Đang tải trò chuyện…</p>}
+        {status === 'ready' && messages.length === 0 && <p>Chưa có tin nhắn. Hãy gửi lời chào!</p>}
+        {error && <p role="alert">{error} Đang thử kết nối lại…</p>}
         {messages.map((m, i) => (
           <div key={i} className={`vc-chat-message${m.mine ? " mine" : ""}`}>
             {m.mine ? <span className="vc-chat-avatar" aria-hidden="true">B</span> : <ParticipantAvatar person={partner} />}
@@ -70,6 +76,7 @@ export default function CallChat({ partner, messages, onSend, onClose }) {
           </div>
         ))}
       </div>
+      {sendError && <p role="alert">{sendError}</p>}
       <form onSubmit={send} ref={composerRef} onBlur={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget)) setEmojiOpen(false);
       }}>
@@ -78,6 +85,7 @@ export default function CallChat({ partner, messages, onSend, onClose }) {
           aria-label="Tin nhắn"
           placeholder="Gửi lời nhắn…"
           value={draft}
+          disabled={sending}
           onChange={(e) => setDraft(e.target.value)}
           maxLength={500}
         />
@@ -98,7 +106,7 @@ export default function CallChat({ partner, messages, onSend, onClose }) {
             </div>
           </div>
         )}
-        <button aria-label="Gửi tin nhắn" disabled={!draft.trim()}>
+        <button aria-label="Gửi tin nhắn" disabled={!draft.trim() || sending}>
           <Send size={18} />
         </button>
         <button type="button" aria-label="Đóng trò chuyện" onClick={onClose}>

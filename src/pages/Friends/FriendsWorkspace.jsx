@@ -377,6 +377,7 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
 
   return (
     <div className="friends-page">
+      {isVideoInvitesView && <CallInvitations />}
       <div className="friends-page__header">
         <h1 id="friends-page-title" className="friends-page__title text-h1">
           {pageTitle}
@@ -611,3 +612,4 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
 };
 
 export default FriendsWorkspace;
+import CallInvitations from '../../components/VideoCall/CallInvitations';
