@@ -21,15 +21,15 @@ export function CurrentUserProvider({ children }) {
     if(!uid)return;
     return onSnapshot(doc(db,'users',uid),snapshot=>setFlags({uid,data:snapshot.data()||{}}),()=>setFlags({uid,data:{}}));
   },[uid]);
-  const ui=flags?.uid===uid?flags.data:empty;
-  const data=saved?.uid===uid?saved.data:remote||empty;
+  const ui=flags && flags.uid===uid?flags.data:empty;
+  const data=saved && saved.uid===uid?saved.data:remote||empty;
   const updateCurrent=useCallback(data=>setSaved({uid,data}),[uid]);
   const completeOnboarding=useCallback(()=>{
     try { sessionStorage.setItem(`signmate:onboarding:${uid}`,'true'); } catch { /* Session-only fallback remains available. */ }
     setFlags({uid,data:{onboardingComplete:true}});
   },[uid]);
   const displayName=data.name||user?.displayName||user?.email?.split('@')[0]||(mock?fallback.name:'Người học');
-  const profileStatus=!uid||remote||saved?.uid===uid?'ready':error?'error':'loading';
+  const profileStatus=!uid||remote||(saved && saved.uid===uid)?'ready':error?'error':'loading';
   const current=useMemo(()=>({... (mock?fallback:{}),...data,uid,displayName,name:displayName,
     email:user?.email||data.email||'',photoURL:user?.photoURL||'',handle:`@${(user?.email||displayName).split('@')[0]}`,
     onboardingComplete:ui.onboardingComplete===true||localOnboarding(uid),
