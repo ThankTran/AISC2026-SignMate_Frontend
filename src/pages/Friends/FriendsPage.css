@@ -1664,3 +1664,8 @@
 .month-calendar-event { background:var(--color-teal-50); border:1px solid var(--color-teal-100); box-shadow:none; }
 @media(max-width:768px){.friends-page .friends-recent-calls{grid-auto-flow:row;grid-auto-columns:auto;grid-template-columns:minmax(0,1fr);overflow:visible}}
 .friend-search-results{list-style:none;padding:0;display:grid;gap:12px}.friend-search-results li{display:flex;align-items:center;gap:12px;padding:16px;border:1px solid var(--color-neutral-200);border-radius:12px}.friend-search-results li>div{flex:1;min-width:0}.friend-search-results button,.friend-search-results a{min-height:44px;padding:10px 14px;border-radius:10px;background:var(--color-teal-50);color:var(--color-teal-700)}@media(max-width:640px){.friend-search-results li{flex-wrap:wrap}.friend-search-results li>button,.friend-search-results li>a{margin-left:56px}}
+
+@media(max-width:768px){.friends-search__input,.friends-section__link,.friends-list__load-more,.schedule-request-card__accept,.month-calendar__nav,.month-calendar__today,.month-calendar-event__action{min-height:44px;min-width:44px}.month-calendar-event__action{width:44px;height:44px}}
+
+:where(.friends-search__input){min-height:24px}
+

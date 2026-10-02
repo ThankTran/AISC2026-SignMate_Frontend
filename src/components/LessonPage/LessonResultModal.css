@@ -153,8 +153,6 @@
   border-radius: 999px;
 
   background: rgba(255, 255, 255, 0.16);
-
-  font-family: var(--font-family-mono);
   font-size: var(--font-size-caption);
   font-weight: 700;
   letter-spacing: 0.07em;
@@ -218,8 +216,6 @@
 
   background: var(--lrm-green);
   color: #ffffff;
-
-  font-family: var(--font-family-mono);
   font-size: var(--font-size-caption);
   font-weight: 800;
   letter-spacing: 0.06em;
@@ -244,8 +240,6 @@
   box-shadow:
     0 0 0 3px rgba(245, 166, 35, 0.18),
     0 10px 26px rgba(245, 166, 35, 0.22);
-
-  font-family: var(--font-family-mono);
 }
 
 .lrm-stat__value {
@@ -290,8 +284,6 @@
   width: 100%;
   margin-top: auto;
   padding-top: 6px;
-
-  font-family: var(--font-family-mono);
 }
 
 .lrm-xpbar__seg {
@@ -300,14 +292,10 @@
   border-radius: 999px;
 
   background: var(--lrm-gray);
-
-  font-family: var(--font-family-mono);
 }
 
 .lrm-xpbar__seg--filled {
   background: var(--lrm-amber);
-
-  font-family: var(--font-family-mono);
 }
 
 /* ===== ACCURACY BREAKDOWN ===== */
@@ -401,7 +389,6 @@
 }
 
 .lrm-bar__tag {
-  font-family: var(--font-family-mono);
   font-size: var(--font-size-caption);
   font-weight: 800;
   text-align: right;
@@ -582,16 +569,12 @@
 
   .lrm-stat--xp {
     order: -1;
-
-  font-family: var(--font-family-mono);
 }
 
   .lrm-xpbar {
     max-width: 120px;
     margin-top: 0;
     padding-top: 0;
-
-  font-family: var(--font-family-mono);
 }
 
   .lrm__footer {

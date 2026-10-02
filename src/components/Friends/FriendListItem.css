@@ -178,3 +178,5 @@
     justify-content: center;
   }
 }
+
+@media(max-width:768px){.friend-item__schedule-btn{min-height:44px;min-width:44px}}

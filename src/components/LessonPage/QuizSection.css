@@ -21,8 +21,6 @@
   border-radius: 20px;
   background: var(--color-teal-50, #e1f5ee);
   color: var(--color-teal-700, #0f6e56);
-
-  font-family: var(--font-family-mono);
   font-size: var(--font-size-caption);
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -309,8 +307,6 @@
   font-size: 13px;
   line-height: 1.55;
   color: var(--color-neutral-700);
-
-  font-family: var(--font-family-mono);
 }
 
 /* =========================================================

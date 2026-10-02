@@ -151,13 +151,13 @@ export default function Welcome() {
         <div className="welcome-footer-cols">
           <div>
             <h2 className="text-h3">Pháp lý</h2>
-            <Link to="/terms">Điều khoản</Link>
-            <Link to="/privacy">Chính sách bảo mật</Link>
+            <Link className="touch-target" to="/terms">Điều khoản</Link>
+            <Link className="touch-target" to="/privacy">Chính sách bảo mật</Link>
           </div>
           <div>
             <h2 className="text-h3">Công ty</h2>
-            <Link to="/faq">Câu hỏi thường gặp</Link>
-            <Link to="/contact">Liên hệ</Link>
+            <Link className="touch-target" to="/faq">Câu hỏi thường gặp</Link>
+            <Link className="touch-target" to="/contact">Liên hệ</Link>
           </div>
 
         </div>

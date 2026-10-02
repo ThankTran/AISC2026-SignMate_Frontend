@@ -351,7 +351,6 @@
 }
 
 .quiz-media__title {
-  font-family: var(--font-family-mono);
   font-size: 13px;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -737,3 +736,5 @@
 .quiz__timer--warning { color:var(--color-coral-500); background:var(--color-coral-50); }
 .quiz__timer--urgent { color:#b42318; border:2px solid currentColor; }
 .quiz__timer-value { color:inherit; }
+
+@media(max-width:768px){.quiz__submit{min-height:44px}.quiz__dot{width:44px;height:44px;flex-shrink:0}}

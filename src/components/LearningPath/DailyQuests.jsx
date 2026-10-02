@@ -43,7 +43,7 @@ const DailyQuests = () => {
             <span className="lp-quest__check">
               {q.done ? <Check size={15} strokeWidth={3} /> : <Circle size={15} />}
             </span>
-            {(q.type === 'practice' || q.type === 'ai') ? <Link className="lp-quest__label" to="/practice-ai">{q.label}</Link> : <span className="lp-quest__label">{q.label}</span>}
+            {(q.type === 'practice' || q.type === 'ai') ? <Link className="lp-quest__label touch-target" to="/practice-ai">{q.label}</Link> : <span className="lp-quest__label">{q.label}</span>}
             <span className="lp-quest__xp">{source==='server'?q.done?`Đã nhận ${q.xp} XP`:'Chưa hoàn thành':`+${q.xp} XP`}</span>
           </li>
         ))}

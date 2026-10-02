@@ -308,3 +308,8 @@
   color: #529878;
   animation-delay: -2s;
 }
+
+@media(max-width:768px){.vc-custom input{min-height:44px}}
+
+:where(.vc-custom input){min-height:24px}
+

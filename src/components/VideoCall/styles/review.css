@@ -26,8 +26,6 @@
 .vc-review-duration {
   margin-left: auto;
   text-align: right;
-
-  font-family: var(--font-family-mono);
 }
 .vc-review-duration strong {
 
@@ -106,8 +104,6 @@
   border-radius: 9px;
   font-size: var(--font-size-caption);
   margin-top: 17px;
-
-  font-family: var(--font-family-mono);
 }
 .vc-xp-strip strong {
   margin-left: auto;

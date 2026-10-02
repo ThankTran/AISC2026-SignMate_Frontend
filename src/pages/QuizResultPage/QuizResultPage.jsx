@@ -24,7 +24,7 @@ function QuizResult({ result, questions = [], elapsedSeconds }) {
   ];
   return <div className="qr">
     <nav className="qr-crumbs" aria-label="Breadcrumb">
-      <Link to="/learning-path" className="qr-crumbs__link">Bài kiểm tra</Link>
+      <Link to="/learning-path" className="qr-crumbs__link touch-target">Bài kiểm tra</Link>
       <ChevronRight size={15} /><span className="qr-crumbs__current">Kết quả</span>
     </nav>
     <section className="qr-hero">

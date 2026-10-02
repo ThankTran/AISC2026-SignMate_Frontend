@@ -294,15 +294,11 @@
 .sidebar-item--expanded-parent {
   background: var(--color-neutral-100);
   color: var(--color-neutral-900);
-
-  font-family: var(--font-family-mono);
 }
 
 .sidebar-item--expanded-parent .sidebar-item__icon,
 .sidebar-item--expanded-parent .sidebar-item__chevron {
   color: var(--color-neutral-700);
-
-  font-family: var(--font-family-mono);
 }
 
 /* =========================================================

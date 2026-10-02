@@ -250,7 +250,6 @@ a:hover > .lp-node__icon:not(.lp-node__icon--locked) {
 .lp-chapter__status {
   padding: 2px 9px;
   border-radius: 20px;
-  font-family: var(--font-family-mono);
   font-size: var(--font-size-caption);
   font-weight: 700;
   letter-spacing: 0.06em;
