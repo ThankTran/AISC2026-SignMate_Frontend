@@ -1,3 +1,4 @@
+import {uuid} from '../utils/uuid';
 import {useCallback,useEffect,useRef,useState} from 'react';
 import {practiceApi} from '../services/api';
 export function usePracticeSession({api=practiceApi,mock=import.meta.env.VITE_USE_MOCK==='true'}={}) {
@@ -21,7 +22,7 @@ export function usePracticeSession({api=practiceApi,mock=import.meta.env.VITE_US
  const start=useCallback(async sign=>{
   if(pending.current)return null;
   if(current.current)return current.current;
-  key.current??=crypto.randomUUID();publish({status:'loading',session:null,error:null});
+  key.current??=uuid();publish({status:'loading',session:null,error:null});
   pending.current=(async()=>{
    try {
     const result=await (mock?Promise.resolve({id:key.current,aiStatus:'demo'}):api.start({sign,userSessionId:key.current}));

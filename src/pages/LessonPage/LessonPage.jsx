@@ -1,7 +1,10 @@
+import {uuid} from '../../utils/uuid';
 import {useProgress} from "../../hooks/useProgress";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { BookOpen, Hand, HandHeart, Handshake, HeartHandshake, HeartPulse, Home, Users } from "lucide-react";
+import { Hand } from "lucide-react";
+import {signIcons as ICONS} from '../../utils/signIcons';
+import {useBeforeUnload} from '../../hooks/useBeforeUnload';
 import "./LessonPage.css";
 import LessonTopNav from "../../components/LessonPage/LessonTopNav";
 import MediaView from "../../components/LessonPage/MediaView";
@@ -15,13 +18,12 @@ import { learningApi } from "../../services/api";
 import { checkLessonAnswer, finishLesson } from "../../services/lessonApi";
 import LearningAccessGuard from '../../components/LearningAccessGuard';
 
-const ICONS = { hand: Hand, handHeart: HandHeart, handshake: Handshake,
-  heartHandshake: HeartHandshake, heartPulse: HeartPulse, home: Home, users: Users, bookOpen: BookOpen };
+
 
 export function LessonSession({ lesson, checkAnswer=checkLessonAnswer, finishAttempt=finishLesson }) {
  const {recordLesson}=useProgress();
   const navigate = useNavigate();
-  const [sessionId, setSessionId] = useState(() => crypto.randomUUID());
+  const [sessionId, setSessionId] = useState(() => uuid());
   const [selected, setSelected] = useState(null);
   const [result, setResult] = useState(null);
   const [checking, setChecking] = useState(false);
@@ -30,6 +32,7 @@ export function LessonSession({ lesson, checkAnswer=checkLessonAnswer, finishAtt
   const [questionIndex, setQuestionIndex] = useState(0);
   const [summary, setSummary] = useState(null);
   const [error, setError] = useState(null);
+  useBeforeUnload(!summary);
   const busy = useRef(false);
   const [questions] = useState(() => lesson.questions.map(q => { const options = [...q.options]; for (let i=options.length-1;i>0;i--) { const j=Math.floor(Math.random()*(i+1)); [options[i],options[j]]=[options[j],options[i]]; } return {...q,options}; }));
   const raw = questions[questionIndex];
@@ -70,7 +73,7 @@ export function LessonSession({ lesson, checkAnswer=checkLessonAnswer, finishAtt
   }
   function retake() {
     if (busy.current) return;
-    setSessionId(crypto.randomUUID()); setSelected(null); setResult(null);
+    setSessionId(uuid()); setSelected(null); setResult(null);
     setQuestionIndex(0); setSummary(null); setError(null);
   }
   useEffect(() => {
@@ -85,7 +88,7 @@ export function LessonSession({ lesson, checkAnswer=checkLessonAnswer, finishAtt
   });
   if(error?.status===403)return <LearningAccessGuard error={error}><ApiState error={error}/></LearningAccessGuard>;
   return <div className="lesson">
-    <LessonTopNav title={lesson.title} completed={questionIndex + (result ? 1 : 0)} hearts={hearts} currentQuestion={questionIndex + 1} totalQuestions={lesson.questions.length} />
+    <LessonTopNav title={lesson.title} completed={questionIndex + (result ? 1 : 0)} hearts={hearts} maxHearts={lesson.maxHearts} currentQuestion={questionIndex + 1} totalQuestions={lesson.questions.length} />
     {error && <p role="alert">{error.message} <button type="button" disabled={checking}
       onClick={result && isLast ? complete : handleCheck}>Thử lại</button></p>}
     <div className="lesson__body">

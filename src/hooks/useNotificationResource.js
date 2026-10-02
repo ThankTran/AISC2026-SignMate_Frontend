@@ -11,5 +11,5 @@ export function useNotificationResource(uid,enabled){
  const notifications=useMemo(()=>adaptNotifications(data?.rows||[],clock),[data,clock]);
  const readNotifications=useCallback(async ids=>{await Promise.all(ids.map(id=>socialApi.read(id)));retry();},[retry]);
  const readAllNotifications=useCallback(async()=>{await socialApi.readAll();retry();},[retry]);
- return {notifications,unreadCount:data?.count??0,notificationStatus:!enabled?'idle':error?'error':data?'ready':'loading',notificationError:error,retryNotifications:retry,readNotifications,readAllNotifications};
+ return useMemo(()=>({notifications,unreadCount:data?.count??0,notificationStatus:!enabled?'idle':error?'error':data?'ready':'loading',notificationError:error,retryNotifications:retry,readNotifications,readAllNotifications}),[notifications,data,enabled,error,retry,readNotifications,readAllNotifications]);
 }

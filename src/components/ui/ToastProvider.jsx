@@ -1,3 +1,4 @@
+import {uuid} from '../../utils/uuid';
 import { ToastContext } from '../../hooks/useToast';
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
@@ -9,7 +10,7 @@ export function ToastProvider({ children }) {
   const dismiss = useCallback(id => { clearTimeout(timers.current.get(id)); timers.current.delete(id); setItems(prev => prev.filter(item => item.id !== id)); }, []);
   useEffect(() => { const map = timers.current; return () => { map.forEach(clearTimeout); map.clear(); }; }, []);
   const toast = useCallback(({ type = 'info', message, error, undo, duration = undo ? 10000 : 5000 }) => {
-    const id = crypto.randomUUID();
+    const id = uuid();
     setItems(prev => [...prev, { id, type, message:error?errorMessage(error):message, undo }]);
     if (duration) timers.current.set(id, setTimeout(() => dismiss(id), duration));
     return id;

@@ -1,10 +1,9 @@
+import {createElement} from 'react';
+import {signIcons} from '../../utils/signIcons';
 import {useChapters} from "../../hooks/useProgress";
 import {
-  BookOpen,
   Check,
   Clock,
-  Hand,
-  Home,
   Lock,
   MessageCircle,
   Palette,
@@ -13,7 +12,6 @@ import {
   Star,
   Sun,
   Trophy,
-  Users,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -25,14 +23,11 @@ import "./SCurvePath.css";
 
 /* Icons theo key trong dữ liệu (để dữ liệu thuần, tách khỏi component) */
 const CHAPTER_ICONS = {
-  bookOpen: <BookOpen size={22} strokeWidth={2.2} />,
+  ...Object.fromEntries(Object.entries(signIcons).map(([key,Icon])=>[key,createElement(Icon,{size:22,strokeWidth:2.2})])),
   messageCircle: <MessageCircle size={22} strokeWidth={2.2} />,
-  users: <Users size={22} strokeWidth={2.2} />,
   palette: <Palette size={22} strokeWidth={2.2} />,
   sun: <Sun size={24} strokeWidth={2} />,
   smile: <Smile size={22} strokeWidth={2.2} />,
-  home: <Home size={22} strokeWidth={2.2} />,
-  hand: <Hand size={22} strokeWidth={2.2} />,
 };
 
 /* =========================================================

@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 
 import "./LessonTopNav.css";
 
-const MAX_HEARTS = 5;
 
 const formatPct = (current, total) => {
   const value = (current / total) * 100;
@@ -14,7 +13,8 @@ const formatPct = (current, total) => {
 const LessonTopNav = ({
   title,
   completed = 0,
-  hearts = MAX_HEARTS,
+  maxHearts = 5,
+  hearts = maxHearts,
   currentQuestion = 1,
   totalQuestions = 8,
   onSegmentClick,
@@ -67,7 +67,7 @@ const LessonTopNav = ({
       {/* ---- Right: hearts + exit ---- */}
       <div className="lesson-topnav__right">
         <div className="lesson-topnav__hearts">
-          {Array.from({ length: MAX_HEARTS }).map((_, i) => (
+          {Array.from({ length: maxHearts }).map((_, i) => (
             <Heart
               key={i}
               size={18}
