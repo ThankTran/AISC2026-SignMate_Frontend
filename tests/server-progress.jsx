@@ -57,7 +57,7 @@ try{
  await render(lessonApp(lesson));await click(document.querySelector('[role="radio"]'));await click(button('Kiểm tra'));
  check('zero hearts on final question still calls finish',finished===1);
  check('failed modal replaces out-of-hearts on final question',document.querySelector('[role="dialog"]')?.textContent.includes('Chưa đạt, hãy thử lại')&&!button('Bài tiếp theo'));
- await click(button('Luyện tập lại'));check('retake resets question and answer',!document.querySelector('[role="dialog"]')&&document.querySelector('[aria-checked="true"]')===null);
+ await click(button('Luyện tập lại'));check('retake resets answer without granting free hearts',document.querySelector('[role="dialog"]')?.textContent.includes('hết tim')&&document.querySelector('[aria-checked="true"]')===null);
  await render(<div/>);await render(lessonApp({...lesson,questions:[...questions,{...questions[0],id:2}]}));await click(document.querySelector('[role="radio"]'));await click(button('Kiểm tra'));
  check('hearts exhausted mid-lesson shows hearts dialog without finish',finished===1&&!document.querySelector('[role="dialog"]')?.textContent.includes('Chưa đạt, hãy thử lại')&&!!document.querySelector('[role="dialog"]'));
  await render(<MemoryRouter><TestProgress><LessonResultModal lessonId={1} summary={{passed:true,score:100,xp:0,xpPreviouslyAwarded:true}} onRetake={()=>{}} onClose={()=>{}} onNext={()=>{}}/></TestProgress></MemoryRouter>);

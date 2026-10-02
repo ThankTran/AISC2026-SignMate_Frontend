@@ -58,7 +58,7 @@ const LessonResultModal = ({ lessonId, summary, onClose, onRetake, onNext }) => 
           </div>
 
           <div className="lrm-stat lrm-stat--xp">
-            <span className="lrm-stat__value">+{xp} XP</span>{xp===0 && result.xpPreviouslyAwarded===true && <span className="lrm-stat__note">Đã nhận XP bài này trước đó</span>}
+            <span className="lrm-stat__value">+{xp} XP</span>{result.xpReason==="CAPPED" ? <span className="lrm-stat__note">Đã đạt giới hạn XP làm lại hôm nay</span> : xp===0 && result.xpPreviouslyAwarded===true && <span className="lrm-stat__note">Đã nhận XP bài này trước đó</span>}
             <span className="lrm-stat__level">Level {level}</span>
             <div className="lrm-xpbar" aria-hidden="true">
               {Array.from({ length: XP_SEGMENTS }).map((_, i) => (

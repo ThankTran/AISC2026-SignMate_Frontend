@@ -4,7 +4,7 @@ import {notifySessionExpired,withTokenRetry} from './sessionExpiry';
 
 const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || "http://localhost:8080").replace(/\/$/, "");
 export class ApiError extends Error {
-  constructor(status, message, code) { super(errorMessage({status,code,message})); this.name="ApiError"; this.status=status; this.code=code; this.rawMessage=message; }
+  constructor(status, message, code, details={}) { super(errorMessage({status,code,message})); this.name="ApiError"; this.status=status; this.code=code; this.rawMessage=message; this.details=details; }
 }
 export async function api(path, { method = "GET", body, signal } = {}) {
   await auth.authStateReady();
@@ -37,7 +37,7 @@ export async function api(path, { method = "GET", body, signal } = {}) {
   const response = await withTokenRetry(send,async()=>{if(auth.currentUser?.uid===user.uid)await notifySessionExpired(user.uid);});
   if (response.status === 204) return null;
   const data = await response.json().catch(() => null);
-  if (!response.ok) throw new ApiError(response.status, data?.message || `API lỗi HTTP ${response.status}`,data?.code);
+  if (!response.ok) throw new ApiError(response.status, data?.message || `API lỗi HTTP ${response.status}`,data?.code,data||{});
   return data;
 }
 const post = (path, body) => api(path, { method: "POST", body });

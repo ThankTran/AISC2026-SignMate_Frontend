@@ -25,7 +25,8 @@ export function LessonSession({ lesson, checkAnswer=checkLessonAnswer, finishAtt
   const [selected, setSelected] = useState(null);
   const [result, setResult] = useState(null);
   const [checking, setChecking] = useState(false);
-  const [hearts, setHearts] = useState(lesson.maxHearts);
+  const [hearts, setHearts] = useState(lesson.hearts ?? lesson.maxHearts);
+  const [nextHeartAt,setNextHeartAt]=useState(lesson.nextHeartAt);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [summary, setSummary] = useState(null);
   const [error, setError] = useState(null);
@@ -44,9 +45,9 @@ export function LessonSession({ lesson, checkAnswer=checkLessonAnswer, finishAtt
     try {
       const answer = await checkAnswer({ lessonId: lesson.id, questionId: raw.id,
         selectedOptionId: selected, userSessionId: sessionId });
-      setResult(answer); setHearts(answer.hearts);
+      setResult(answer); setHearts(answer.hearts);setNextHeartAt(answer.nextHeartAt);
       if (isLast && answer.hearts <= 0) await finishCurrentAttempt();
-    } catch (err) { setError(err); }
+    } catch (err) { setError(err);if(err.code==='NO_HEARTS'){setHearts(0);setNextHeartAt(err.details?.nextHeartAt);} }
     finally { busy.current = false; setChecking(false); }
   }
   async function finishCurrentAttempt() {
@@ -70,7 +71,7 @@ export function LessonSession({ lesson, checkAnswer=checkLessonAnswer, finishAtt
   function retake() {
     if (busy.current) return;
     setSessionId(crypto.randomUUID()); setSelected(null); setResult(null);
-    setHearts(lesson.maxHearts); setQuestionIndex(0); setSummary(null); setError(null);
+    setQuestionIndex(0); setSummary(null); setError(null);
   }
   useEffect(() => {
     const keydown = (event) => {
@@ -99,7 +100,7 @@ export function LessonSession({ lesson, checkAnswer=checkLessonAnswer, finishAtt
       firstTimeCorrect={result?.correct === true} onCheck={handleCheck} onAdvance={advance} />
     {summary && <LessonResultModal lessonId={lesson.id} summary={summary} onClose={() => navigate("/learning-path")} onRetake={retake}
       onNext={() => navigate("/learning-path")} />}
-    {hearts <= 0 && !(isLast && result) && !summary && <OutOfHeartsModal />}
+    {hearts <= 0 && !(isLast && result) && !summary && <OutOfHeartsModal nextHeartAt={nextHeartAt} />}
   </div>;
 }
 export default function LessonPage() {
