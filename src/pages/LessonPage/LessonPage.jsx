@@ -1,5 +1,6 @@
 import {uuid} from '../../utils/uuid';
 import {useProgress} from "../../hooks/useProgress";
+import {useToast} from '../../hooks/useToast';
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Hand } from "lucide-react";
@@ -21,7 +22,8 @@ import LearningAccessGuard from '../../components/LearningAccessGuard';
 
 
 export function LessonSession({ lesson, checkAnswer=checkLessonAnswer, finishAttempt=finishLesson }) {
- const {recordLesson}=useProgress();
+ const {recordLesson,retry}=useProgress();
+ const toast=useToast();
   const navigate = useNavigate();
   const [sessionId, setSessionId] = useState(() => uuid());
   const [selected, setSelected] = useState(null);
@@ -49,6 +51,7 @@ export function LessonSession({ lesson, checkAnswer=checkLessonAnswer, finishAtt
       const answer = await checkAnswer({ lessonId: lesson.id, questionId: raw.id,
         selectedOptionId: selected, userSessionId: sessionId });
       setResult(answer); setHearts(answer.hearts);setNextHeartAt(answer.nextHeartAt);
+      if(answer.eventType==='signs') { retry?.(); toast?.({type:'success',message:'Bạn đã trả lời đúng 5 câu liên tiếp!'}); }
       if (isLast && answer.hearts <= 0) await finishCurrentAttempt();
     } catch (err) { setError(err);if(err.code==='NO_HEARTS'){setHearts(0);setNextHeartAt(err.details?.nextHeartAt);} }
     finally { busy.current = false; setChecking(false); }

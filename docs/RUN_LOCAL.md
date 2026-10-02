@@ -2,6 +2,8 @@
 
 Mở hai terminal PowerShell riêng. Nếu cả backend và frontend đang chạy, tải lại trang trước;
 lỗi `Trang gặp sự cố` do hồ sơ chưa đăng nhập đã được sửa trong `CurrentUserProvider`.
+Sau các thay đổi backend mới, dừng tiến trình backend cũ bằng Ctrl+C rồi chạy lại để nạp API
+và migration V12/V13. Chỉ refresh trình duyệt không cập nhật được backend đang chạy.
 
 ## 1. Backend PostgreSQL
 
@@ -35,6 +37,7 @@ Giữ các biến Firebase đang có trong `.env.local` hoặc `.env`. Kiểm tr
 ```dotenv
 VITE_API_BASE_URL=http://localhost:8080
 VITE_USE_MOCK=false
+VITE_DEMO=false
 ```
 
 ```powershell
