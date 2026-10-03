@@ -4,6 +4,8 @@ import { callApi } from '../../services/api';
 import { useApiResource } from '../../hooks/useApiResource';
 import { useToast } from '../../hooks/useToast';
 import { VIDEO_DEMO } from '../../services/videoCall/config';
+import { Video } from 'lucide-react';
+import './CallInvitations.css';
 
 function ServerInvitations() {
   const [revision, setRevision] = useState(0), [pending, setPending] = useState(null);
@@ -19,15 +21,15 @@ function ServerInvitations() {
     } catch (error) { toast({ type: 'error', message: error.message }); }
     finally { setPending(null); }
   }
-  return <section className="vc-panel" aria-label="Lời mời gọi video trực tiếp">
-    <h2 className="text-h2">Lời mời gọi video</h2>
-    {resource.error ? <div role="alert"><p>{resource.error.message}</p><button className="vc-button" onClick={() => setRevision(value => value + 1)}>Thử lại</button></div>
+  return <section className="call-invitations" aria-label="Cuộc gọi đến">
+    <header className="call-invitations__heading"><span className="call-invitations__icon"><Video size={22}/></span><div><h2 className="text-h2">Cuộc gọi đến</h2><p>Chấp nhận để vào phòng và kiểm tra thiết bị.</p></div>{resource.data?.length>0&&<span className="call-invitations__count">{resource.data.length}</span>}</header>
+    {resource.error ? <div role="alert"><p>{resource.error.message}</p><button className="call-invitations__accept" onClick={() => setRevision(value => value + 1)}>Thử lại</button></div>
       : !resource.data ? <p role="status">Đang tải lời mời…</p>
-      : resource.data.length === 0 ? <p>Chưa có lời mời gọi video. Bạn có thể gọi một người bạn đang online.</p>
-      : resource.data.map(call => <article key={call.id}><p><strong>{call.name}</strong> · {call.topic}</p><div className="vc-actions">
-        <button className="vc-button" disabled={pending !== null} onClick={() => decide(call.id, 'accept')}>Chấp nhận</button>
-        <button className="vc-button vc-secondary" disabled={pending !== null} onClick={() => decide(call.id, 'reject')}>Từ chối</button>
+      : resource.data.length === 0 ? <p className="call-invitations__empty">Chưa có cuộc gọi đến. Lời mời từ bạn bè sẽ xuất hiện tại đây.</p>
+      : resource.data.map(call => <article className="call-invitations__item" key={call.id}><div><strong>{call.name}</strong><p>{call.topic}</p></div><div className="call-invitations__actions">
+        <button className="call-invitations__accept" disabled={pending !== null} onClick={() => decide(call.id, 'accept')}>Chấp nhận</button>
+        <button className="call-invitations__decline" disabled={pending !== null} onClick={() => decide(call.id, 'reject')}>Từ chối</button>
       </div></article>)}
   </section>;
 }
-export default function CallInvitations() { return VIDEO_DEMO ? null : <ServerInvitations />; }
+export default function CallInvitations() { return VIDEO_DEMO ? <section className="call-invitations"><h2 className="text-h2">Cuộc gọi đến</h2><p className="call-invitations__empty">Chưa có cuộc gọi đến trong phiên demo.</p></section> : <ServerInvitations />; }

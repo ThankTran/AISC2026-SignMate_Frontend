@@ -1,18 +1,28 @@
 import EmptyState from "../../components/ui/EmptyState";
+import { useState } from 'react';
+import CallInvitations from '../../components/VideoCall/CallInvitations';
 import FriendsWorkspace from "./FriendsWorkspace";
-import { X, Check } from "lucide-react";
+import { X, Check, Video, CalendarDays } from "lucide-react";
 import MonthCalendar from "../../components/Friends/MonthCalendar";
 import { SCHEDULE_PREVIEW_LIMIT } from "./friendsPageConfig";
-function Content({isVideoInvitesView,incomingScheduleRequests,visibleScheduleRequests,handleAcceptScheduleRequest,handleDeclineScheduleRequest,showAllScheduleRequests,setShowAllScheduleRequests,hiddenScheduleRequestCount,calendarAppointments,calendarTitle,calendarMonthDays,calendarAppointmentsByDate,goToPreviousMonth,goToNextMonth,goToTodayMonth,openQuickInvite}) { return <>
+function Content({isVideoInvitesView,incomingScheduleRequests,visibleScheduleRequests,handleAcceptScheduleRequest,handleDeclineScheduleRequest,showAllScheduleRequests,setShowAllScheduleRequests,hiddenScheduleRequestCount,calendarAppointments,calendarTitle,calendarMonthDays,calendarAppointmentsByDate,goToPreviousMonth,goToNextMonth,goToTodayMonth,openQuickInvite}) {
+ const [tab,setTab]=useState('instant');
+ const tabs=[{id:'instant',label:'Gọi ngay',Icon:Video},{id:'schedule',label:'Hẹn lịch',Icon:CalendarDays}];
+ return <div className="video-invites">
+   <div className="video-invites__tabs" role="tablist" aria-label="Loại lời mời">
+     {tabs.map(({id,label,Icon},index)=><button key={id} id={`invites-tab-${id}`} role="tab" aria-selected={tab===id} aria-controls={`invites-panel-${id}`} tabIndex={tab===id?0:-1} onClick={()=>setTab(id)} onKeyDown={event=>{let target;if(['ArrowLeft','ArrowRight'].includes(event.key))target=tabs[1-index].id;else if(event.key==='Home')target=tabs[0].id;else if(event.key==='End')target=tabs[1].id;if(target){event.preventDefault();setTab(target);document.getElementById(`invites-tab-${target}`)?.focus();}}}><Icon size={18}/>{label}{id==='schedule'&&incomingScheduleRequests.length>0&&<span>{incomingScheduleRequests.length}</span>}</button>)}
+   </div>
+   <div id="invites-panel-instant" role="tabpanel" aria-labelledby="invites-tab-instant" hidden={tab!=='instant'}><CallInvitations/></div>
+   <div id="invites-panel-schedule" role="tabpanel" aria-labelledby="invites-tab-schedule" hidden={tab!=='schedule'} className="video-invites__schedule">
       {/* ================= LỜI HẸN ĐANG CHỜ ================= */}
       {isVideoInvitesView && (
       <>
       <section className="friends-section friends-section--schedule-requests">
         <div className="friends-section__header">
           <div>
-            <h2 className="text-h2">Lời hẹn đang chờ</h2>
+            <h2 className="text-h2">Cần phản hồi</h2>
             <p className="friends-section__hint text-caption">
-              Đây là nơi hiện các buổi luyện tập người khác hẹn với bạn.
+              Kiểm tra ngày, giờ rồi nhận hoặc từ chối buổi hẹn.
             </p>
           </div>
 
@@ -64,7 +74,7 @@ function Content({isVideoInvitesView,incomingScheduleRequests,visibleScheduleReq
             ))}
           </div>
         ) : (
-          <EmptyState title="Không có lời mời đang chờ" description="Các lời mời mới sẽ xuất hiện tại đây." to="/friends/list" actionLabel="Xem bạn bè"/>
+          <p className="video-invites__empty">Bạn đã xử lý hết lời hẹn. Lời hẹn mới sẽ xuất hiện tại đây.</p>
         )}
 
         {incomingScheduleRequests.length > SCHEDULE_PREVIEW_LIMIT && (
@@ -83,7 +93,7 @@ function Content({isVideoInvitesView,incomingScheduleRequests,visibleScheduleReq
       <section className="friends-section friends-section--calendar">
         <div className="friends-section__header">
           <div>
-            <h2 className="text-h2">Lịch hẹn luyện tập</h2>
+            <h2 className="text-h2">Lịch của bạn</h2>
             <p className="friends-section__hint text-caption">
               Theo dõi buổi hẹn sắp diễn ra và các lời mời còn chờ bạn phản hồi.
             </p>
@@ -101,5 +111,5 @@ function Content({isVideoInvitesView,incomingScheduleRequests,visibleScheduleReq
       )}
 
 
-</>; }
+</div></div>; }
 export default function VideoCallInvitesPage() { return <FriendsWorkspace view="invites" Content={Content} />; }

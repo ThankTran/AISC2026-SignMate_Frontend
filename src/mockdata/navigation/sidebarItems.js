@@ -54,7 +54,7 @@ export const sidebarItems = [
             path: "/friends/friend-requests",
           },
           {
-            label: "Lời mời hẹn video call",
+            label: "Lời mời & lịch hẹn",
             path: "/friends/video-call-invites",
           },
         ],
@@ -62,3 +62,4 @@ export const sidebarItems = [
     ],
   },
 ];
+

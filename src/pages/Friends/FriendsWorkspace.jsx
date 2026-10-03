@@ -79,12 +79,12 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
   const pageTitle = isFriendRequestsView
     ? "Lời mời kết bạn"
     : isVideoInvitesView
-    ? "Lời mời hẹn video call"
+    ? "Lời mời & lịch hẹn"
     : "Danh sách bạn bè";
   const pageSubtitle = isFriendRequestsView
     ? "Duyệt các kết nối mới đang chờ phản hồi"
     : isVideoInvitesView
-    ? "Quản lý lời hẹn luyện tập từ bạn bè"
+    ? "Kết nối ngay hoặc sắp xếp một buổi luyện tập cùng bạn bè."
     : "Tìm bạn, xem hoạt động gần đây và bắt đầu một buổi luyện tập";
 
   // ===== Lọc danh sách bạn bè theo tên =====
@@ -377,7 +377,6 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
 
   return (
     <div className="friends-page">
-      {isVideoInvitesView && <CallInvitations />}
       <div className="friends-page__header">
         <h1 id="friends-page-title" className="friends-page__title text-h1">
           {pageTitle}
@@ -612,4 +611,3 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
 };
 
 export default FriendsWorkspace;
-import CallInvitations from '../../components/VideoCall/CallInvitations';
