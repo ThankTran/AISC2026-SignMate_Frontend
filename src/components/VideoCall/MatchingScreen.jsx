@@ -1,5 +1,4 @@
 import { VIDEO_DEMO } from "../../services/videoCall/config";
-import { Link } from 'react-router-dom';
 import { ArrowLeft, Check, Hand } from "lucide-react";
 import { formatTime } from "../../utils/videoCall/formatTime";
 import { matchingSteps } from "../../mockdata/videoCall/topics";
@@ -39,8 +38,7 @@ export default function MatchingScreen({ elapsed, onCancel }) {
           </div>
         ))}
       </div>}
-      {!VIDEO_DEMO && <p role="status">{elapsed < 15 ? 'Ưu tiên người có nhiều chủ đề chung.' : elapsed < 30 ? 'Đang mở rộng tìm kiếm trong những người có chủ đề chung.' : 'Chưa có người phù hợp. Bạn có thể tiếp tục chờ hoặc luyện tập.'}</p>}
-      {!VIDEO_DEMO && <div className="vc-actions"><Link className="vc-button vc-secondary" to="/practice-ai">Luyện tập AI</Link><Link className="vc-button vc-secondary" to="/learning-path">Ôn lại ký hiệu</Link></div>}
+      {!VIDEO_DEMO && <p role="status">{elapsed < 15 ? 'Ưu tiên người có nhiều chủ đề chung.' : elapsed < 30 ? 'Đang mở rộng tìm kiếm trong những người có chủ đề chung.' : 'Chưa có người phù hợp. Bạn có thể tiếp tục chờ hoặc hủy tìm kiếm.'}</p>}
       <div className="vc-wait">
         <small>THỜI GIAN CHỜ</small>
         <strong>{formatTime(elapsed)}</strong>
