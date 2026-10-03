@@ -3,6 +3,8 @@ import { useEffect, useRef, useState } from "react";
 export function useLocalMedia(onError, options = {}) {
   const [mic, setMic] = useState(false);
   const [camera, setCamera] = useState(false);
+  const [mediaRevision, setMediaRevision] = useState(0);
+  const [stream, setStream] = useState(null);
   const streamRef = useRef(null);
   const previewRef = useRef(null);
   const pendingRef = useRef(new Set());
@@ -27,6 +29,7 @@ export function useLocalMedia(onError, options = {}) {
         streamRef.current.removeTrack(track);
       });
       setEnabled(false);
+      setMediaRevision(value => value + 1);
       return;
     }
 
@@ -47,10 +50,13 @@ export function useLocalMedia(onError, options = {}) {
         track.onended = () => {
           streamRef.current?.removeTrack(track);
           setEnabled(false);
+          setMediaRevision(value => value + 1);
         };
       });
       previewRef.current.srcObject = streamRef.current;
+      setStream(streamRef.current);
       setEnabled(true);
+      setMediaRevision(value => value + 1);
     } catch {
       if (previewRef.current)
         onError(
@@ -66,5 +72,5 @@ export function useLocalMedia(onError, options = {}) {
     // Device settings apply once when entering a room.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  return { mic, camera, previewRef, toggleMedia };
+  return { mic, camera, previewRef, toggleMedia, stream, mediaRevision };
 }

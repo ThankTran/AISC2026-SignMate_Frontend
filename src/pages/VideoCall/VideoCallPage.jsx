@@ -1,4 +1,5 @@
 import FirstCallGuide from "../../components/VideoCall/FirstCallGuide";
+import CallInvitations from '../../components/VideoCall/CallInvitations';
 import DeviceCheck from "../../components/VideoCall/DeviceCheck";
 import TopicSelection from "../../components/VideoCall/TopicSelection";
 import MatchingScreen from "../../components/VideoCall/MatchingScreen";
@@ -24,6 +25,15 @@ export default function VideoCallPage() {
   function renderStage() {
     switch (flow.stage) {
       case "topics":
+        if (flow.call?.status === 'invited') return <section className="vc-centered vc-panel" aria-live="polite">
+          <h1 className="text-h1">{flow.call.direction === 'incoming' ? 'Lời mời gọi video' : 'Đang chờ chấp nhận'}</h1>
+          <p>{flow.partner.name} · {flow.call.topic}</p>
+          {flow.call.direction === 'incoming' && <div className="vc-actions">
+            <button className="vc-button" disabled={flow.busy} onClick={() => flow.decideInvitation('accept')}>Chấp nhận</button>
+            <button className="vc-button vc-secondary" disabled={flow.busy} onClick={() => flow.decideInvitation('reject')}>Từ chối</button>
+          </div>}
+          <button className="vc-text-button" disabled={flow.busy} onClick={flow.showTopics}>Hủy lời mời</button>
+        </section>;
         return (
           <TopicSelection
             selected={flow.selected}
@@ -54,6 +64,8 @@ export default function VideoCallPage() {
       case "call":
         return (
           <CallRoom
+            key={flow.call?.id || 'demo'}
+            call={flow.call}
             partner={flow.partner}
             duration={flow.duration}
             mediaOptions={flow.mediaOptions}
@@ -84,6 +96,9 @@ export default function VideoCallPage() {
     <div className={`vc-page vc-stage-${flow.stage}`}>
       {!["call", "search"].includes(flow.stage) && <VideoCallHeader />}
       {flow.stage==='topics'&&<FirstCallGuide/>}
+      {flow.stage==='topics'&&!flow.call&&<CallInvitations/>}
+      {flow.busy && <p role="status">Đang kết nối máy chủ…</p>}
+      {flow.error && <div role="alert"><p>{flow.error}</p><button className="vc-button vc-secondary" onClick={flow.showTopics}>Thử lại</button></div>}
       {renderStage()}
       {flow.safetyAction && (
         <SafetyDialog

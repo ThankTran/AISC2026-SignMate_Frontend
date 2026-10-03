@@ -1,9 +1,132 @@
-.pf{max-width:1050px;margin:auto;padding:24px;display:grid;gap:24px;color:var(--color-neutral-900)}
-.pf header p,.pf-card>p{color:var(--color-neutral-600)}
-.pf-card{padding:24px;background:var(--color-white,#fff);border:1px solid var(--color-neutral-200);border-radius:20px;display:grid;gap:20px}
-.pf-identity{display:flex;align-items:center;gap:20px}.pf-field{display:grid;grid-template-columns:minmax(150px,1fr) minmax(0,3fr);gap:24px;align-items:center;border-top:1px solid var(--color-neutral-200);padding-top:20px}
-.pf-field>div{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.pf-field p{margin:0;flex:1;overflow-wrap:anywhere}.pf input{padding:10px;border:1px solid var(--color-neutral-300);border-radius:8px;min-width:0;max-width:100%;font:inherit}.pf-field input{flex:1}
-.pf button{padding:10px 14px;border:1px solid var(--color-neutral-300);border-radius:10px;background:white;color:inherit;font:inherit;cursor:pointer}.pf button:disabled{opacity:.5;cursor:wait}.pf-options{display:flex;gap:12px;flex-wrap:wrap}.pf-options button{flex:1;text-align:left}.pf-options span{display:block;margin-top:8px}.pf-options [aria-checked=true]{background:var(--color-teal-50);border-color:var(--color-teal-700);color:var(--color-teal-900)}
-.pf-account-actions{display:flex;gap:12px;flex-wrap:wrap}.pf .pf-danger{color:var(--color-coral-700,#b63324)}.pf-account-form{display:grid;gap:16px}.pf-account-form label,.pf-account-form input{display:block;width:100%}.pf-account-form input{padding:12px;margin-top:8px;font:inherit;border:1px solid var(--color-neutral-300);border-radius:8px}@media(max-width:768px){.pf{padding:16px}.pf-card{padding:20px}.pf-field{grid-template-columns:1fr;gap:12px}.pf-identity{align-items:flex-start}.pf-options{width:100%}}
+.pf {
+  max-width: 1050px;
+  margin: auto;
+  padding: 24px;
+  display: grid;
+  gap: 24px;
+  color: var(--color-neutral-900);
+}
+.pf header p,
+.pf-card > p {
+  color: var(--color-neutral-600);
+}
+.pf-card {
+  padding: 24px;
+  background: var(--color-white, #fff);
+  border: 1px solid var(--color-neutral-200);
+  border-radius: 20px;
+  display: grid;
+  gap: 20px;
+}
+.pf-identity {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.pf-field {
+  display: grid;
+  grid-template-columns: minmax(150px, 1fr) minmax(0, 3fr);
+  gap: 24px;
+  align-items: center;
+  border-top: 1px solid var(--color-neutral-200);
+  padding-top: 20px;
+}
+.pf-field > div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.pf-field p {
+  margin: 0;
+  flex: 1;
+  overflow-wrap: anywhere;
+}
+.pf input {
+  padding: 10px;
+  border: 1px solid var(--color-neutral-300);
+  border-radius: 8px;
+  min-width: 0;
+  max-width: 100%;
+  font: inherit;
+}
+.pf-field input {
+  flex: 1;
+}
+.pf button {
+  padding: 10px 14px;
+  border: 1px solid var(--color-neutral-300);
+  border-radius: 10px;
+  background: white;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.pf button:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+.pf-options {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.pf-options button {
+  flex: 1;
+  text-align: left;
+}
+.pf-options span {
+  display: block;
+  margin-top: 8px;
+}
+.pf-options [aria-checked="true"] {
+  background: var(--color-teal-50);
+  border-color: var(--color-teal-700);
+  color: var(--color-teal-900);
+}
+.pf-account-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.pf .pf-danger {
+  color: var(--color-coral-700, #b63324);
+}
+.pf-account-form {
+  display: grid;
+  gap: 16px;
+}
+.pf-account-form label,
+.pf-account-form input {
+  display: block;
+  width: 100%;
+}
+.pf-account-form input {
+  padding: 12px;
+  margin-top: 8px;
+  font: inherit;
+  border: 1px solid var(--color-neutral-300);
+  border-radius: 8px;
+}
+@media (max-width: 768px) {
+  .pf {
+    padding: 16px;
+  }
+  .pf-card {
+    padding: 20px;
+  }
+  .pf-field {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .pf-identity {
+    align-items: flex-start;
+  }
+  .pf-options {
+    width: 100%;
+  }
+}
 
-.pf-account-form{padding:24px}
+.pf-account-form {
+  padding: 24px;
+}

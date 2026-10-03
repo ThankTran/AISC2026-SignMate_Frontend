@@ -162,35 +162,25 @@
   border-radius: 10px;
   background: #10261fcc;
   color: #fff;
-
-  font-family: var(--font-family-mono);
 }
 .vc-self-expand {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.2s ease;
-
-  font-family: var(--font-family-mono);
 }
 .vc-self:hover .vc-self-expand,
 .vc-self-expand:focus-visible {
   opacity: 1;
   pointer-events: auto;
-
-  font-family: var(--font-family-mono);
 }
 @media (hover: none) {
   .vc-self-expand {
     opacity: 1;
     pointer-events: auto;
-
-  font-family: var(--font-family-mono);
 }
 }
 .vc-self-expand:hover {
   background: #367d65;
-
-  font-family: var(--font-family-mono);
 }
 .vc-call--split .vc-call-backdrop {
   inset: 0 50% 0 0;
@@ -214,8 +204,6 @@
 .vc-call--split .vc-self-expand {
   top: 24px;
   right: 25px;
-
-  font-family: var(--font-family-mono);
 }
 .vc-call--split .vc-self-mic {
   top: 24px;
@@ -244,8 +232,6 @@
   .vc-call--split .vc-self-expand {
     top: 16px;
     right: 15px;
-
-  font-family: var(--font-family-mono);
 }
 }
 .vc-wave {
@@ -492,4 +478,11 @@
   color: #ef9da6;
   animation: vc-heart 2s ease-out forwards;
   pointer-events: none;
+}
+.vc-remote-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }

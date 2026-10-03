@@ -1,10 +1,9 @@
+import {createElement} from 'react';
+import {signIcons} from '../../utils/signIcons';
 import {useChapters} from "../../hooks/useProgress";
 import {
-  BookOpen,
   Check,
   Clock,
-  Hand,
-  Home,
   Lock,
   MessageCircle,
   Palette,
@@ -13,12 +12,10 @@ import {
   Star,
   Sun,
   Trophy,
-  Users,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
 import {
-  getLastLessonStatus,
   SON_CHUONG_LABEL,
 } from "../../mockdata";
 
@@ -26,14 +23,11 @@ import "./SCurvePath.css";
 
 /* Icons theo key trong dữ liệu (để dữ liệu thuần, tách khỏi component) */
 const CHAPTER_ICONS = {
-  bookOpen: <BookOpen size={22} strokeWidth={2.2} />,
+  ...Object.fromEntries(Object.entries(signIcons).map(([key,Icon])=>[key,createElement(Icon,{size:22,strokeWidth:2.2})])),
   messageCircle: <MessageCircle size={22} strokeWidth={2.2} />,
-  users: <Users size={22} strokeWidth={2.2} />,
   palette: <Palette size={22} strokeWidth={2.2} />,
   sun: <Sun size={24} strokeWidth={2} />,
   smile: <Smile size={22} strokeWidth={2.2} />,
-  home: <Home size={22} strokeWidth={2.2} />,
-  hand: <Hand size={22} strokeWidth={2.2} />,
 };
 
 /* =========================================================
@@ -99,6 +93,7 @@ const LessonNode = ({ lesson }) => {
   return (
     <div
       className="lp-node"
+      title={lesson.unavailableReason || undefined}
       style={{ top: lesson.layoutY, left: `${lesson.layoutX}%` }}
     >
       {interactive ? (
@@ -118,6 +113,7 @@ const LessonNode = ({ lesson }) => {
             }`}
           >
             {lesson.title}
+            {lesson.published===false&&<span className="text-caption"> · Đang cập nhật</span>}
           </span>
         </>
       )}
@@ -152,7 +148,7 @@ const LessonNode = ({ lesson }) => {
 
 const QuizNode = ({ chapter }) => {
   const { quiz } = chapter;
-  const quizUnlocked = getLastLessonStatus(chapter) === "completed";
+  const quizUnlocked = ["unlocked", "completed"].includes(quiz.status);
   const status = quizUnlocked
     ? quiz.status === "completed"
       ? "completed"
@@ -164,7 +160,7 @@ const QuizNode = ({ chapter }) => {
     meta =
       quiz.status === "completed"
         ? `Điểm ${quiz.score}/100 · Xem lại`
-        : "Mở khóa chương tiếp theo";
+        : "Đạt từ 70% để mở chương tiếp theo";
   }
 
   const core = (
@@ -179,7 +175,7 @@ const QuizNode = ({ chapter }) => {
       <div className="lp-quiz__body">
         <span className="lp-quiz__title">
           {quizUnlocked
-            ? `Bài kiểm tra Chương ${chapter.id} · Ôn tập`
+            ? `Bài kiểm tra Chương ${chapter.id}`
             : `Bài kiểm tra Chương ${chapter.id}`}
         </span>
         <span className="lp-quiz__meta">{meta}</span>
@@ -227,8 +223,8 @@ const SCurvePath = () => {
       const canvasHeight = lessons.length ? height - 40 : 110;
       const entryTone = first?.status === "completed" ? "done"
         : first?.status === "active" || first?.status === "unlocked" ? "active" : "pending";
-      const quizTone = last?.status === "completed"
-        ? chapter.quiz.status === "completed" ? "done" : "active" : "pending";
+      const quizTone = chapter.quiz.status === "completed" ? "done"
+        : chapter.quiz.status === "unlocked" ? "active" : "pending";
       return (
         <section className="lp-curve__chapter" key={chapter.id} aria-label={chapter.title}>
           <ChapterHeader chapter={chapter} />

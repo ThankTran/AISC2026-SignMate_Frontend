@@ -13,15 +13,17 @@ import "./LessonResultModal.css";
 
 const XP_SEGMENTS = 10;
 
-const LessonResultModal = ({ lessonId, summary = {}, onClose, onRetake, onNext }) => {
+const LessonResultModal = ({ lessonId, summary, onClose, onRetake, onNext }) => {
  const progress=useProgress();const lesson=progress.lessons.find(row=>row.id===Number(lessonId));
- const {score=0,xp=0,time='—',timeUnit='phút',timeNote='',breakdown=[]}=progress.lessonResults[lessonId]||summary;
+ const result=summary||progress.lessonResults[lessonId]||{};
+ const {score=0,xp=0,time='—',timeUnit='phút',timeNote='',breakdown=[]}=result;
+ const passed=result.passed===true;
  const label=lesson?`BÀI HỌC ${lesson.id} · CHƯƠNG ${lesson.chapterId}`:'KẾT QUẢ BÀI HỌC';
- const title=lesson?.title||'Bài học',level=progress.stats.xpLevel,nextLesson=progress.nextLesson?.title||'Ôn tập lộ trình';
+ const title=result.title||lesson?.title||'Bài học',level=result.level||progress.stats.xpLevel,nextLesson=result.nextLesson||progress.nextLesson?.title||'Ôn tập lộ trình';
  const xpFilled=Math.floor((progress.stats.xp%1000)/1000*XP_SEGMENTS);
 
   return (
-    <Modal className="lrm__card" labelledBy="lrm-title" onClose={onClose}>
+    <Modal className={`lrm__card ${passed ? "lrm--passed" : "lrm--failed"}`} labelledBy="lrm-title" onClose={onClose}>
         {/* ===== HERO BANNER ===== */}
         <header className="lrm__hero">
           <button
@@ -34,12 +36,12 @@ const LessonResultModal = ({ lessonId, summary = {}, onClose, onRetake, onNext }
           </button>
 
           <span className="lrm__hero-icon" aria-hidden="true">
-            <Trophy size={42} strokeWidth={1.7} />
+            {passed ? <Trophy size={42} strokeWidth={1.7} /> : <RotateCcw size={42} strokeWidth={1.7} />}
           </span>
 
           <span className="lrm__hero-tag">{label}</span>
           <h2 className="lrm__hero-title text-h2" id="lrm-title">
-            Hoàn thành bài học!
+            {passed ? "Hoàn thành bài học!" : "Chưa đạt, hãy thử lại"}
           </h2>
           <p className="lrm__hero-subtitle">{title}</p>
         </header>
@@ -48,15 +50,15 @@ const LessonResultModal = ({ lessonId, summary = {}, onClose, onRetake, onNext }
         <div className="lrm__stats">
           <div className="lrm-stat">
             <span className="lrm-stat__pct">{score}%</span>
-            <span className="lrm-stat__flag">ĐẠT</span>
+            <span className="lrm-stat__flag">{passed ? "ĐẠT" : "CHƯA ĐẠT"}</span>
             <span className="lrm-stat__note">
-              <Check size={14} strokeWidth={2.6} />
+              {passed ? <Check size={14} strokeWidth={2.6} /> : <X size={14} strokeWidth={2.6} />}
               Độ chính xác
             </span>
           </div>
 
           <div className="lrm-stat lrm-stat--xp">
-            <span className="lrm-stat__value">+{xp} XP</span>
+            <span className="lrm-stat__value">+{xp} XP</span>{result.xpReason==="CAPPED" ? <span className="lrm-stat__note">Đã đạt giới hạn XP làm lại hôm nay</span> : xp===0 && result.xpPreviouslyAwarded===true && <span className="lrm-stat__note">Đã nhận XP bài này trước đó</span>}
             <span className="lrm-stat__level">Level {level}</span>
             <div className="lrm-xpbar" aria-hidden="true">
               {Array.from({ length: XP_SEGMENTS }).map((_, i) => (
@@ -129,12 +131,12 @@ const LessonResultModal = ({ lessonId, summary = {}, onClose, onRetake, onNext }
 
         {/* ===== FOOTER ACTIONS ===== */}
         <footer className="lrm__footer">
-          <button type="button" className="lrm__retake" onClick={onRetake}>
+          <button type="button" className={passed ? "lrm__retake" : "lrm__next-btn"} onClick={onRetake}>
             <RotateCcw size={16} strokeWidth={2.4} />
             Luyện tập lại
           </button>
 
-          <div className="lrm__next">
+          {passed && <div className="lrm__next">
             <div className="lrm__next-hint">
               <span className="lrm__next-label">Bài tiếp theo</span>
               <strong className="lrm__next-name">{nextLesson}</strong>
@@ -143,7 +145,7 @@ const LessonResultModal = ({ lessonId, summary = {}, onClose, onRetake, onNext }
               Bài tiếp theo
               <ArrowRight size={17} strokeWidth={2.4} />
             </button>
-          </div>
+          </div>}
         </footer>
     </Modal>
   );

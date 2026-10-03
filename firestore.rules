@@ -1,0 +1,15 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{uid} {
+      function owner() { return request.auth != null && request.auth.uid == uid; }
+      allow read, delete: if owner();
+      allow create: if owner()
+        && request.resource.data.keys().hasOnly(['onboardingComplete'])
+        && request.resource.data.onboardingComplete is bool;
+      allow update: if owner()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['onboardingComplete'])
+        && request.resource.data.onboardingComplete is bool;
+    }
+  }
+}

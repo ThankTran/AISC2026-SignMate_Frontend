@@ -8,6 +8,7 @@ const SessionControls = ({
   onStart,
   onStop,
   cameraOn,
+  disabled=false,
 }) => {
   const isRunning = phase === "recording" || phase === "countdown";
 
@@ -23,6 +24,7 @@ const SessionControls = ({
             cameraOn ? "session-ctrl__toggle--active" : "session-ctrl__toggle--off"
           }`}
           onClick={onToggleCamera}
+          disabled={disabled}
           aria-label={cameraOn ? "Tắt camera" : "Bật camera"}
         >
           {cameraOn ? (
@@ -46,6 +48,7 @@ const SessionControls = ({
           type="button"
           className="session-ctrl__primary session-ctrl__primary--start"
           onClick={onStart}
+          disabled={disabled}
         >
           Bắt đầu luyện tập
         </button>
@@ -54,6 +57,7 @@ const SessionControls = ({
           type="button"
           className="session-ctrl__primary session-ctrl__primary--stop"
           onClick={onStop}
+          disabled={disabled}
         >
           <Square size={16} strokeWidth={2.5} fill="currentColor" />
           Dừng luyện tập

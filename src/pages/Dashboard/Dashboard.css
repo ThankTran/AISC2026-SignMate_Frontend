@@ -457,3 +457,5 @@
 }
 .db-welcome__text { flex:1 1 auto; min-width:0; }.db-chapter { text-decoration:none; color:inherit; }.db-chapter:focus-visible { outline:3px solid var(--color-teal-700); outline-offset:3px; }
 @media(max-width:768px){.db-welcome .db-stat{flex:1 1 120px;white-space:normal;padding:12px}.db-stat__label{overflow-wrap:anywhere}}
+
+@media(max-width:768px){.db-continue__btn,.db-board__tabs button{min-height:44px;min-width:44px}}

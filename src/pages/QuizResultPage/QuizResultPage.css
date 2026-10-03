@@ -127,8 +127,6 @@
   border-radius: 999px;
 
   background: rgba(255, 255, 255, 0.16);
-
-  font-family: var(--font-family-mono);
   font-size: var(--font-size-caption);
   font-weight: 700;
   letter-spacing: 0.05em;
@@ -629,3 +627,5 @@
     flex: 1;
   }
 }
+
+@media(max-width:768px){.qr-review__tab,.qr-review__question button{min-height:44px;min-width:44px}.qr-crumbs__link{display:inline-flex;align-items:center;min-height:44px}}

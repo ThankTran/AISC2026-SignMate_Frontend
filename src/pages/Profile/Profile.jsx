@@ -1,7 +1,7 @@
 import DataState from "../../components/ui/DataState";
 import { useState, useRef } from 'react';
 import { updateProfile, updatePassword, reauthenticateWithCredential, EmailAuthProvider, reauthenticateWithPopup, GoogleAuthProvider, deleteUser } from 'firebase/auth';
-import { doc, setDoc, deleteDoc } from 'firebase/firestore';
+import { doc, deleteDoc } from 'firebase/firestore';
 import { auth, db } from '../../lib/firebase';
 import { useCurrentUser } from '../../hooks/useCurrentUser';
 import { useToast } from '../../hooks/useToast';
@@ -34,11 +34,9 @@ export default function ProfilePage() {
   busy.current=true;setSaving(true);setError('');
   try {
    const next={...profile,...patch};if(!next.name.trim())throw new Error('Tên không được để trống.');
-   const oldName=user.displayName;
-   await updateProfile(user,{displayName:next.name});
-   try {await setDoc(doc(db,'users',user.uid),{...next,displayName:next.name,email:user.email},{merge:true});}
-   catch(error){await updateProfile(user,{displayName:oldName}).catch(()=>{});throw error;}
-   try {await accountApi.update(next);} catch {toast({type:'info',message:'Đã lưu Firebase. Chưa đồng bộ được với máy chủ SignMate; hãy thử lưu lại khi có kết nối.'});return true;}
+   const saved=await accountApi.update(next);
+   current._updateProfile(saved);
+   await updateProfile(user,{displayName:saved.name});
    toast({type:'success',message:'Đã lưu hồ sơ.'});return true;
   } catch(err){setError(err.message);toast({type:'error',message:'Chưa lưu hoàn tất hồ sơ. Vui lòng thử lại.'});return false;}
   finally{busy.current=false;setSaving(false);}
@@ -50,7 +48,7 @@ export default function ProfilePage() {
  if(!current.displayName&&!current.email)return <DataState empty title="Chưa có thông tin hồ sơ" description="Đăng nhập để tạo hồ sơ của bạn." to="/login" actionLabel="Đăng nhập"/>;
  return <div className="pf"><header><h1 className="text-h1">Hồ sơ</h1><p>Thông tin cá nhân và quyền riêng tư của bạn.</p></header>{error&&<p role="alert">{error}</p>}<p role="status">{saving?'Đang lưu…':''}</p><section className="pf-card"><div className="pf-identity"><Avatar user={current} size="xl"/><div><h2 className="text-h2">{current.displayName}</h2><LevelBadges user={current}/></div></div><EditableField label="Tên người dùng" maxLength={100} value={profile.name} disabled={saving} onSave={name=>update({name})}/><EditableField label="Giới thiệu bản thân" maxLength={500} value={profile.bio} disabled={saving} onSave={bio=>update({bio})}/></section>
  <section className="pf-card"><h2 className="text-h2">Loại người dùng</h2><p>Thông tin giúp cá nhân hóa trải nghiệm kết nối. Mọi người đều có thể học và sử dụng ngôn ngữ ký hiệu.</p><RadioGroup label="Loại người dùng" disabled={saving} value={profile.userType} onChange={userType=>update({userType})} options={[{id:'deaf',label:'Người khiếm thính',description:'Dành cho người điếc hoặc có mức độ nghe suy giảm.'},{id:'hearing',label:'Người nghe',description:'Dành cho người có khả năng nghe, quan tâm đến ngôn ngữ ký hiệu.'}]}/></section>
- <section className="pf-card"><h2 className="text-h2">Quyền riêng tư</h2>{[['profile','Hồ sơ cá nhân'],['friendList','Danh sách bạn bè'],['stats','Thống kê học tập']].map(([id,label])=><div className="pf-field" key={id}><span>{label}</span><RadioGroup label={label} disabled={saving} value={profile.privacy[id]} onChange={value=>update({privacy:{...profile.privacy,[id]:value}})} options={[{id:'public',label:'Công khai'},{id:'friends',label:'Bạn bè'},{id:'private',label:'Riêng tư'}]}/></div>)}</section>
+ <section className="pf-card"><h2 className="text-h2">Quyền riêng tư</h2><p>Quyền xem được kiểm soát trên máy chủ. Giao diện xem hồ sơ và danh sách bạn bè của người khác đang được phát triển.</p>{[['profile','Hồ sơ cá nhân'],['friendList','Danh sách bạn bè'],['stats','Thống kê học tập']].map(([id,label])=><div className="pf-field" key={id}><span>{label}</span><RadioGroup label={label} disabled={saving} value={profile.privacy[id]} onChange={value=>update({privacy:{...profile.privacy,[id]:value}})} options={[{id:'public',label:'Công khai'},{id:'friends',label:'Bạn bè'},{id:'private',label:'Riêng tư'}]}/></div>)}</section>
  <section className="pf-card"><h2 className="text-h2">Tài khoản</h2><div className="pf-field"><span>Email (chỉ đọc)</span><p>{current.email}</p></div><div className="pf-account-actions"><button disabled={saving} onClick={()=>setDialog('password')}>Đổi mật khẩu</button><button disabled={saving} className="pf-danger" onClick={openDelete}>Xóa tài khoản</button></div></section>{dialog&&<AccountAction mode={dialog} onClose={()=>setDialog(null)}/>}</div>;
 }
 function AccountAction({mode,onClose}) {

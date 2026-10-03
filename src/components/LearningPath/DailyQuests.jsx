@@ -5,23 +5,24 @@ import { Check, Circle } from "lucide-react";
 import "./DailyQuests.css";
 
 const DailyQuests = () => {
-  const {dailyQuests:quests}=useProgress();
+  const {dailyQuests:quests,source}=useProgress();
   const earned = quests.filter((q) => q.done).reduce((sum, q) => {
     return sum + q.xp;
   }, 0);
   const total = quests.reduce((sum, q) => {
     return sum + q.xp;
   }, 0);
-  const pct = total ? Math.round((earned / total) * 100) : 0;
+  const done=quests.filter(q=>q.done).length;
+  const pct = quests.length ? Math.round(done / quests.length * 100) : 0;
 
   return (
     <div className="lp-quests">
       {/* Header + progress */}
       <div className="lp-quests__header">
         <div className="lp-quests__title-row">
-          <h2 className="lp-quests__title text-h2">NHIỆM VỤ HÔM NAY</h2>
+          <h2 className="lp-quests__title text-h2">Nhiệm vụ hôm nay</h2>
           <span className="lp-quests__xp">
-            {earned} / {total} XP
+            {source==='server'?`${done} / ${quests.length} nhiệm vụ`:`${earned} / ${total} XP`}
           </span>
         </div>
         <div className="lp-quests__bar-track">
@@ -42,8 +43,10 @@ const DailyQuests = () => {
             <span className="lp-quest__check">
               {q.done ? <Check size={15} strokeWidth={3} /> : <Circle size={15} />}
             </span>
-            {q.id === 4 ? <Link className="lp-quest__label" to="/practice-ai">{q.label}</Link> : <span className="lp-quest__label">{q.label}</span>}
-            <span className="lp-quest__xp">+{q.xp} XP</span>
+            <div className="lp-quest__content">
+            {(q.type === 'practice' || q.type === 'ai') ? <Link className="lp-quest__label touch-target" to="/practice-ai">{q.label}</Link> : <span className="lp-quest__label">{q.label}</span>}
+            <span className="lp-quest__xp">{source==='server'?q.done?q.xp>0?`Đã nhận ${q.xp} XP`:'Đã hoàn thành':'Chưa hoàn thành':`+${q.xp} XP`}</span>
+            </div>
           </li>
         ))}
       </ul>

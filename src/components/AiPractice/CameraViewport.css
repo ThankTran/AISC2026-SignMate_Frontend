@@ -177,8 +177,6 @@
   justify-content: center;
   background: rgba(18, 19, 28, 0.55);
   animation: cam-countdown-fade 0.9s ease-out;
-
-  font-family: var(--font-family-mono);
 }
 
 .cam-viewport__countdown-num {
@@ -277,7 +275,6 @@
 }
 
 .cam-viewport__sign-quote {
-  font-family: var(--font-family-mono);
   font-size: 18px;
   font-weight: var(--font-weight-bold);
   color: #fff;
@@ -318,7 +315,6 @@
 }
 
 .cam-viewport__conf-label {
-  font-family: var(--font-family-mono);
   font-size: var(--font-size-caption);
   font-weight: var(--font-weight-bold);
   color: rgba(255, 255, 255, 0.5);
@@ -367,3 +363,5 @@
     font-size: var(--font-size-caption);
   }
 }
+
+@media(max-width:768px){.cam-viewport__sign-info{min-height:44px}}

@@ -1,0 +1,4 @@
+import {Hand, HandHeart, Handshake, HeartHandshake, HeartPulse, Home, Users, BookOpen, ThumbsUp, CircleCheck, Heart, Sparkles} from 'lucide-react';
+export const signIcons = {hand:Hand, handHeart:HandHeart, handshake:Handshake, heartHandshake:HeartHandshake,
+  heartPulse:HeartPulse, home:Home, users:Users, bookOpen:BookOpen, thumbsUp:ThumbsUp,
+  circleCheck:CircleCheck, heart:Heart, sparkles:Sparkles};

@@ -104,3 +104,11 @@ Thanks to everyone building SignMate! See the [contribution history](https://git
 ## 📄 License
 
 Licensed under the [MIT License](LICENSE).
+
+### Firestore UI flags
+Postgres owns name, bio, user type, privacy, curriculum level and progress. Firestore `users/{uid}` only stores `onboardingComplete`; legacy profile fields are ignored. Rules allow only the owner to read/delete the document and change that boolean. XP, roles, level and profile writes are denied.
+
+To deploy, select the intended Firebase project, configure `firestore.rules` in `firebase.json` (`{"firestore":{"rules":"firestore.rules"}}`), then run `firebase deploy --only firestore:rules --project <project-id>`. Review the project ID before deployment. These rules have not been deployed by this task.
+
+Camera trên điện thoại cần HTTPS (ví dụ tunnel HTTPS tới Vite, hoặc cấu hình chứng chỉ HTTPS cho Vite). getUserMedia chỉ hoạt động trên HTTPS hoặc localhost; UUID fallback không loại bỏ yêu cầu bảo mật của camera.
+

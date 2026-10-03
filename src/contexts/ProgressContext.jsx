@@ -1,14 +1,49 @@
-import {useEffect,useMemo,useState,useCallback} from 'react';
+import {useMemo,useState,useCallback} from 'react';
 import {ProgressContext} from '../hooks/useProgress';
 import {useCurrentUser} from '../hooks/useCurrentUser';
+import {useAuth} from '../hooks/useAuth';
+import {useApiResource} from '../hooks/useApiResource';
+import {accountApi} from '../services/api';
+import {useNotificationResource} from '../hooks/useNotificationResource';
+import {adaptProgress,adaptLeaderboard} from '../api/progressAdapter';
 import {initialProgress,deriveProgress,recordProgress} from '../utils/progress';
-export function ProgressProvider({children,initialState}) {
- const user=useCurrentUser(),storageKey=`signmate-progress-v1:${user.uid||'guest'}`;
- const [resource,setResource]=useState({key:null,state:initialState||initialProgress(),status:'loading',error:null});
+
+const emptyProgress = adaptProgress();
+const noop = () => {};
+function ServerProgressProvider({children}) {
+ const user=useCurrentUser(),uid=user?.uid;
+ const auth=useAuth(),enabled=!!uid&&(!auth||auth.user?.emailVerified===true);
+ const notifications=useNotificationResource(uid,enabled);
  const [revision,setRevision]=useState(0);
- useEffect(()=>{let active=true;Promise.resolve().then(()=>{try{const raw=initialState?null:localStorage.getItem(storageKey);const state=raw?JSON.parse(raw):initialState||initialProgress();if(state.version!==1||!Array.isArray(state.events)||!Array.isArray(state.completedLessons)||!state.userStats||!Array.isArray(state.userStats.activityHistory)||!state.lessonResults||!state.quizResults||!Array.isArray(state.notifications))throw Error('Dữ liệu tiến độ lưu trên thiết bị không hợp lệ.');if(active)setResource({key:storageKey,state,status:'ready',error:null});}catch(error){if(active)setResource({key:storageKey,state:initialProgress(),status:'error',error});}});return()=>{active=false;};},[storageKey,revision,initialState]);
- const mutate=useCallback(transform=>setResource(previous=>{const state=transform(previous.state);try{localStorage.setItem(storageKey,JSON.stringify(state));return {...previous,state,error:null};}catch(error){return {...previous,error};}}),[storageKey]);
- const data=useMemo(()=>deriveProgress(resource.state,user),[resource.state,user]);
- const retry=()=>setRevision(value=>value+1);
- return <ProgressContext.Provider value={{...data,status:resource.key===storageKey?resource.status:'loading',error:resource.error,retry,source:'mock',lessonResults:resource.state.lessonResults,quizResults:resource.state.quizResults,recordLesson:(id,result)=>mutate(state=>recordProgress(state,'lesson',id,result)),recordQuiz:(id,payload)=>mutate(state=>recordProgress(state,'quiz',id,payload)),readNotifications:ids=>mutate(state=>({...state,notifications:state.notifications.map(row=>ids.includes(row.id)?{...row,read:true}:row)}))}}>{children}</ProgressContext.Provider>;
+ const load=useCallback(async()=>{
+  if(!uid||!enabled)return emptyProgress;
+  const [dashboard,stats,leaderboard,levelLeaderboard]=await Promise.all([
+   accountApi.dashboard(),accountApi.stats(),accountApi.leaderboard('all'),accountApi.leaderboard('level')]);
+  return {...adaptProgress({dashboard,stats,leaderboard}),levelLeaderboard:adaptLeaderboard(levelLeaderboard)};
+ },[uid,enabled]);
+ const {data,error}=useApiResource(load,`${revision}:${auth?.authRevision||0}`);
+ const retry=useCallback(()=>setRevision(value=>value+1),[]);
+ // Results stay on the calling page/router state. Only the server owns progress.
+ const value=useMemo(()=>({...(data||emptyProgress),...notifications,status:!enabled?'idle':error?'error':data?'ready':'loading',error,retry,source:'server',lessonResults:{},quizResults:{},recordLesson:retry,recordQuiz:retry}),[data,notifications,enabled,error,retry]);
+ return <ProgressContext.Provider value={value}>{children}</ProgressContext.Provider>;
+}
+function MockProgressProvider({children,initialState}) {
+ const user=useCurrentUser();
+ const [state,setState]=useState(()=>initialState||initialProgress());
+ const data=useMemo(()=>deriveProgress(state,user||{}),[state,user]);
+ const recordLesson=useCallback((id,result)=>setState(previous=>recordProgress(previous,'lesson',id,result)),[]);
+ const recordQuiz=useCallback((id,payload)=>setState(previous=>recordProgress(previous,'quiz',id,payload)),[]);
+ const readAllNotifications=useCallback(()=>setState(previous=>({...previous,notifications:previous.notifications.map(row=>({...row,read:true}))})),[]);
+ const readNotifications=useCallback(ids=>setState(previous=>({...previous,notifications:previous.notifications.map(row=>ids.includes(row.id)?{...row,read:true}:row)})),[]);
+ const value=useMemo(()=>({...data,status:'ready',error:null,retry:noop,source:'mock',lessonResults:state.lessonResults,quizResults:state.quizResults,
+  recordLesson,recordQuiz,
+  notificationStatus:'ready',unreadCount:data.notifications.filter(row=>!row.read).length,
+  readAllNotifications,readNotifications}),[data,state.lessonResults,state.quizResults,recordLesson,recordQuiz,readAllNotifications,readNotifications]);
+ return <ProgressContext.Provider value={value}>{children}</ProgressContext.Provider>;
+}
+export function ProgressProvider({children,initialState}) {
+ // initialState is an explicit fixture injection; runtime offline mode uses the env flag.
+ return import.meta.env.VITE_USE_MOCK==='true'||initialState
+  ? <MockProgressProvider initialState={initialState}>{children}</MockProgressProvider>
+  : <ServerProgressProvider>{children}</ServerProgressProvider>;
 }

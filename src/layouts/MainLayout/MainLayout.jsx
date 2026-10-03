@@ -22,7 +22,7 @@ export default function MainLayout() {
     <Sidebar collapsed={false} user={user}/>
   </Modal>
   <div className="main-layout__content"><Header notifications={notifications} onOpenMenu={()=>setDrawer(location.key)} mobile={mobile}/>
-    <main id="main-content" tabIndex={-1} className="main-layout__body"><div className="main-layout__page"><Outlet/></div>{!focus && mobile && <Footer/>}</main>{!focus && !mobile && <Footer/>}
+    <main id="main-content" tabIndex={-1} className="main-layout__body"><div className="main-layout__page"><Outlet/></div>{!focus && <Footer/>}</main>
   </div>
  </div>;
 }

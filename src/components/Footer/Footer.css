@@ -1,1 +1,3 @@
 .app-footer { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:16px; padding:16px 24px; border-top:1px solid var(--color-neutral-200); color:var(--color-neutral-700); font-size:var(--font-size-caption); }.app-footer a { color:var(--color-teal-700); }.app-footer img { object-fit:contain; }
+
+.app-footer a{display:inline-flex;align-items:center;min-height:24px;min-width:24px}@media(max-width:768px){.app-footer a{min-height:44px;min-width:44px}}

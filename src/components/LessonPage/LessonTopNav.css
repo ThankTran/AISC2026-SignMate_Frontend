@@ -119,8 +119,6 @@ button.lesson-topnav__segment:hover {
   display: flex;
   align-items: center;
   gap: 4px;
-
-  font-family: var(--font-family-mono);
 }
 
 .lesson-topnav__heart--alive {

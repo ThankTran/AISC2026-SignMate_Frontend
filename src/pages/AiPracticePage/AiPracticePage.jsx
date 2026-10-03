@@ -1,4 +1,7 @@
 import Modal from "../../components/ui/Modal";
+import {usePracticeSession} from '../../hooks/usePracticeSession';
+import {useProgress} from '../../hooks/useProgress';
+import ErrorState from '../../components/ui/ErrorState';
 import { useState, useEffect, useCallback, useRef } from "react";
 
 import "./AiPracticePage.css";
@@ -33,6 +36,9 @@ const CAMERA_DENIED_MSG =
 
 /* ===== MAIN COMPONENT ===== */
 const AiPracticePage = () => {
+  const mock=import.meta.env.VITE_USE_MOCK==='true';
+  const session=usePracticeSession();
+  const {retry:refreshProgress}=useProgress();
   /* ---- Core state ---- */
   const [phase, setPhase] = useState("idle"); // idle | countdown | recording | paused
   const [countdown, setCountdown] = useState(3);
@@ -102,6 +108,7 @@ const AiPracticePage = () => {
 
     metricsTimer.current = setInterval(() => {
       samples.current.seconds += 0.2;
+      if(!mock)return;
       const target = 85 + 7 * Math.sin(samples.current.seconds / 3);
       setAccuracy(value => { const next = Math.round((value ?? 85) + (target - (value ?? 85)) * 0.15); return next; });
       samples.current.sum += target; samples.current.count++;
@@ -110,7 +117,7 @@ const AiPracticePage = () => {
     }, 200);
 
     return () => clearInterval(metricsTimer.current);
-  }, [phase]);
+  }, [phase,mock]);
 
   /* ---- Controls ---- */
 
@@ -155,6 +162,7 @@ const AiPracticePage = () => {
   };
 
   const handleStart = async () => {
+    if(session.status==='loading'||session.hasOpenSession())return;
     if (phase === "idle" || phase === "paused") {
       // 1) Bật Camera trước (yêu cầu quyền truy cập)
       if (!cameraOn) {
@@ -162,17 +170,21 @@ const AiPracticePage = () => {
         // Từ chối quyền: dừng, không đếm ngược
         if (!ok) return;
       }
-      // 2) Bắt đầu đếm ngược 3... 2... 1...
+      const started=await session.start(currentSign.label);
+      if(!started){cameraRequest.current++;streamRef.current?.getTracks().forEach(track=>track.stop());streamRef.current=null;setStream(null);setCameraOn(false);return;}
+      if(document.hidden){await session.finish();return;}
+      // Bắt đầu đếm ngược sau khi server tạo phiên thành công.
       setSummary(null); samples.current = {sum:0,count:0,seconds:0};
       startCountdown();
     }
   };
 
-  const handleStop = ({showSummary=true} = {}) => {
+  const handleStop = async ({showSummary=true} = {}) => {
     setPhase("paused");
-    if(showSummary && (phase === "recording" || phase === "countdown") && samples.current.count>0) setSummary({accuracy:Math.round(samples.current.sum / samples.current.count),seconds:Math.round(samples.current.seconds)});
     cameraRequest.current++; streamRef.current?.getTracks().forEach(track => track.stop()); streamRef.current=null; setStream(null); setCameraOn(false);
     if (metricsTimer.current) clearInterval(metricsTimer.current);
+    const result=await session.finish();
+    if(result){refreshProgress();if(showSummary&&!document.hidden)setSummary({accuracy:mock&&samples.current.count?Math.round(samples.current.sum/samples.current.count):result.accuracy,seconds:mock?Math.round(samples.current.seconds):result.durationSeconds,xp:result.xp});}
   };
 
   const handleToggleCamera = async () => {
@@ -188,8 +200,8 @@ const AiPracticePage = () => {
     await activateCamera();
   };
 
-  function changeSign(next) {
-    handleStop({showSummary:false}); setSignIndex(next); setPhase('idle'); setSummary(null);
+  async function changeSign(next) {
+    await handleStop({showSummary:false});if(session.hasOpenSession())return;setSignIndex(next); setPhase('idle'); setSummary(null);
     setAccuracy(null); setStability(null); setSpeed(null); setPosture(null); setClarity(null); setConfidence(null);
   }
   useEffect(() => {
@@ -231,10 +243,13 @@ const AiPracticePage = () => {
           </div>
         </div>
 
-        <p className="ai-practice__demo" role="note">Chế độ demo · Chỉ số minh họa, chưa đánh giá cử chỉ từ camera.</p>
+        <p className="ai-practice__demo" role="note">{mock?'Chế độ demo · Chỉ số minh họa, chưa đánh giá cử chỉ từ camera.':'AI chưa được cấu hình · Bạn có thể tự luyện qua camera; chưa có điểm đánh giá cử chỉ. Tối đa 5 phiên/ngày.'}</p>
+        {session.status==='loading'&&<p role="status">Đang đồng bộ phiên luyện tập…</p>}
+        {session.error&&<ErrorState error={session.error} onRetry={session.hasOpenSession()?()=>handleStop():handleStart}/>}
         <nav className="ai-practice__sign-nav" aria-label="Chọn ký hiệu"><button type="button" disabled={signIndex === 0} onClick={() => changeSign(signIndex - 1)}>← Ký hiệu trước</button><button type="button" disabled={signIndex === TOTAL_SIGNS - 1} onClick={() => changeSign(signIndex + 1)}>Ký hiệu sau →</button></nav>
         {/* ---- Camera viewport ---- */}
         <CameraViewport
+          mock={mock}
           phase={phase}
           countdown={countdown}
           currentSign={currentSign.sign}
@@ -266,9 +281,10 @@ const AiPracticePage = () => {
           isActive={phase === "recording"}
         />
 
-        <AiFeedbackCard feedback={phase === "recording" ? `Phản hồi demo: ${AI_FEEDBACKS[feedbackIndex]}` : "Bắt đầu phiên demo để xem cách hiển thị phản hồi. Nội dung VSL đang được cập nhật."} />
+        <AiFeedbackCard feedback={mock&&phase === "recording" ? `Phản hồi demo: ${AI_FEEDBACKS[feedbackIndex]}` : mock?'Bắt đầu phiên demo để xem cách hiển thị phản hồi.':'Chưa có đánh giá AI. Hãy giữ đủ sáng và quan sát vị trí hai tay trong khung hình.'} />
 
         <SessionControls
+          disabled={session.status==='loading'}
           phase={phase}
           cameraOn={cameraOn}
           onToggleCamera={handleToggleCamera}
@@ -277,7 +293,7 @@ const AiPracticePage = () => {
         />
       </div>
 
-      {summary && <Modal labelledBy="ai-summary-title" onClose={() => setSummary(null)}><h2 id="ai-summary-title" className="text-h2">Tổng kết phiên demo</h2><p>Độ chính xác TB (minh họa): {summary.accuracy == null ? '--' : `${summary.accuracy}%`}</p><p>Thời gian: {summary.seconds} giây</p><button type="button" onClick={handleStart}>Thử lại</button><button type="button" disabled={signIndex === TOTAL_SIGNS - 1} onClick={() => changeSign(signIndex + 1)}>Ký hiệu tiếp theo</button></Modal>}
+      {summary && <Modal labelledBy="ai-summary-title" onClose={() => setSummary(null)}><h2 id="ai-summary-title" className="text-h2">{mock?'Tổng kết phiên demo':'Tổng kết phiên luyện tập'}</h2><p>Độ chính xác {mock?'(minh họa)':''}: {summary.accuracy == null ? '--' : `${summary.accuracy}%`}</p><p>Thời gian: {summary.seconds} giây</p>{!mock&&<p>+{summary.xp} XP</p>}<button type="button" disabled={session.status==='loading'} onClick={handleStart}>Thử lại</button><button type="button" disabled={session.status==='loading'||signIndex === TOTAL_SIGNS - 1} onClick={() => changeSign(signIndex + 1)}>Ký hiệu tiếp theo</button></Modal>}
       {/* ===== POPUP: Đề bài / Hướng dẫn ký hiệu ===== */}
       {guideOpen && (
         <SignGuideModal

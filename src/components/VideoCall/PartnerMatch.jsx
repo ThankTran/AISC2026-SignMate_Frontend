@@ -34,7 +34,7 @@ export default function PartnerMatch({
           <Sparkles size={22} />
           <div>
             <small>ĐỘ PHÙ HỢP</small>
-            <strong>{partner.score}%</strong>
+            <strong>{VIDEO_DEMO ? `${partner.score}%` : `${selected.length} chủ đề chung`}</strong>
           </div>
           <span>
             Cùng sở thích.
@@ -53,12 +53,12 @@ export default function PartnerMatch({
             <h2 className="text-h2">{partner.name}</h2>
             <p className="vc-location">
               <MapPin size={13} />
-              {partner.city} · Người nghe
+              {partner.curriculumLevel || partner.city || 'Bạn học SignMate'}
             </p>
             <p>{partner.bio}</p>
           </div>
         </div>
-        <div className="vc-stats">
+        {VIDEO_DEMO && <div className="vc-stats">
           <div>
             <strong>{partner.sessions}</strong>
             <small>Buổi học</small>
@@ -73,7 +73,7 @@ export default function PartnerMatch({
             <strong>{partner.friends}</strong>
             <small>Bạn bè</small>
           </div>
-        </div>
+        </div>}
         <small className="vc-label">CHỦ ĐỀ CHUNG</small>
         <div className="vc-tags">
           {selected.map((t) => (

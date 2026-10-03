@@ -21,6 +21,7 @@ const CameraViewport = ({
   cameraOn,
   onOpenGuide,
   onRetry,
+  mock=false,
 }) => {
   const videoRef = useRef(null);
 
@@ -62,11 +63,11 @@ const CameraViewport = ({
         {isActive && (
           <span className="cam-viewport__badge cam-viewport__badge--recording">
             <span className="cam-viewport__rec-dot" />
-            Session demo
+            {mock?'Phiên demo':'Đang tự luyện'}
           </span>
         )}
 
-        {(isActive || isCountdown) && (
+        {mock && (isActive || isCountdown) && (
           <span className="cam-viewport__badge cam-viewport__badge--processing">
             <Sparkles size={13} strokeWidth={2} />
             Chế độ demo
@@ -152,7 +153,7 @@ const CameraViewport = ({
       </button>
 
       {/* ---- Bottom-right confidence ---- */}
-      {(isActive || isPaused) && (
+      {confidence!=null && (isActive || isPaused) && (
         <div className="cam-viewport__confidence">
           <span className="cam-viewport__conf-label">CONF</span>
           <Signal

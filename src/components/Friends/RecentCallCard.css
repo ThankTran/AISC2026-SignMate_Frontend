@@ -115,3 +115,5 @@
     height: 52px;
   }
 }
+
+@media(max-width:768px){.recent-call-card__action{min-height:44px;min-width:44px}}

@@ -124,7 +124,6 @@
   margin-bottom: 10px;
 }
 .vc-level small {
-  font-family: var(--font-family-mono);
   font-size: var(--font-size-caption);
   color: #8c9b8e;
 }

@@ -1,0 +1,48 @@
+export const ERROR_MESSAGES={
+ EMAIL_NOT_VERIFIED:'Hãy xác minh email để tiếp tục. Bạn có thể gửi lại email xác minh trên trang tiếp theo.',
+ PAYLOAD_TOO_LARGE:'Nội dung gửi lên quá lớn. Hãy rút gọn nội dung rồi thử lại.',
+ CONTENT_UPDATED:'Nội dung bài học đã được cập nhật. Hãy tải lại trang để bắt đầu phiên mới.',
+ NO_HEARTS:'Bạn đã hết tim. Hãy chờ hồi tim hoặc chuyển sang luyện tập AI.',
+ PRACTICE_DAILY_LIMIT:'Bạn đã dùng đủ 5 phiên luyện AI hôm nay. Hãy tiếp tục học theo lộ trình hoặc quay lại ngày mai.',
+ REQUEST_COOLDOWN:'Lời mời đã bị từ chối. Bạn có thể gửi lại sau 7 ngày.',
+ FRIEND_REQUEST_LIMIT:'Bạn đã gửi đủ 30 lời mời hôm nay. Hãy thử lại vào ngày mai.',
+ USER_BLOCKED:'Không thể kết nối với người dùng này. Hãy chọn người học khác.',
+ UNDO_EXPIRED:'Đã hết thời gian Hoàn tác. Lời mời vẫn ở trạng thái từ chối.',
+ PROFILE_PRIVATE:'Thông tin này đang được giới hạn quyền xem.',
+ LESSON_LOCKED:'Bài học chưa mở. Hãy hoàn thành bài trước và đạt ít nhất 70% bài kiểm tra chương trước.',
+ QUIZ_RATE_LIMIT:'Bạn đã nộp nhiều bài kiểm tra trong giờ này. Hãy ôn lại nội dung và thử lại sau.',
+ LESSON_UNPUBLISHED:'Video bài học đang được cập nhật. Hãy chọn một bài đã sẵn sàng.',
+ QUIZ_LOCKED:'Hãy hoàn thành các bài học trong chương trước khi làm bài kiểm tra.',
+ ATTEMPT_CLOSED:'Lượt học đã kết thúc. Hãy chọn Luyện tập lại để bắt đầu lượt mới.',
+ ALREADY_ANSWERED:'Câu này đã được trả lời. Hãy tiếp tục hoặc bắt đầu lượt học mới.',
+ ATTEMPT_INCOMPLETE:'Bạn còn câu chưa trả lời. Hãy hoàn thành các câu trước khi kết thúc.',
+ INVALID_QUESTION_SET:'Bộ câu hỏi đã thay đổi. Hãy tải lại bài kiểm tra.',
+ NOT_FRIENDS:'Hai bạn chưa kết bạn. Hãy gửi lời mời kết bạn trước khi gọi trực tiếp.',
+ CALL_BUSY:'Một người đang có cuộc gọi hoặc lời mời khác. Hãy thử lại sau.',
+ CALL_NOT_PENDING:'Lời mời gọi này đã được xử lý. Hãy tải lại danh sách lời mời.',
+ CALL_NOT_ACTIVE:'Cuộc gọi chưa bắt đầu hoặc đã kết thúc. Hãy quay lại danh sách cuộc gọi.',
+ SELF_REQUEST:'Bạn không thể gửi lời mời cho chính mình. Hãy chọn một người học khác.',
+ REQUEST_HANDLED:'Lời mời đã được xử lý. Hãy tải lại danh sách.',
+ RECENT_AUTH_REQUIRED:'Vui lòng đăng nhập lại để xác nhận thao tác này.',
+ AI_NOT_CONFIGURED:'Dịch vụ đánh giá AI chưa được cấu hình. Bạn vẫn có thể xem video và tự luyện tập.',
+ NOT_FOUND:'Nội dung không còn tồn tại hoặc bạn không có quyền xem. Hãy quay lại danh sách.',
+ UNAUTHORIZED:'Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.',
+ FORBIDDEN:'Bạn chưa có quyền thực hiện thao tác này. Hãy quay lại trang trước.',
+ VALIDATION_ERROR:'Thông tin chưa hợp lệ. Hãy kiểm tra các trường và thử lại.',
+ BAD_REQUEST:'Thông tin gửi đi chưa hợp lệ. Hãy kiểm tra và thử lại.',
+ CONFLICT:'Dữ liệu vừa thay đổi. Hãy tải lại trước khi thử lại.',
+ METHOD_NOT_ALLOWED:'Máy chủ chưa hỗ trợ thao tác này. Hãy thử lại sau khi cập nhật ứng dụng.',
+ RATE_LIMITED:'Bạn thao tác quá nhanh. Vui lòng chờ một chút rồi thử lại.',
+ TOO_MANY_REQUESTS:'Bạn thao tác quá nhanh. Vui lòng chờ một chút rồi thử lại.',
+ NETWORK_ERROR:'Không kết nối được máy chủ. Hãy kiểm tra mạng rồi thử lại.',
+ TIMEOUT:'Máy chủ phản hồi quá lâu. Vui lòng thử lại.',
+ SERVICE_UNAVAILABLE:'Dịch vụ đang tạm gián đoạn. Vui lòng thử lại sau.',
+ INTERNAL_ERROR:'Máy chủ đang gặp sự cố. Vui lòng thử lại sau.',
+};
+const statusCodes={0:'NETWORK_ERROR',400:'BAD_REQUEST',401:'UNAUTHORIZED',403:'FORBIDDEN',404:'NOT_FOUND',409:'CONFLICT',429:'TOO_MANY_REQUESTS',500:'INTERNAL_ERROR',503:'SERVICE_UNAVAILABLE'};
+export function errorMessage(error,{dev=import.meta.env?.DEV===true}={}) {
+ if(ERROR_MESSAGES[error?.code])return ERROR_MESSAGES[error.code];
+ if(statusCodes[error?.status])return ERROR_MESSAGES[statusCodes[error.status]];
+ if(dev&&error?.message)return error.message;
+ return 'Chưa thể hoàn tất thao tác. Vui lòng thử lại.';
+}
