@@ -72,7 +72,8 @@
  .lp-page .lp-page__daily { order:4; width:100%; }
 }
 .lp-page{gap:24px;grid-template-columns:minmax(0,1fr) 300px}
-.lp-page__sidebar{top:20px;max-height:calc(100dvh - 180px);overflow-y:auto;overscroll-behavior:contain;padding:4px 8px 12px 4px;scrollbar-width:thin}
+/* Reserve the 64px header, 28px page inset and 20px bottom breathing room. */
+.lp-page__sidebar{top:20px;max-height:calc(100dvh - 112px);box-sizing:border-box;overflow-y:auto;overscroll-behavior:contain;padding:4px 8px 12px 4px;scrollbar-width:thin}
 .lp-page__main{min-width:0}.lp-page .lp-chapter{width:min(100%,460px);margin-inline:auto;border-radius:22px;padding:18px 20px;box-shadow:0 3px 12px #153d2d08}
 @media(max-width:1024px){.lp-page{grid-template-columns:minmax(0,1fr) 280px;gap:16px}.lp-page .lp-chapter{padding:16px}}
 @media(max-width:768px){.lp-page{display:flex;align-items:stretch}.lp-page__sidebar{display:contents;max-height:none;overflow:visible}.lp-page .lp-banner{width:100%;min-width:0}.lp-page .lp-page__daily{order:3}.lp-page .lp-curve{order:4}.lp-page .lp-chapter{width:min(100%,400px)}}
