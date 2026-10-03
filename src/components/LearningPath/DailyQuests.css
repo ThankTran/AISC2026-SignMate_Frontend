@@ -1,141 +1,16 @@
-/* =========================================================
-   DAILY QUESTS
-   ========================================================= */
-
-.lp-quests {
-  background: #fff;
-  border: 1px solid #e9e7e1;
-  border-radius: 18px;
-  padding: 20px 22px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-/* --- Header --- */
-
-.lp-quests__header {
-  padding-bottom: 6px;
-}
-
-.lp-quests__title-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-.lp-quests__title {
-  font-family: var(--font-family-main);
-  font-size: var(--font-size-h3);
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  color: var(--color-neutral-500);
-  margin: 0;
-}
-
-.lp-quests__xp {
-
-  font-size: var(--font-size-caption);
-  font-weight: 700;
-  color: var(--color-teal-700);
-
-  font-family: var(--font-family-mono);
-}
-
-.lp-quests__bar-track {
-  height: 7px;
-  border-radius: 20px;
-  background: #eef0f2;
-  overflow: hidden;
-}
-
-.lp-quests__bar-fill {
-  height: 100%;
-  border-radius: 20px;
-  background: linear-gradient(90deg, #0d8a6a, #10b981);
-  transition: width 0.8s ease;
-}
-
-/* --- List --- */
-
-.lp-quests__list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.lp-quest {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
-  border: 1px solid #ecebe6;
-  border-radius: 12px;
-  background: var(--color-neutral-50);
-}
-
-.lp-quest--done {
-  background: var(--color-teal-50);
-  border-color: #d3eee3;
-}
-
-.lp-quest__check {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  border-radius: 50%;
-}
-
-.lp-quest--done .lp-quest__check {
-  width: 20px;
-  height: 20px;
-  background: #0d8a6a;
-  color: #fff;
-}
-
-.lp-quest:not(.lp-quest--done) .lp-quest__check {
-  width: 20px;
-  height: 20px;
-  color: #b4b2a9;
-}
-
-.lp-quest__label {
-  flex: 1;
-  font-family: var(--font-family-body);
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--color-neutral-900);
-  line-height: 1.35;
-}
-
-.lp-quest--done .lp-quest__label {
-  color: var(--color-neutral-500);
-  text-decoration: line-through;
-  text-decoration-color: #9fe1cb;
-}
-
-.lp-quest__xp {
-
-  font-size: var(--font-size-caption);
-  font-weight: 600;
-  color: var(--color-teal-700);
-  white-space: nowrap;
-  flex-shrink: 0;
-
-  font-family: var(--font-family-mono);
-}
-
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
-
-@media (max-width: 1024px) {
-  .lp-quests {
-    padding: 18px;
-  }
-}
+.lp-quests { padding: 22px; border: 1px solid var(--color-neutral-200); border-radius: 18px; background: var(--color-white); }
+.lp-quests__title-row { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; margin-bottom: 16px; }
+.lp-quests__title { margin: 0; color: var(--color-neutral-900); }
+.lp-quests__xp { color: var(--color-neutral-600); font-size: var(--font-size-caption); }
+.lp-quests__bar-track { height: 6px; background: var(--color-neutral-100); border-radius: 6px; overflow: hidden; }
+.lp-quests__bar-fill { height: 100%; background: var(--color-teal-500); border-radius: inherit; }
+.lp-quests__list { display: grid; gap: 12px; list-style: none; padding: 0; margin: 20px 0 0; }
+.lp-quest { display: grid; grid-template-columns: 28px minmax(0,1fr); align-items: start; gap: 12px; padding: 16px; border: 1px solid var(--color-neutral-200); border-radius: 12px; background: var(--color-neutral-50); }
+.lp-quest--done { border-color: var(--color-teal-100); background: var(--color-teal-50); }
+.lp-quest__check { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; color: var(--color-neutral-500); background: var(--color-white); }
+.lp-quest--done .lp-quest__check { background: var(--color-teal-700); color: var(--color-white); }
+.lp-quest__content { display: grid; min-width: 0; gap: 8px; }
+.lp-quest__label { color: var(--color-neutral-900); font-size: var(--font-size-body); font-weight: 600; line-height: 1.5; overflow-wrap: anywhere; }
+.lp-quest__xp { color: var(--color-neutral-600); font-size: var(--font-size-caption); line-height: 1.5; }
+.lp-quest--done .lp-quest__xp { color: var(--color-teal-700); }
+@media(max-width:640px) { .lp-quests { padding: 18px; } }

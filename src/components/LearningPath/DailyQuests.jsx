@@ -20,7 +20,7 @@ const DailyQuests = () => {
       {/* Header + progress */}
       <div className="lp-quests__header">
         <div className="lp-quests__title-row">
-          <h2 className="lp-quests__title text-h2">NHIỆM VỤ HÔM NAY</h2>
+          <h2 className="lp-quests__title text-h2">Nhiệm vụ hôm nay</h2>
           <span className="lp-quests__xp">
             {source==='server'?`${done} / ${quests.length} nhiệm vụ`:`${earned} / ${total} XP`}
           </span>
@@ -43,8 +43,10 @@ const DailyQuests = () => {
             <span className="lp-quest__check">
               {q.done ? <Check size={15} strokeWidth={3} /> : <Circle size={15} />}
             </span>
+            <div className="lp-quest__content">
             {(q.type === 'practice' || q.type === 'ai') ? <Link className="lp-quest__label touch-target" to="/practice-ai">{q.label}</Link> : <span className="lp-quest__label">{q.label}</span>}
             <span className="lp-quest__xp">{source==='server'?q.done?q.xp>0?`Đã nhận ${q.xp} XP`:'Đã hoàn thành':'Chưa hoàn thành':`+${q.xp} XP`}</span>
+            </div>
           </li>
         ))}
       </ul>
