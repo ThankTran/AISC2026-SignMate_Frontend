@@ -4,6 +4,7 @@ import {practiceApi} from '../services/api';
 export function usePracticeSession({api=practiceApi,mock=import.meta.env.VITE_USE_MOCK==='true'}={}) {
  const [state,setState]=useState({status:'idle',session:null,error:null});
  const current=useRef(null),key=useRef(null),pending=useRef(null),mounted=useRef(true);
+ const lastError=useRef(null);
  const publish=useCallback(next=>{if(mounted.current)setState(next);},[]);
  const finish=useCallback(async()=>{
   while(pending.current)await pending.current;
@@ -22,17 +23,18 @@ export function usePracticeSession({api=practiceApi,mock=import.meta.env.VITE_US
  const start=useCallback(async sign=>{
   if(pending.current)return null;
   if(current.current)return current.current;
+  lastError.current=null;
   key.current??=uuid();publish({status:'loading',session:null,error:null});
   pending.current=(async()=>{
    try {
     const result=await (mock?Promise.resolve({id:key.current,aiStatus:'demo'}):api.start({sign,userSessionId:key.current}));
     if(!mounted.current){if(!mock)await api.finish(result.id);return null;}
     current.current=result;publish({status:'active',session:result,error:null});return result;
-   } catch(error){publish({status:'error',session:null,error});return null;}
+   } catch(error){lastError.current=error;publish({status:'error',session:null,error});return null;}
    finally{pending.current=null;}
   })();
   return pending.current;
  },[api,mock,publish]);
  useEffect(()=>{mounted.current=true;return()=>{mounted.current=false;const session=current.current;if(session&&!pending.current&&!mock)void api.finish(session.id).catch(()=>{});};},[api,mock]);
- return {...state,start,finish,hasOpenSession:()=>!!current.current};
+ return {...state,start,finish,hasOpenSession:()=>!!current.current,getStartError:()=>lastError.current};
 }
