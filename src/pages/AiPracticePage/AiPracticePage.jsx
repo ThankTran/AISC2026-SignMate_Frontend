@@ -1,311 +1,203 @@
-import Modal from "../../components/ui/Modal";
+import {useEffect, useRef, useState} from 'react';
 import {usePracticeSession} from '../../hooks/usePracticeSession';
 import {useProgress} from '../../hooks/useProgress';
-import ErrorState from '../../components/ui/ErrorState';
-import { useState, useEffect, useCallback, useRef } from "react";
+import {handSign} from '../../services/handSign';
+import CameraViewport from '../../components/AiPractice/CameraViewport';
+import AiAnalyticsCard from '../../components/AiPractice/AiAnalyticsCard';
+import AiFeedbackCard from '../../components/AiPractice/AiFeedbackCard';
+import SignSample from '../../components/AiPractice/SignSample';
+import './AiPracticePage.css';
 
-import "./AiPracticePage.css";
-
-import CameraViewport from "../../components/AiPractice/CameraViewport";
-import TipBox from "../../components/AiPractice/TipBox";
-import AiAnalyticsCard from "../../components/AiPractice/AiAnalyticsCard";
-import AiFeedbackCard from "../../components/AiPractice/AiFeedbackCard";
-import SessionControls from "../../components/AiPractice/SessionControls";
-import SignGuideModal from "../../components/AiPractice/SignGuideModal";
-
-/* ===== Mock data ===== */
-const SIGNS = Array.from({length:10}, (_, index) => ({
- sign:String(index + 1), label:`VSL: Số ${index + 1}`,
- tip:'Đặt camera ngang tầm mắt, giữ đủ sáng và để cả hai tay trong khung hình.',
- steps:['Video và hướng dẫn VSL đang được cập nhật sau khi nhóm nội dung xác minh.'],
-}));
-
-const TOTAL_SIGNS = SIGNS.length;
-
-const AI_FEEDBACKS = [
-  "Hình thức ngón tay tốt! Ngón áp út hơi lệch — thử giữ cổ tay chắc hơn.",
-  "Cử chỉ rất rõ ràng. Cố gắng giữ tư thế ổn định trong suốt quá trình.",
-  "Tuyệt vời! Độ chính xác cao. Tiếp tục duy trì!",
-  "Ngón trỏ hơi cong — thử duỗi thẳng hơn để AI nhận diện chính xác.",
-  "Đã cải thiện đáng kể! Tư thế tay tốt hơn so với lần trước.",
-];
-
-const CAMERA_DENIED_MSG =
-  "Vui lòng cho phép truy cập Camera để thực hiện bài tập";
-
-
-/* ===== MAIN COMPONENT ===== */
-const AiPracticePage = () => {
-  const mock=import.meta.env.VITE_USE_MOCK==='true';
-  const session=usePracticeSession();
-  const {retry:refreshProgress}=useProgress();
-  /* ---- Core state ---- */
-  const [phase, setPhase] = useState("idle"); // idle | countdown | recording | paused
+export default function AiPracticePage() {
+  const session = usePracticeSession();
+  const {retry: refreshProgress} = useProgress();
+  const [lessons, setLessons] = useState([]);
+  const [index, setIndex] = useState(0);
+  const [activeTab, setActiveTab] = useState('video');
+  const [phase, setPhase] = useState('idle');
   const [countdown, setCountdown] = useState(3);
-  const [signIndex, setSignIndex] = useState(0); // Bắt đầu từ ký hiệu đầu tiên
-
-  /* ---- AI metrics (simulated) ---- */
-  const [accuracy, setAccuracy] = useState(null);
-  const [stability, setStability] = useState(null);
-  const [speed, setSpeed] = useState(null);
-  const [posture, setPosture] = useState(null);
-  const [clarity, setClarity] = useState(null);
-  const [confidence, setConfidence] = useState(null);
-
-  /* ---- Webcam / device state ---- */
   const [stream, setStream] = useState(null);
+  const [result, setResult] = useState(null);
+  const [error, setError] = useState('');
   const [cameraError, setCameraError] = useState(null);
-  const [cameraOn, setCameraOn] = useState(false);
-  const [summary, setSummary] = useState(null);
-  const samples = useRef({sum:0,count:0,seconds:0});
-  const cameraRequest = useRef(0);
-
-  /* ---- Popup đề bài ---- */
-  const [guideOpen, setGuideOpen] = useState(false);
-
-  const metricsTimer = useRef(null);
-  const streamRef = useRef(null);
-
-  const currentSign = SIGNS[signIndex];
-  const feedbackIndex = signIndex % AI_FEEDBACKS.length;
-
-  /* ---- Dọn dẹp MediaStream khi rời trang ---- */
-  useEffect(() => {
-    const requestRef = cameraRequest;
-    return () => {
-      requestRef.current++;
-      streamRef.current?.getTracks().forEach((t) => t.stop());
-      streamRef.current = null;
-    };
-  }, []);
-
-  /* ---- Countdown logic ---- */
-  const startCountdown = useCallback(() => {
-    setPhase("countdown");
-    setCountdown(3);
-  }, []);
-
-  useEffect(() => {
-    if (phase !== "countdown") return;
-
-    const t = setTimeout(() => {
-      if (countdown <= 1) {
-        setPhase("recording");
-      } else {
-        setCountdown((c) => c - 1);
-      }
-    }, 1000);
-
-    return () => clearTimeout(t);
-  }, [phase, countdown]);
-
-  /* ---- Simulate fluctuating AI metrics while recording ---- */
-  useEffect(() => {
-    if (phase !== "recording") {
-      if (metricsTimer.current) clearInterval(metricsTimer.current);
-      return;
-    }
-
-    metricsTimer.current = setInterval(() => {
-      samples.current.seconds += 0.2;
-      if(!mock)return;
-      const target = 85 + 7 * Math.sin(samples.current.seconds / 3);
-      setAccuracy(value => { const next = Math.round((value ?? 85) + (target - (value ?? 85)) * 0.15); return next; });
-      samples.current.sum += target; samples.current.count++;
-      const lerp = (value) => Math.round((value ?? 85) + (target - (value ?? 85)) * 0.15);
-      setStability(lerp); setPosture(lerp); setClarity(lerp); setConfidence(lerp); setSpeed(1.2);
-    }, 200);
-
-    return () => clearInterval(metricsTimer.current);
-  }, [phase,mock]);
-
-  /* ---- Controls ---- */
-
-  /* Yêu cầu bật Camera (trả về true nếu thành công) */
-  const activateCamera = async () => {
-    setCameraError(null);
-    const request = ++cameraRequest.current;
-    streamRef.current?.getTracks().forEach(track => track.stop());
-    streamRef.current = null; setStream(null); setCameraOn(false);
-    try {
-      if (!navigator.mediaDevices?.getUserMedia) {
-        setCameraError("Trình duyệt của bạn không hỗ trợ truy cập Camera.");
-        setCameraOn(false);
-        return false;
-      }
-      const media = await navigator.mediaDevices.getUserMedia({
-        video: true,
-        audio: false,
-      });
-      if (request !== cameraRequest.current || document.hidden) { media.getTracks().forEach(track => track.stop()); return false; }
-      streamRef.current = media;
-      setStream(media);
-      setCameraOn(true);
-      return true;
-    } catch (err) {
-      setCameraOn(false);
-      if (
-        err.name === "NotAllowedError" ||
-        err.name === "PermissionDeniedError"
-      ) {
-        setCameraError(CAMERA_DENIED_MSG);
-      } else if (
-        err.name === "NotFoundError" ||
-        err.name === "DevicesNotFoundError"
-      ) {
-        setCameraError("Không tìm thấy Camera trên thiết bị này.");
-      } else {
-        setCameraError("Không thể kết nối Camera. Vui lòng thử lại.");
-      }
-      return false;
-    }
-  };
-
-  const handleStart = async () => {
-    if(session.status==='loading'||session.hasOpenSession())return;
-    if (phase === "idle" || phase === "paused") {
-      // 1) Bật Camera trước (yêu cầu quyền truy cập)
-      if (!cameraOn) {
-        const ok = await activateCamera();
-        // Từ chối quyền: dừng, không đếm ngược
-        if (!ok) return;
-      }
-      const started=await session.start(currentSign.label);
-      if(!started){cameraRequest.current++;streamRef.current?.getTracks().forEach(track=>track.stop());streamRef.current=null;setStream(null);setCameraOn(false);return;}
-      if(document.hidden){await session.finish();return;}
-      // Bắt đầu đếm ngược sau khi server tạo phiên thành công.
-      setSummary(null); samples.current = {sum:0,count:0,seconds:0};
-      startCountdown();
-    }
-  };
-
-  const handleStop = async ({showSummary=true} = {}) => {
-    setPhase("paused");
-    cameraRequest.current++; streamRef.current?.getTracks().forEach(track => track.stop()); streamRef.current=null; setStream(null); setCameraOn(false);
-    if (metricsTimer.current) clearInterval(metricsTimer.current);
-    const result=await session.finish();
-    if(result){refreshProgress();if(showSummary&&!document.hidden)setSummary({accuracy:mock&&samples.current.count?Math.round(samples.current.sum/samples.current.count):result.accuracy,seconds:mock?Math.round(samples.current.seconds):result.durationSeconds,xp:result.xp});}
-  };
-
-  const handleToggleCamera = async () => {
-    if (cameraOn) {
-      handleStop();
-      // TẮT triệt để: dừng mọi video track của luồng camera phần cứng
-      streamRef.current?.getVideoTracks().forEach((t) => t.stop());
-      setStream(null);
-      setCameraOn(false);
-      return;
-    }
-    // BẬT lại: yêu cầu luồng camera mới
-    await activateCamera();
-  };
-
-  async function changeSign(next) {
-    await handleStop({showSummary:false});if(session.hasOpenSession())return;setSignIndex(next); setPhase('idle'); setSummary(null);
-    setAccuracy(null); setStability(null); setSpeed(null); setPosture(null); setClarity(null); setConfidence(null);
+  const [loading, setLoading] = useState(true);
+  const media = useRef(null), recorder = useRef(null), recording = useRef(null);
+  const request = useRef(null), generation = useRef(0), sample = useRef(null), busyRef = useRef(false);
+  const label = lessons[index];
+  const busy = ['starting', 'countdown', 'recording', 'processing'].includes(phase);
+  const release = () => {media.current?.getTracks().forEach(track => track.stop()); media.current = null; setStream(null);};
+  async function loadLessons() {
+    setLoading(true); setError('');
+    try {setLessons(await handSign.lessons());} catch (err) {setError(err.message);} finally {setLoading(false);}
   }
   useEffect(() => {
-    const hide = () => { if (document.hidden && (cameraOn || phase === "recording" || phase === "countdown")) handleStop({showSummary:false}); };
+    const controller = new AbortController(); const generationRef = generation;
+    handSign.lessons(controller.signal).then(setLessons).catch(err => {if (!controller.signal.aborted) setError(err.message);}).finally(() => {if (!controller.signal.aborted) setLoading(false);});
+    return () => {
+      generationRef.current++; request.current?.abort(); controller.abort();
+      if (recorder.current?.state === 'recording') recorder.current.stop();
+      media.current?.getTracks().forEach(track => track.stop());
+    };
+  }, []);
+  async function start() {
+    if (busyRef.current || !label) return;
+    busyRef.current = true;
+    const token = ++generation.current;
+    setError(''); setCameraError(null); setResult(null); setPhase('starting');
+    try {
+      if (!window.isSecureContext) throw new Error('Camera cần kết nối bảo mật. Hãy mở ứng dụng bằng localhost trên máy này hoặc dùng HTTPS.');
+      if (!navigator.mediaDevices?.getUserMedia || !window.MediaRecorder) throw new Error('Trình duyệt chưa hỗ trợ ghi hình. Hãy dùng Chrome hoặc Edge và cho phép camera.');
+      if (session.hasOpenSession() && !await session.finish()) throw new Error('Chưa thể kết thúc phiên trước. Vui lòng thử lại.');
+      if (!await session.start(label)) throw session.getStartError() || new Error('Chưa thể tạo phiên luyện tập. Vui lòng thử lại.');
+      if (token !== generation.current) {await session.finish(); return;}
+      const capture = await navigator.mediaDevices.getUserMedia({video: {width: 640, height: 480, frameRate: 25}, audio: false});
+      if (token !== generation.current) {capture.getTracks().forEach(track => track.stop()); return;}
+      media.current = capture; setStream(capture);
+      const mimeType = ['video/webm;codecs=vp8', 'video/webm', 'video/mp4'].find(type => MediaRecorder.isTypeSupported(type));
+      const current = new MediaRecorder(capture, mimeType ? {mimeType} : undefined);
+      const chunks = [];
+      recording.current = new Promise((resolve, reject) => {
+        current.ondataavailable = event => {if (event.data.size) chunks.push(event.data);};
+        current.onstop = () => resolve(new Blob(chunks, {type: current.mimeType}));
+        current.onerror = () => {
+          const error = new Error('Không thể lưu video. Vui lòng thử lại.');
+          reject(error);
+          if (token === generation.current) {
+            release(); setError(error.message); setPhase('idle'); busyRef.current = false;
+            void session.finish();
+          }
+        };
+      });
+      // Keep an early recorder error handled until the stop action awaits it.
+      recording.current.catch(() => {});
+      recorder.current = current;
+      setCountdown(3); setPhase('countdown');
+    } catch (err) {if (token === generation.current) {
+      const cameraMessages = {
+        NotAllowedError: 'Camera đang bị chặn. Mở quyền trang web cạnh thanh địa chỉ, cho phép Camera rồi thử lại.',
+        NotFoundError: 'Không tìm thấy camera. Hãy kiểm tra kết nối camera rồi thử lại.',
+        NotReadableError: 'Không đọc được camera. Hãy đóng ứng dụng khác đang dùng camera rồi thử lại.',
+        AbortError: 'Camera bị ngắt khi khởi động. Hãy kết nối lại và thử lại.',
+      };
+      const message = cameraMessages[err.name] || err.message;
+      release(); setError(message); setCameraError(cameraMessages[err.name] ? message : null); setPhase('idle'); busyRef.current = false; await session.finish();
+    }}
+  }
+  useEffect(() => {
+    if (phase !== 'countdown') return;
+    const timer = setTimeout(() => {
+      if (countdown > 1) setCountdown(countdown - 1);
+      else {recorder.current.start(250); setPhase('recording');}
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [phase, countdown]);
+  async function stop() {
+    if (recorder.current?.state !== 'recording') return;
+    const token = generation.current;
+    setPhase('processing'); recorder.current.stop();
+    request.current = new AbortController();
+    try {
+      const video = await recording.current;
+      release();
+      const output = await handSign.evaluate(label, video, request.current.signal);
+      if (token === generation.current) {setResult(output); setPhase('result');}
+    } catch (err) {if (token === generation.current) {setError(err.message); setPhase('idle');}}
+    finally {
+      const finished = await session.finish();
+      if (finished) refreshProgress();
+      if (token === generation.current) busyRef.current = false;
+    }
+  }
+  // Bound recording length to the service limit; hiding the tab cancels capture.
+  useEffect(() => {
+    const timer = phase === 'recording' ? setTimeout(stop, 15000) : null;
+    const hide = () => {
+      if (document.hidden && ['starting', 'countdown', 'recording'].includes(phase)) {
+        generation.current++;
+        if (recorder.current?.state === 'recording') recorder.current.stop();
+        release(); setPhase('idle'); busyRef.current = false;
+        setError('Phiên quay đã dừng khi bạn rời màn hình. Hãy thử lại.');
+        void session.finish();
+      }
+    };
     document.addEventListener('visibilitychange', hide);
-    return () => document.removeEventListener('visibilitychange', hide);
+    return () => {clearTimeout(timer); document.removeEventListener('visibilitychange', hide);};
   });
-
-  /* ---- Guide popup ---- */
-  const handleOpenGuide = () => setGuideOpen(true);
-  const handleCloseGuide = () => setGuideOpen(false);
-  const handleGuideStart = () => {
-    setGuideOpen(false);
-    handleStart();
-  };
-
-  return (
-    <div className="ai-practice">
-      {/* ===== LEFT COLUMN: Camera + Tip ===== */}
-      <div className="ai-practice__left">
-        {/* ---- Top nav bar ---- */}
-        <div className="ai-practice__topnav">
-          <h1 className="ai-practice__topnav-title text-h1">
-            Luyện tập ký hiệu
-            <span className="ai-practice__topnav-sep">·</span>
-            <span className="ai-practice__topnav-sub">VSL: Số đếm 1–10</span>
-          </h1>
-
-          <div className="ai-practice__topnav-right">
-            <div className="ai-practice__progress-bar">
-              <div
-                className="ai-practice__progress-fill"
-                style={{ width: `${((signIndex + 1) / TOTAL_SIGNS) * 100}%` }}
-              />
-            </div>
-            <span className="ai-practice__progress-text">
-              {signIndex + 1} / {TOTAL_SIGNS}
-            </span>
-          </div>
-        </div>
-
-        <p className="ai-practice__demo" role="note">{mock?'Chế độ demo · Chỉ số minh họa, chưa đánh giá cử chỉ từ camera.':'AI chưa được cấu hình · Bạn có thể tự luyện qua camera; chưa có điểm đánh giá cử chỉ. Tối đa 5 phiên/ngày.'}</p>
-        {session.status==='loading'&&<p role="status">Đang đồng bộ phiên luyện tập…</p>}
-        {session.error&&<ErrorState error={session.error} onRetry={session.hasOpenSession()?()=>handleStop():handleStart}/>}
-        <nav className="ai-practice__sign-nav" aria-label="Chọn ký hiệu"><button type="button" disabled={signIndex === 0} onClick={() => changeSign(signIndex - 1)}>← Ký hiệu trước</button><button type="button" disabled={signIndex === TOTAL_SIGNS - 1} onClick={() => changeSign(signIndex + 1)}>Ký hiệu sau →</button></nav>
-        {/* ---- Camera viewport ---- */}
-        <CameraViewport
-          mock={mock}
-          phase={phase}
-          countdown={countdown}
-          currentSign={currentSign.sign}
-          signLabel={currentSign.label}
-          confidence={confidence}
-          stream={stream}
-          cameraError={cameraError}
-          cameraOn={cameraOn}
-          onOpenGuide={handleOpenGuide}
-          onRetry={activateCamera}
-        />
-
-        {/* ---- Tip box ---- */}
-        <TipBox
-          tip={currentSign.tip}
-          signIndex={signIndex + 1}
-          totalSigns={TOTAL_SIGNS}
-        />
+  // Keep the shortcut in sync with the visible controls and current recording phase.
+  useEffect(() => {
+    if (activeTab !== 'camera') return;
+    const handleCameraShortcut = event => {
+      if (event.code !== 'Space' || event.defaultPrevented || event.isComposing || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey || document.hidden) return;
+      const target = event.target;
+      if (target instanceof Element) {
+        if (target.closest('input, textarea, select, a, video, audio, [role="textbox"], [role="combobox"], [role="slider"], [role="dialog"], [aria-modal="true"]') || target.isContentEditable) return;
+        const button = target.closest('button, [role="button"], [role="tab"]');
+        if (button && !button.matches('[data-camera-action], #practice-tab-camera')) return;
+      }
+      event.preventDefault();
+      if (event.repeat) return;
+      if (phase === 'recording') {
+        void stop();
+      } else if (!busy && !loading && label && session.status !== 'loading') {
+        void start();
+      }
+    };
+    document.addEventListener('keydown', handleCameraShortcut);
+    return () => document.removeEventListener('keydown', handleCameraShortcut);
+  });
+  function switchTab(next) {
+    if (next === 'video' && ['starting', 'countdown', 'recording'].includes(phase)) {
+      generation.current++;
+      if (recorder.current?.state === 'recording') recorder.current.stop();
+      release(); setPhase('idle'); busyRef.current = false;
+      void session.finish();
+    }
+    if (next === 'camera') sample.current?.pause();
+    setActiveTab(next);
+  }
+  function showSample() {
+    switchTab('video');
+    document.getElementById('practice-tab-video')?.focus();
+  }
+  function handleTabKey(event) {
+    const next = {ArrowLeft: activeTab === 'video' ? 'camera' : 'video', ArrowRight: activeTab === 'video' ? 'camera' : 'video', Home: 'video', End: 'camera'}[event.key];
+    if (!next) return;
+    event.preventDefault(); switchTab(next);
+    document.getElementById(`practice-tab-${next}`)?.focus();
+  }
+  function select(next) {setIndex(next); setResult(null); setError(''); setPhase('idle');}
+  const passed = result?.status === 'correct';
+  return <div className="ai-practice">
+    <div className="ai-practice__header">
+      {loading && <p role="status">Đang tải động tác từ HandSign…</p>}
+      {(error || session.error) && <div className="practice-error" role="alert"><p>{error || session.error?.message || 'Không thể đồng bộ phiên luyện tập.'}</p>{!lessons.length && <button onClick={loadLessons}>Kết nối lại</button>}</div>}
+      <div className="practice-toolbar">
+      <div className="practice-tabs" role="tablist" aria-label="Chế độ luyện tập" onKeyDown={handleTabKey}>
+        {[['video', 'Xem video'], ['camera', 'Luyện tập trước camera']].map(([id, title]) => <button key={id} type="button" role="tab" id={`practice-tab-${id}`} aria-controls={`practice-panel-${id}`} aria-selected={activeTab === id} tabIndex={activeTab === id ? 0 : -1} onClick={() => switchTab(id)}>{title}</button>)}
       </div>
-
-      {/* ===== RIGHT COLUMN: Analytics + Controls ===== */}
-      <div className="ai-practice__right">
-        <AiAnalyticsCard
-          accuracy={accuracy}
-          stability={stability}
-          speed={speed}
-          posture={posture}
-          clarity={clarity}
-          isActive={phase === "recording"}
-        />
-
-        <AiFeedbackCard feedback={mock&&phase === "recording" ? `Phản hồi demo: ${AI_FEEDBACKS[feedbackIndex]}` : mock?'Bắt đầu phiên demo để xem cách hiển thị phản hồi.':'Chưa có đánh giá AI. Hãy giữ đủ sáng và quan sát vị trí hai tay trong khung hình.'} />
-
-        <SessionControls
-          disabled={session.status==='loading'}
-          phase={phase}
-          cameraOn={cameraOn}
-          onToggleCamera={handleToggleCamera}
-          onStart={handleStart}
-          onStop={handleStop}
-        />
+      <label className="practice-lesson"><span className="practice-lesson__heading"><span>Động tác đang luyện</span>{lessons.length > 0 && <span className="ai-practice__progress-text">{index + 1} / {lessons.length}</span>}</span><select value={index} disabled={busy || loading || !lessons.length || session.status === 'loading'} onChange={event => select(Number(event.target.value))}>{lessons.map((item, i) => <option key={item} value={i}>{item}</option>)}</select></label>
       </div>
-
-      {summary && <Modal labelledBy="ai-summary-title" onClose={() => setSummary(null)}><h2 id="ai-summary-title" className="text-h2">{mock?'Tổng kết phiên demo':'Tổng kết phiên luyện tập'}</h2><p>Độ chính xác {mock?'(minh họa)':''}: {summary.accuracy == null ? '--' : `${summary.accuracy}%`}</p><p>Thời gian: {summary.seconds} giây</p>{!mock&&<p>+{summary.xp} XP</p>}<button type="button" disabled={session.status==='loading'} onClick={handleStart}>Thử lại</button><button type="button" disabled={session.status==='loading'||signIndex === TOTAL_SIGNS - 1} onClick={() => changeSign(signIndex + 1)}>Ký hiệu tiếp theo</button></Modal>}
-      {/* ===== POPUP: Đề bài / Hướng dẫn ký hiệu ===== */}
-      {guideOpen && (
-        <SignGuideModal
-          sign={currentSign.sign}
-          label={currentSign.label}
-          steps={currentSign.steps}
-          onClose={handleCloseGuide}
-          onStart={handleGuideStart}
-        />
-      )}
     </div>
-  );
-};
-
-export default AiPracticePage;
+    <section id="practice-panel-video" role="tabpanel" aria-labelledby="practice-tab-video" hidden={activeTab !== 'video'} tabIndex={0}>
+      {label && <SignSample key={label} label={label} videoRef={sample}/>}
+      <div className="practice-controls practice-video-actions"><button className="practice-primary" disabled={!label || loading} onClick={() => {switchTab('camera'); document.getElementById('practice-tab-camera')?.focus();}}>Luyện tập trước camera</button></div>
+    </section>
+    <section className="practice-camera-panel" id="practice-panel-camera" role="tabpanel" aria-labelledby="practice-tab-camera" hidden={activeTab !== 'camera'} tabIndex={0}>
+    <div className="ai-practice__left">
+      <CameraViewport phase={phase} countdown={countdown} currentSign={label || '—'} signLabel="Lượt thực hiện của bạn" stream={stream} cameraError={cameraError} cameraOn={!!stream} onOpenGuide={showSample} onRetry={start}/>
+      <p className="practice-shortcut"><kbd>Space</kbd><span>Bắt đầu / thử lại · Khi đang quay: chấm điểm. Phím tắt tạm ngưng khi đếm ngược hoặc AI đang chấm.</span></p>
+      <p className="practice-hint">Giữ tay rõ trong khung hình và thực hiện trọn vẹn động tác. Nhấn “Chấm động tác” khi hoàn thành (tối đa 15 giây).</p>
+    </div>
+    <aside className="ai-practice__right">
+      <AiAnalyticsCard result={result} phase={phase}/>
+      <AiFeedbackCard feedback={result?.feedback?.map(item => item.message).filter(Boolean).join('\n\n') || 'Nhận xét sẽ xuất hiện sau khi AI chấm lượt thực hiện của bạn.'}/>
+      {result ? <section className={`practice-result ${passed ? 'practice-result--passed' : ''}`} aria-live="polite">
+        <span className="practice-result__eyebrow">{passed ? 'ĐÃ HOÀN THÀNH' : 'CẦN THỬ LẠI'}</span>
+        <h2>{passed ? 'Động tác đã đạt' : 'Chưa thể xác nhận động tác'}</h2>
+        {!passed && <><p>Hệ thống chưa ghi nhận động tác khớp với mẫu “{label}”.</p><p>Hãy giữ tay rõ trong khung hình, thực hiện trọn vẹn động tác và thử lại.</p></>}
+        <div className="practice-actions">{!passed && <button onClick={showSample}>Xem động tác mẫu</button>}<button data-camera-action aria-keyshortcuts="Space" disabled={session.status === 'loading'} onClick={start}>Thử lại</button>{passed && <button className="practice-primary" disabled={session.status === 'loading'} onClick={() => {select((index + 1) % lessons.length);}}>Tiếp tục</button>}</div>
+      </section> : <section className="practice-controls"><button data-camera-action aria-keyshortcuts="Space" className="practice-primary" disabled={phase !== 'recording' && (busy || loading || !label || session.status === 'loading')} onClick={phase === 'recording' ? stop : start}>{phase === 'processing' ? 'AI đang chấm động tác…' : phase === 'recording' ? 'Chấm động tác' : phase === 'countdown' ? `Chuẩn bị · ${countdown}` : phase === 'starting' ? 'Đang mở camera…' : 'Bắt đầu luyện tập'}</button><button onClick={showSample} disabled={!label}>Xem động tác mẫu</button></section>}
+    </aside>
+    </section>
+  </div>;
+}

@@ -4,6 +4,7 @@
 
 .ai-practice {
   display: flex;
+  flex-direction: column;
   gap: 24px;
   padding: 22px var(--page-gutter) 22px;
   background: #f8f9fa;
@@ -118,3 +119,52 @@
 .ai-practice__demo { padding:12px; background:var(--color-purple-50); color:var(--color-purple-700); border-radius:12px; }
 .ai-practice__sign-nav { display:flex; justify-content:space-between; gap:12px; margin-bottom:16px; }
 .ai-practice__sign-nav button { min-height:44px; padding:8px 14px; border:1px solid var(--color-neutral-200); border-radius:10px; background:white; }
+.ai-analytics__gauge-fill { stroke: var(--color-purple-500, #7f77dd); }
+.ai-analytics__rating { text-align:center; font-size:18px; font-weight:650; color:var(--color-purple-700, #5347a8); margin:0; }
+.ai-analytics__status { color:#777; font-size:13px; margin:0; }
+.ai-analytics__match-title { font-size:15px; margin:4px 0 -8px; }
+.ai-analytics__metric-val small { font-size:12px; font-weight:400; color:#777; }
+.ai-feedback__text { white-space:pre-line; }
+.practice-lesson { display:grid; gap:4px; min-width:0; padding:0 8px; font-size:12px; font-weight:600; color:#625d70; }
+.practice-lesson select { width:100%; min-width:0; min-height:32px; padding:4px 28px 4px 8px; border:1px solid #dedce8; border-radius:7px; background:white; color:#34313c; font-size:15px; text-overflow:ellipsis; }
+.sign-sample { background:white; border-radius:18px; padding:20px; }
+.sign-sample__heading { display:flex; justify-content:space-between; gap:16px; align-items:center; margin-bottom:14px; }
+.sign-sample__heading h2 { font-size:19px; margin:6px 0 0; }
+.sign-sample__heading > span, .sign-sample > p, .practice-hint { font-size:13px; color:#777; line-height:1.6; }
+.sign-sample__eyebrow, .practice-result__eyebrow { font-size:10px; letter-spacing:1.4px; font-weight:700; color:var(--color-purple-700, #5347a8); }
+.sign-sample video { display:block; width:100%; max-height:280px; background:#24232b; border-radius:12px; }
+.practice-controls { display:grid; gap:10px; }
+.practice-controls button, .practice-actions button, .practice-error button { min-height:44px; border:1px solid #dedce8; border-radius:10px; padding:10px 14px; background:white; font-weight:600; cursor:pointer; transition:background .2s; }
+.practice-primary { background:var(--color-purple-500, #7f77dd) !important; color:white; border-color:transparent !important; }
+.practice-result { padding:22px; background:#f3f0e8; border-radius:18px; }
+.practice-result--passed { background:#edf5ee; }
+.practice-result h2 { font-size:20px; margin:10px 0; line-height:1.35; }
+.practice-result p { font-size:14px; line-height:1.7; margin:12px 0; }
+.practice-actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; }
+.practice-actions button { flex:1; }
+.practice-error { padding:14px; border-radius:12px; background:#fceeed; color:#8a3434; }
+.ai-practice button:disabled { opacity:.5; cursor:not-allowed; }
+.ai-practice button:focus-visible, .ai-practice select:focus-visible, .sign-sample video:focus-visible { outline:3px solid #7f77dd; outline-offset:3px; }
+@media(max-width:600px) { .sign-sample__heading {align-items:flex-start; flex-direction:column;} .ai-practice__right {min-width:0;} }
+
+.ai-practice__header { display:flex; flex-direction:column; gap:16px; }
+.practice-toolbar { display:grid; grid-template-columns:minmax(0, 2fr) minmax(220px, 1fr); align-items:center; gap:12px; padding:6px; border:1px solid #dedce8; border-radius:14px; background:#eeedf3; }
+.practice-tabs { display:flex; min-width:0; gap:6px; }
+.practice-toolbar .practice-lesson { border-left:1px solid #d5d0e6; padding-left:18px; }
+.practice-tabs button { flex:1; min-height:48px; padding:10px 16px; border:0; border-radius:10px; background:transparent; color:#625d70; font:inherit; font-weight:600; cursor:pointer; }
+.practice-tabs button[aria-selected="true"] { background:white; color:var(--color-purple-700, #5347a8); box-shadow:0 1px 4px #29213f14; }
+.practice-tabs button:hover { color:var(--color-purple-700, #5347a8); }
+.practice-camera-panel { display:flex; align-items:flex-start; gap:24px; }
+.ai-practice [role="tabpanel"][hidden] { display:none; }
+.ai-practice [role="tabpanel"]:focus-visible { outline:3px solid #7f77dd; outline-offset:3px; }
+.practice-video-actions { margin-top:16px; justify-items:end; }
+#practice-panel-video .sign-sample video { max-height: min(56vh, 560px); }
+@media(max-width:1024px) { .practice-camera-panel { flex-direction:column; } .practice-camera-panel > * { width:100%; } }
+@media(max-width:600px) { .practice-tabs button { padding:10px 8px; font-size:14px; } .practice-video-actions { justify-items:stretch; } }
+
+.practice-shortcut { display:flex; align-items:center; gap:12px; margin:0; padding:12px 14px; border-radius:12px; background:var(--color-purple-50, #f1effb); color:var(--color-purple-700, #5347a8); font-size:13px; line-height:1.6; }
+.practice-shortcut kbd { flex-shrink:0; padding:3px 9px; border:1px solid #d5d0e6; border-bottom-width:3px; border-radius:6px; background:white; font:inherit; font-weight:700; }
+
+@media(max-width:640px) { .practice-toolbar { grid-template-columns:minmax(0, 1fr); gap:10px; } .practice-toolbar .practice-lesson { border-left:0; border-top:1px solid #d5d0e6; padding:10px 8px 4px; } }
+
+.practice-lesson__heading { display:flex; align-items:center; justify-content:space-between; gap:12px; }

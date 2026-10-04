@@ -1,79 +1,62 @@
+import { formRating } from "../../services/handSign";
 import "./AiAnalyticsCard.css";
-
-const CIRCUMFERENCE = 2 * Math.PI * 54;
-const RADIUS = 54;
-
-const AiAnalyticsCard = ({ accuracy, stability, speed, posture, clarity, isActive }) => {
-  const dashOffset = CIRCUMFERENCE - ((accuracy ?? 0) / 100) * CIRCUMFERENCE;
-
+export default function AiAnalyticsCard({ result, phase }) {
+  const score = result?.form?.score;
+  const regions = result?.form?.region_scores;
+  const circumference = 2 * Math.PI * 54;
   return (
-    <div className="ai-analytics">
-      {/* ---- Header ---- */}
+    <section className="ai-analytics" aria-label="Điểm động tác">
       <div className="ai-analytics__header">
         <h2 className="ai-analytics__title text-h2">
-          AI Analytics - Phản hồi thời gian thực
+          AI Analytics · Phản hồi động tác
         </h2>
-        {isActive && (
-          <span className="ai-analytics__live">
-            <span className="ai-analytics__live-dot" />
-            DEMO
-          </span>
-        )}
       </div>
-
-      {/* ---- Accuracy Gauge ---- */}
+      {(phase === "processing" || phase === "recording") && <p className="ai-analytics__status" role="status">
+        {phase === "processing"
+          ? "AI đang chấm động tác…"
+          : "Đang ghi hình · Chấm điểm khi kết thúc"}
+      </p>}
       <div className="ai-analytics__gauge">
         <div className="ai-analytics__gauge-ring">
-          <svg viewBox="0 0 120 120" className="ai-analytics__gauge-svg">
-            <defs>
-              <linearGradient id="gauge-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#7f77dd" />
-                <stop offset="100%" stopColor="#a78bfa" />
-              </linearGradient>
-            </defs>
-            <circle
-              className="ai-analytics__gauge-bg"
-              cx="60"
-              cy="60"
-              r={RADIUS}
-            />
+          <svg
+            viewBox="0 0 120 120"
+            className="ai-analytics__gauge-svg"
+            aria-hidden="true"
+          >
+            <circle className="ai-analytics__gauge-bg" cx="60" cy="60" r="54" />
             <circle
               className="ai-analytics__gauge-fill"
               cx="60"
               cy="60"
-              r={RADIUS}
-              strokeDasharray={CIRCUMFERENCE}
-              strokeDashoffset={dashOffset}
+              r="54"
+              strokeDasharray={circumference}
+              strokeDashoffset={circumference * (1 - (score ?? 0) / 100)}
             />
           </svg>
           <div className="ai-analytics__gauge-value">
-            <span className="ai-analytics__gauge-num">{accuracy == null ? "--" : `${accuracy}%`}</span>
-            <span className="ai-analytics__gauge-label">Độ chính xác</span>
+            <span className="ai-analytics__gauge-num">
+              {score == null ? "—" : Math.round(score)}
+            </span>
+            <span className="ai-analytics__gauge-label">Điểm động tác</span>
           </div>
         </div>
       </div>
-
-      {/* ---- Metrics Grid ---- */}
+      <p className="ai-analytics__rating">{formRating(result?.form?.status)}</p>
+      <h3 className="ai-analytics__match-title">Khớp tốt với động tác mẫu</h3>
       <div className="ai-analytics__metrics">
-        <div className="ai-analytics__metric">
-          <span className="ai-analytics__metric-val">{stability == null ? "--" : `${stability}%`}</span>
-          <span className="ai-analytics__metric-label">Độ ổn định</span>
-        </div>
-        <div className="ai-analytics__metric">
-          <span className="ai-analytics__metric-val">{speed == null ? "--" : `${speed}s`}</span>
-          <span className="ai-analytics__metric-label">Tốc độ</span>
-        </div>
-        <div className="ai-analytics__metric">
-          <span className="ai-analytics__metric-val">{posture == null ? "--" : `${posture}%`}</span>
-          <span className="ai-analytics__metric-label">Tư thế</span>
-        </div>
-        <div className="ai-analytics__metric">
-          <span className="ai-analytics__metric-val">{clarity == null ? "--" : `${clarity}%`}</span>
-          <span className="ai-analytics__metric-label">Độ rõ ràng</span>
-        </div>
+        {[
+          ["right_hand", "Tay phải"],
+          ["face", "Khuôn mặt"],
+        ].map(([key, label]) => (
+          <div className="ai-analytics__metric" key={key}>
+            <span className="ai-analytics__metric-label">{label}</span>
+            <span className="ai-analytics__metric-val">
+              {regions?.[key] == null ? "—" : Math.round(regions[key])}
+              <small> /100</small>
+            </span>
+          </div>
+        ))}
       </div>
-    </div>
+    </section>
   );
-};
-
-export default AiAnalyticsCard;
+}

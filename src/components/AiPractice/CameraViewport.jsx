@@ -63,7 +63,7 @@ const CameraViewport = ({
         {isActive && (
           <span className="cam-viewport__badge cam-viewport__badge--recording">
             <span className="cam-viewport__rec-dot" />
-            {mock?'Phiên demo':'Đang tự luyện'}
+            {mock?'Phiên demo':'Đang ghi hình'}
           </span>
         )}
 
