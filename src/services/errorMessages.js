@@ -1,4 +1,6 @@
 export const ERROR_MESSAGES={
+ INVALID_CREDENTIALS:'Email hoặc mật khẩu không đúng.',
+ EMAIL_IN_USE:'Email này đã được đăng ký.',
  EMAIL_NOT_VERIFIED:'Hãy xác minh email để tiếp tục. Bạn có thể gửi lại email xác minh trên trang tiếp theo.',
  PAYLOAD_TOO_LARGE:'Nội dung gửi lên quá lớn. Hãy rút gọn nội dung rồi thử lại.',
  CONTENT_UPDATED:'Nội dung bài học đã được cập nhật. Hãy tải lại trang để bắt đầu phiên mới.',

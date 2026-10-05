@@ -190,7 +190,7 @@ export default function AiPracticePage() {
     </div>
     <aside className="ai-practice__right">
       <AiAnalyticsCard result={result} phase={phase}/>
-      <AiFeedbackCard feedback={result?.feedback?.map(item => item.message).filter(Boolean).join('\n\n') || 'Nhận xét sẽ xuất hiện sau khi AI chấm lượt thực hiện của bạn.'}/>
+      <AiFeedbackCard feedback={result?.feedback}/>
       {result ? <section className={`practice-result ${passed ? 'practice-result--passed' : ''}`} aria-live="polite">
         <span className="practice-result__eyebrow">{passed ? 'ĐÃ HOÀN THÀNH' : 'CẦN THỬ LẠI'}</span>
         <h2>{passed ? 'Động tác đã đạt' : 'Chưa thể xác nhận động tác'}</h2>

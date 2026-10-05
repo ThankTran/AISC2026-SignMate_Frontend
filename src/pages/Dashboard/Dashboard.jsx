@@ -193,7 +193,7 @@ function Dashboard() {
             </button>
           </div>
 
-          {!board.data && (board.error ? <ApiState error={board.error} /> : <Skeleton />)}
+          {!board.data && (board.error ? <ApiState error={board.error} retry={board.retry} /> : <Skeleton />)}
           {board.data?.entries.length === 0 && <p>Chưa có dữ liệu xếp hạng.</p>}
           <ol className="db-board__list">
             {(board.data?.entries || []).slice(0,6).map((p, i) => (

@@ -1,3 +1,4 @@
+import {canLoadAccount} from '../services/progressLoader';
 import { FriendsContext } from '../hooks/useFriends';
 import { useCallback,useEffect,useMemo,useState } from 'react';
 import {useAuth} from '../hooks/useAuth';
@@ -19,7 +20,7 @@ function MockFriendsProvider({children,loader=loadFriends}) {
 const empty={friends:[],incomingRequests:[],outgoingRequests:[],incomingScheduleRequests:[],scheduledSessions:[]};
 const unchanged=()=>{};
 function ServerFriendsProvider({children}) {
- const user=useCurrentUser(),auth=useAuth(),uid=user?.uid,enabled=!!uid&&(!auth||auth.user?.emailVerified===true);
+ const user=useCurrentUser(),auth=useAuth(),uid=user?.uid,enabled=canLoadAccount(uid,auth);
  const [revision,setRevision]=useState(0);
  const retry=useCallback(()=>setRevision(value=>value+1),[]);
  const load=useCallback(async()=>{

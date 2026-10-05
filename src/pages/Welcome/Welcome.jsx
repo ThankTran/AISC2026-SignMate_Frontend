@@ -1,6 +1,5 @@
-import {Link} from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { Plus, User, VideoOff, Lightbulb, BookOpen, GraduationCap, Users , CheckCircle2} from "lucide-react";
+import { Plus, User, VideoOff, Lightbulb, BookOpen, GraduationCap, Users } from "lucide-react";
 import "./Welcome.css";
 import Footer from "../../components/Footer/Footer";
 

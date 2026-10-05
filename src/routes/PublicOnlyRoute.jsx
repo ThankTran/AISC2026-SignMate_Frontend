@@ -7,7 +7,7 @@ export default function PublicOnlyRoute({children}) {
  if(loading)return <LoadingScreen/>;
  // A restored, unfinished session must not make the login/register step disappear.
  if(user&&!registering&&profile?._profileStatus==='loading')return <LoadingScreen/>;
- if(user?.emailVerified&&!registering&&profile?.hasSetLevel&&profile?.onboardingComplete)
+ if(user&&!registering&&profile?.hasSetLevel&&profile?.onboardingComplete)
   return <Navigate to={location.state?.from || '/dashboard'} replace/>;
  return children;
 }
