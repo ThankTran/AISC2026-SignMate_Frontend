@@ -1,8 +1,7 @@
-import {Link} from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Plus, User, VideoOff, Lightbulb, BookOpen, GraduationCap, Users } from "lucide-react";
-import heroImage from "../../assets/hero.png";
 import "./Welcome.css";
+import Footer from "../../components/Footer/Footer";
 
 const CHALLENGES = [
   {
@@ -25,7 +24,7 @@ const CHALLENGES = [
   },
   {
     icon: Lightbulb,
-    tone: "teal",
+    tone: "dark",
     title: "Thiếu phản hồi AI tức thời",
     desc: "Các ứng dụng hiện tại không có AI chấm điểm đúng/sai dáng tay. Người học không biết mình thực hiện ký hiệu sai ở đâu, dẫn đến luyện tập sai lặp đi lặp lại.",
   },
@@ -54,6 +53,9 @@ const EXPLORE = [
 
 export default function Welcome() {
   const navigate = useNavigate();
+  const scrollToExplore = () => {
+    document.getElementById("explore-section")?.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
     <div className="welcome-page">
@@ -68,38 +70,33 @@ export default function Welcome() {
       </header>
 
       <section className="hero">
-        <div className="hero-image">
-          <img src={heroImage} alt="Người dùng luyện tập ký hiệu" />
-          <div className="hero-badge">
-            <span className="badge-icon">✓</span>
-            <div>
-              <strong>Độ chính xác: 98%</strong>
-              <p>Tuyệt vời! Tiếp tục nhé.</p>
+        <div className="hero-inner">
+          <div className="hero-image">
+            <img src="/BG_Welcome.png" alt="Người dùng luyện tập ký hiệu" />
+          </div>
+
+          <div className="hero-content">
+            <h1 className="text-display">
+              SignMate - Kết nối qua<br />
+              <span className="highlight">ngôn ngữ ký hiệu</span>
+            </h1>
+            <p className="hero-desc">
+              Lộ trình học cá nhân hóa và luyện tập video 1-1 với người thật - được
+              hỗ trợ bởi AI đánh giá tư thế và phản hồi thời gian thực.
+            </p>
+
+            <div className="feature-tags">
+              <span className="tag">Lộ trình học chi tiết</span>
+              <span className="tag">Luyện tập video 1-1</span>
+              <span className="tag">AI đánh giá tư thế</span>
             </div>
-          </div>
-        </div>
 
-        <div className="hero-content">
-          <h1 className="text-display">
-            SignMate - Kết nối qua<br />
-            <span className="highlight">ngôn ngữ ký hiệu</span>
-          </h1>
-          <p className="hero-desc">
-            Lộ trình học cá nhân hóa và luyện tập video 1-1 với người thật — được
-            hỗ trợ bởi AI đánh giá tư thế và phản hồi thời gian thực.
-          </p>
-
-          <div className="feature-tags">
-            <span className="tag">Lộ trình học chi tiết</span>
-            <span className="tag">Luyện tập video 1-1</span>
-            <span className="tag">AI đánh giá tư thế</span>
-          </div>
-
-          <div className="hero-actions">
-            <button className="btn-primary hero-cta" onClick={() => navigate("/register")}>
-              Bắt đầu ngay →
-            </button>
-            <button className="btn-outline">Khám phá SignMate</button>
+            <div className="hero-actions">
+              <button className="btn-primary hero-cta" onClick={() => navigate("/register")}>
+                Bắt đầu ngay →
+              </button>
+              <button className="btn-outline" onClick={scrollToExplore}>Khám phá SignMate</button>
+            </div>
           </div>
         </div>
       </section>
@@ -123,7 +120,7 @@ export default function Welcome() {
         </div>
       </section>
 
-      <section className="explore">
+      <section className="explore" id="explore-section">
         <h2 className="text-h2">Khám phá SignMate</h2>
 
         <div className="explore-grid">
@@ -140,28 +137,7 @@ export default function Welcome() {
         </div>
       </section>
 
-      <footer className="welcome-footer">
-        <div className="welcome-footer-brand">
-          <div className="welcome-logo">
-            <img className="welcome-logo-icon" src="/logo-signmate.png" alt="SignMate" />
-            <span className="welcome-logo-text">SignMate</span>
-          </div>
-          <p>© 2026 SignMate AI. Breaking barriers through kinetic learning.</p>
-        </div>
-        <div className="welcome-footer-cols">
-          <div>
-            <h2 className="text-h3">Pháp lý</h2>
-            <Link className="touch-target" to="/terms">Điều khoản</Link>
-            <Link className="touch-target" to="/privacy">Chính sách bảo mật</Link>
-          </div>
-          <div>
-            <h2 className="text-h3">Công ty</h2>
-            <Link className="touch-target" to="/faq">Câu hỏi thường gặp</Link>
-            <Link className="touch-target" to="/contact">Liên hệ</Link>
-          </div>
-
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
