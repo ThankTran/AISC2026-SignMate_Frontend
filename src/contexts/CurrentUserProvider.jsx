@@ -1,7 +1,5 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { doc, onSnapshot } from 'firebase/firestore';
+import { useCallback, useMemo, useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
-import { db } from '../lib/firebase';
 import { currentUser as fallback } from '../mockdata/user/currentUser';
 import { CurrentUserContext as Context } from '../hooks/useCurrentUser';
 import { accountApi } from '../services/api';
@@ -17,10 +15,6 @@ export function CurrentUserProvider({ children }) {
   const uid=user?.uid;
   const loader=useCallback(()=>uid&&!mock?accountApi.me():Promise.resolve({}),[uid]);
   const {data:remote,error}=useApiResource(loader,authRevision);
-  useEffect(()=>{
-    if(!uid)return;
-    return onSnapshot(doc(db,'users',uid),snapshot=>setFlags({uid,data:snapshot.data()||{}}),()=>setFlags({uid,data:{}}));
-  },[uid]);
   const ui=flags && flags.uid===uid?flags.data:empty;
   const data=saved && saved.uid===uid?saved.data:remote||empty;
   const updateCurrent=useCallback(data=>setSaved({uid,data}),[uid]);
@@ -32,7 +26,7 @@ export function CurrentUserProvider({ children }) {
   const profileStatus=!uid||remote||(saved && saved.uid===uid)?'ready':error?'error':'loading';
   const current=useMemo(()=>({... (mock?fallback:{}),...data,uid,displayName,name:displayName,
     email:user?.email||data.email||'',photoURL:user?.photoURL||'',handle:`@${(user?.email||displayName).split('@')[0]}`,
-    onboardingComplete:ui.onboardingComplete===true||localOnboarding(uid),
+    onboardingComplete:data.onboardingComplete===true||ui.onboardingComplete===true||localOnboarding(uid),
     hasSetLevel:data.hasSetLevel===true,
     _profileStatus:profileStatus,
     _profileError:error,_updateProfile:updateCurrent,_completeOnboarding:completeOnboarding}),

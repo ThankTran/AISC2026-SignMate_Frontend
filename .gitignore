@@ -26,3 +26,9 @@ dist-ssr
 
 # Local UI checks and build artifacts
 .verification/
+
+# Local dependency caches and alternate verification builds
+.npm-cache/
+dist-*/
+.env.*
+!.env.example

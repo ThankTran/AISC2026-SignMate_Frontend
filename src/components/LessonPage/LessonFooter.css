@@ -1,8 +1,13 @@
 /* =========================================================
-   LESSON FOOTER  (Fixed bottom bar)
+   LESSON FOOTER (sticky inside the app's scroll area)
    ========================================================= */
 
 .lesson-footer {
+  position: sticky;
+  bottom: 0;
+  z-index: 20;
+  flex-shrink: 0;
+  margin-top: auto;
   min-height: 76px;
 
   display: flex;
@@ -10,7 +15,8 @@
   justify-content: space-between;
   gap: 20px;
 
-  padding: 14px var(--page-gutter) 14px;
+  padding: 14px var(--page-gutter) calc(14px + env(safe-area-inset-bottom, 0px));
+  box-shadow: 0 -4px 16px rgb(17 24 39 / 12%);
 
   background: #111827;
   color: #e5e7eb;
@@ -275,7 +281,7 @@
 
 @media (max-width: 1024px) {
   .lesson-footer {
-    padding: 12px var(--page-gutter) 12px;
+    padding: 12px var(--page-gutter) calc(12px + env(safe-area-inset-bottom, 0px));
   }
 
   .lesson-footer__hint,

@@ -1,56 +1,24 @@
-import { AuthContext } from '../hooks/useAuth';
-import LoadingScreen from "../components/ui/LoadingScreen";
-import { useEffect, useState, useCallback } from "react";
-import { onAuthStateChanged, signOut, reload } from "firebase/auth";
-import { auth } from "../lib/firebase";
+import {AuthContext} from '../hooks/useAuth';
+import {useEffect,useState,useCallback} from 'react';
 import {useNavigate} from 'react-router-dom';
-import {useToast} from '../hooks/useToast';
-import {onSessionExpired} from '../services/sessionExpiry';
-
-
-export function AuthProvider({ children }) {
-  const navigate=useNavigate(),toast=useToast();
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [registering, setRegistering] = useState(false);
-  const [signingOut, setSigningOut] = useState(false);
-
-  const [authRevision,setAuthRevision]=useState(0);
-  const refreshUser=useCallback(async()=>{if(auth.currentUser){await reload(auth.currentUser);await auth.currentUser.getIdToken(true);setUser(auth.currentUser);setAuthRevision(value=>value+1);}},[]);
-  const logout=useCallback(async ({expired=false}={})=>{
-    setSigningOut(true);
-    try {
-      await signOut(auth);
-      if(expired){setUser(null);setSigningOut(false);navigate('/login',{replace:true});toast({type:'info',message:'Phiên đăng nhập đã hết hạn'});return;}
-      // Start a fresh public page after Firebase has cleared persisted auth.
-      // Keep the guard paused until unload so it cannot redirect to /login.
-      window.location.replace("/");
-    } catch (error) {
-      setSigningOut(false);
-      throw error;
-    }
-  },[navigate,toast]);
-  useEffect(()=>onSessionExpired(uid=>auth.currentUser?.uid===uid?logout({expired:true}):undefined),[logout]);
-  useEffect(()=>{
-    const requireVerification=()=>{
-      if(window.location.pathname==='/verify-email')return;
-      navigate('/verify-email',{replace:true});
-      toast({type:'info',message:'Hãy xác minh email để tiếp tục.'});
-    };
-    window.addEventListener('signmate:email-verification-required',requireVerification);
-    return()=>window.removeEventListener('signmate:email-verification-required',requireVerification);
-  },[navigate,toast]);
-
-  useEffect(() => {
-    return onAuthStateChanged(auth, (u) => {
-      setUser(u);
-      setLoading(false);
-    });
-  }, []);
-
-  return (
-    <AuthContext.Provider value={{ user, authRevision, refreshUser, loading, signingOut, logout, registering, setRegistering }}>
-      {loading ? <LoadingScreen /> : children}
-    </AuthContext.Provider>
-  );
+import {getSession,saveSession,clearSession} from '../services/localAuth';
+import {authApi,accountApi} from '../services/api';
+export function AuthProvider({children}) {
+ const navigate=useNavigate();
+ const [user,setUser]=useState(()=>getSession()?.user||null),[loading,setLoading]=useState(true);
+ const [registering,setRegistering]=useState(false),[signingOut,setSigningOut]=useState(false),[authRevision,setAuthRevision]=useState(0);
+ const refreshUser=useCallback(async()=>{
+  const session=getSession();if(!session)return;
+  const profile=await accountApi.me();
+  if(getSession()?.token!==session.token)return;
+  saveSession({...session,user:{uid:profile.id,email:profile.email,displayName:profile.name}});
+ },[]);
+ useEffect(()=>{
+  const update=()=>{setUser(getSession()?.user||null);setAuthRevision(n=>n+1);};
+  window.addEventListener('signmate:auth-changed',update);
+  refreshUser().catch(()=>{}).finally(()=>setLoading(false));
+  return()=>window.removeEventListener('signmate:auth-changed',update);
+ },[refreshUser]);
+ const logout=useCallback(async()=>{setSigningOut(true);try{await authApi.logout();clearSession();navigate('/',{replace:true});}finally{setSigningOut(false);}},[navigate]);
+ return <AuthContext.Provider value={{user,loading,registering,setRegistering,signingOut,logout,refreshUser,authRevision}}>{children}</AuthContext.Provider>;
 }
