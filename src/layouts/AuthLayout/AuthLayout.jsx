@@ -9,13 +9,17 @@ export default function AuthLayout({ children }) {
           <img className="auth-logo-icon" src="/logo-signmate.png" alt="SignMate" />
           <span className="auth-logo-text">SignMate</span>
         </div>
-        <p className="auth-tagline">
-          Học ngôn ngữ ký hiệu cùng AI - dành cho tất cả mọi người.
-        </p>
+        <p className="auth-tagline">Học ngôn ngữ ký hiệu cùng AI - dành cho tất cả mọi người.</p>
         <HandScene />
       </div>
 
-      <div className="auth-panel"><div className="auth-mobile-brand"><img src="/logo-signmate.png" alt="SignMate" width="64" height="64"/><p>Học ngôn ngữ ký hiệu cùng AI — dành cho tất cả mọi người.</p></div>{children}</div>
+      <div className="auth-panel">
+        <div className="auth-mobile-brand">
+          <img src="/logo-signmate.png" alt="SignMate" width="64" height="64" />
+          <p>Học ngôn ngữ ký hiệu cùng AI — dành cho tất cả mọi người.</p>
+        </div>
+        {children}
+      </div>
     </div>
   );
 }

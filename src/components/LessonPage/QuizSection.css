@@ -70,8 +70,11 @@
 
   cursor: pointer;
 
-  transition: border-color 0.18s ease, box-shadow 0.18s ease,
-    background 0.18s ease, transform 0.12s ease;
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    background 0.18s ease,
+    transform 0.12s ease;
 }
 
 .lesson-quiz__card:hover:not(:disabled) {
@@ -101,11 +104,22 @@
 }
 
 @keyframes card-shake {
-  0%, 100% { transform: translateX(0); }
-  20%      { transform: translateX(-7px); }
-  40%      { transform: translateX(7px); }
-  60%      { transform: translateX(-5px); }
-  80%      { transform: translateX(5px); }
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-7px);
+  }
+  40% {
+    transform: translateX(7px);
+  }
+  60% {
+    transform: translateX(-5px);
+  }
+  80% {
+    transform: translateX(5px);
+  }
 }
 
 /* ---- Radio ---- */
@@ -302,7 +316,6 @@
 
 .lesson-quiz__ai-explain {
   margin: 0;
-
 
   font-size: 13px;
   line-height: 1.55;

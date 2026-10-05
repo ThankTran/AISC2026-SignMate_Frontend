@@ -15,7 +15,10 @@
   background: #ffffff;
   box-shadow: 0 8px 18px rgba(68, 68, 65, 0.04);
 
-  transition: box-shadow 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+  transition:
+    box-shadow 0.18s ease,
+    border-color 0.18s ease,
+    transform 0.18s ease;
 }
 
 .recent-call-card:hover {
@@ -80,7 +83,10 @@
   font-weight: var(--font-weight-semibold);
 
   cursor: pointer;
-  transition: background-color 0.18s ease, opacity 0.18s ease, transform 0.18s ease;
+  transition:
+    background-color 0.18s ease,
+    opacity 0.18s ease,
+    transform 0.18s ease;
 }
 
 .recent-call-card__action:hover:not(:disabled) {
@@ -116,4 +122,9 @@
   }
 }
 
-@media(max-width:768px){.recent-call-card__action{min-height:44px;min-width:44px}}
+@media (max-width: 768px) {
+  .recent-call-card__action {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}

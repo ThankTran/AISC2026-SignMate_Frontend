@@ -229,7 +229,6 @@
 }
 
 .qr-hero__donut-value {
-
   font-size: 30px;
   font-weight: 800;
   line-height: 1;
@@ -299,7 +298,6 @@
 }
 
 .qr-stat__value {
-
   font-size: 23px;
   font-weight: 800;
   line-height: 1.2;
@@ -393,7 +391,9 @@
 
   cursor: pointer;
 
-  transition: background-color 0.18s ease, color 0.18s ease,
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease,
     box-shadow 0.18s ease;
 }
 
@@ -510,7 +510,9 @@
   text-decoration: none;
 
   box-shadow: 0 8px 20px rgba(27, 77, 62, 0.28);
-  transition: background-color 0.18s ease, transform 0.12s ease,
+  transition:
+    background-color 0.18s ease,
+    transform 0.12s ease,
     box-shadow 0.18s ease;
 }
 
@@ -545,7 +547,9 @@
 
   text-decoration: none;
 
-  transition: border-color 0.18s ease, background-color 0.18s ease;
+  transition:
+    border-color 0.18s ease,
+    background-color 0.18s ease;
 }
 
 .qr-actions__secondary:hover {
@@ -628,4 +632,15 @@
   }
 }
 
-@media(max-width:768px){.qr-review__tab,.qr-review__question button{min-height:44px;min-width:44px}.qr-crumbs__link{display:inline-flex;align-items:center;min-height:44px}}
+@media (max-width: 768px) {
+  .qr-review__tab,
+  .qr-review__question button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  .qr-crumbs__link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+}

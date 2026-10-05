@@ -15,11 +15,7 @@ import {
   Cpu,
   GraduationCap,
 } from "lucide-react";
-import {
-  topicOptions,
-  conversationPrompts,
-  practiceSteps,
-} from "../../mockdata/videoCall/topics";
+import { topicOptions, conversationPrompts, practiceSteps } from "../../mockdata/videoCall/topics";
 import SmartMatchCard from "./SmartMatchCard";
 
 const topicIcons = {
@@ -41,12 +37,19 @@ export default function TopicSelection({
   onSearch,
 }) {
   const [custom, setCustom] = useState("");
+
   function addTopic(event) {
     event.preventDefault();
+
     const value = custom.trim();
-    if (value) onAddTopic(value);
+
+    if (value) {
+      onAddTopic(value);
+    }
+
     setCustom("");
   }
+
   return (
     <div className="vc-enter">
       <header className="vc-heading">
@@ -75,6 +78,7 @@ export default function TopicSelection({
           <div className="vc-topics">
             {topicOptions.map(({ label, icon }) => {
               const Icon = topicIcons[icon];
+
               return (
                 <button
                   key={label}
@@ -91,11 +95,7 @@ export default function TopicSelection({
             {selected
               .filter((s) => !topicOptions.some((topic) => topic.label === s))
               .map((t) => (
-                <button
-                  className="vc-topic is-selected"
-                  key={t}
-                  onClick={() => onToggleTopic(t)}
-                >
+                <button className="vc-topic is-selected" key={t} onClick={() => onToggleTopic(t)}>
                   {t}
                   <X size={14} />
                 </button>

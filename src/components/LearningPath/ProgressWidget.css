@@ -62,7 +62,6 @@
 }
 
 .lp-progress__donut-pct {
-
   font-size: 28px;
   font-weight: 800;
   color: var(--color-neutral-900);
@@ -133,7 +132,6 @@
 }
 
 .lp-stat__value {
-
   font-size: 14px;
   font-weight: 700;
   color: var(--color-neutral-900);

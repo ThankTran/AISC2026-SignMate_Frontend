@@ -4,17 +4,9 @@ import Modal from "../../components/ui/Modal";
 import { useToast } from "../../hooks/useToast";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  X,
-  Calendar,
-  Check,
-  Clock,
-  Plus,
-} from "lucide-react";
+import { X, Calendar, Check, Clock, Plus } from "lucide-react";
 
-import {
-  recentCallsData,
-} from "../../mockdata";
+import { recentCallsData } from "../../mockdata";
 import {
   REQUEST_PREVIEW_LIMIT,
   SCHEDULE_PREVIEW_LIMIT,
@@ -28,10 +20,27 @@ import "./FriendsPage.css";
 
 const FriendsWorkspace = ({ view = "list", Content }) => {
   const toast = useToast();
-  const { source,decideRequest,status,error,retry,friends,setFriends,incomingRequests,setIncomingRequests,incomingScheduleRequests,setIncomingScheduleRequests,scheduledSessions,setScheduledSessions,sentRequests:requestedCallIds,addFriend } = useFriends();
+  const {
+    source,
+    decideRequest,
+    status,
+    error,
+    retry,
+    friends,
+    setFriends,
+    incomingRequests,
+    setIncomingRequests,
+    incomingScheduleRequests,
+    setIncomingScheduleRequests,
+    scheduledSessions,
+    setScheduledSessions,
+    sentRequests: requestedCallIds,
+    addFriend,
+  } = useFriends();
   const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState("");
-  const [requestingCallId, setRequestingCallId] = useState(null); const [pendingRequestId,setPendingRequestId]=useState(null);
+  const [requestingCallId, setRequestingCallId] = useState(null);
+  const [pendingRequestId, setPendingRequestId] = useState(null);
   const [scheduleTarget, setScheduleTarget] = useState(null);
   const [scheduleDate, setScheduleDate] = useState("");
   const [scheduleTime, setScheduleTime] = useState("");
@@ -43,74 +52,110 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
   const [friendFilter, setFriendFilter] = useState("all");
   const [isFriendFilterOpen, setIsFriendFilterOpen] = useState(false);
   const [showCallHistory, setShowCallHistory] = useState(false);
-  const [calendarMonthDate, setCalendarMonthDate] = useState(
-    new Date()
-  );
+  const [calendarMonthDate, setCalendarMonthDate] = useState(new Date());
   const [quickInviteDate, setQuickInviteDate] = useState("");
-  const [quickInviteFriendId, setQuickInviteFriendId] = useState(
-    friends[0]?.id || ""
-  );
+  const [quickInviteFriendId, setQuickInviteFriendId] = useState(friends[0]?.id || "");
   const [quickInviteTime, setQuickInviteTime] = useState("19:30");
-  const [quickInviteTopic, setQuickInviteTopic] = useState(
-    "Luyện giao tiếp cơ bản"
-  );
+  const [quickInviteTopic, setQuickInviteTopic] = useState("Luyện giao tiếp cơ bản");
   const callHistoryTriggerRef = useRef(null);
 
   const filterRef = useRef(null);
   const [visibleFriendCount, setVisibleFriendCount] = useState(8);
+
   useEffect(() => {
-    if (!isFriendFilterOpen) return;
-    const close = event => { if (event.key === 'Escape') { setIsFriendFilterOpen(false); filterRef.current?.querySelector('button')?.focus(); } else if (event.type === 'pointerdown' && !filterRef.current?.contains(event.target)) setIsFriendFilterOpen(false); };
-    document.addEventListener('pointerdown', close); document.addEventListener('keydown', close);
-    return () => { document.removeEventListener('pointerdown', close); document.removeEventListener('keydown', close); };
+    if (!isFriendFilterOpen) {
+      return;
+    }
+
+    const close = (event) => {
+      if (event.key === "Escape") {
+        setIsFriendFilterOpen(false);
+        filterRef.current?.querySelector("button")?.focus();
+      } else if (event.type === "pointerdown" && !filterRef.current?.contains(event.target)) {
+        setIsFriendFilterOpen(false);
+      }
+    };
+
+    document.addEventListener("pointerdown", close);
+    document.addEventListener("keydown", close);
+
+    return () => {
+      document.removeEventListener("pointerdown", close);
+      document.removeEventListener("keydown", close);
+    };
   }, [isFriendFilterOpen]);
   function validateSchedule(date, time) {
-    if (!date || !time || new Date(`${date}T${time}`).getTime() <= new Date().getTime()) { toast({type:'error',message:'Vui lòng chọn thời gian trong tương lai.'}); return false; }
-    if (scheduledSessions.some(item => item.date === date && Math.abs(new Date(`${item.date}T${item.time}`).getTime() - new Date(`${date}T${time}`).getTime()) < 30 * 60 * 1000)) { toast({type:'error',message:'Lịch hẹn trùng với buổi khác. Hãy chọn cách nhau ít nhất 30 phút.'}); return false; }
+    if (!date || !time || new Date(`${date}T${time}`).getTime() <= new Date().getTime()) {
+      toast({ type: "error", message: "Vui lòng chọn thời gian trong tương lai." });
+
+      return false;
+    }
+
+    if (
+      scheduledSessions.some(
+        (item) =>
+          item.date === date &&
+          Math.abs(
+            new Date(`${item.date}T${item.time}`).getTime() - new Date(`${date}T${time}`).getTime(),
+          ) <
+            30 * 60 * 1000,
+      )
+    ) {
+      toast({
+        type: "error",
+        message: "Lịch hẹn trùng với buổi khác. Hãy chọn cách nhau ít nhất 30 phút.",
+      });
+
+      return false;
+    }
+
     return true;
   }
+
   const today = formatDateKey(new Date());
-  const minTime = `${String(new Date().getHours()).padStart(2,'0')}:${String(new Date().getMinutes()).padStart(2,'0')}`;
+  const minTime = `${String(new Date().getHours()).padStart(2, "0")}:${String(new Date().getMinutes()).padStart(2, "0")}`;
 
   const isFriendRequestsView = view === "requests";
   const isVideoInvitesView = view === "invites";
-  const isFriendsHome =
-    view === "list";
+  const isFriendsHome = view === "list";
   const pageTitle = isFriendRequestsView
     ? "Lời mời kết bạn"
     : isVideoInvitesView
-    ? "Lời mời & lịch hẹn"
-    : "Danh sách bạn bè";
+      ? "Lời mời & lịch hẹn"
+      : "Danh sách bạn bè";
   const pageSubtitle = isFriendRequestsView
     ? "Duyệt các kết nối mới đang chờ phản hồi"
     : isVideoInvitesView
-    ? "Kết nối ngay hoặc sắp xếp một buổi luyện tập cùng bạn bè."
-    : "Tìm bạn, xem hoạt động gần đây và bắt đầu một buổi luyện tập";
+      ? "Kết nối ngay hoặc sắp xếp một buổi luyện tập cùng bạn bè."
+      : "Tìm bạn, xem hoạt động gần đây và bắt đầu một buổi luyện tập";
 
   // ===== Lọc danh sách bạn bè theo tên =====
   const filteredFriends = useMemo(() => {
     const keyword = searchValue.trim().toLowerCase();
     const byStatus = friends.filter((friend) => {
-      if (friendFilter === "online") return friend.isOnline;
-      if (friendFilter === "offline") return !friend.isOnline;
+      if (friendFilter === "online") {
+        return friend.isOnline;
+      }
+
+      if (friendFilter === "offline") {
+        return !friend.isOnline;
+      }
+
       return true;
     });
 
-    if (!keyword) return byStatus;
+    if (!keyword) {
+      return byStatus;
+    }
 
-    return byStatus.filter((friend) =>
-      friend.name.toLowerCase().includes(keyword)
-    );
+    return byStatus.filter((friend) => friend.name.toLowerCase().includes(keyword));
   }, [friendFilter, friends, searchValue]);
 
   const visibleRequests = showAllRequests
     ? incomingRequests
     : incomingRequests.slice(0, REQUEST_PREVIEW_LIMIT);
 
-  const hiddenRequestCount = Math.max(
-    incomingRequests.length - visibleRequests.length,
-    0
-  );
+  const hiddenRequestCount = Math.max(incomingRequests.length - visibleRequests.length, 0);
 
   const visibleScheduleRequests = showAllScheduleRequests
     ? incomingScheduleRequests
@@ -118,22 +163,21 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
 
   const hiddenScheduleRequestCount = Math.max(
     incomingScheduleRequests.length - visibleScheduleRequests.length,
-    0
+    0,
   );
 
   const selectedFriendFilterLabel =
-    friendFilters.find((filter) => filter.value === friendFilter)?.label ||
-    "Tất cả";
+    friendFilters.find((filter) => filter.value === friendFilter)?.label || "Tất cả";
 
   const recentConversationCalls = useMemo(
     () =>
-      (source==='mock'?recentCallsData:[]).filter(
+      (source === "mock" ? recentCallsData : []).filter(
         (call) =>
           !call.isFriend &&
           call.wasConnected &&
-          !friends.some((friend) => friend.name === call.name)
+          !friends.some((friend) => friend.name === call.name),
       ),
-    [friends,source]
+    [friends, source],
   );
 
   const calendarAppointments = useMemo(() => {
@@ -160,7 +204,7 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
     }));
 
     return [...upcomingSessions, ...pendingRequests].sort((a, b) =>
-      `${a.date} ${a.time}`.localeCompare(`${b.date} ${b.time}`)
+      `${a.date} ${a.time}`.localeCompare(`${b.date} ${b.time}`),
     );
   }, [incomingScheduleRequests, scheduledSessions]);
 
@@ -169,13 +213,10 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
       calendarAppointments.reduce((groupedAppointments, appointment) => {
         return {
           ...groupedAppointments,
-          [appointment.date]: [
-            ...(groupedAppointments[appointment.date] || []),
-            appointment,
-          ],
+          [appointment.date]: [...(groupedAppointments[appointment.date] || []), appointment],
         };
       }, {}),
-    [calendarAppointments]
+    [calendarAppointments],
   );
 
   const calendarTitle = `${calendarMonthNames[calendarMonthDate.getMonth()]} ${calendarMonthDate.getFullYear()}`;
@@ -184,15 +225,15 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
     const firstDayOfMonth = new Date(
       calendarMonthDate.getFullYear(),
       calendarMonthDate.getMonth(),
-      1
+      1,
     );
     const firstCalendarDay = new Date(firstDayOfMonth);
-    firstCalendarDay.setDate(
-      firstDayOfMonth.getDate() - (firstDayOfMonth.getDay() + 6) % 7
-    );
+
+    firstCalendarDay.setDate(firstDayOfMonth.getDate() - ((firstDayOfMonth.getDay() + 6) % 7));
 
     return Array.from({ length: 42 }, (_, index) => {
       const date = new Date(firstCalendarDay);
+
       date.setDate(firstCalendarDay.getDate() + index);
 
       return {
@@ -208,15 +249,13 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
 
   const goToPreviousMonth = () => {
     setCalendarMonthDate(
-      (currentDate) =>
-        new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1)
+      (currentDate) => new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1),
     );
   };
 
   const goToNextMonth = () => {
     setCalendarMonthDate(
-      (currentDate) =>
-        new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1)
+      (currentDate) => new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1),
     );
   };
 
@@ -225,7 +264,12 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
   };
 
   const openQuickInvite = (dateKey) => {
-    if(source==='server'){toast({type:'info',message:'Lịch hẹn đang được cập nhật.'});return;}
+    if (source === "server") {
+      toast({ type: "info", message: "Lịch hẹn đang được cập nhật." });
+
+      return;
+    }
+
     setQuickInviteDate(dateKey);
     setQuickInviteFriendId(friends[0]?.id || "");
     setQuickInviteTime("19:30");
@@ -239,11 +283,11 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
   const handleQuickInviteSubmit = (event) => {
     event.preventDefault();
 
-    const selectedFriend = friends.find(
-      (friend) => friend.id === quickInviteFriendId
-    );
+    const selectedFriend = friends.find((friend) => friend.id === quickInviteFriendId);
 
-    if (!selectedFriend || !validateSchedule(quickInviteDate, quickInviteTime)) return;
+    if (!selectedFriend || !validateSchedule(quickInviteDate, quickInviteTime)) {
+      return;
+    }
 
     setScheduledSessions((prev) => [
       {
@@ -257,20 +301,41 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
       },
       ...prev,
     ]);
-    toast({ type: 'success', message: 'Đã gửi lời mời lịch hẹn.' });
+    toast({ type: "success", message: "Đã gửi lời mời lịch hẹn." });
     closeQuickInvite();
   };
 
   const handleAcceptRequest = async (request) => {
-    if(source==='server'){
-      if(pendingRequestId)return;setPendingRequestId(request.id);
-      try{const undo=await decideRequest(request,'accept');toast({type:'success',message:'Đã kết bạn. Hoàn tác sẽ hủy kết bạn.',undo});}
-      catch(error){toast({type:'error',error});}finally{setPendingRequestId(null);}return;
+    if (source === "server") {
+      if (pendingRequestId) {
+        return;
+      }
+
+      setPendingRequestId(request.id);
+
+      try {
+        const undo = await decideRequest(request, "accept");
+
+        toast({ type: "success", message: "Đã kết bạn. Hoàn tác sẽ hủy kết bạn.", undo });
+      } catch (error) {
+        toast({ type: "error", error });
+      } finally {
+        setPendingRequestId(null);
+      }
+
+      return;
     }
-    toast({ type: 'success', message: `Đã chấp nhận kết bạn với ${request.name}.`, undo: () => {
-      setFriends(prev => prev.filter(item => item.id !== `friend-${request.id}`));
-      setIncomingRequests(prev => prev.some(item => item.id === request.id) ? prev : [request, ...prev]);
-    } });
+
+    toast({
+      type: "success",
+      message: `Đã chấp nhận kết bạn với ${request.name}.`,
+      undo: () => {
+        setFriends((prev) => prev.filter((item) => item.id !== `friend-${request.id}`));
+        setIncomingRequests((prev) =>
+          prev.some((item) => item.id === request.id) ? prev : [request, ...prev],
+        );
+      },
+    });
     setFriends((prev) => [
       {
         id: `friend-${request.id}`,
@@ -281,27 +346,52 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
       },
       ...prev,
     ]);
-    setIncomingRequests((prev) =>
-      prev.filter((item) => item.id !== request.id)
-    );
+    setIncomingRequests((prev) => prev.filter((item) => item.id !== request.id));
   };
 
   const handleDeclineRequest = async (requestId) => {
-    const request = incomingRequests.find(item => item.id === requestId);
-    if(source==='server'){
-      if(pendingRequestId||!request)return;setPendingRequestId(requestId);
-      try{const undo=await decideRequest(request,'reject');toast({type:'info',message:'Đã từ chối. Hoàn tác sẽ gửi lại lời mời kết bạn.',undo});}
-      catch(error){toast({type:'error',error});}finally{setPendingRequestId(null);}return;
+    const request = incomingRequests.find((item) => item.id === requestId);
+
+    if (source === "server") {
+      if (pendingRequestId || !request) {
+        return;
+      }
+
+      setPendingRequestId(requestId);
+
+      try {
+        const undo = await decideRequest(request, "reject");
+
+        toast({ type: "info", message: "Đã từ chối. Hoàn tác sẽ gửi lại lời mời kết bạn.", undo });
+      } catch (error) {
+        toast({ type: "error", error });
+      } finally {
+        setPendingRequestId(null);
+      }
+
+      return;
     }
-    toast({ type: 'info', message: 'Đã từ chối lời mời kết bạn.', undo: () => { if (request) setIncomingRequests(prev => prev.some(item => item.id === requestId) ? prev : [request, ...prev]); } });
-    setIncomingRequests((prev) =>
-      prev.filter((item) => item.id !== requestId)
-    );
+
+    toast({
+      type: "info",
+      message: "Đã từ chối lời mời kết bạn.",
+      undo: () => {
+        if (request) {
+          setIncomingRequests((prev) =>
+            prev.some((item) => item.id === requestId) ? prev : [request, ...prev],
+          );
+        }
+      },
+    });
+    setIncomingRequests((prev) => prev.filter((item) => item.id !== requestId));
   };
 
   const handleAcceptScheduleRequest = (request) => {
-    if (!validateSchedule(request.date, request.time)) return;
-    toast({ type: 'success', message: 'Đã chấp nhận lịch hẹn.' });
+    if (!validateSchedule(request.date, request.time)) {
+      return;
+    }
+
+    toast({ type: "success", message: "Đã chấp nhận lịch hẹn." });
     setScheduledSessions((prev) => [
       {
         id: `accepted-${request.id}`,
@@ -314,28 +404,55 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
       },
       ...prev,
     ]);
-    setIncomingScheduleRequests((prev) =>
-      prev.filter((item) => item.id !== request.id)
-    );
+    setIncomingScheduleRequests((prev) => prev.filter((item) => item.id !== request.id));
   };
 
   const handleDeclineScheduleRequest = (requestId) => {
-    const request = incomingScheduleRequests.find(item => item.id === requestId);
-    toast({ type: 'info', message: 'Đã từ chối lịch hẹn.', undo: () => { if (request) setIncomingScheduleRequests(prev => prev.some(item => item.id === requestId) ? prev : [request,...prev]); } });
-    setIncomingScheduleRequests((prev) =>
-      prev.filter((item) => item.id !== requestId)
-    );
+    const request = incomingScheduleRequests.find((item) => item.id === requestId);
+
+    toast({
+      type: "info",
+      message: "Đã từ chối lịch hẹn.",
+      undo: () => {
+        if (request) {
+          setIncomingScheduleRequests((prev) =>
+            prev.some((item) => item.id === requestId) ? prev : [request, ...prev],
+          );
+        }
+      },
+    });
+    setIncomingScheduleRequests((prev) => prev.filter((item) => item.id !== requestId));
   };
 
   // ===== Gửi lời mời kết bạn từ card cuộc gọi gần đây =====
   const handleAddFriend = async (callId) => {
-    if(requestingCallId||requestedCallIds.includes(callId))return;
+    if (requestingCallId || requestedCallIds.includes(callId)) {
+      return;
+    }
+
     setRequestingCallId(callId);
-    try{await addFriend(callId);toast({type:'success',message:'Đã gửi lời mời kết bạn.'});}
-    catch(error){toast({type:'error',error});}finally{setRequestingCallId(null);}
+
+    try {
+      await addFriend(callId);
+      toast({ type: "success", message: "Đã gửi lời mời kết bạn." });
+    } catch (error) {
+      toast({ type: "error", error });
+    } finally {
+      setRequestingCallId(null);
+    }
   };
+
   const handleSchedule = (friend) => {
-    if(source==='server'){toast({type:'info',message:'Lịch hẹn đang được kết nối với máy chủ. Bạn có thể gọi trực tiếp cho bạn đang online.'});return;}
+    if (source === "server") {
+      toast({
+        type: "info",
+        message:
+          "Lịch hẹn đang được kết nối với máy chủ. Bạn có thể gọi trực tiếp cho bạn đang online.",
+      });
+
+      return;
+    }
+
     setScheduleTarget(friend);
     setScheduleDate("");
     setScheduleTime("");
@@ -350,11 +467,12 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
 
   const handleScheduleSubmit = (event) => {
     event.preventDefault();
-    if (!validateSchedule(scheduleDate, scheduleTime)) return;
-    const finalTopic =
-      scheduleTopic === OTHER_TOPIC
-        ? customScheduleTopic.trim()
-        : scheduleTopic;
+
+    if (!validateSchedule(scheduleDate, scheduleTime)) {
+      return;
+    }
+
+    const finalTopic = scheduleTopic === OTHER_TOPIC ? customScheduleTopic.trim() : scheduleTopic;
 
     const newSession = {
       id: `session-${new Date().getTime()}`,
@@ -368,11 +486,13 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
 
     setScheduledSessions((prev) => [newSession, ...prev]);
     setScheduleStep("success");
-    toast({ type: 'success', message: 'Đã gửi lời mời lịch hẹn.' });
+    toast({ type: "success", message: "Đã gửi lời mời lịch hẹn." });
   };
 
   const handleCall = (friend) => {
-    if (friend.isOnline) navigate(`/video?friend=${encodeURIComponent(friend.id)}`);
+    if (friend.isOnline) {
+      navigate(`/video?friend=${encodeURIComponent(friend.id)}`);
+    }
   };
 
   return (
@@ -381,230 +501,276 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
         <h1 id="friends-page-title" className="friends-page__title text-h1">
           {pageTitle}
         </h1>
-        <p className="friends-page__subtitle text-caption">
-          {pageSubtitle}
-        </p>
+        <p className="friends-page__subtitle text-caption">{pageSubtitle}</p>
       </div>
 
-      <DataState status={status} error={error} retry={retry}><Content {...{pendingRequestId,searchValue,setSearchValue,isFriendsHome,callHistoryTriggerRef,setShowCallHistory,recentConversationCalls,handleAddFriend,requestingCallId,requestedCallIds,showCallHistory,filteredFriends,selectedFriendFilterLabel,friendFilter,filterRef,isFriendFilterOpen,setIsFriendFilterOpen,setFriendFilter,visibleFriendCount,setVisibleFriendCount,handleSchedule,handleCall,isFriendRequestsView,incomingRequests,visibleRequests,handleAcceptRequest,handleDeclineRequest,showAllRequests,setShowAllRequests,hiddenRequestCount,isVideoInvitesView,incomingScheduleRequests,visibleScheduleRequests,handleAcceptScheduleRequest,handleDeclineScheduleRequest,showAllScheduleRequests,setShowAllScheduleRequests,hiddenScheduleRequestCount,calendarAppointments,calendarTitle,calendarMonthDays,calendarAppointmentsByDate,goToPreviousMonth,goToNextMonth,goToTodayMonth,openQuickInvite}} /></DataState>
+      <DataState status={status} error={error} retry={retry}>
+        <Content
+          {...{
+            pendingRequestId,
+            searchValue,
+            setSearchValue,
+            isFriendsHome,
+            callHistoryTriggerRef,
+            setShowCallHistory,
+            recentConversationCalls,
+            handleAddFriend,
+            requestingCallId,
+            requestedCallIds,
+            showCallHistory,
+            filteredFriends,
+            selectedFriendFilterLabel,
+            friendFilter,
+            filterRef,
+            isFriendFilterOpen,
+            setIsFriendFilterOpen,
+            setFriendFilter,
+            visibleFriendCount,
+            setVisibleFriendCount,
+            handleSchedule,
+            handleCall,
+            isFriendRequestsView,
+            incomingRequests,
+            visibleRequests,
+            handleAcceptRequest,
+            handleDeclineRequest,
+            showAllRequests,
+            setShowAllRequests,
+            hiddenRequestCount,
+            isVideoInvitesView,
+            incomingScheduleRequests,
+            visibleScheduleRequests,
+            handleAcceptScheduleRequest,
+            handleDeclineScheduleRequest,
+            showAllScheduleRequests,
+            setShowAllScheduleRequests,
+            hiddenScheduleRequestCount,
+            calendarAppointments,
+            calendarTitle,
+            calendarMonthDays,
+            calendarAppointmentsByDate,
+            goToPreviousMonth,
+            goToNextMonth,
+            goToTodayMonth,
+            openQuickInvite,
+          }}
+        />
+      </DataState>
       {quickInviteDate && (
-        <Modal className="schedule-modal__panel" labelledBy="quick-invite-title" onClose={closeQuickInvite}>
-            <button
-              type="button"
-              className="schedule-modal__close"
-              onClick={closeQuickInvite}
-              aria-label="Đóng mời call"
-            >
-              <X size={17} strokeWidth={1.8} />
-            </button>
+        <Modal
+          className="schedule-modal__panel"
+          labelledBy="quick-invite-title"
+          onClose={closeQuickInvite}
+        >
+          <button
+            type="button"
+            className="schedule-modal__close"
+            onClick={closeQuickInvite}
+            aria-label="Đóng mời call"
+          >
+            <X size={17} strokeWidth={1.8} />
+          </button>
 
-            <div className="schedule-modal__header">
-              <div className="schedule-modal__calendar-icon">
-                <Plus size={20} strokeWidth={2} />
-              </div>
-              <div>
-                <p className="schedule-modal__eyebrow">Mời hẹn video call</p>
-                <h2 id="quick-invite-title" className="schedule-modal__title text-h2">
-                  Ngày {quickInviteDate}
-                </h2>
-              </div>
+          <div className="schedule-modal__header">
+            <div className="schedule-modal__calendar-icon">
+              <Plus size={20} strokeWidth={2} />
+            </div>
+            <div>
+              <p className="schedule-modal__eyebrow">Mời hẹn video call</p>
+              <h2 id="quick-invite-title" className="schedule-modal__title text-h2">
+                Ngày {quickInviteDate}
+              </h2>
+            </div>
+          </div>
+
+          <form className="schedule-form" onSubmit={handleQuickInviteSubmit}>
+            <label className="schedule-form__field schedule-form__field--full">
+              <span>Chọn bạn bè</span>
+              <select
+                value={quickInviteFriendId}
+                onChange={(event) => setQuickInviteFriendId(event.target.value)}
+                required
+              >
+                {friends.map((friend) => (
+                  <option key={friend.id} value={friend.id}>
+                    {friend.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <label className="schedule-form__field">
+              <span>Giờ bắt đầu</span>
+              <input
+                type="time"
+                min={quickInviteDate === today ? minTime : undefined}
+                value={quickInviteTime}
+                onChange={(event) => setQuickInviteTime(event.target.value)}
+                required
+              />
+            </label>
+
+            <label className="schedule-form__field">
+              <span>Chủ đề</span>
+              <input
+                type="text"
+                value={quickInviteTopic}
+                onChange={(event) => setQuickInviteTopic(event.target.value)}
+                placeholder="Ví dụ: Luyện phản xạ video call"
+                required
+              />
+            </label>
+
+            <div className="schedule-form__summary">
+              <Calendar size={16} strokeWidth={1.8} />
+              <span>Lời mời sẽ được thêm vào lịch của bạn với trạng thái đợi xác nhận.</span>
             </div>
 
-            <form className="schedule-form" onSubmit={handleQuickInviteSubmit}>
-              <label className="schedule-form__field schedule-form__field--full">
-                <span>Chọn bạn bè</span>
-                <select
-                  value={quickInviteFriendId}
-                  onChange={(event) =>
-                    setQuickInviteFriendId(event.target.value)
-                  }
-                  required
-                >
-                  {friends.map((friend) => (
-                    <option key={friend.id} value={friend.id}>
-                      {friend.name}
-                    </option>
-                  ))}
-                </select>
-              </label>
-
-              <label className="schedule-form__field">
-                <span>Giờ bắt đầu</span>
-                <input
-                  type="time"
-                  min={quickInviteDate === today ? minTime : undefined}
-                  value={quickInviteTime}
-                  onChange={(event) => setQuickInviteTime(event.target.value)}
-                  required
-                />
-              </label>
-
-              <label className="schedule-form__field">
-                <span>Chủ đề</span>
-                <input
-                  type="text"
-                  value={quickInviteTopic}
-                  onChange={(event) => setQuickInviteTopic(event.target.value)}
-                  placeholder="Ví dụ: Luyện phản xạ video call"
-                  required
-                />
-              </label>
-
-              <div className="schedule-form__summary">
-                <Calendar size={16} strokeWidth={1.8} />
-                <span>
-                  Lời mời sẽ được thêm vào lịch của bạn với trạng thái đợi xác nhận.
-                </span>
-              </div>
-
-              <div className="schedule-form__actions">
-                <button
-                  type="button"
-                  className="schedule-modal__secondary"
-                  onClick={closeQuickInvite}
-                >
-                  Hủy
-                </button>
-                <button type="submit" className="schedule-modal__primary">
-                  <Plus size={15} strokeWidth={2} />
-                  <span>Mời call</span>
-                </button>
-              </div>
-            </form>
-</Modal>
+            <div className="schedule-form__actions">
+              <button
+                type="button"
+                className="schedule-modal__secondary"
+                onClick={closeQuickInvite}
+              >
+                Hủy
+              </button>
+              <button type="submit" className="schedule-modal__primary">
+                <Plus size={15} strokeWidth={2} />
+                <span>Mời call</span>
+              </button>
+            </div>
+          </form>
+        </Modal>
       )}
 
       {scheduleTarget && (
-        <Modal className="schedule-modal__panel" labelledBy="schedule-modal-title" onClose={closeScheduleFlow}>
-            <button
-              type="button"
-              className="schedule-modal__close"
-              onClick={closeScheduleFlow}
-              aria-label="Đóng hẹn lịch"
-            >
-              <X size={17} strokeWidth={1.8} />
-            </button>
+        <Modal
+          className="schedule-modal__panel"
+          labelledBy="schedule-modal-title"
+          onClose={closeScheduleFlow}
+        >
+          <button
+            type="button"
+            className="schedule-modal__close"
+            onClick={closeScheduleFlow}
+            aria-label="Đóng hẹn lịch"
+          >
+            <X size={17} strokeWidth={1.8} />
+          </button>
 
-            {scheduleStep === "success" ? (
-              <div className="schedule-success">
-                <div className="schedule-success__icon">
-                  <Check size={24} strokeWidth={2} />
-                </div>
-
-                <h2 id="schedule-modal-title" className="schedule-modal__title text-h2">
-                  Đã tạo lịch hẹn
-                </h2>
-                <p className="schedule-modal__text">
-                  Buổi luyện với {scheduleTarget.name} đã được thêm vào lịch hẹn luyện tập.
-                </p>
-
-                <button
-                  type="button"
-                  className="schedule-modal__primary"
-                  onClick={closeScheduleFlow}
-                >
-                  Hoàn tất
-                </button>
+          {scheduleStep === "success" ? (
+            <div className="schedule-success">
+              <div className="schedule-success__icon">
+                <Check size={24} strokeWidth={2} />
               </div>
-            ) : (
-              <>
-                <div className="schedule-modal__header">
-                  <img
-                    src={scheduleTarget.avatar}
-                    alt={scheduleTarget.name}
-                    className="schedule-modal__avatar"
+
+              <h2 id="schedule-modal-title" className="schedule-modal__title text-h2">
+                Đã tạo lịch hẹn
+              </h2>
+              <p className="schedule-modal__text">
+                Buổi luyện với {scheduleTarget.name} đã được thêm vào lịch hẹn luyện tập.
+              </p>
+
+              <button type="button" className="schedule-modal__primary" onClick={closeScheduleFlow}>
+                Hoàn tất
+              </button>
+            </div>
+          ) : (
+            <>
+              <div className="schedule-modal__header">
+                <img
+                  src={scheduleTarget.avatar}
+                  alt={scheduleTarget.name}
+                  className="schedule-modal__avatar"
+                />
+                <div>
+                  <p className="schedule-modal__eyebrow">Hẹn lịch luyện tập</p>
+                  <h2 id="schedule-modal-title" className="schedule-modal__title text-h2">
+                    Với {scheduleTarget.name}
+                  </h2>
+                </div>
+              </div>
+
+              <form className="schedule-form" onSubmit={handleScheduleSubmit}>
+                <label className="schedule-form__field">
+                  <span>Ngày luyện</span>
+                  <input
+                    type="date"
+                    min={today}
+                    value={scheduleDate}
+                    onChange={(event) => setScheduleDate(event.target.value)}
+                    required
                   />
-                  <div>
-                    <p className="schedule-modal__eyebrow">Hẹn lịch luyện tập</p>
-                    <h2 id="schedule-modal-title" className="schedule-modal__title text-h2">
-                      Với {scheduleTarget.name}
-                    </h2>
-                  </div>
+                </label>
+
+                <label className="schedule-form__field">
+                  <span>Giờ bắt đầu</span>
+                  <input
+                    type="time"
+                    min={scheduleDate === today ? minTime : undefined}
+                    value={scheduleTime}
+                    onChange={(event) => setScheduleTime(event.target.value)}
+                    required
+                  />
+                </label>
+
+                <label className="schedule-form__field schedule-form__field--full">
+                  <span>Chủ đề</span>
+                  <select
+                    value={scheduleTopic}
+                    onChange={(event) => {
+                      setScheduleTopic(event.target.value);
+
+                      if (event.target.value !== OTHER_TOPIC) {
+                        setCustomScheduleTopic("");
+                      }
+                    }}
+                  >
+                    <option>Luyện giao tiếp cơ bản</option>
+                    <option>Ôn bảng chữ cái ký hiệu</option>
+                    <option>Chuẩn bị cuộc gọi video</option>
+                    <option>Luyện phản xạ với AI</option>
+                    <option>{OTHER_TOPIC}</option>
+                  </select>
+                </label>
+
+                {scheduleTopic === OTHER_TOPIC && (
+                  <label className="schedule-form__field schedule-form__field--full">
+                    <span>Nhập chủ đề khác</span>
+                    <input
+                      type="text"
+                      value={customScheduleTopic}
+                      onChange={(event) => setCustomScheduleTopic(event.target.value)}
+                      placeholder="Ví dụ: Luyện ký hiệu trong bệnh viện"
+                      required
+                    />
+                  </label>
+                )}
+
+                <div className="schedule-form__summary">
+                  <Clock size={16} strokeWidth={1.8} />
+                  <span>
+                    Sau khi tạo lịch, buổi hẹn sẽ xuất hiện trong trang lời mời hẹn video call.
+                  </span>
                 </div>
 
-                <form
-                  className="schedule-form"
-                  onSubmit={handleScheduleSubmit}
-                >
-                  <label className="schedule-form__field">
-                    <span>Ngày luyện</span>
-                    <input
-                      type="date" min={today}
-                      value={scheduleDate}
-                      onChange={(event) => setScheduleDate(event.target.value)}
-                      required
-                    />
-                  </label>
-
-                  <label className="schedule-form__field">
-                    <span>Giờ bắt đầu</span>
-                    <input
-                      type="time"
-                      min={scheduleDate === today ? minTime : undefined}
-                      value={scheduleTime}
-                      onChange={(event) => setScheduleTime(event.target.value)}
-                      required
-                    />
-                  </label>
-
-                  <label className="schedule-form__field schedule-form__field--full">
-                    <span>Chủ đề</span>
-                    <select
-                      value={scheduleTopic}
-                      onChange={(event) => {
-                        setScheduleTopic(event.target.value);
-                        if (event.target.value !== OTHER_TOPIC) {
-                          setCustomScheduleTopic("");
-                        }
-                      }}
-                    >
-                      <option>Luyện giao tiếp cơ bản</option>
-                      <option>Ôn bảng chữ cái ký hiệu</option>
-                      <option>Chuẩn bị cuộc gọi video</option>
-                      <option>Luyện phản xạ với AI</option>
-                      <option>{OTHER_TOPIC}</option>
-                    </select>
-                  </label>
-
-                  {scheduleTopic === OTHER_TOPIC && (
-                    <label className="schedule-form__field schedule-form__field--full">
-                      <span>Nhập chủ đề khác</span>
-                      <input
-                        type="text"
-                        value={customScheduleTopic}
-                        onChange={(event) =>
-                          setCustomScheduleTopic(event.target.value)
-                        }
-                        placeholder="Ví dụ: Luyện ký hiệu trong bệnh viện"
-                        required
-                      />
-                    </label>
-                  )}
-
-                  <div className="schedule-form__summary">
-                    <Clock size={16} strokeWidth={1.8} />
-                    <span>
-                      Sau khi tạo lịch, buổi hẹn sẽ xuất hiện trong trang lời mời hẹn video call.
-                    </span>
-                  </div>
-
-                  <div className="schedule-form__actions">
-                    <button
-                      type="button"
-                      className="schedule-modal__secondary"
-                      onClick={closeScheduleFlow}
-                    >
-                      Hủy
-                    </button>
-                    <button type="submit" className="schedule-modal__primary">
-                      <Calendar size={15} strokeWidth={1.8} />
-                      <span>Tạo lịch hẹn</span>
-                    </button>
-                  </div>
-                </form>
-              </>
-            )}
-</Modal>
+                <div className="schedule-form__actions">
+                  <button
+                    type="button"
+                    className="schedule-modal__secondary"
+                    onClick={closeScheduleFlow}
+                  >
+                    Hủy
+                  </button>
+                  <button type="submit" className="schedule-modal__primary">
+                    <Calendar size={15} strokeWidth={1.8} />
+                    <span>Tạo lịch hẹn</span>
+                  </button>
+                </div>
+              </form>
+            </>
+          )}
+        </Modal>
       )}
     </div>
   );

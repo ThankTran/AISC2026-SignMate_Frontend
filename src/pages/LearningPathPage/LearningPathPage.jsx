@@ -11,11 +11,26 @@ import ApiState from "../../components/ApiState";
 
 const LearningPathPage = () => {
   const { data, error, retry } = useDashboard();
-  if (!data || error) return <ApiState error={error} retry={retry} />;
-  if(!data.chapters.length)return <EmptyState title="Chưa có chương học" description="Lộ trình sẽ xuất hiện khi nội dung được cập nhật." to="/dashboard" actionLabel="Về trang chủ"/>;
-  const nextLesson = data.chapters.flatMap((chapter) =>
-    chapter.lessons.map((lesson) => ({ ...lesson, chapterId: chapter.id }))
-  ).find((lesson) => lesson.status === "active");
+
+  if (!data || error) {
+    return <ApiState error={error} retry={retry} />;
+  }
+
+  if (!data.chapters.length) {
+    return (
+      <EmptyState
+        title="Chưa có chương học"
+        description="Lộ trình sẽ xuất hiện khi nội dung được cập nhật."
+        to="/dashboard"
+        actionLabel="Về trang chủ"
+      />
+    );
+  }
+
+  const nextLesson = data.chapters
+    .flatMap((chapter) => chapter.lessons.map((lesson) => ({ ...lesson, chapterId: chapter.id })))
+    .find((lesson) => lesson.status === "active");
+
   return (
     <div className="lp-page">
       {/* ========== LEFT COLUMN ========== */}

@@ -8,7 +8,7 @@ const SessionControls = ({
   onStart,
   onStop,
   cameraOn,
-  disabled=false,
+  disabled = false,
 }) => {
   const isRunning = phase === "recording" || phase === "countdown";
 
@@ -30,16 +30,10 @@ const SessionControls = ({
           {cameraOn ? (
             <Camera size={16} strokeWidth={2} />
           ) : (
-            <CameraOff
-              size={16}
-              strokeWidth={2}
-              className="session-ctrl__toggle-off-ic"
-            />
+            <CameraOff size={16} strokeWidth={2} className="session-ctrl__toggle-off-ic" />
           )}
           {cameraOn ? "On" : "Off"}
         </button>
-
-
       </div>
 
       {/* ---- Primary action ---- */}

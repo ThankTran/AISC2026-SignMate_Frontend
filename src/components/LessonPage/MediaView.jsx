@@ -12,9 +12,7 @@ const MediaView = ({ question }) => {
       {/* ---- Sub header ---- */}
       <div className="lesson-media__header">
         <span className="lesson-media__tag">KÝ HIỆU ĐANG HỌC</span>
-        <h2 className="lesson-media__title text-h2">
-          Quan sát ký hiệu
-        </h2>
+        <h2 className="lesson-media__title text-h2">Quan sát ký hiệu</h2>
       </div>
 
       {/* ---- Video player frame ---- */}
@@ -32,9 +30,8 @@ const MediaView = ({ question }) => {
           <Lightbulb size={18} strokeWidth={2} />
         </div>
         <p className="lesson-media__tip-text">
-          <strong>Mẹo:</strong> Chú ý đến hướng chuyển động của bàn
-          tay và biểu cảm khuôn mặt — cả hai đều là phần quan trọng
-          của ký hiệu.
+          <strong>Mẹo:</strong> Chú ý đến hướng chuyển động của bàn tay và biểu cảm khuôn mặt — cả
+          hai đều là phần quan trọng của ký hiệu.
         </p>
       </div>
     </section>

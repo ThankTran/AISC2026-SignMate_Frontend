@@ -72,8 +72,13 @@
 }
 
 @keyframes cam-rec-blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.2; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.2;
+  }
 }
 
 /* ===== VIDEO AREA ===== */
@@ -181,25 +186,39 @@
 }
 
 .cam-viewport__countdown-num {
-
   font-size: 120px;
   font-weight: var(--font-weight-bold);
   color: #fff;
-  text-shadow: 0 0 40px rgba(127, 119, 221, 0.7), 0 0 80px rgba(127, 119, 221, 0.3);
+  text-shadow:
+    0 0 40px rgba(127, 119, 221, 0.7),
+    0 0 80px rgba(127, 119, 221, 0.3);
   animation: cam-countdown-pop 0.9s ease-out;
 
   font-family: var(--font-family-mono);
 }
 
 @keyframes cam-countdown-pop {
-  0% { transform: scale(2.2); opacity: 0; }
-  30% { transform: scale(1); opacity: 1; }
-  100% { transform: scale(0.9); opacity: 0.9; }
+  0% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+  30% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.9);
+    opacity: 0.9;
+  }
 }
 
 @keyframes cam-countdown-fade {
-  0% { background: rgba(18, 19, 28, 0.7); }
-  100% { background: rgba(18, 19, 28, 0.4); }
+  0% {
+    background: rgba(18, 19, 28, 0.7);
+  }
+  100% {
+    background: rgba(18, 19, 28, 0.4);
+  }
 }
 
 /* ===== IDLE PROMPT ===== */
@@ -262,7 +281,9 @@
   font-family: inherit;
   text-align: left;
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.15s ease;
+  transition:
+    background 0.2s ease,
+    transform 0.15s ease;
 }
 
 .cam-viewport__sign-info:hover {
@@ -325,9 +346,15 @@
 .cam-viewport__conf-icon {
   color: rgba(255, 255, 255, 0.6);
 }
-.cam-viewport__conf-icon--high { color: #4ade80; }
-.cam-viewport__conf-icon--medium { color: #fbbf24; }
-.cam-viewport__conf-icon--low { color: #f87171; }
+.cam-viewport__conf-icon--high {
+  color: #4ade80;
+}
+.cam-viewport__conf-icon--medium {
+  color: #fbbf24;
+}
+.cam-viewport__conf-icon--low {
+  color: #f87171;
+}
 
 .cam-viewport__conf-value {
   font-family: var(--font-family-mono);
@@ -335,9 +362,15 @@
   font-weight: var(--font-weight-bold);
   color: rgba(255, 255, 255, 0.7);
 }
-.cam-viewport__conf-value--high { color: #4ade80; }
-.cam-viewport__conf-value--medium { color: #fbbf24; }
-.cam-viewport__conf-value--low { color: #f87171; }
+.cam-viewport__conf-value--high {
+  color: #4ade80;
+}
+.cam-viewport__conf-value--medium {
+  color: #fbbf24;
+}
+.cam-viewport__conf-value--low {
+  color: #f87171;
+}
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
@@ -350,8 +383,8 @@
   .cam-viewport__countdown-num {
     font-size: 80px;
 
-  font-family: var(--font-family-mono);
-}
+    font-family: var(--font-family-mono);
+  }
 
   .cam-viewport__badges-top {
     top: 10px;
@@ -365,4 +398,8 @@
   }
 }
 
-@media(max-width:768px){.cam-viewport__sign-info{min-height:44px}}
+@media (max-width: 768px) {
+  .cam-viewport__sign-info {
+    min-height: 44px;
+  }
+}

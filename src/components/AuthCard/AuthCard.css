@@ -1,7 +1,7 @@
 .auth-card {
   width: 100%;
   max-width: 400px;
-  background: #FFFFFF;
+  background: #ffffff;
   border-radius: 20px;
   box-shadow: 0 24px 60px rgba(31, 42, 36, 0.16);
   padding: 36px 32px;
@@ -17,7 +17,9 @@
   font-size: 14px;
   margin: 0 0 24px;
 }
-.field { margin-bottom: 16px; }
+.field {
+  margin-bottom: 16px;
+}
 .field label {
   display: block;
   font-size: 13px;
@@ -25,7 +27,9 @@
   margin-bottom: 6px;
   color: var(--color-neutral-900);
 }
-.input-wrap { position: relative; }
+.input-wrap {
+  position: relative;
+}
 .field input {
   width: 100%;
   padding: 11px 14px;
@@ -34,39 +38,56 @@
   font-size: 14px;
   font-family: var(--font-family-body);
   outline: 2px solid transparent;
-  transition: border-color .15s;
+  transition: border-color 0.15s;
 }
-.field input:focus { border-color: var(--color-teal-500); }
+.field input:focus {
+  border-color: var(--color-teal-500);
+}
 .toggle-visibility {
   position: absolute;
-  right: 12px; top: 50%;
+  right: 12px;
+  top: 50%;
   transform: translateY(-50%);
-  background: none; border: none; cursor: pointer;
+  background: none;
+  border: none;
+  cursor: pointer;
   color: var(--color-neutral-500);
   display: inline-flex;
   align-items: center;
 }
-.field-error { color: var(--color-coral-700); font-size: var(--font-size-caption); margin-top: 4px; }
+.field-error {
+  color: var(--color-coral-700);
+  font-size: var(--font-size-caption);
+  margin-top: 4px;
+}
 
 .btn-primary {
   width: 100%;
   background: var(--color-coral-500);
-  color: #FFFFFF;
+  color: #ffffff;
   border: none;
   border-radius: 10px;
   padding: 13px;
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  transition: background .15s;
+  transition: background 0.15s;
 }
-.btn-primary:hover { background: var(--color-coral-700); }
-.btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+.btn-primary:hover {
+  background: var(--color-coral-700);
+}
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 
 .btn-google {
   width: 100%;
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #ffffff;
   border: 1px solid var(--color-neutral-200);
   border-radius: 10px;
   padding: 12px;
@@ -89,7 +110,11 @@
   color: var(--color-neutral-700);
   margin-top: 18px;
 }
-.auth-footnote a { color: var(--color-teal-500); font-weight: 600; text-decoration: none; }
+.auth-footnote a {
+  color: var(--color-teal-500);
+  font-weight: 600;
+  text-decoration: none;
+}
 
 .link-inline {
   color: var(--color-teal-500);

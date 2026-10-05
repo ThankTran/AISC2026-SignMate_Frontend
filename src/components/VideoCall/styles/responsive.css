@@ -41,8 +41,8 @@
   .vc-count {
     display: none;
 
-  font-family: var(--font-family-mono);
-}
+    font-family: var(--font-family-mono);
+  }
   .vc-topic {
     font-size: var(--font-size-caption);
     padding: 10px;
@@ -327,8 +327,8 @@
   .vc-review-duration strong {
     font-size: 17px;
 
-  font-family: var(--font-family-mono);
-}
+    font-family: var(--font-family-mono);
+  }
   .vc-review-person .vc-avatar {
     width: 35px;
     height: 35px;

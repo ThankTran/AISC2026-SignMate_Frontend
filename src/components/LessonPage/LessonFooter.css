@@ -103,8 +103,13 @@
 }
 
 @keyframes footer-note-pulse {
-  0%, 100% { opacity: 1; }
-  50%      { opacity: 0.55; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
 }
 
 .lesson-footer--success .lesson-footer__note {
@@ -128,7 +133,9 @@
 }
 
 @keyframes footer-spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ---- Status (success / error) ---- */
@@ -168,10 +175,20 @@
 }
 
 @keyframes footer-icon-bounce {
-  0%   { transform: scale(0.4); opacity: 0; }
-  55%  { transform: scale(1.18); }
-  75%  { transform: scale(0.96); }
-  100% { transform: scale(1); opacity: 1; }
+  0% {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+  55% {
+    transform: scale(1.18);
+  }
+  75% {
+    transform: scale(0.96);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .lesson-footer__status-icon--ok {
@@ -228,8 +245,11 @@
 
   cursor: not-allowed;
 
-  transition: background 0.18s ease, color 0.18s ease,
-    transform 0.12s ease, box-shadow 0.18s ease;
+  transition:
+    background 0.18s ease,
+    color 0.18s ease,
+    transform 0.12s ease,
+    box-shadow 0.18s ease;
 }
 
 .lesson-footer__btn--enabled {

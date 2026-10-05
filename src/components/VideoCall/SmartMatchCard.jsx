@@ -1,11 +1,4 @@
-import {
-  ArrowRight,
-  Hand,
-  Sparkles,
-  MessageCircle,
-  ShieldCheck,
-  Heart,
-} from "lucide-react";
+import { ArrowRight, Hand, Sparkles, MessageCircle, ShieldCheck, Heart } from "lucide-react";
 import ParticipantAvatar from "./ParticipantAvatar";
 import CallButton from "./CallButton";
 import { demoPartners as partners } from "../../mockdata/videoCall/partners";
@@ -38,10 +31,7 @@ export default function SmartMatchCard({ canSearch, onSearch }) {
           <br />
           Nhiều điều để sẻ chia.
         </h2>
-        <p>
-          Gợi ý bạn học cùng sở thích và trình độ, để mỗi cuộc trò chuyện đều
-          thật tự nhiên.
-        </p>
+        <p>Gợi ý bạn học cùng sở thích và trình độ, để mỗi cuộc trò chuyện đều thật tự nhiên.</p>
         <div className="vc-online">
           <span className="vc-avatar-stack">
             {partners.map((p) => (

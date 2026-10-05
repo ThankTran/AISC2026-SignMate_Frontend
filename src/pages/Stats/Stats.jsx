@@ -1,31 +1,234 @@
 import EmptyState from "../../components/ui/EmptyState";
-import {useState} from 'react';
-import {Flame,BookOpen,Star,Lock,Check} from 'lucide-react';
-import {useDashboard} from '../../hooks/useLearningData';
-import {useCurrentUser} from '../../hooks/useCurrentUser';
-import ApiState from '../../components/ApiState';
-import LevelBadges from '../../components/ui/LevelBadges';
-import {statsHistory,weeklyXp,learnedLessons,formatStudyTime} from '../../utils/statsHistory';
-import {xpLevel} from '../../utils/learningLevels';
-import './Stats.css';
-const percent=(done,total)=>total?Math.min(100,Math.round(done/total*100)):0;
-function ChapterRow({chapter}) {
- const progress=percent(chapter.done,chapter.total);
- return <div className="st-chapter"><span className={`st-chapter__badge st-chapter__badge--${chapter.status}`}>{chapter.status==='locked'?<Lock size={18}/>:chapter.status==='completed'?<Check size={18}/>:<span>{progress}%</span>}</span><div><div className="st-chapter__heading"><strong>Chương {chapter.id} · {chapter.title}</strong><span className="st-mono">{chapter.done}/{chapter.total} bài</span></div><progress max="100" value={progress} aria-label={`Tiến độ ${chapter.title}`}/></div></div>;
+import { useState } from "react";
+import { Flame, BookOpen, Star, Lock, Check } from "lucide-react";
+import { useDashboard } from "../../hooks/useLearningData";
+import { useCurrentUser } from "../../hooks/useCurrentUser";
+import ApiState from "../../components/ApiState";
+import LevelBadges from "../../components/ui/LevelBadges";
+import { statsHistory, weeklyXp, learnedLessons, formatStudyTime } from "../../utils/statsHistory";
+import { xpLevel } from "../../utils/learningLevels";
+import "./Stats.css";
+
+const percent = (done, total) => (total ? Math.min(100, Math.round((done / total) * 100)) : 0);
+
+function ChapterRow({ chapter }) {
+  const progress = percent(chapter.done, chapter.total);
+
+  return (
+    <div className="st-chapter">
+      <span className={`st-chapter__badge st-chapter__badge--${chapter.status}`}>
+        {chapter.status === "locked" ? (
+          <Lock size={18} />
+        ) : chapter.status === "completed" ? (
+          <Check size={18} />
+        ) : (
+          <span>{progress}%</span>
+        )}
+      </span>
+      <div>
+        <div className="st-chapter__heading">
+          <strong>
+            Chương {chapter.id} · {chapter.title}
+          </strong>
+          <span className="st-mono">
+            {chapter.done}/{chapter.total} bài
+          </span>
+        </div>
+        <progress max="100" value={progress} aria-label={`Tiến độ ${chapter.title}`} />
+      </div>
+    </div>
+  );
 }
-export function StatsContent({stats,chapters,user,today=new Date()}) {
- const [days,setDays]=useState(30);
- const history=statsHistory(stats.activityHistory,days,today),heatmap=statsHistory(stats.activityHistory,84,today),weeks=weeklyXp(history);
- const maxXp=Math.max(1,...weeks.map(row=>row.xp)),totalSeconds=history.reduce((sum,row)=>sum+Number(row.studySeconds||0),0);
- const ai=(stats.aiAccuracyHistory||[]).filter(row=>row.date>=history[0].date&&row.date<=history.at(-1).date&&Number.isFinite(row.accuracy));
- const level=xpLevel(stats.xp),xpRemaining=level*1000-stats.xp;
- return <div className="st"><header><h1 className="text-h1">Thống kê</h1><p>Theo dõi việc học và luyện tập của bạn.</p><LevelBadges user={{...user,curriculumLevel:stats.curriculumLevel||user?.curriculumLevel}} xp={stats.xp}/></header><section className="st-summaries" aria-label="Tổng quan"><div className="st-summary st-summary--xp"><Star/><strong>{stats.xp} XP</strong><span>XP tích lũy</span></div><div className="st-summary st-summary--streak"><Flame/><strong>{stats.streak} ngày</strong><span>Chuỗi ngày học · dài nhất {stats.bestStreak}</span></div><div className="st-summary"><BookOpen/><strong>{learnedLessons(chapters)}</strong><span>Bài học đã học</span></div><div className="st-summary"><strong className="st-course">{stats.curriculumLevel||'Cơ bản'}</strong><span>Cấp độ lộ trình · Level {level} theo XP</span></div></section>
- <section className="st-card"><h2 className="text-h2">Điểm kinh nghiệm</h2><progress value={stats.xp%1000} max="1000" aria-label={`Tiến độ Level ${level+1}`}/><p>Cần thêm <strong className="st-mono">{xpRemaining} XP</strong> để lên Level {level+1}.</p></section>
- <div className="st-filter"><h2 className="text-h2">Hoạt động học tập</h2><div role="group" aria-label="Khoảng thời gian">{[7,30,90].map(value=><button key={value} aria-pressed={days===value} onClick={()=>setDays(value)}>{value} ngày</button>)}</div></div>
- <section className="st-card st-time" aria-live="polite"><h3 className="text-h3">Tổng thời gian học · {days} ngày</h3><strong className="text-number-lg">{formatStudyTime(totalSeconds)}</strong><p>{stats.studyTimeDescription||'Thời gian của các phiên bài học và luyện tập đã kết thúc.'}</p></section>
- <div className="st-charts"><section className="st-card"><h3 className="text-h3">XP theo tuần · {days} ngày</h3><p className="text-caption">Tuần bắt đầu từ thứ Hai. Tuần ở hai đầu chỉ tính các ngày trong bộ lọc.</p>{weeks.some(row=>row.xp>0)?<div className="st-bars" role="img" aria-label={weeks.map(row=>`Tuần ${row.date}: ${row.xp} XP`).join('; ')}>{weeks.map(row=><div key={row.date} className="st-bars__column"><span className="st-mono">{row.xp}</span><div style={{height:`${Math.max(2,row.xp/maxXp*130)}px`}}/><span>{row.date.slice(8)}/{row.date.slice(5,7)}</span></div>)}</div>:<p className="st-empty">Chưa có XP trong {days} ngày này. Hoàn thành bài học để bắt đầu theo dõi.</p>}</section>
- <section className="st-card"><h3 className="text-h3">Độ chính xác AI theo thời gian</h3>{ai.length?<><svg viewBox="0 0 320 140" role="img" aria-label="Biểu đồ độ chính xác AI theo ngày"><polyline fill="none" stroke="currentColor" strokeWidth="3" points={ai.map((row,i)=>`${20+i*280/Math.max(1,ai.length-1)},${120-Math.max(0,Math.min(100,row.accuracy))}`).join(' ')}/>{ai.map((row,i)=><circle key={`${row.date}-${i}`} cx={20+i*280/Math.max(1,ai.length-1)} cy={120-Math.max(0,Math.min(100,row.accuracy))} r="4"><title>{row.date}: {row.accuracy}%</title></circle>)}</svg><ul className="st-ai-values">{ai.map((row,index)=><li key={index}>{row.date}: <span className="st-mono">{row.accuracy}%</span></li>)}</ul></>:<p className="st-empty">Chưa có kết quả nhận diện AI trong khoảng thời gian này. Số liệu chế độ demo không được tính vào thống kê.</p>}</section></div>
- <section className="st-card"><h2 className="text-h2">Lịch streak · 12 tuần gần nhất</h2><p className="text-caption">84 ngày gần nhất, độc lập với bộ lọc. Ngày nhận XP được tính vào chuỗi học.</p><div className="st-heatmap" role="list" aria-label="Các ngày học">{heatmap.map(row=><span key={row.date} role="listitem" tabIndex={0} className={row.xp>0?'is-active':''} title={`${row.date}: ${row.xp} XP`} aria-label={`${row.date}: ${row.xp>0?'Đã học':'Chưa nhận XP'}, ${row.xp} XP`}/>)}</div><div className="st-heatmap-labels"><span>{heatmap[0].date}</span><span>{heatmap.at(-1).date}</span></div><p className="text-caption">Ô xanh: ngày đã nhận XP · Ô xám: chưa nhận XP</p></section>
- <section className="st-card"><h2 className="text-h2">Tiến độ lộ trình</h2>{chapters.length?chapters.map(chapter=><ChapterRow key={chapter.id} chapter={chapter}/>):<p>Chưa có chương học.</p>}</section></div>;
+
+export function StatsContent({ stats, chapters, user, today = new Date() }) {
+  const [days, setDays] = useState(30);
+  const history = statsHistory(stats.activityHistory, days, today),
+    heatmap = statsHistory(stats.activityHistory, 84, today),
+    weeks = weeklyXp(history);
+  const maxXp = Math.max(1, ...weeks.map((row) => row.xp)),
+    totalSeconds = history.reduce((sum, row) => sum + Number(row.studySeconds || 0), 0);
+  const ai = (stats.aiAccuracyHistory || []).filter(
+    (row) =>
+      row.date >= history[0].date &&
+      row.date <= history.at(-1).date &&
+      Number.isFinite(row.accuracy),
+  );
+  const level = xpLevel(stats.xp),
+    xpRemaining = level * 1000 - stats.xp;
+
+  return (
+    <div className="st">
+      <header>
+        <h1 className="text-h1">Thống kê</h1>
+        <p>Theo dõi việc học và luyện tập của bạn.</p>
+        <LevelBadges
+          user={{ ...user, curriculumLevel: stats.curriculumLevel || user?.curriculumLevel }}
+          xp={stats.xp}
+        />
+      </header>
+      <section className="st-summaries" aria-label="Tổng quan">
+        <div className="st-summary st-summary--xp">
+          <Star />
+          <strong>{stats.xp} XP</strong>
+          <span>XP tích lũy</span>
+        </div>
+        <div className="st-summary st-summary--streak">
+          <Flame />
+          <strong>{stats.streak} ngày</strong>
+          <span>Chuỗi ngày học · dài nhất {stats.bestStreak}</span>
+        </div>
+        <div className="st-summary">
+          <BookOpen />
+          <strong>{learnedLessons(chapters)}</strong>
+          <span>Bài học đã học</span>
+        </div>
+        <div className="st-summary">
+          <strong className="st-course">{stats.curriculumLevel || "Cơ bản"}</strong>
+          <span>Cấp độ lộ trình · Level {level} theo XP</span>
+        </div>
+      </section>
+      <section className="st-card">
+        <h2 className="text-h2">Điểm kinh nghiệm</h2>
+        <progress value={stats.xp % 1000} max="1000" aria-label={`Tiến độ Level ${level + 1}`} />
+        <p>
+          Cần thêm <strong className="st-mono">{xpRemaining} XP</strong> để lên Level {level + 1}.
+        </p>
+      </section>
+      <div className="st-filter">
+        <h2 className="text-h2">Hoạt động học tập</h2>
+        <div role="group" aria-label="Khoảng thời gian">
+          {[7, 30, 90].map((value) => (
+            <button key={value} aria-pressed={days === value} onClick={() => setDays(value)}>
+              {value} ngày
+            </button>
+          ))}
+        </div>
+      </div>
+      <section className="st-card st-time" aria-live="polite">
+        <h3 className="text-h3">Tổng thời gian học · {days} ngày</h3>
+        <strong className="text-number-lg">{formatStudyTime(totalSeconds)}</strong>
+        <p>
+          {stats.studyTimeDescription ||
+            "Thời gian của các phiên bài học và luyện tập đã kết thúc."}
+        </p>
+      </section>
+      <div className="st-charts">
+        <section className="st-card">
+          <h3 className="text-h3">XP theo tuần · {days} ngày</h3>
+          <p className="text-caption">
+            Tuần bắt đầu từ thứ Hai. Tuần ở hai đầu chỉ tính các ngày trong bộ lọc.
+          </p>
+          {weeks.some((row) => row.xp > 0) ? (
+            <div
+              className="st-bars"
+              role="img"
+              aria-label={weeks.map((row) => `Tuần ${row.date}: ${row.xp} XP`).join("; ")}
+            >
+              {weeks.map((row) => (
+                <div key={row.date} className="st-bars__column">
+                  <span className="st-mono">{row.xp}</span>
+                  <div style={{ height: `${Math.max(2, (row.xp / maxXp) * 130)}px` }} />
+                  <span>
+                    {row.date.slice(8)}/{row.date.slice(5, 7)}
+                  </span>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="st-empty">
+              Chưa có XP trong {days} ngày này. Hoàn thành bài học để bắt đầu theo dõi.
+            </p>
+          )}
+        </section>
+        <section className="st-card">
+          <h3 className="text-h3">Độ chính xác AI theo thời gian</h3>
+          {ai.length ? (
+            <>
+              <svg viewBox="0 0 320 140" role="img" aria-label="Biểu đồ độ chính xác AI theo ngày">
+                <polyline
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="3"
+                  points={ai
+                    .map(
+                      (row, i) =>
+                        `${20 + (i * 280) / Math.max(1, ai.length - 1)},${120 - Math.max(0, Math.min(100, row.accuracy))}`,
+                    )
+                    .join(" ")}
+                />
+                {ai.map((row, i) => (
+                  <circle
+                    key={`${row.date}-${i}`}
+                    cx={20 + (i * 280) / Math.max(1, ai.length - 1)}
+                    cy={120 - Math.max(0, Math.min(100, row.accuracy))}
+                    r="4"
+                  >
+                    <title>
+                      {row.date}: {row.accuracy}%
+                    </title>
+                  </circle>
+                ))}
+              </svg>
+              <ul className="st-ai-values">
+                {ai.map((row, index) => (
+                  <li key={index}>
+                    {row.date}: <span className="st-mono">{row.accuracy}%</span>
+                  </li>
+                ))}
+              </ul>
+            </>
+          ) : (
+            <p className="st-empty">
+              Chưa có kết quả nhận diện AI trong khoảng thời gian này. Số liệu chế độ demo không
+              được tính vào thống kê.
+            </p>
+          )}
+        </section>
+      </div>
+      <section className="st-card">
+        <h2 className="text-h2">Lịch streak · 12 tuần gần nhất</h2>
+        <p className="text-caption">
+          84 ngày gần nhất, độc lập với bộ lọc. Ngày nhận XP được tính vào chuỗi học.
+        </p>
+        <div className="st-heatmap" role="list" aria-label="Các ngày học">
+          {heatmap.map((row) => (
+            <span
+              key={row.date}
+              role="listitem"
+              tabIndex={0}
+              className={row.xp > 0 ? "is-active" : ""}
+              title={`${row.date}: ${row.xp} XP`}
+              aria-label={`${row.date}: ${row.xp > 0 ? "Đã học" : "Chưa nhận XP"}, ${row.xp} XP`}
+            />
+          ))}
+        </div>
+        <div className="st-heatmap-labels">
+          <span>{heatmap[0].date}</span>
+          <span>{heatmap.at(-1).date}</span>
+        </div>
+        <p className="text-caption">Ô xanh: ngày đã nhận XP · Ô xám: chưa nhận XP</p>
+      </section>
+      <section className="st-card">
+        <h2 className="text-h2">Tiến độ lộ trình</h2>
+        {chapters.length ? (
+          chapters.map((chapter) => <ChapterRow key={chapter.id} chapter={chapter} />)
+        ) : (
+          <p>Chưa có chương học.</p>
+        )}
+      </section>
+    </div>
+  );
 }
-export default function StatsPage(){const {data,error,retry}=useDashboard(),user=useCurrentUser();return error||!data?<ApiState error={error} retry={retry}/>:!data.chapters.length?<EmptyState title="Chưa có thống kê" description="Bắt đầu bài học để theo dõi tiến độ."/>:<StatsContent stats={data.stats} chapters={data.chapters} user={user}/>;}
+
+export default function StatsPage() {
+  const { data, error, retry } = useDashboard(),
+    user = useCurrentUser();
+
+  return error || !data ? (
+    <ApiState error={error} retry={retry} />
+  ) : !data.chapters.length ? (
+    <EmptyState title="Chưa có thống kê" description="Bắt đầu bài học để theo dõi tiến độ." />
+  ) : (
+    <StatsContent stats={data.stats} chapters={data.chapters} user={user} />
+  );
+}

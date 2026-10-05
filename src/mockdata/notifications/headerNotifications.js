@@ -1,1 +1,1 @@
-export {notifications as headerNotifications} from '../progress/notifications.js';
+export { notifications as headerNotifications } from "../progress/notifications.js";

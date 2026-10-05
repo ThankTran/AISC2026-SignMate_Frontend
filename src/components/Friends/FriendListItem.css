@@ -125,7 +125,9 @@
 
   white-space: nowrap;
   cursor: pointer;
-  transition: background-color 0.18s ease, transform 0.18s ease;
+  transition:
+    background-color 0.18s ease,
+    transform 0.18s ease;
 }
 
 .friend-item__schedule-btn:hover {
@@ -152,7 +154,10 @@
   color: var(--color-neutral-700);
 
   cursor: pointer;
-  transition: background-color 0.18s ease, color 0.18s ease, transform 0.18s ease;
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease,
+    transform 0.18s ease;
 }
 
 .friend-item__call-btn:hover {
@@ -179,4 +184,9 @@
   }
 }
 
-@media(max-width:768px){.friend-item__schedule-btn{min-height:44px;min-width:44px}}
+@media (max-width: 768px) {
+  .friend-item__schedule-btn {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}

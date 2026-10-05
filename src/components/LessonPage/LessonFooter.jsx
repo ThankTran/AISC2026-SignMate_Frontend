@@ -23,23 +23,15 @@ const LessonFooter = ({
 
     return (
       <div
-        className={`lesson-footer ${
-          correct ? "lesson-footer--success" : "lesson-footer--error"
-        }`}
+        className={`lesson-footer ${correct ? "lesson-footer--success" : "lesson-footer--error"}`}
       >
         <div className="lesson-footer__status">
           <span
             className={`lesson-footer__status-icon ${
-              correct
-                ? "lesson-footer__status-icon--ok"
-                : "lesson-footer__status-icon--no"
+              correct ? "lesson-footer__status-icon--ok" : "lesson-footer__status-icon--no"
             }`}
           >
-            {correct ? (
-              <Check size={22} strokeWidth={3} />
-            ) : (
-              <X size={22} strokeWidth={3} />
-            )}
+            {correct ? <Check size={22} strokeWidth={3} /> : <X size={22} strokeWidth={3} />}
           </span>
           <div className="lesson-footer__status-text">
             <p className="lesson-footer__status-title">
@@ -55,16 +47,12 @@ const LessonFooter = ({
 
         <div className="lesson-footer__right">
           <span className="lesson-footer__note">
-            {isLast
-              ? "Còn bước cuối cùng để xem kết quả"
-              : "Nhấn để chuyển sang câu hỏi tiếp theo"}
+            {isLast ? "Còn bước cuối cùng để xem kết quả" : "Nhấn để chuyển sang câu hỏi tiếp theo"}
           </span>
           <button
             type="button"
             className={`lesson-footer__btn ${
-              correct
-                ? "lesson-footer__btn--advance"
-                : "lesson-footer__btn--ack"
+              correct ? "lesson-footer__btn--advance" : "lesson-footer__btn--ack"
             }`}
             onClick={onAdvance}
           >
@@ -94,9 +82,7 @@ const LessonFooter = ({
 
       {/* ---- Right: hint + action ---- */}
       <div className="lesson-footer__right">
-        <span className="lesson-footer__hint">
-          Chọn một đáp án để tiếp tục
-        </span>
+        <span className="lesson-footer__hint">Chọn một đáp án để tiếp tục</span>
 
         <button
           type="button"

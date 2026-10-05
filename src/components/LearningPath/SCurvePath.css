@@ -38,7 +38,9 @@
 .lp-curve__segment--active {
   stroke: #0d8a6a;
   stroke-dasharray: 14 8;
-  animation: dash-scroll 14s linear infinite, segment-glow 1.8s ease-in-out infinite;
+  animation:
+    dash-scroll 14s linear infinite,
+    segment-glow 1.8s ease-in-out infinite;
 }
 
 /* Trong chương - chưa mở khóa (xám mờ) */
@@ -68,8 +70,13 @@
 }
 
 @keyframes segment-glow {
-  0%, 100% { opacity: 1; }
-  50%      { opacity: 0.4; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
 }
 
 /* =========================================================
@@ -103,7 +110,9 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 a:hover > .lp-node__icon:not(.lp-node__icon--locked) {
@@ -153,8 +162,15 @@ a:hover > .lp-node__icon:not(.lp-node__icon--locked) {
 }
 
 @keyframes pulse-ring {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50%      { transform: scale(1.22); opacity: 0.4; }
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.22);
+    opacity: 0.4;
+  }
 }
 
 /* --- Trạng thái: Mở khóa (Unlocked) --- */
@@ -312,7 +328,6 @@ a:hover > .lp-node__icon:not(.lp-node__icon--locked) {
 }
 
 .lp-chapter__count {
-
   font-size: var(--font-size-caption);
   font-weight: 700;
   white-space: nowrap;
@@ -332,7 +347,9 @@ a:hover > .lp-node__icon:not(.lp-node__icon--locked) {
   border-radius: 18px;
   cursor: pointer;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 a:hover > .lp-quiz {
@@ -359,8 +376,13 @@ a:hover > .lp-quiz--locked {
 }
 
 @keyframes quiz-glow {
-  0%, 100% { box-shadow: 0 8px 24px rgba(127, 119, 221, 0.35); }
-  50%      { box-shadow: 0 8px 36px rgba(127, 119, 221, 0.65); }
+  0%,
+  100% {
+    box-shadow: 0 8px 24px rgba(127, 119, 221, 0.35);
+  }
+  50% {
+    box-shadow: 0 8px 36px rgba(127, 119, 221, 0.65);
+  }
 }
 
 .lp-quiz__icon {
@@ -502,7 +524,9 @@ a:hover > .lp-quiz--locked {
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.15s ease;
+  transition:
+    background 0.2s ease,
+    transform 0.15s ease;
 }
 
 .lp-tooltip__btn:hover {
@@ -641,18 +665,52 @@ a:hover > .lp-quiz--locked {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .lp-curve *, .lp-curve *::before {
+  .lp-curve *,
+  .lp-curve *::before {
     animation: none;
   }
 }
-.lp-node__ring { position:absolute; inset:-6px; border-radius:inherit; pointer-events:none; }
-.lp-curve__segment { animation:none; }
-.lp-curve__segment--active { animation:dash-scroll 20s linear infinite; }
-.lp-quiz--active { background:var(--color-teal-50); border-color:var(--color-teal-500); color:var(--color-teal-700); }
-.lp-quiz--active .lp-quiz__icon { background:var(--color-teal-500); color:white; }
-.lp-tooltip__btn { text-decoration:none; }
-@media(prefers-reduced-motion:reduce) { .lp-curve *, .lp-curve *::before, .lp-curve *::after { animation:none; transition:none; } }
-.lp-node__icon--active { background:var(--color-coral-500); }
-.lp-node__ring--active { border-color:var(--color-coral-500); }
-.lp-curve__segment--active { stroke:var(--color-coral-500); }
-.lp-chapter--locked { opacity:.75; }
+.lp-node__ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.lp-curve__segment {
+  animation: none;
+}
+.lp-curve__segment--active {
+  animation: dash-scroll 20s linear infinite;
+}
+.lp-quiz--active {
+  background: var(--color-teal-50);
+  border-color: var(--color-teal-500);
+  color: var(--color-teal-700);
+}
+.lp-quiz--active .lp-quiz__icon {
+  background: var(--color-teal-500);
+  color: white;
+}
+.lp-tooltip__btn {
+  text-decoration: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .lp-curve *,
+  .lp-curve *::before,
+  .lp-curve *::after {
+    animation: none;
+    transition: none;
+  }
+}
+.lp-node__icon--active {
+  background: var(--color-coral-500);
+}
+.lp-node__ring--active {
+  border-color: var(--color-coral-500);
+}
+.lp-curve__segment--active {
+  stroke: var(--color-coral-500);
+}
+.lp-chapter--locked {
+  opacity: 0.75;
+}

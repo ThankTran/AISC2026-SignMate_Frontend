@@ -54,7 +54,9 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.15s ease;
+  transition:
+    background 0.2s ease,
+    transform 0.15s ease;
   box-shadow: 0 6px 16px rgba(224, 86, 56, 0.35);
 }
 
@@ -71,5 +73,10 @@
   .lp-next {
     padding: 18px;
   }
-}.lp-next { background:var(--color-teal-900); }
-.lp-next__eyebrow { color:var(--color-teal-100); }
+}
+.lp-next {
+  background: var(--color-teal-900);
+}
+.lp-next__eyebrow {
+  color: var(--color-teal-100);
+}

@@ -1,9 +1,108 @@
-import {Link} from 'react-router-dom';
-import Footer from '../components/Footer/Footer';
-const content={
- faq:{title:'Câu hỏi thường gặp',sections:[['SignMate sử dụng ngôn ngữ ký hiệu nào?','Nội dung hướng đến ngôn ngữ ký hiệu Việt Nam (VSL). Video chưa có sẽ được ghi rõ là đang cập nhật.'],['Cấp độ và Level khác nhau thế nào?','Cấp độ là mức nội dung lộ trình. Level tăng theo XP tích lũy; mỗi 1.000 XP tăng một Level.'],['Vì sao AI chưa có điểm chính xác?','Chế độ demo không phải kết quả nhận diện thật. Chỉ kết quả do dịch vụ nhận diện cung cấp mới được đưa vào thống kê.'],['Tôi không bật được camera?','Kiểm tra quyền camera trong trình duyệt và đóng ứng dụng khác đang dùng thiết bị. Bạn có thể thử lại ở màn kiểm tra thiết bị.']]},
- terms:{title:'Điều khoản sử dụng',sections:[['Sử dụng tôn trọng','Không quấy rối, mạo danh hoặc chia sẻ nội dung xâm phạm quyền riêng tư của người khác. Chỉ chia sẻ nội dung bạn có quyền sử dụng.'],['Nội dung học tập','SignMate hỗ trợ luyện tập. Dữ liệu mẫu và tính năng demo được ghi nhãn; kết quả không phải chứng nhận năng lực hay thay thế hướng dẫn của chuyên gia VSL.'],['Hỗ trợ','Nếu gặp nội dung không phù hợp hoặc vấn đề tài khoản, liên hệ qua trang Liên hệ.']]},
- privacy:{title:'Chính sách bảo mật',sections:[['Dữ liệu tài khoản','Tài khoản, mật khẩu đã băm, hồ sơ và tùy chọn được lưu trong cơ sở dữ liệu của SignMate. Phiên đăng nhập được quản lý và thu hồi trên máy chủ.'],['Tiến độ và thiết bị','Tiến độ mẫu và trạng thái thông báo được lưu trên thiết bị theo tài khoản. Camera chỉ được yêu cầu ở tính năng cần dùng camera. Điểm AI demo không được coi là kết quả học thật.'],['Quản lý dữ liệu','Bạn có thể sửa hồ sơ và quyền riêng tư tại trang Hồ sơ. Chức năng xóa tài khoản yêu cầu xác thực lại. Liên hệ hỗ trợ nếu cần trợ giúp về dữ liệu.']]},
- contact:{title:'Liên hệ hỗ trợ',sections:[['Gửi yêu cầu hỗ trợ','Mô tả tính năng đang dùng, lỗi hiển thị và các bước gặp lỗi. Không gửi mật khẩu hoặc mã xác minh.'],['Email','support@signmate.app']]}
+import { Link } from "react-router-dom";
+import Footer from "../components/Footer/Footer";
+
+const content = {
+  faq: {
+    title: "Câu hỏi thường gặp",
+    sections: [
+      [
+        "SignMate sử dụng ngôn ngữ ký hiệu nào?",
+        "Nội dung hướng đến ngôn ngữ ký hiệu Việt Nam (VSL). Video chưa có sẽ được ghi rõ là đang cập nhật.",
+      ],
+      [
+        "Cấp độ và Level khác nhau thế nào?",
+        "Cấp độ là mức nội dung lộ trình. Level tăng theo XP tích lũy; mỗi 1.000 XP tăng một Level.",
+      ],
+      [
+        "Vì sao AI chưa có điểm chính xác?",
+        "Chế độ demo không phải kết quả nhận diện thật. Chỉ kết quả do dịch vụ nhận diện cung cấp mới được đưa vào thống kê.",
+      ],
+      [
+        "Tôi không bật được camera?",
+        "Kiểm tra quyền camera trong trình duyệt và đóng ứng dụng khác đang dùng thiết bị. Bạn có thể thử lại ở màn kiểm tra thiết bị.",
+      ],
+    ],
+  },
+  terms: {
+    title: "Điều khoản sử dụng",
+    sections: [
+      [
+        "Sử dụng tôn trọng",
+        "Không quấy rối, mạo danh hoặc chia sẻ nội dung xâm phạm quyền riêng tư của người khác. Chỉ chia sẻ nội dung bạn có quyền sử dụng.",
+      ],
+      [
+        "Nội dung học tập",
+        "SignMate hỗ trợ luyện tập. Dữ liệu mẫu và tính năng demo được ghi nhãn; kết quả không phải chứng nhận năng lực hay thay thế hướng dẫn của chuyên gia VSL.",
+      ],
+      [
+        "Hỗ trợ",
+        "Nếu gặp nội dung không phù hợp hoặc vấn đề tài khoản, liên hệ qua trang Liên hệ.",
+      ],
+    ],
+  },
+  privacy: {
+    title: "Chính sách bảo mật",
+    sections: [
+      [
+        "Dữ liệu tài khoản",
+        "Tài khoản, mật khẩu đã băm, hồ sơ và tùy chọn được lưu trong cơ sở dữ liệu của SignMate. Phiên đăng nhập được quản lý và thu hồi trên máy chủ.",
+      ],
+      [
+        "Tiến độ và thiết bị",
+        "Tiến độ mẫu và trạng thái thông báo được lưu trên thiết bị theo tài khoản. Camera chỉ được yêu cầu ở tính năng cần dùng camera. Điểm AI demo không được coi là kết quả học thật.",
+      ],
+      [
+        "Quản lý dữ liệu",
+        "Bạn có thể sửa hồ sơ và quyền riêng tư tại trang Hồ sơ. Chức năng xóa tài khoản yêu cầu xác thực lại. Liên hệ hỗ trợ nếu cần trợ giúp về dữ liệu.",
+      ],
+    ],
+  },
+  contact: {
+    title: "Liên hệ hỗ trợ",
+    sections: [
+      [
+        "Gửi yêu cầu hỗ trợ",
+        "Mô tả tính năng đang dùng, lỗi hiển thị và các bước gặp lỗi. Không gửi mật khẩu hoặc mã xác minh.",
+      ],
+      ["Email", "support@signmate.app"],
+    ],
+  },
 };
-export default function InfoPage({page}){const info=content[page];return <div className="info-page"><header><Link className="touch-target" to="/">SignMate · Trang chủ</Link><h1 className="text-h1">{info.title}</h1></header><main>{info.sections.map(([title,text])=><section key={title}><h2 className="text-h2">{title}</h2><p>{text}</p></section>)}{page==='contact'&&<a className="touch-target" href="mailto:support@signmate.app">Gửi email hỗ trợ</a>}<nav aria-label="Trợ giúp">{Object.entries(content).filter(([key])=>key!==page).map(([key,value])=><Link className="touch-target" key={key} to={`/${key}`}>{value.title}</Link>)}</nav></main><Footer/></div>;}
+
+export default function InfoPage({ page }) {
+  const info = content[page];
+
+  return (
+    <div className="info-page">
+      <header>
+        <Link className="touch-target" to="/">
+          SignMate · Trang chủ
+        </Link>
+        <h1 className="text-h1">{info.title}</h1>
+      </header>
+      <main>
+        {info.sections.map(([title, text]) => (
+          <section key={title}>
+            <h2 className="text-h2">{title}</h2>
+            <p>{text}</p>
+          </section>
+        ))}
+        {page === "contact" && (
+          <a className="touch-target" href="mailto:support@signmate.app">
+            Gửi email hỗ trợ
+          </a>
+        )}
+        <nav aria-label="Trợ giúp">
+          {Object.entries(content)
+            .filter(([key]) => key !== page)
+            .map(([key, value]) => (
+              <Link className="touch-target" key={key} to={`/${key}`}>
+                {value.title}
+              </Link>
+            ))}
+        </nav>
+      </main>
+      <Footer />
+    </div>
+  );
+}

@@ -13,8 +13,6 @@ const TipBox = ({ tip }) => {
           <strong>Mẹo:</strong> {tip}
         </p>
       </div>
-
-
     </div>
   );
 };

@@ -1,13 +1,13 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import { defineConfig, globalIgnores } from 'eslint/config'
+import js from "@eslint/js";
+import globals from "globals";
+import reactHooks from "eslint-plugin-react-hooks";
+import reactRefresh from "eslint-plugin-react-refresh";
+import { defineConfig, globalIgnores } from "eslint/config";
 
 export default defineConfig([
-  globalIgnores(['dist', '.verification']),
+  globalIgnores(["dist", ".verification"]),
   {
-    files: ['**/*.{js,jsx}'],
+    files: ["**/*.{js,jsx}"],
     extends: [
       js.configs.recommended,
       reactHooks.configs.flat.recommended,
@@ -18,5 +18,10 @@ export default defineConfig([
       parserOptions: { ecmaFeatures: { jsx: true } },
     },
   },
-  { files: ['tests/**/*.jsx'], rules: { 'react-refresh/only-export-components': 'off' } },
-])
+  { files: ["tests/**/*.jsx"], rules: { "react-refresh/only-export-components": "off" } },
+  {
+    files: ["src/components/LessonPage/QuizSection.jsx"],
+    // Prettier wraps the existing querySelectorAll(...)[next] chain across lines.
+    rules: { "no-unexpected-multiline": "off" },
+  },
+]);

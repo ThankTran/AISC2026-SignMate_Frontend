@@ -1,12 +1,12 @@
-import {uuid} from '../../utils/uuid';
+import { uuid } from "../../utils/uuid";
 import QuizRouteGuard from "./QuizRouteGuard";
-import {useProgress} from "../../hooks/useProgress";
+import { useProgress } from "../../hooks/useProgress";
 import { useConfirm } from "../../hooks/useConfirm";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import {Clock, MessageCircleQuestion, X} from "lucide-react";
-import {signIcons as OPTION_ICONS} from '../../utils/signIcons';
-import {useBeforeUnload} from '../../hooks/useBeforeUnload';
+import { Clock, MessageCircleQuestion, X } from "lucide-react";
+import { signIcons as OPTION_ICONS } from "../../utils/signIcons";
+import { useBeforeUnload } from "../../hooks/useBeforeUnload";
 
 import VideoPlayerFrame from "../../components/VideoPlayerFrame/VideoPlayerFrame";
 
@@ -15,19 +15,43 @@ import { learningApi } from "../../services/api";
 import { useApiResource } from "../../hooks/useApiResource";
 import ApiState from "../../components/ApiState";
 
-
-
 const formatTime = (seconds) => {
   const m = Math.floor(seconds / 60);
   const s = seconds % 60;
+
   return `${m}:${String(s).padStart(2, "0")}`;
 };
 
 const QuizSession = ({ quiz }) => {
- const {recordQuiz}=useProgress();
+  const { recordQuiz } = useProgress();
   const confirm = useConfirm();
-  const confirmExit = async (event) => { event.preventDefault(); if (await confirm({ title: "Thoát bài kiểm tra?", message: "Tiến độ chưa hoàn tất trong phiên này có thể không được lưu.", confirmLabel: "Thoát" })) navigate('/learning-path'); };
-  const [QUESTIONS] = useState(() => quiz.questions.map(q => { const options=[...q.options]; for(let i=options.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[options[i],options[j]]=[options[j],options[i]];} return {...q,options,category:"Ngôn ngữ ký hiệu"}; }));
+  const confirmExit = async (event) => {
+    event.preventDefault();
+
+    if (
+      await confirm({
+        title: "Thoát bài kiểm tra?",
+        message: "Tiến độ chưa hoàn tất trong phiên này có thể không được lưu.",
+        confirmLabel: "Thoát",
+      })
+    ) {
+      navigate("/learning-path");
+    }
+  };
+
+  const [QUESTIONS] = useState(() =>
+    quiz.questions.map((q) => {
+      const options = [...q.options];
+
+      for (let i = options.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+
+        [options[i], options[j]] = [options[j], options[i]];
+      }
+
+      return { ...q, options, category: "Ngôn ngữ ký hiệu" };
+    }),
+  );
   const TOTAL_QUESTIONS = QUESTIONS.length;
   const [sessionId] = useState(() => uuid());
   const [error, setError] = useState(null);
@@ -38,8 +62,12 @@ const QuizSession = ({ quiz }) => {
 
   useEffect(() => {
     mounted.current = true;
-    return () => { mounted.current = false; };
+
+    return () => {
+      mounted.current = false;
+    };
   }, []);
+
   const navigate = useNavigate();
   const { quizId } = useParams();
   const [answers, setAnswers] = useState({});
@@ -49,7 +77,9 @@ const QuizSession = ({ quiz }) => {
   const [timeLeft, setTimeLeft] = useState(totalSeconds);
   const [expired, setExpired] = useState(false);
   const finished = useRef(false);
+
   useBeforeUnload(true);
+
   const [deadline] = useState(() => Date.now() + totalSeconds * 1000);
   const autoAttempted = useRef(false);
   const autoSubmit = useRef(null);
@@ -61,75 +91,156 @@ const QuizSession = ({ quiz }) => {
   useEffect(() => {
     const timer = setInterval(() => {
       const remaining = Math.max(0, Math.ceil((deadline - Date.now()) / 1000));
+
       setTimeLeft(remaining);
-      if (!remaining && !finished.current) { setExpired(true); autoSubmit.current?.(); }
+
+      if (!remaining && !finished.current) {
+        setExpired(true);
+        autoSubmit.current?.();
+      }
     }, 250);
+
     return () => clearInterval(timer);
   }, [deadline]);
 
   const submitAnswers = async (nextAnswers, automatic = false) => {
-    if (busy.current || finished.current) return;
-    if (!automatic && !await confirm({ title: "Nộp bài kiểm tra?", message: allAnswered ? "Bạn đã trả lời tất cả câu hỏi. Nộp bài để xem kết quả?" : `Còn ${TOTAL_QUESTIONS - Object.keys(nextAnswers).length} câu chưa trả lời. Các câu này được tính là chưa đúng.`, confirmLabel: "Nộp bài" })) return;
-    if (busy.current || finished.current) return;
+    if (busy.current || finished.current) {
+      return;
+    }
+
+    if (
+      !automatic &&
+      !(await confirm({
+        title: "Nộp bài kiểm tra?",
+        message: allAnswered
+          ? "Bạn đã trả lời tất cả câu hỏi. Nộp bài để xem kết quả?"
+          : `Còn ${TOTAL_QUESTIONS - Object.keys(nextAnswers).length} câu chưa trả lời. Các câu này được tính là chưa đúng.`,
+        confirmLabel: "Nộp bài",
+      }))
+    ) {
+      return;
+    }
+
+    if (busy.current || finished.current) {
+      return;
+    }
+
     busy.current = true;
-    const elapsedSeconds = Math.min(totalSeconds, Math.max(0, Math.round((new Date().getTime() - (deadline - totalSeconds * 1000)) / 1000)));
+
+    const elapsedSeconds = Math.min(
+      totalSeconds,
+      Math.max(0, Math.round((new Date().getTime() - (deadline - totalSeconds * 1000)) / 1000)),
+    );
+
     setSubmitting(true);
     setError(null);
+
     try {
-      const result = await learningApi.submitQuiz(quizId, { userSessionId: sessionId, answers: nextAnswers });
-      if (!mounted.current) return;
+      const result = await learningApi.submitQuiz(quizId, {
+        userSessionId: sessionId,
+        answers: nextAnswers,
+      });
+
+      if (!mounted.current) {
+        return;
+      }
+
       finished.current = true;
-      recordQuiz(quizId,{result,answers:nextAnswers,questions:QUESTIONS,elapsedSeconds});
-      navigate(`/learning-path/quiz/${quizId}/result`, { state: { result, answers: nextAnswers, questions: QUESTIONS, elapsedSeconds } });
-    } catch (err) { if (mounted.current) setError(err); }
-    finally { busy.current = false; if (mounted.current) setSubmitting(false); }
+      recordQuiz(quizId, { result, answers: nextAnswers, questions: QUESTIONS, elapsedSeconds });
+      navigate(`/learning-path/quiz/${quizId}/result`, {
+        state: { result, answers: nextAnswers, questions: QUESTIONS, elapsedSeconds },
+      });
+    } catch (err) {
+      if (mounted.current) {
+        setError(err);
+      }
+    } finally {
+      busy.current = false;
+
+      if (mounted.current) {
+        setSubmitting(false);
+      }
+    }
   };
 
-  useEffect(() => { autoSubmit.current = () => { if (!busy.current && !autoAttempted.current) { autoAttempted.current = true; void submitAnswers(answers, true); } }; });
+  useEffect(() => {
+    autoSubmit.current = () => {
+      if (!busy.current && !autoAttempted.current) {
+        autoAttempted.current = true;
+        void submitAnswers(answers, true);
+      }
+    };
+  });
 
   const handleSelect = (key) => {
-    if(expired || busy.current || finished.current)return;
-    setAnswers(previous=>({...previous,[question.id]:key}));
+    if (expired || busy.current || finished.current) {
+      return;
+    }
+
+    setAnswers((previous) => ({ ...previous, [question.id]: key }));
     setError(null);
   };
+
   const goToQuestion = (index) => {
-    if (busy.current || finished.current) return;
+    if (busy.current || finished.current) {
+      return;
+    }
+
     setCurrent(index);
     setError(null);
   };
 
   const handleNext = () => {
-    if (busy.current || finished.current || !isAnswered(question)) return;
-    if (allAnswered) {
-      void submitAnswers(answers);
+    if (busy.current || finished.current || !isAnswered(question)) {
       return;
     }
+
+    if (allAnswered) {
+      void submitAnswers(answers);
+
+      return;
+    }
+
     // At the end, return to any question skipped using the numbered navigation.
-    goToQuestion(current < TOTAL_QUESTIONS - 1
-      ? current + 1 : QUESTIONS.findIndex((item) => !isAnswered(item)));
+    goToQuestion(
+      current < TOTAL_QUESTIONS - 1
+        ? current + 1
+        : QUESTIONS.findIndex((item) => !isAnswered(item)),
+    );
   };
 
-  if(error?.status===403)return <QuizRouteGuard error={error}/>;
+  if (error?.status === 403) {
+    return <QuizRouteGuard error={error} />;
+  }
+
   return (
     <div className="quiz">
       {/* ===== HEADER ===== */}
       <header className="quiz__header">
         <div className="quiz__header-left">
-          <h1 className="quiz__header-title text-h1">
-            Bài kiểm tra tổng hợp — Chương {quizId}
-          </h1>
+          <h1 className="quiz__header-title text-h1">Bài kiểm tra tổng hợp — Chương {quizId}</h1>
           <span className="quiz__difficulty">Độ khó: Nâng cao</span>
         </div>
 
         <div className="quiz__header-right">
-          <div className={`quiz__timer ${timeLeft <= 10 ? "quiz__timer--urgent" : timeLeft <= 60 ? "quiz__timer--warning" : ""}`}>
+          <div
+            className={`quiz__timer ${timeLeft <= 10 ? "quiz__timer--urgent" : timeLeft <= 60 ? "quiz__timer--warning" : ""}`}
+          >
             <Clock size={16} strokeWidth={2.2} />
             <span className="quiz__timer-value">
               {timeLeft === 0 ? "00:00" : formatTime(timeLeft)}
             </span>
           </div>
 
-          <span className="sr-only" role="status" aria-live="polite">{timeLeft <= 0 ? "Hết giờ, đang nộp bài." : timeLeft <= 10 ? "Còn 10 giây hoặc ít hơn." : timeLeft <= 60 ? "Còn một phút hoặc ít hơn." : ""}</span>
+          <span className="sr-only" role="status" aria-live="polite">
+            {timeLeft <= 0
+              ? "Hết giờ, đang nộp bài."
+              : timeLeft <= 10
+                ? "Còn 10 giây hoặc ít hơn."
+                : timeLeft <= 60
+                  ? "Còn một phút hoặc ít hơn."
+                  : ""}
+          </span>
           <Link onClick={confirmExit} to="/learning-path" className="quiz__exit">
             <X size={15} strokeWidth={2.5} />
             Thoát
@@ -143,16 +254,21 @@ const QuizSession = ({ quiz }) => {
           <span className="quiz__badge quiz__badge--progress">
             Câu {current + 1} / {TOTAL_QUESTIONS}
           </span>
-          <span className="quiz__badge quiz__badge--category">
-            {question.category}
-          </span>
+          <span className="quiz__badge quiz__badge--category">{question.category}</span>
         </div>
 
         <div className="quiz__prompt">
-          <button type="button" className="quiz__prompt-icon" aria-label="Hướng dẫn" aria-describedby="quiz-help">
+          <button
+            type="button"
+            className="quiz__prompt-icon"
+            aria-label="Hướng dẫn"
+            aria-describedby="quiz-help"
+          >
             <MessageCircleQuestion size={19} strokeWidth={2} />
           </button>
-          <p id="quiz-help" role="tooltip" className="quiz__prompt-text">{question.prompt}</p>
+          <p id="quiz-help" role="tooltip" className="quiz__prompt-text">
+            {question.prompt}
+          </p>
         </div>
       </div>
 
@@ -162,11 +278,7 @@ const QuizSession = ({ quiz }) => {
         <section className="quiz-media">
           <div className="quiz-media__header">
             <span className="quiz-media__title">VIDEO MINH HỌA</span>
-            <span
-              className={`quiz-media__live ${
-                videoPlaying ? "quiz-media__live--on" : ""
-              }`}
-            >
+            <span className={`quiz-media__live ${videoPlaying ? "quiz-media__live--on" : ""}`}>
               <span className="quiz-media__live-dot" />
               {videoPlaying ? "Đang phát" : "Đã tạm dừng"}
             </span>
@@ -215,31 +327,67 @@ const QuizSession = ({ quiz }) => {
           </div>
           <div className="quiz-answers__actions">
             <p id="quiz-next-hint" className="quiz-answers__feedback" role="status">
-              {submitting ? "Đang lưu kết quả…"
-                : !isAnswered(question) ? "Chọn một đáp án để tiếp tục." : ""}
+              {submitting
+                ? "Đang lưu kết quả…"
+                : !isAnswered(question)
+                  ? "Chọn một đáp án để tiếp tục."
+                  : ""}
             </p>
             <div className="quiz-answers__buttons">
-            <button type="button" className="quiz__finish-early" disabled={submitting || current === 0} onClick={() => goToQuestion(current - 1)}>← Câu trước</button>
-            {!allAnswered && <button type="button" className="quiz__finish-early"
-              disabled={submitting} onClick={() => submitAnswers(answers, expired)}>
-              Nộp bài
-            </button>}
-            <button type="button" className="quiz__next"
-              aria-describedby={!isAnswered(question) ? "quiz-next-hint" : undefined}
-              disabled={submitting || !isAnswered(question)}
-              onClick={handleNext}>
-              {allAnswered ? "Nộp bài" : current === TOTAL_QUESTIONS - 1
-                ? "Đến câu chưa trả lời" : "Câu tiếp theo →"}
-            </button>
+              <button
+                type="button"
+                className="quiz__finish-early"
+                disabled={submitting || current === 0}
+                onClick={() => goToQuestion(current - 1)}
+              >
+                ← Câu trước
+              </button>
+              {!allAnswered && (
+                <button
+                  type="button"
+                  className="quiz__finish-early"
+                  disabled={submitting}
+                  onClick={() => submitAnswers(answers, expired)}
+                >
+                  Nộp bài
+                </button>
+              )}
+              <button
+                type="button"
+                className="quiz__next"
+                aria-describedby={!isAnswered(question) ? "quiz-next-hint" : undefined}
+                disabled={submitting || !isAnswered(question)}
+                onClick={handleNext}
+              >
+                {allAnswered
+                  ? "Nộp bài"
+                  : current === TOTAL_QUESTIONS - 1
+                    ? "Đến câu chưa trả lời"
+                    : "Câu tiếp theo →"}
+              </button>
             </div>
           </div>
-          {!allAnswered && <p className="quiz-answers__submit-note">Có thể nộp ngay. Câu chưa trả lời được tính là chưa đúng.</p>}
-          {error && <div className="quiz-answers__error" role="alert">
-            <p>{error.message}</p>
-            {expired || Object.keys(answers).length === TOTAL_QUESTIONS
-              ? <button type="button" disabled={submitting} onClick={() => submitAnswers(answers, expired)}>Thử lưu lại kết quả</button>
-              : <p>Vui lòng thử lại thao tác vừa thực hiện.</p>}
-          </div>}
+          {!allAnswered && (
+            <p className="quiz-answers__submit-note">
+              Có thể nộp ngay. Câu chưa trả lời được tính là chưa đúng.
+            </p>
+          )}
+          {error && (
+            <div className="quiz-answers__error" role="alert">
+              <p>{error.message}</p>
+              {expired || Object.keys(answers).length === TOTAL_QUESTIONS ? (
+                <button
+                  type="button"
+                  disabled={submitting}
+                  onClick={() => submitAnswers(answers, expired)}
+                >
+                  Thử lưu lại kết quả
+                </button>
+              ) : (
+                <p>Vui lòng thử lại thao tác vừa thực hiện.</p>
+              )}
+            </div>
+          )}
         </section>
       </div>
 
@@ -252,11 +400,7 @@ const QuizSession = ({ quiz }) => {
                 type="button"
                 key={q.id}
                 className={`quiz__dot ${
-                  i === current
-                    ? "quiz__dot--current"
-                    : isAnswered(q)
-                    ? "quiz__dot--answered"
-                    : ""
+                  i === current ? "quiz__dot--current" : isAnswered(q) ? "quiz__dot--answered" : ""
                 }`}
                 disabled={submitting}
                 aria-current={i === current ? "step" : undefined}
@@ -288,7 +432,18 @@ export default function QuizPage() {
   const { quizId } = useParams();
   const load = useCallback(() => learningApi.quiz(quizId), [quizId]);
   const { data, error } = useApiResource(load);
-  if (!data || String(data.chapterId) !== quizId) return <QuizRouteGuard error={error}><ApiState error={error} /></QuizRouteGuard>;
-  if (!data.questions?.length) return <p role="status">Bài kiểm tra đang được cập nhật.</p>;
+
+  if (!data || String(data.chapterId) !== quizId) {
+    return (
+      <QuizRouteGuard error={error}>
+        <ApiState error={error} />
+      </QuizRouteGuard>
+    );
+  }
+
+  if (!data.questions?.length) {
+    return <p role="status">Bài kiểm tra đang được cập nhật.</p>;
+  }
+
   return <QuizSession key={quizId} quiz={data} />;
 }

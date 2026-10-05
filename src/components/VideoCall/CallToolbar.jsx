@@ -1,14 +1,6 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { emojis } from "../../mockdata/videoCall/emojis";
-import {
-  MessageCircle,
-  Video,
-  VideoOff,
-  Mic,
-  MicOff,
-  PhoneOff,
-  Smile,
-} from "lucide-react";
+import { MessageCircle, Video, VideoOff, Mic, MicOff, PhoneOff, Smile } from "lucide-react";
 
 export default function CallToolbar({
   mic,
@@ -25,28 +17,44 @@ export default function CallToolbar({
   const toolbarRef = useRef(null);
   const reactionButtonRef = useRef(null);
   const panelId = useId();
+
   useEffect(() => {
-    if (!reactionsOpen) return;
-    function outside(event) {
-      if (!toolbarRef.current?.contains(event.target)) setReactionsOpen(false);
+    if (!reactionsOpen) {
+      return;
     }
+
+    function outside(event) {
+      if (!toolbarRef.current?.contains(event.target)) {
+        setReactionsOpen(false);
+      }
+    }
+
     function escape(event) {
       if (event.key === "Escape") {
         setReactionsOpen(false);
         reactionButtonRef.current?.focus();
       }
     }
+
     document.addEventListener("pointerdown", outside);
     document.addEventListener("keydown", escape);
+
     return () => {
       document.removeEventListener("pointerdown", outside);
       document.removeEventListener("keydown", escape);
     };
   }, [reactionsOpen]);
+
   return (
-    <div className="vc-call-toolbar" ref={toolbarRef} onBlur={(event) => {
-      if (!event.currentTarget.contains(event.relatedTarget)) setReactionsOpen(false);
-    }}>
+    <div
+      className="vc-call-toolbar"
+      ref={toolbarRef}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) {
+          setReactionsOpen(false);
+        }
+      }}
+    >
       <button
         aria-label={mic ? "Tắt micro" : "Bật micro"}
         title={mic ? "Tắt micro" : "Bật micro"}
@@ -81,25 +89,47 @@ export default function CallToolbar({
           className={active ? "active" : ""}
           onClick={onClick}
         >
-          <Icon size={21} />{label === "Trò chuyện" && unreadCount > 0 && <span className="vc-unread" aria-label={`${unreadCount} tin mới`}>{unreadCount}</span>}
+          <Icon size={21} />
+          {label === "Trò chuyện" && unreadCount > 0 && (
+            <span className="vc-unread" aria-label={`${unreadCount} tin mới`}>
+              {unreadCount}
+            </span>
+          )}
         </button>
       ))}
-      <button type="button" ref={reactionButtonRef}
-        aria-label="Thả cảm xúc" title="Thả cảm xúc"
-        aria-expanded={reactionsOpen} aria-controls={panelId}
+      <button
+        type="button"
+        ref={reactionButtonRef}
+        aria-label="Thả cảm xúc"
+        title="Thả cảm xúc"
+        aria-expanded={reactionsOpen}
+        aria-controls={panelId}
         className={reactionsOpen ? "active" : ""}
-        onClick={() => setReactionsOpen((open) => !open)}>
+        onClick={() => setReactionsOpen((open) => !open)}
+      >
         <Smile size={21} />
       </button>
       {reactionsOpen && (
-        <div className="vc-emoji-picker vc-reaction-picker" id={panelId} role="group" aria-label="Chọn cảm xúc">
+        <div
+          className="vc-emoji-picker vc-reaction-picker"
+          id={panelId}
+          role="group"
+          aria-label="Chọn cảm xúc"
+        >
           <span>Thả cảm xúc</span>
           <div className="vc-emoji-grid">
             {emojis.map(([emoji, label]) => (
-              <button type="button" key={emoji} aria-label={label} title={label}
+              <button
+                type="button"
+                key={emoji}
+                aria-label={label}
+                title={label}
                 onClick={() => {
                   onReact(emoji);
-                }}>{emoji}</button>
+                }}
+              >
+                {emoji}
+              </button>
             ))}
           </div>
         </div>

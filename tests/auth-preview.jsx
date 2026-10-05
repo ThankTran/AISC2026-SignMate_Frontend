@@ -1,12 +1,43 @@
-import {createRoot} from 'react-dom/client';
-import {MemoryRouter} from 'react-router-dom';
-import {AuthContext} from '../src/hooks/useAuth';
-import {CurrentUserContext} from '../src/hooks/useCurrentUser';
-import {ToastProvider} from '../src/components/ui/ToastProvider';
-import AuthLayout from '../src/layouts/AuthLayout/AuthLayout';
-import AuthForm from '../src/components/ui/AuthForm';
-import {ForgotPassword,VerifyEmail,ResetPassword} from '../src/pages/AccountSetup/AccountSetup';
-import '../src/index.css';
-const page=new URLSearchParams(location.search).get('page')||'login';
-const user=page==='verify'?{uid:'preview',email:'ban@example.test',emailVerified:false}:null;
-createRoot(document.getElementById('root')).render(<MemoryRouter><AuthContext.Provider value={{user,loading:false,setRegistering:()=>{},refreshUser:async()=>{},logout:()=>{}}}><CurrentUserContext.Provider value={{name:'Bạn',hasSetLevel:false}}><ToastProvider>{page==='forgot'?<ForgotPassword/>:page==='verify'?<VerifyEmail/>:page==='reset'?<ResetPassword/>:<AuthLayout><AuthForm register={page==='register'}/></AuthLayout>}</ToastProvider></CurrentUserContext.Provider></AuthContext.Provider></MemoryRouter>);
+import { createRoot } from "react-dom/client";
+import { MemoryRouter } from "react-router-dom";
+import { AuthContext } from "../src/hooks/useAuth";
+import { CurrentUserContext } from "../src/hooks/useCurrentUser";
+import { ToastProvider } from "../src/components/ui/ToastProvider";
+import AuthLayout from "../src/layouts/AuthLayout/AuthLayout";
+import AuthForm from "../src/components/ui/AuthForm";
+import { ForgotPassword, VerifyEmail, ResetPassword } from "../src/pages/AccountSetup/AccountSetup";
+import "../src/index.css";
+
+const page = new URLSearchParams(location.search).get("page") || "login";
+const user =
+  page === "verify" ? { uid: "preview", email: "ban@example.test", emailVerified: false } : null;
+
+createRoot(document.getElementById("root")).render(
+  <MemoryRouter>
+    <AuthContext.Provider
+      value={{
+        user,
+        loading: false,
+        setRegistering: () => {},
+        refreshUser: async () => {},
+        logout: () => {},
+      }}
+    >
+      <CurrentUserContext.Provider value={{ name: "Bạn", hasSetLevel: false }}>
+        <ToastProvider>
+          {page === "forgot" ? (
+            <ForgotPassword />
+          ) : page === "verify" ? (
+            <VerifyEmail />
+          ) : page === "reset" ? (
+            <ResetPassword />
+          ) : (
+            <AuthLayout>
+              <AuthForm register={page === "register"} />
+            </AuthLayout>
+          )}
+        </ToastProvider>
+      </CurrentUserContext.Provider>
+    </AuthContext.Provider>
+  </MemoryRouter>,
+);

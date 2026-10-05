@@ -24,21 +24,25 @@ export default function MatchingScreen({ elapsed, onCancel }) {
         <br />
         để bắt đầu một cuộc trò chuyện thật vui.
       </p>
-      {VIDEO_DEMO && <div className="vc-search-checks" aria-live="polite">
-        {matchingSteps.map((t, i) => (
-          <div key={t} className={elapsed >= i + 1 ? "complete" : ""}>
-            <span>
-              {elapsed >= i + 1 ? (
-                <Check size={17} />
-              ) : (
-                <span className="vc-loader" />
-              )}
-            </span>
-            {t}
-          </div>
-        ))}
-      </div>}
-      {!VIDEO_DEMO && <p role="status">{elapsed < 15 ? 'Ưu tiên người có nhiều chủ đề chung.' : elapsed < 30 ? 'Đang mở rộng tìm kiếm trong những người có chủ đề chung.' : 'Chưa có người phù hợp. Bạn có thể tiếp tục chờ hoặc hủy tìm kiếm.'}</p>}
+      {VIDEO_DEMO && (
+        <div className="vc-search-checks" aria-live="polite">
+          {matchingSteps.map((t, i) => (
+            <div key={t} className={elapsed >= i + 1 ? "complete" : ""}>
+              <span>{elapsed >= i + 1 ? <Check size={17} /> : <span className="vc-loader" />}</span>
+              {t}
+            </div>
+          ))}
+        </div>
+      )}
+      {!VIDEO_DEMO && (
+        <p role="status">
+          {elapsed < 15
+            ? "Ưu tiên người có nhiều chủ đề chung."
+            : elapsed < 30
+              ? "Đang mở rộng tìm kiếm trong những người có chủ đề chung."
+              : "Chưa có người phù hợp. Bạn có thể tiếp tục chờ hoặc hủy tìm kiếm."}
+        </p>
+      )}
       <div className="vc-wait">
         <small>THỜI GIAN CHỜ</small>
         <strong>{formatTime(elapsed)}</strong>

@@ -13,11 +13,7 @@ export const conversationPrompts = [
   "Bạn nghĩ sao về bộ phim mới ra mắt cuối tuần qua?",
   "Chia sẻ một địa điểm du lịch yêu thích của bạn.",
 ];
-export const practiceSteps = [
-  "Chọn điều bạn thích",
-  "Gặp người phù hợp",
-  "Cùng nhau tiến bộ",
-];
+export const practiceSteps = ["Chọn điều bạn thích", "Gặp người phù hợp", "Cùng nhau tiến bộ"];
 export const matchingSteps = [
   "Khám phá sở thích của bạn",
   "Tìm người bạn phù hợp",

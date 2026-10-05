@@ -1,25 +1,122 @@
-import {ProgressProvider} from '../src/contexts/ProgressContext';
-import {initialProgress} from '../src/utils/progress';
-const seed=initialProgress();
-import LeaderboardPage from '../src/pages/LeaderboardPage/LeaderboardPage';
-import ProfilePage from '../src/pages/Profile/Profile';
-import StatsPage from '../src/pages/Stats/Stats';
-import {statsHistory} from '../src/utils/statsHistory';
-import LearningPathPage from '../src/pages/LearningPathPage/LearningPathPage';
-import AiPracticePage from '../src/pages/AiPracticePage/AiPracticePage';
-import VideoCallPage from '../src/pages/VideoCall/VideoCallPage';
-import {accountApi} from '../src/services/api';
-accountApi.dashboard=async()=>({stats:{streak:4,bestStreak:9,xp:1650,xpToday:40,curriculumLevel:'Cơ bản',activityHistory:statsHistory([],90).map((row,index)=>({...row,xp:index%3===0?40:0,studySeconds:index%3===0?300:0})),aiAccuracyHistory:[]},chapters:[{id:1,title:'Ký hiệu cơ bản',tag:'CHƯƠNG 1',desc:'Làm quen với ngôn ngữ ký hiệu.',status:'active',done:0,total:3,quiz:{status:'locked'},lessons:[{id:1,title:'Bảng chữ & Số',status:'active',tooltip:{desc:'Bắt đầu bài học đầu tiên.',duration:'5 phút',xp:10}},{id:2,title:'Chào hỏi cơ bản',status:'locked'},{id:3,title:'Thành viên gia đình',status:'locked'}]},{id:2,title:'Giao tiếp hằng ngày',tag:'CHƯƠNG 2',status:'locked',done:0,total:0,lessons:[],quiz:{status:'locked'}}]});
-import {createRoot} from 'react-dom/client';
-import {MemoryRouter,Routes,Route} from 'react-router-dom';
-import MainLayout from '../src/layouts/MainLayout/MainLayout';
-import FriendsPage from '../src/pages/Friends/FriendsPage';
-import {FriendsProvider} from '../src/contexts/FriendsContext';
-import {ToastProvider} from '../src/components/ui/ToastProvider';
-import {ConfirmProvider} from '../src/components/ui/ConfirmDialog';
-import {CurrentUserContext} from '../src/hooks/useCurrentUser';
-import {AuthContext} from '../src/hooks/useAuth';
-import '../src/index.css';
-accountApi.me=async()=>({bio:'Học ngôn ngữ ký hiệu Việt Nam.',userType:'hearing',privacy:{profile:'public',friendList:'friends',stats:'public'}});
-const user={name:'Nguyễn Minh Anh',displayName:'Nguyễn Minh Anh',email:'test@example.test',level:'Cơ bản'};
-createRoot(document.getElementById('root')).render(<MemoryRouter initialEntries={['/account/stats']}><AuthContext.Provider value={{user,logout:async()=>{}}}><CurrentUserContext.Provider value={user}><ProgressProvider initialState={seed}><FriendsProvider><ToastProvider><ConfirmProvider><Routes><Route element={<MainLayout/>}><Route path="/account/stats" element={<StatsPage/>}/><Route path="/account/profile" element={<ProfilePage/>}/><Route path="/ranking" element={<LeaderboardPage/>}/><Route path="/friends/list" element={<FriendsPage/>}/><Route path="/friends/friend-requests" element={<FriendsPage view="requests"/>}/><Route path="/friends/video-call-invites" element={<FriendsPage view="invites"/>}/><Route path="/learning-path" element={<LearningPathPage/>}/><Route path="/practice-ai" element={<AiPracticePage/>}/><Route path="/video" element={<VideoCallPage/>}/><Route path="*" element={<h1 className="text-h1">Trang kiểm tra điều hướng</h1>}/></Route></Routes></ConfirmProvider></ToastProvider></FriendsProvider></ProgressProvider></CurrentUserContext.Provider></AuthContext.Provider></MemoryRouter>);
+import { ProgressProvider } from "../src/contexts/ProgressContext";
+import { initialProgress } from "../src/utils/progress";
+
+const seed = initialProgress();
+
+import LeaderboardPage from "../src/pages/LeaderboardPage/LeaderboardPage";
+import ProfilePage from "../src/pages/Profile/Profile";
+import StatsPage from "../src/pages/Stats/Stats";
+import { statsHistory } from "../src/utils/statsHistory";
+import LearningPathPage from "../src/pages/LearningPathPage/LearningPathPage";
+import AiPracticePage from "../src/pages/AiPracticePage/AiPracticePage";
+import VideoCallPage from "../src/pages/VideoCall/VideoCallPage";
+import { accountApi } from "../src/services/api";
+accountApi.dashboard = async () => ({
+  stats: {
+    streak: 4,
+    bestStreak: 9,
+    xp: 1650,
+    xpToday: 40,
+    curriculumLevel: "Cơ bản",
+    activityHistory: statsHistory([], 90).map((row, index) => ({
+      ...row,
+      xp: index % 3 === 0 ? 40 : 0,
+      studySeconds: index % 3 === 0 ? 300 : 0,
+    })),
+    aiAccuracyHistory: [],
+  },
+  chapters: [
+    {
+      id: 1,
+      title: "Ký hiệu cơ bản",
+      tag: "CHƯƠNG 1",
+      desc: "Làm quen với ngôn ngữ ký hiệu.",
+      status: "active",
+      done: 0,
+      total: 3,
+      quiz: { status: "locked" },
+      lessons: [
+        {
+          id: 1,
+          title: "Bảng chữ & Số",
+          status: "active",
+          tooltip: { desc: "Bắt đầu bài học đầu tiên.", duration: "5 phút", xp: 10 },
+        },
+        { id: 2, title: "Chào hỏi cơ bản", status: "locked" },
+        { id: 3, title: "Thành viên gia đình", status: "locked" },
+      ],
+    },
+    {
+      id: 2,
+      title: "Giao tiếp hằng ngày",
+      tag: "CHƯƠNG 2",
+      status: "locked",
+      done: 0,
+      total: 0,
+      lessons: [],
+      quiz: { status: "locked" },
+    },
+  ],
+});
+import { createRoot } from "react-dom/client";
+import { MemoryRouter, Routes, Route } from "react-router-dom";
+import MainLayout from "../src/layouts/MainLayout/MainLayout";
+import FriendsPage from "../src/pages/Friends/FriendsPage";
+import { FriendsProvider } from "../src/contexts/FriendsContext";
+import { ToastProvider } from "../src/components/ui/ToastProvider";
+import { ConfirmProvider } from "../src/components/ui/ConfirmDialog";
+import { CurrentUserContext } from "../src/hooks/useCurrentUser";
+import { AuthContext } from "../src/hooks/useAuth";
+import "../src/index.css";
+accountApi.me = async () => ({
+  bio: "Học ngôn ngữ ký hiệu Việt Nam.",
+  userType: "hearing",
+  privacy: { profile: "public", friendList: "friends", stats: "public" },
+});
+
+const user = {
+  name: "Nguyễn Minh Anh",
+  displayName: "Nguyễn Minh Anh",
+  email: "test@example.test",
+  level: "Cơ bản",
+};
+
+createRoot(document.getElementById("root")).render(
+  <MemoryRouter initialEntries={["/account/stats"]}>
+    <AuthContext.Provider value={{ user, logout: async () => {} }}>
+      <CurrentUserContext.Provider value={user}>
+        <ProgressProvider initialState={seed}>
+          <FriendsProvider>
+            <ToastProvider>
+              <ConfirmProvider>
+                <Routes>
+                  <Route element={<MainLayout />}>
+                    <Route path="/account/stats" element={<StatsPage />} />
+                    <Route path="/account/profile" element={<ProfilePage />} />
+                    <Route path="/ranking" element={<LeaderboardPage />} />
+                    <Route path="/friends/list" element={<FriendsPage />} />
+                    <Route
+                      path="/friends/friend-requests"
+                      element={<FriendsPage view="requests" />}
+                    />
+                    <Route
+                      path="/friends/video-call-invites"
+                      element={<FriendsPage view="invites" />}
+                    />
+                    <Route path="/learning-path" element={<LearningPathPage />} />
+                    <Route path="/practice-ai" element={<AiPracticePage />} />
+                    <Route path="/video" element={<VideoCallPage />} />
+                    <Route
+                      path="*"
+                      element={<h1 className="text-h1">Trang kiểm tra điều hướng</h1>}
+                    />
+                  </Route>
+                </Routes>
+              </ConfirmProvider>
+            </ToastProvider>
+          </FriendsProvider>
+        </ProgressProvider>
+      </CurrentUserContext.Provider>
+    </AuthContext.Provider>
+  </MemoryRouter>,
+);

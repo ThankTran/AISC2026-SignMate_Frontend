@@ -1,17 +1,201 @@
-import {accountApi,authApi} from '../../services/api';
-import {useProgress} from '../../hooks/useProgress';
-import {useState} from 'react';
-import {Link,Navigate,useLocation,useNavigate,useSearchParams} from 'react-router-dom';
-import {useAuth} from '../../hooks/useAuth';
-import {useCurrentUser} from '../../hooks/useCurrentUser';
-import {useToast} from '../../hooks/useToast';
-import AuthLayout from '../../layouts/AuthLayout/AuthLayout';
-import './AccountSetup.css';
-const destination=state=>{const from=state?.from;const path=typeof from==='string'?from:from?.pathname;return path?.startsWith('/')&&!path.startsWith('//')&&!['/login','/register','/level','/verify-email','/onboarding'].includes(path)?from:'/dashboard';};
-export function ForgotPassword(){return <AuthLayout><section className="auth-form"><h1 className="text-h1">Quên mật khẩu?</h1><p>Khôi phục mật khẩu qua email chưa được cấu hình. Vui lòng liên hệ hỗ trợ để được trợ giúp.</p><Link to="/contact">Liên hệ hỗ trợ</Link><Link to="/login">Về đăng nhập</Link></section></AuthLayout>;}
-export function ResetPassword(){return <ForgotPassword/>;}
-export function VerifyEmail(){const {user}=useAuth();return <Navigate to={user?'/dashboard':'/login'} replace/>;}
-export function Level(){const [choice,setLevel]=useState(null),[busy,setBusy]=useState(false),[error,setError]=useState('');const navigate=useNavigate(),location=useLocation(),profile=useCurrentUser(),{retry}=useProgress();const level=choice??profile.curriculumLevel??'Cơ bản';return <AuthLayout><form className="auth-form" onSubmit={async event=>{event.preventDefault();setBusy(true);try{if(import.meta.env.VITE_USE_MOCK!=='true'){profile._updateProfile(await accountApi.curriculumLevel(level));}else{profile._updateProfile({...profile,hasSetLevel:true,curriculumLevel:level});}retry();navigate(profile.onboardingComplete?destination(location.state):'/onboarding',{replace:true,state:location.state});}catch(err){setError(err.message);}finally{setBusy(false);}}}><h1 className="text-h1">Chọn cấp độ lộ trình</h1><p>Chọn theo kinh nghiệm sử dụng ngôn ngữ ký hiệu Việt Nam. Cấp độ khác với Level được tính từ XP.</p><fieldset className="setup-options"><legend>Kinh nghiệm của bạn</legend>{[['Cơ bản','Tôi mới bắt đầu hoặc muốn ôn lại nền tảng.'],['Trung cấp','Tôi biết các ký hiệu cơ bản và muốn luyện giao tiếp.'],['Nâng cao','Tôi sử dụng ký hiệu thường xuyên và muốn nâng kỹ năng.']].map(([value,description])=><label key={value}><input type="radio" name="level" value={value} checked={value===level} onChange={()=>setLevel(value)}/><span><strong>{value}</strong><span>{description}</span></span></label>)}</fieldset>{error&&<p role="alert">{error}</p>}<button className="auth-submit" disabled={busy}>{busy?'Đang lưu…':'Tiếp tục'}</button></form></AuthLayout>;}
-const steps=[['Lộ trình học','Học từng bài, làm bài kiểm tra cuối chương và theo dõi tiến độ trong cùng một lộ trình.'],['Luyện tập với AI','Quan sát hướng dẫn và giữ hai tay trong khung hình. Chế độ demo được ghi rõ và không tạo điểm nhận diện thật.'],['Kết nối qua video','Chuẩn bị ánh sáng từ phía trước, đặt camera thấy rõ mặt và hai tay. Bạn có thể trò chuyện bằng tin nhắn trong phòng gọi.']];
-export function Onboarding(){const profile=useCurrentUser();const [step,setStep]=useState(0),[busy,setBusy]=useState(false),[error,setError]=useState('');const navigate=useNavigate(),location=useLocation(),toast=useToast();return <AuthLayout><section className="auth-form"><h1 className="text-h1">Làm quen với SignMate</h1><p className="text-number-sm" aria-live="polite">Bước {step+1}/{steps.length}</p><h2 className="text-h2">{steps[step][0]}</h2><p>{steps[step][1]}</p><div className="ui-dialog-actions">{step>0&&<button disabled={busy} onClick={()=>setStep(value=>value-1)}>Quay lại</button>}<button className="auth-submit" disabled={busy} onClick={async()=>{if(step<steps.length-1){setStep(step+1);return;}setBusy(true);try{profile._updateProfile(await authApi.onboarding());profile._completeOnboarding();toast({type:'success',message:'Sẵn sàng bắt đầu học!'});navigate(destination(location.state),{replace:true});}catch(err){setError(err.message);}finally{setBusy(false);}}}>{step===steps.length-1?'Bắt đầu học':'Tiếp theo'}</button></div>{error&&<p role="alert">{error}</p>}</section></AuthLayout>;}
-export function AuthAction(){const [params]=useSearchParams();return <Navigate replace to={`${params.get('mode')==='resetPassword'?'/reset-password':'/verify-email'}?${params}`}/>;}
+import { accountApi, authApi } from "../../services/api";
+import { useProgress } from "../../hooks/useProgress";
+import { useState } from "react";
+import { Link, Navigate, useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
+import { useCurrentUser } from "../../hooks/useCurrentUser";
+import { useToast } from "../../hooks/useToast";
+import AuthLayout from "../../layouts/AuthLayout/AuthLayout";
+import "./AccountSetup.css";
+
+const destination = (state) => {
+  const from = state?.from;
+  const path = typeof from === "string" ? from : from?.pathname;
+
+  return path?.startsWith("/") &&
+    !path.startsWith("//") &&
+    !["/login", "/register", "/level", "/verify-email", "/onboarding"].includes(path)
+    ? from
+    : "/dashboard";
+};
+
+export function ForgotPassword() {
+  return (
+    <AuthLayout>
+      <section className="auth-form">
+        <h1 className="text-h1">Quên mật khẩu?</h1>
+        <p>
+          Khôi phục mật khẩu qua email chưa được cấu hình. Vui lòng liên hệ hỗ trợ để được trợ giúp.
+        </p>
+        <Link to="/contact">Liên hệ hỗ trợ</Link>
+        <Link to="/login">Về đăng nhập</Link>
+      </section>
+    </AuthLayout>
+  );
+}
+
+export function ResetPassword() {
+  return <ForgotPassword />;
+}
+
+export function VerifyEmail() {
+  const { user } = useAuth();
+
+  return <Navigate to={user ? "/dashboard" : "/login"} replace />;
+}
+
+export function Level() {
+  const [choice, setLevel] = useState(null),
+    [busy, setBusy] = useState(false),
+    [error, setError] = useState("");
+  const navigate = useNavigate(),
+    location = useLocation(),
+    profile = useCurrentUser(),
+    { retry } = useProgress();
+  const level = choice ?? profile.curriculumLevel ?? "Cơ bản";
+
+  return (
+    <AuthLayout>
+      <form
+        className="auth-form"
+        onSubmit={async (event) => {
+          event.preventDefault();
+          setBusy(true);
+
+          try {
+            if (import.meta.env.VITE_USE_MOCK !== "true") {
+              profile._updateProfile(await accountApi.curriculumLevel(level));
+            } else {
+              profile._updateProfile({ ...profile, hasSetLevel: true, curriculumLevel: level });
+            }
+
+            retry();
+            navigate(profile.onboardingComplete ? destination(location.state) : "/onboarding", {
+              replace: true,
+              state: location.state,
+            });
+          } catch (err) {
+            setError(err.message);
+          } finally {
+            setBusy(false);
+          }
+        }}
+      >
+        <h1 className="text-h1">Chọn cấp độ lộ trình</h1>
+        <p>
+          Chọn theo kinh nghiệm sử dụng ngôn ngữ ký hiệu Việt Nam. Cấp độ khác với Level được tính
+          từ XP.
+        </p>
+        <fieldset className="setup-options">
+          <legend>Kinh nghiệm của bạn</legend>
+          {[
+            ["Cơ bản", "Tôi mới bắt đầu hoặc muốn ôn lại nền tảng."],
+            ["Trung cấp", "Tôi biết các ký hiệu cơ bản và muốn luyện giao tiếp."],
+            ["Nâng cao", "Tôi sử dụng ký hiệu thường xuyên và muốn nâng kỹ năng."],
+          ].map(([value, description]) => (
+            <label key={value}>
+              <input
+                type="radio"
+                name="level"
+                value={value}
+                checked={value === level}
+                onChange={() => setLevel(value)}
+              />
+              <span>
+                <strong>{value}</strong>
+                <span>{description}</span>
+              </span>
+            </label>
+          ))}
+        </fieldset>
+        {error && <p role="alert">{error}</p>}
+        <button className="auth-submit" disabled={busy}>
+          {busy ? "Đang lưu…" : "Tiếp tục"}
+        </button>
+      </form>
+    </AuthLayout>
+  );
+}
+
+const steps = [
+  [
+    "Lộ trình học",
+    "Học từng bài, làm bài kiểm tra cuối chương và theo dõi tiến độ trong cùng một lộ trình.",
+  ],
+  [
+    "Luyện tập với AI",
+    "Quan sát hướng dẫn và giữ hai tay trong khung hình. Chế độ demo được ghi rõ và không tạo điểm nhận diện thật.",
+  ],
+  [
+    "Kết nối qua video",
+    "Chuẩn bị ánh sáng từ phía trước, đặt camera thấy rõ mặt và hai tay. Bạn có thể trò chuyện bằng tin nhắn trong phòng gọi.",
+  ],
+];
+
+export function Onboarding() {
+  const profile = useCurrentUser();
+  const [step, setStep] = useState(0),
+    [busy, setBusy] = useState(false),
+    [error, setError] = useState("");
+  const navigate = useNavigate(),
+    location = useLocation(),
+    toast = useToast();
+
+  return (
+    <AuthLayout>
+      <section className="auth-form">
+        <h1 className="text-h1">Làm quen với SignMate</h1>
+        <p className="text-number-sm" aria-live="polite">
+          Bước {step + 1}/{steps.length}
+        </p>
+        <h2 className="text-h2">{steps[step][0]}</h2>
+        <p>{steps[step][1]}</p>
+        <div className="ui-dialog-actions">
+          {step > 0 && (
+            <button disabled={busy} onClick={() => setStep((value) => value - 1)}>
+              Quay lại
+            </button>
+          )}
+          <button
+            className="auth-submit"
+            disabled={busy}
+            onClick={async () => {
+              if (step < steps.length - 1) {
+                setStep(step + 1);
+
+                return;
+              }
+
+              setBusy(true);
+
+              try {
+                profile._updateProfile(await authApi.onboarding());
+                profile._completeOnboarding();
+                toast({ type: "success", message: "Sẵn sàng bắt đầu học!" });
+                navigate(destination(location.state), { replace: true });
+              } catch (err) {
+                setError(err.message);
+              } finally {
+                setBusy(false);
+              }
+            }}
+          >
+            {step === steps.length - 1 ? "Bắt đầu học" : "Tiếp theo"}
+          </button>
+        </div>
+        {error && <p role="alert">{error}</p>}
+      </section>
+    </AuthLayout>
+  );
+}
+
+export function AuthAction() {
+  const [params] = useSearchParams();
+
+  return (
+    <Navigate
+      replace
+      to={`${params.get("mode") === "resetPassword" ? "/reset-password" : "/verify-email"}?${params}`}
+    />
+  );
+}
