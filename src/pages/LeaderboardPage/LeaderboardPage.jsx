@@ -1,42 +1,377 @@
-import {useMemo,useState} from 'react';
-import {Link} from 'react-router-dom';
-import {Trophy,Flame,Star,TrendingUp,ChevronRight,GraduationCap} from 'lucide-react';
-import {useLeaderboard,useProgress} from '../../hooks/useProgress';
-import {useCurrentUser} from '../../hooks/useCurrentUser';
-import Avatar from '../../components/ui/Avatar';
-import EmptyState from '../../components/ui/EmptyState';
-import Skeleton from '../../components/ui/Skeleton';
-import ApiState from '../../components/ApiState';
-import {rankEntries,xpGapToPrevious,xpLevel,curriculumLevel} from '../../utils/learningLevels';
-import {dateKey} from '../../utils/statsHistory';
-import './LeaderboardPage.css';
-const number=value=>Number(value||0).toLocaleString('vi-VN');
-function Level({entry}){return <span className="lb-level" title={`Level ${xpLevel(entry.totalXp)} được tính từ XP. Cấp độ lộ trình: ${curriculumLevel(entry)}.`}>Lv. {xpLevel(entry.totalXp)}</span>;}
-function Podium({rows,user}){
- return <section className="lb-podium" aria-labelledby="lb-top-title"><h2 id="lb-top-title" className="text-h2"><Trophy size={19}/> Top 3 tuần này</h2><div className="lb-podium__places">{[rows[1],rows[0],rows[2]].filter(Boolean).map(entry=><article className={`lb-podium__person lb-podium__person--${entry.rank}`} key={entry.id} aria-label={`Hạng ${entry.rank}: ${entry.isMe?user.name:entry.name}`}><span className="lb-podium__medal"><Trophy size={18}/><span>{entry.rank}</span></span><div className="lb-podium__avatar"><Avatar user={entry.isMe?user:entry} size={entry.rank===1?80:64}/></div><strong>{entry.isMe?`${user.name} (Bạn)`:entry.name}</strong><span className="text-number-sm">{number(entry.weeklyXp)} XP</span></article>)}</div></section>;
+import { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
+import { Trophy, Flame, Star, TrendingUp, ChevronRight, GraduationCap } from "lucide-react";
+import { useLeaderboard, useProgress } from "../../hooks/useProgress";
+import { useCurrentUser } from "../../hooks/useCurrentUser";
+import Avatar from "../../components/ui/Avatar";
+import EmptyState from "../../components/ui/EmptyState";
+import Skeleton from "../../components/ui/Skeleton";
+import ApiState from "../../components/ApiState";
+import { rankEntries, xpGapToPrevious, xpLevel, curriculumLevel } from "../../utils/learningLevels";
+import { dateKey } from "../../utils/statsHistory";
+import "./LeaderboardPage.css";
+
+const number = (value) => Number(value || 0).toLocaleString("vi-VN");
+
+function Level({ entry }) {
+  return (
+    <span
+      className="lb-level"
+      title={`Level ${xpLevel(entry.totalXp)} được tính từ XP. Cấp độ lộ trình: ${curriculumLevel(entry)}.`}
+    >
+      Lv. {xpLevel(entry.totalXp)}
+    </span>
+  );
 }
-function PersonalCard({current,user,stats,gap,previous}){
- const target=previous?.weeklyXp||current?.weeklyXp||0;
- return <section className="lb-me" aria-label="Thứ hạng của bạn"><div className="lb-me__identity"><Avatar user={user} size={52}/><div className="lb-me__name"><p className="lb-me__display-name">{user.name} <span className="text-caption">(Bạn)</span></p><span className="text-caption">Cấp độ: {stats.curriculumLevel}</span><Level entry={{totalXp:stats.xp,curriculumLevel:stats.curriculumLevel}}/></div><div className="lb-me__rank"><span className="text-caption">Thứ hạng</span><strong className="text-number-lg">{current?`#${current.rank}`:'—'}</strong></div></div><div className="lb-me__xp"><span>XP tuần này</span><span>{number(stats.weeklyXp)}{target>0?` / ${number(target)}`:''}</span></div><progress value={stats.weeklyXp} max={Math.max(1,target,stats.weeklyXp)} aria-label="XP tuần so với người ngay trên"/><p className="lb-me__hint text-caption">{!current?'Chưa có thứ hạng trong nhóm này.':gap===null?'Bạn đang dẫn đầu bảng này!':gap===0?'Bạn đang bằng XP với người ngay trên.':`Cần thêm ${number(gap)} XP để bằng hạng #${current.rank-1}.`}</p><div className="lb-me__metrics"><div><strong className="text-number-lg"><Flame size={22}/>{stats.streak}</strong><span className="text-caption">Ngày streak</span></div><div><strong className="text-number-lg">{number(stats.xp)}</strong><span className="text-caption">Tổng XP</span></div></div></section>;
+
+function Podium({ rows, user }) {
+  return (
+    <section className="lb-podium" aria-labelledby="lb-top-title">
+      <h2 id="lb-top-title" className="text-h2">
+        <Trophy size={19} /> Top 3 tuần này
+      </h2>
+      <div className="lb-podium__places">
+        {[rows[1], rows[0], rows[2]].filter(Boolean).map((entry) => (
+          <article
+            className={`lb-podium__person lb-podium__person--${entry.rank}`}
+            key={entry.id}
+            aria-label={`Hạng ${entry.rank}: ${entry.isMe ? user.name : entry.name}`}
+          >
+            <span className="lb-podium__medal">
+              <Trophy size={18} />
+              <span>{entry.rank}</span>
+            </span>
+            <div className="lb-podium__avatar">
+              <Avatar user={entry.isMe ? user : entry} size={entry.rank === 1 ? 80 : 64} />
+            </div>
+            <strong>{entry.isMe ? `${user.name} (Bạn)` : entry.name}</strong>
+            <span className="text-number-sm">{number(entry.weeklyXp)} XP</span>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
 }
-function WeeklyActivity({stats}){
- const today=new Date(),monday=new Date(today);monday.setDate(today.getDate()-(today.getDay()+6)%7);
- const days=Array.from({length:7},(_,index)=>{const day=new Date(monday);day.setDate(monday.getDate()+index);const date=dateKey(day);return {date,label:index===6?'CN':`T${index+2}`,xp:stats.activityHistory.find(row=>row.date===date)?.xp||0};});
- const max=Math.max(1,...days.map(day=>day.xp));
- return <section className="lb-card lb-activity"><h2 className="text-h2">Hoạt động tuần này</h2><ul>{days.map(day=><li key={day.date}><span>{day.label}</span><span className="lb-activity__track" aria-hidden="true"><i style={{width:`${day.xp/max*100}%`}}/></span><span className="text-number-sm" aria-label={`${day.date}: ${day.xp} XP`}>{number(day.xp)}</span></li>)}</ul>{!days.some(day=>day.xp)&&<p className="text-caption">Hoàn thành bài học để ghi nhận XP đầu tiên tuần này.</p>}</section>;
+
+function PersonalCard({ current, user, stats, gap, previous }) {
+  const target = previous?.weeklyXp || current?.weeklyXp || 0;
+
+  return (
+    <section className="lb-me" aria-label="Thứ hạng của bạn">
+      <div className="lb-me__identity">
+        <Avatar user={user} size={52} />
+        <div className="lb-me__name">
+          <p className="lb-me__display-name">
+            {user.name} <span className="text-caption">(Bạn)</span>
+          </p>
+          <span className="text-caption">Cấp độ: {stats.curriculumLevel}</span>
+          <Level entry={{ totalXp: stats.xp, curriculumLevel: stats.curriculumLevel }} />
+        </div>
+        <div className="lb-me__rank">
+          <span className="text-caption">Thứ hạng</span>
+          <strong className="text-number-lg">{current ? `#${current.rank}` : "—"}</strong>
+        </div>
+      </div>
+      <div className="lb-me__xp">
+        <span>XP tuần này</span>
+        <span>
+          {number(stats.weeklyXp)}
+          {target > 0 ? ` / ${number(target)}` : ""}
+        </span>
+      </div>
+      <progress
+        value={stats.weeklyXp}
+        max={Math.max(1, target, stats.weeklyXp)}
+        aria-label="XP tuần so với người ngay trên"
+      />
+      <p className="lb-me__hint text-caption">
+        {!current
+          ? "Chưa có thứ hạng trong nhóm này."
+          : gap === null
+            ? "Bạn đang dẫn đầu bảng này!"
+            : gap === 0
+              ? "Bạn đang bằng XP với người ngay trên."
+              : `Cần thêm ${number(gap)} XP để bằng hạng #${current.rank - 1}.`}
+      </p>
+      <div className="lb-me__metrics">
+        <div>
+          <strong className="text-number-lg">
+            <Flame size={22} />
+            {stats.streak}
+          </strong>
+          <span className="text-caption">Ngày streak</span>
+        </div>
+        <div>
+          <strong className="text-number-lg">{number(stats.xp)}</strong>
+          <span className="text-caption">Tổng XP</span>
+        </div>
+      </div>
+    </section>
+  );
 }
-function Ranking({entries,levelEntries,user,scope,setScope,stats,source}){
- const all=useMemo(()=>source==='server'?entries:rankEntries(entries),[entries,source]),me=all.find(row=>row.isMe),myLevel=me?.xpLevel??xpLevel(stats.xp);
- const sameLevel=levelEntries||all.filter(row=>row.xpLevel===myLevel),rows=scope==='level'?(source==='server'?sameLevel:rankEntries(sameLevel)):all;
- const current=rows.find(row=>row.isMe),gap=current?xpGapToPrevious(rows,current.id):null,previous=current?rows[current.rank-2]:null;
- const risers=all.filter(row=>row.previousRank>row.rank).sort((a,b)=>(b.previousRank-b.rank)-(a.previousRank-a.rank)).slice(0,3);
- const rest=rows.slice(3),streakTarget=Math.max(7,Math.ceil((stats.streak+1)/7)*7);
- const nextMonday=new Date();nextMonday.setDate(nextMonday.getDate()+((8-nextMonday.getDay())%7||7));
- return <><div className="lb-main"><div className="lb-filter-row"><div className="lb-filters" role="group" aria-label="Phạm vi xếp hạng">{[['level','Cùng Level',sameLevel.length],['all','Toàn bộ người học',all.length]].map(([key,label,count])=><button type="button" key={key} className={`lb-filter ${scope===key?'is-active':''}`} aria-pressed={scope===key} onClick={()=>setScope(key)}>{label}<span className="text-number-sm"> ({count})</span></button>)}</div><span className="text-caption">Tất cả · {number(rows.length)} người</span></div>
- {scope==='level'&&rows.length<3?<div className="lb-empty"><EmptyState title="Chưa đủ bạn học cùng Level" description={`Hiện có ${rows.length} người ở Level ${myLevel}. Xem bảng chung để tìm thêm bạn học.`} onAction={()=>setScope('all')} actionLabel="Xem tất cả"/></div>:!rows.length?<EmptyState title="Chưa có xếp hạng tuần này" description="Hoàn thành bài học để tích lũy XP."/>:<><Podium rows={rows.slice(0,3)} user={user}/>{rest.length>0&&<section className="lb-ranking"><div className="lb-ranking__heading"><h2 className="text-h2">Xếp hạng #4 – #{rows.length}</h2><span className="text-caption">Tuần mới: T2, {nextMonday.toLocaleDateString('vi-VN',{day:'2-digit',month:'2-digit'})}</span></div><p className="lb-table-hint text-caption">Vuốt ngang để xem đầy đủ Level và XP.</p><div className="lb-table-wrap" tabIndex={0} role="region" aria-label="Bảng xếp hạng, có thể cuộn ngang"><table className="lb-table"><caption className="sr-only">Xếp hạng theo XP tuần từ hạng 4. Ba người dẫn đầu hiển thị phía trên.</caption><thead><tr><th scope="col">#</th><th scope="col">Người học</th><th scope="col">Level</th><th scope="col">XP tuần</th><th scope="col">Tổng XP</th></tr></thead><tbody>{rest.map(entry=><tr key={entry.id} className={entry.isMe?'lb-table__me':''}><td className="text-number-sm">{entry.rank}</td><th scope="row"><div className="lb-person"><Avatar user={entry.isMe?user:entry}/><div><strong>{entry.isMe?`${user.name} (Bạn)`:entry.name}</strong><span className="lb-person__detail text-caption">Cấp độ: {curriculumLevel(entry)}</span></div></div></th><td><Level entry={entry}/></td><td className="text-number-sm">{number(entry.weeklyXp)} <span className="text-caption">XP</span></td><td className="text-number-sm">{number(entry.totalXp)} <span className="text-caption">XP</span></td></tr>)}</tbody></table></div></section>}</>}
- </div><aside className="lb-side"><PersonalCard current={current} previous={previous} user={user} stats={stats} gap={gap}/><WeeklyActivity stats={stats}/><section className="lb-card lb-goals"><h2 className="text-h2">Mốc tiếp theo</h2>{current&&current.rank>1&&<Link to="/learning-path" className="lb-goal lb-goal--rank"><TrendingUp size={20}/><span><strong>Chạm hạng #{current.rank-1}</strong><small className="text-number-sm">+{number(gap)} XP</small></span><ChevronRight size={18}/></Link>}<Link to="/learning-path" className="lb-goal lb-goal--level"><GraduationCap size={20}/><span><strong>Level {stats.xpLevel+1}</strong><small className="text-number-sm">+{number(stats.xpRemaining)} XP</small></span><ChevronRight size={18}/></Link><Link to="/learning-path" className="lb-goal lb-goal--streak"><Flame size={20}/><span><strong>Streak {streakTarget} ngày</strong><small className="text-number-sm">Còn {streakTarget-stats.streak} ngày</small></span><ChevronRight size={18}/></Link></section>{risers.length>0&&<section className="lb-card lb-riser"><h2 className="text-h2">Đang tăng nhanh <TrendingUp size={18}/></h2><ul>{risers.map(entry=><li key={entry.id}><Avatar user={entry} size={32}/><div><strong>{entry.name}</strong><span className="text-caption">Tăng {entry.previousRank-entry.rank} hạng · hiện #{entry.rank}</span></div><span className="lb-riser__gain text-number-sm">+{entry.previousRank-entry.rank}</span></li>)}</ul></section>}<p className="lb-sample text-caption"><Star size={14}/> {source==='mock'?'Dữ liệu mẫu · Chế độ phát triển offline.':'XP và thứ hạng được cập nhật từ máy chủ.'}</p></aside></>;
+
+function WeeklyActivity({ stats }) {
+  const today = new Date(),
+    monday = new Date(today);
+
+  monday.setDate(today.getDate() - ((today.getDay() + 6) % 7));
+
+  const days = Array.from({ length: 7 }, (_, index) => {
+    const day = new Date(monday);
+
+    day.setDate(monday.getDate() + index);
+
+    const date = dateKey(day);
+
+    return {
+      date,
+      label: index === 6 ? "CN" : `T${index + 2}`,
+      xp: stats.activityHistory.find((row) => row.date === date)?.xp || 0,
+    };
+  });
+  const max = Math.max(1, ...days.map((day) => day.xp));
+
+  return (
+    <section className="lb-card lb-activity">
+      <h2 className="text-h2">Hoạt động tuần này</h2>
+      <ul>
+        {days.map((day) => (
+          <li key={day.date}>
+            <span>{day.label}</span>
+            <span className="lb-activity__track" aria-hidden="true">
+              <i style={{ width: `${(day.xp / max) * 100}%` }} />
+            </span>
+            <span className="text-number-sm" aria-label={`${day.date}: ${day.xp} XP`}>
+              {number(day.xp)}
+            </span>
+          </li>
+        ))}
+      </ul>
+      {!days.some((day) => day.xp) && (
+        <p className="text-caption">Hoàn thành bài học để ghi nhận XP đầu tiên tuần này.</p>
+      )}
+    </section>
+  );
 }
-export default function LeaderboardPage(){
- const [scope,setScope]=useState('all'),user=useCurrentUser(),{stats,levelLeaderboard,source}=useProgress(),{data,error,retry}=useLeaderboard();
- return <div className="lb"><header className="lb-header"><h1 className="text-h1">Bảng xếp hạng</h1><p className="text-caption">Tuần này · Xếp theo XP tích lũy trong tuần</p></header>{error?<ApiState error={error} retry={retry}/>:!data?<Skeleton/>:<Ranking source={source} levelEntries={levelLeaderboard} entries={data.entries} user={user} scope={scope} setScope={setScope} stats={stats}/>}</div>;
+
+function Ranking({ entries, levelEntries, user, scope, setScope, stats, source }) {
+  const all = useMemo(
+      () => (source === "server" ? entries : rankEntries(entries)),
+      [entries, source],
+    ),
+    me = all.find((row) => row.isMe),
+    myLevel = me?.xpLevel ?? xpLevel(stats.xp);
+  const sameLevel = levelEntries || all.filter((row) => row.xpLevel === myLevel),
+    rows = scope === "level" ? (source === "server" ? sameLevel : rankEntries(sameLevel)) : all;
+  const current = rows.find((row) => row.isMe),
+    gap = current ? xpGapToPrevious(rows, current.id) : null,
+    previous = current ? rows[current.rank - 2] : null;
+  const risers = all
+    .filter((row) => row.previousRank > row.rank)
+    .sort((a, b) => b.previousRank - b.rank - (a.previousRank - a.rank))
+    .slice(0, 3);
+  const rest = rows.slice(3),
+    streakTarget = Math.max(7, Math.ceil((stats.streak + 1) / 7) * 7);
+  const nextMonday = new Date();
+
+  nextMonday.setDate(nextMonday.getDate() + ((8 - nextMonday.getDay()) % 7 || 7));
+
+  return (
+    <>
+      <div className="lb-main">
+        <div className="lb-filter-row">
+          <div className="lb-filters" role="group" aria-label="Phạm vi xếp hạng">
+            {[
+              ["level", "Cùng Level", sameLevel.length],
+              ["all", "Toàn bộ người học", all.length],
+            ].map(([key, label, count]) => (
+              <button
+                type="button"
+                key={key}
+                className={`lb-filter ${scope === key ? "is-active" : ""}`}
+                aria-pressed={scope === key}
+                onClick={() => setScope(key)}
+              >
+                {label}
+                <span className="text-number-sm"> ({count})</span>
+              </button>
+            ))}
+          </div>
+          <span className="text-caption">Tất cả · {number(rows.length)} người</span>
+        </div>
+        {scope === "level" && rows.length < 3 ? (
+          <div className="lb-empty">
+            <EmptyState
+              title="Chưa đủ bạn học cùng Level"
+              description={`Hiện có ${rows.length} người ở Level ${myLevel}. Xem bảng chung để tìm thêm bạn học.`}
+              onAction={() => setScope("all")}
+              actionLabel="Xem tất cả"
+            />
+          </div>
+        ) : !rows.length ? (
+          <EmptyState
+            title="Chưa có xếp hạng tuần này"
+            description="Hoàn thành bài học để tích lũy XP."
+          />
+        ) : (
+          <>
+            <Podium rows={rows.slice(0, 3)} user={user} />
+            {rest.length > 0 && (
+              <section className="lb-ranking">
+                <div className="lb-ranking__heading">
+                  <h2 className="text-h2">Xếp hạng #4 – #{rows.length}</h2>
+                  <span className="text-caption">
+                    Tuần mới: T2,{" "}
+                    {nextMonday.toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit" })}
+                  </span>
+                </div>
+                <p className="lb-table-hint text-caption">Vuốt ngang để xem đầy đủ Level và XP.</p>
+                <div
+                  className="lb-table-wrap"
+                  tabIndex={0}
+                  role="region"
+                  aria-label="Bảng xếp hạng, có thể cuộn ngang"
+                >
+                  <table className="lb-table">
+                    <caption className="sr-only">
+                      Xếp hạng theo XP tuần từ hạng 4. Ba người dẫn đầu hiển thị phía trên.
+                    </caption>
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Người học</th>
+                        <th scope="col">Level</th>
+                        <th scope="col">XP tuần</th>
+                        <th scope="col">Tổng XP</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {rest.map((entry) => (
+                        <tr key={entry.id} className={entry.isMe ? "lb-table__me" : ""}>
+                          <td className="text-number-sm">{entry.rank}</td>
+                          <th scope="row">
+                            <div className="lb-person">
+                              <Avatar user={entry.isMe ? user : entry} />
+                              <div>
+                                <strong>{entry.isMe ? `${user.name} (Bạn)` : entry.name}</strong>
+                                <span className="lb-person__detail text-caption">
+                                  Cấp độ: {curriculumLevel(entry)}
+                                </span>
+                              </div>
+                            </div>
+                          </th>
+                          <td>
+                            <Level entry={entry} />
+                          </td>
+                          <td className="text-number-sm">
+                            {number(entry.weeklyXp)} <span className="text-caption">XP</span>
+                          </td>
+                          <td className="text-number-sm">
+                            {number(entry.totalXp)} <span className="text-caption">XP</span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+            )}
+          </>
+        )}
+      </div>
+      <aside className="lb-side">
+        <PersonalCard current={current} previous={previous} user={user} stats={stats} gap={gap} />
+        <WeeklyActivity stats={stats} />
+        <section className="lb-card lb-goals">
+          <h2 className="text-h2">Mốc tiếp theo</h2>
+          {current && current.rank > 1 && (
+            <Link to="/learning-path" className="lb-goal lb-goal--rank">
+              <TrendingUp size={20} />
+              <span>
+                <strong>Chạm hạng #{current.rank - 1}</strong>
+                <small className="text-number-sm">+{number(gap)} XP</small>
+              </span>
+              <ChevronRight size={18} />
+            </Link>
+          )}
+          <Link to="/learning-path" className="lb-goal lb-goal--level">
+            <GraduationCap size={20} />
+            <span>
+              <strong>Level {stats.xpLevel + 1}</strong>
+              <small className="text-number-sm">+{number(stats.xpRemaining)} XP</small>
+            </span>
+            <ChevronRight size={18} />
+          </Link>
+          <Link to="/learning-path" className="lb-goal lb-goal--streak">
+            <Flame size={20} />
+            <span>
+              <strong>Streak {streakTarget} ngày</strong>
+              <small className="text-number-sm">Còn {streakTarget - stats.streak} ngày</small>
+            </span>
+            <ChevronRight size={18} />
+          </Link>
+        </section>
+        {risers.length > 0 && (
+          <section className="lb-card lb-riser">
+            <h2 className="text-h2">
+              Đang tăng nhanh <TrendingUp size={18} />
+            </h2>
+            <ul>
+              {risers.map((entry) => (
+                <li key={entry.id}>
+                  <Avatar user={entry} size={32} />
+                  <div>
+                    <strong>{entry.name}</strong>
+                    <span className="text-caption">
+                      Tăng {entry.previousRank - entry.rank} hạng · hiện #{entry.rank}
+                    </span>
+                  </div>
+                  <span className="lb-riser__gain text-number-sm">
+                    +{entry.previousRank - entry.rank}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+        <p className="lb-sample text-caption">
+          <Star size={14} />{" "}
+          {source === "mock"
+            ? "Dữ liệu mẫu · Chế độ phát triển offline."
+            : "XP và thứ hạng được cập nhật từ máy chủ."}
+        </p>
+      </aside>
+    </>
+  );
+}
+
+export default function LeaderboardPage() {
+  const [scope, setScope] = useState("all"),
+    user = useCurrentUser(),
+    { stats, levelLeaderboard, source } = useProgress(),
+    { data, error, retry } = useLeaderboard();
+
+  return (
+    <div className="lb">
+      <header className="lb-header">
+        <h1 className="text-h1">Bảng xếp hạng</h1>
+        <p className="text-caption">Tuần này · Xếp theo XP tích lũy trong tuần</p>
+      </header>
+      {error ? (
+        <ApiState error={error} retry={retry} />
+      ) : !data ? (
+        <Skeleton />
+      ) : (
+        <Ranking
+          source={source}
+          levelEntries={levelLeaderboard}
+          entries={data.entries}
+          user={user}
+          scope={scope}
+          setScope={setScope}
+          stats={stats}
+        />
+      )}
+    </div>
+  );
 }

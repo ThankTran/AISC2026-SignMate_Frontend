@@ -39,8 +39,8 @@ const HeaderSettings = ({
     };
 
     document.addEventListener("mousedown", handleClickOutside);
-    return () =>
-      document.removeEventListener("mousedown", handleClickOutside);
+
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const handleSelect = (path) => {
@@ -49,12 +49,27 @@ const HeaderSettings = ({
   };
 
   const handleSignOut = async () => {
-    if (pendingRef.current) return;
-    setOpen(false); triggerRef.current?.focus();
-    if (!await confirm({ title: "Đăng xuất?", message: "Bạn muốn đăng xuất khỏi SignMate?", confirmLabel: "Đăng xuất" })) return;
+    if (pendingRef.current) {
+      return;
+    }
+
+    setOpen(false);
+    triggerRef.current?.focus();
+
+    if (
+      !(await confirm({
+        title: "Đăng xuất?",
+        message: "Bạn muốn đăng xuất khỏi SignMate?",
+        confirmLabel: "Đăng xuất",
+      }))
+    ) {
+      return;
+    }
+
     pendingRef.current = true;
     setSigningOut(true);
     setError("");
+
     try {
       await logout();
       setOpen(false);
@@ -68,18 +83,23 @@ const HeaderSettings = ({
   };
 
   return (
-    <div className="header-settings" ref={wrapperRef} onKeyDown={(event) => {
-      if (event.key === "Escape" && open) {
-        setOpen(false);
-        triggerRef.current?.focus();
-      }
-    }}>
+    <div
+      className="header-settings"
+      ref={wrapperRef}
+      onKeyDown={(event) => {
+        if (event.key === "Escape" && open) {
+          setOpen(false);
+          triggerRef.current?.focus();
+        }
+      }}
+    >
       <button
         ref={triggerRef}
         type="button"
         className="header-icon-btn"
         onClick={() => setOpen((prev) => !prev)}
-        aria-label="Menu tài khoản" aria-haspopup="true"
+        aria-label="Menu tài khoản"
+        aria-haspopup="true"
         aria-expanded={open}
         aria-controls={dropdownId}
         title="Tài khoản"
@@ -115,7 +135,11 @@ const HeaderSettings = ({
             <LogOut size={16} strokeWidth={1.8} />
             <span>{signingOut ? "Đang đăng xuất…" : "Đăng xuất"}</span>
           </button>
-          {error && <p className="header-settings__error" role="alert">{error}</p>}
+          {error && (
+            <p className="header-settings__error" role="alert">
+              {error}
+            </p>
+          )}
         </div>
       )}
     </div>

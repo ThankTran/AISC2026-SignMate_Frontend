@@ -40,7 +40,9 @@
   border-radius: 8px;
   background: #ffffff;
   box-shadow: 0 1px 0 rgba(68, 68, 65, 0.03);
-  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
 }
 
 .friends-search:focus-within {
@@ -83,7 +85,9 @@
   background: var(--color-neutral-100);
   color: var(--color-neutral-700);
   cursor: pointer;
-  transition: background-color 0.18s ease, transform 0.18s ease;
+  transition:
+    background-color 0.18s ease,
+    transform 0.18s ease;
 }
 
 .friends-search__clear:hover {
@@ -161,7 +165,11 @@
   background: #ffffff;
   color: var(--color-neutral-700);
   cursor: pointer;
-  transition: background-color 0.18s ease, border-color 0.18s ease, opacity 0.18s ease, transform 0.18s ease;
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    opacity 0.18s ease,
+    transform 0.18s ease;
 }
 
 .friends-carousel-controls__btn:hover:not(:disabled) {
@@ -197,7 +205,9 @@
   background: transparent;
   color: var(--color-neutral-500);
   cursor: pointer;
-  transition: background-color 0.18s ease, color 0.18s ease;
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease;
 }
 
 .friends-section__filter-btn:hover {
@@ -451,12 +461,7 @@
     inset 0 -1px 0 rgba(255, 255, 255, 0.3);
   overflow: hidden;
   isolation: isolate;
-
 }
-
-
-
-
 
 .month-calendar__toolbar {
   display: flex;
@@ -508,8 +513,6 @@
     box-shadow 0.18s ease,
     transform 0.18s ease;
 }
-
-
 
 .month-calendar__today {
   padding: 0 12px;
@@ -676,7 +679,6 @@
   box-shadow:
     0 14px 28px rgba(45, 88, 84, 0.12),
     inset 0 1px 0 rgba(255, 255, 255, 0.78);
-
 }
 
 .month-calendar-event--pending {
@@ -967,10 +969,6 @@
 
 /* ================= SCHEDULE MODAL ================= */
 
-
-
-
-
 .schedule-modal__panel {
   width: min(100%, 520px);
   padding: 22px;
@@ -1210,10 +1208,6 @@
   display: none;
 }
 
-
-
-
-
 .call-history-modal__panel {
   display: flex;
   flex-direction: column;
@@ -1291,7 +1285,9 @@
   background: var(--color-neutral-50);
   color: var(--color-neutral-700);
   cursor: pointer;
-  transition: background-color 0.18s ease, color 0.18s ease;
+  transition:
+    background-color 0.18s ease,
+    color 0.18s ease;
 }
 
 .call-history-modal__close:hover {
@@ -1475,7 +1471,9 @@
   font-size: var(--text-sm);
   font-weight: var(--font-weight-semibold);
   cursor: pointer;
-  transition: background-color 0.18s ease, transform 0.18s ease;
+  transition:
+    background-color 0.18s ease,
+    transform 0.18s ease;
 }
 
 .friends-list__empty-action:hover {
@@ -1573,8 +1571,6 @@
     justify-content: flex-end;
   }
 
-
-
   .schedule-modal__panel {
     width: 100%;
     padding: 20px 16px;
@@ -1588,8 +1584,6 @@
   .schedule-modal__secondary {
     width: 100%;
   }
-
-
 
   .call-history-modal__panel {
     width: 100%;
@@ -1649,32 +1643,189 @@
     grid-column: 1 / -1;
   }
 }
-.friends-page, .friends-section, .friend-request-card, .schedule-request-card, .month-calendar, .call-history-modal__panel { background:var(--color-neutral-0, #fff); background-image:none;  box-shadow:none; }
-.friends-list { max-height:none; overflow:visible; }
-.month-calendar__add-day { opacity:1; visibility:visible; }
-.month-calendar__day { cursor:pointer; }
-@media(max-width:768px) {
- .month-calendar__weekdays { display:none; }
- .month-calendar__grid { display:flex; flex-direction:column; }
- .month-calendar__day { min-height:64px; }
- .month-calendar__day--outside { display:none; }
+.friends-page,
+.friends-section,
+.friend-request-card,
+.schedule-request-card,
+.month-calendar,
+.call-history-modal__panel {
+  background: var(--color-neutral-0, #fff);
+  background-image: none;
+  box-shadow: none;
 }
-.month-calendar, .month-calendar__nav, .month-calendar__today, .month-calendar__add-day, .month-calendar__day { box-shadow:none; border-color:var(--color-neutral-200); }
-.month-calendar__day, .month-calendar__day:hover { background:var(--color-neutral-50); }
-.month-calendar-event { background:var(--color-teal-50); border:1px solid var(--color-teal-100); box-shadow:none; }
-@media(max-width:768px){.friends-page .friends-recent-calls{grid-auto-flow:row;grid-auto-columns:auto;grid-template-columns:minmax(0,1fr);overflow:visible}}
-.friend-search-results{list-style:none;padding:0;display:grid;gap:12px}.friend-search-results li{display:flex;align-items:center;gap:12px;padding:16px;border:1px solid var(--color-neutral-200);border-radius:12px}.friend-search-results li>div{flex:1;min-width:0}.friend-search-results button,.friend-search-results a{min-height:44px;padding:10px 14px;border-radius:10px;background:var(--color-teal-50);color:var(--color-teal-700)}@media(max-width:640px){.friend-search-results li{flex-wrap:wrap}.friend-search-results li>button,.friend-search-results li>a{margin-left:56px}}
+.friends-list {
+  max-height: none;
+  overflow: visible;
+}
+.month-calendar__add-day {
+  opacity: 1;
+  visibility: visible;
+}
+.month-calendar__day {
+  cursor: pointer;
+}
+@media (max-width: 768px) {
+  .month-calendar__weekdays {
+    display: none;
+  }
+  .month-calendar__grid {
+    display: flex;
+    flex-direction: column;
+  }
+  .month-calendar__day {
+    min-height: 64px;
+  }
+  .month-calendar__day--outside {
+    display: none;
+  }
+}
+.month-calendar,
+.month-calendar__nav,
+.month-calendar__today,
+.month-calendar__add-day,
+.month-calendar__day {
+  box-shadow: none;
+  border-color: var(--color-neutral-200);
+}
+.month-calendar__day,
+.month-calendar__day:hover {
+  background: var(--color-neutral-50);
+}
+.month-calendar-event {
+  background: var(--color-teal-50);
+  border: 1px solid var(--color-teal-100);
+  box-shadow: none;
+}
+@media (max-width: 768px) {
+  .friends-page .friends-recent-calls {
+    grid-auto-flow: row;
+    grid-auto-columns: auto;
+    grid-template-columns: minmax(0, 1fr);
+    overflow: visible;
+  }
+}
+.friend-search-results {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+.friend-search-results li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--color-neutral-200);
+  border-radius: 12px;
+}
+.friend-search-results li > div {
+  flex: 1;
+  min-width: 0;
+}
+.friend-search-results button,
+.friend-search-results a {
+  min-height: 44px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: var(--color-teal-50);
+  color: var(--color-teal-700);
+}
+@media (max-width: 640px) {
+  .friend-search-results li {
+    flex-wrap: wrap;
+  }
+  .friend-search-results li > button,
+  .friend-search-results li > a {
+    margin-left: 56px;
+  }
+}
 
-@media(max-width:768px){.friends-search__input,.friends-section__link,.friends-list__load-more,.schedule-request-card__accept,.month-calendar__nav,.month-calendar__today,.month-calendar-event__action{min-height:44px;min-width:44px}.month-calendar-event__action{width:44px;height:44px}}
+@media (max-width: 768px) {
+  .friends-search__input,
+  .friends-section__link,
+  .friends-list__load-more,
+  .schedule-request-card__accept,
+  .month-calendar__nav,
+  .month-calendar__today,
+  .month-calendar-event__action {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  .month-calendar-event__action {
+    width: 44px;
+    height: 44px;
+  }
+}
 
-:where(.friends-search__input){min-height:24px}
+:where(.friends-search__input) {
+  min-height: 24px;
+}
 
-.video-invites { display: grid; gap: 24px; }
-.video-invites__tabs { display: flex; gap: 4px; padding: 5px; width: fit-content; max-width: 100%; border: 1px solid var(--color-neutral-200); border-radius: 14px; background: var(--color-neutral-100); }
-.video-invites__tabs button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 44px; padding: 10px 20px; border: 0; border-radius: 10px; background: transparent; color: var(--color-neutral-600); font: inherit; font-weight: 600; cursor: pointer; }
-.video-invites__tabs button[aria-selected=true] { background: var(--color-white); color: var(--color-teal-700); box-shadow: 0 1px 4px #0000000a; }
-.video-invites__tabs button span { font-family: var(--font-family-mono); }
-.video-invites__schedule:not([hidden]) { display: grid; gap: 24px; }
-.video-invites__schedule > .friends-section { margin: 0; padding: 24px; border: 1px solid var(--color-neutral-200); border-radius: 18px; background: var(--color-white); }
-.video-invites__empty { margin: 0; padding: 18px; border-radius: 12px; background: var(--color-neutral-50); color: var(--color-neutral-600); line-height: 1.6; }
-@media(max-width:640px) { .video-invites__tabs { width: 100%; }.video-invites__tabs button { flex: 1; padding-inline: 12px; }.video-invites__schedule > .friends-section { padding: 18px; } }
+.video-invites {
+  display: grid;
+  gap: 24px;
+}
+.video-invites__tabs {
+  display: flex;
+  gap: 4px;
+  padding: 5px;
+  width: fit-content;
+  max-width: 100%;
+  border: 1px solid var(--color-neutral-200);
+  border-radius: 14px;
+  background: var(--color-neutral-100);
+}
+.video-invites__tabs button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 10px 20px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--color-neutral-600);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.video-invites__tabs button[aria-selected="true"] {
+  background: var(--color-white);
+  color: var(--color-teal-700);
+  box-shadow: 0 1px 4px #0000000a;
+}
+.video-invites__tabs button span {
+  font-family: var(--font-family-mono);
+}
+.video-invites__schedule:not([hidden]) {
+  display: grid;
+  gap: 24px;
+}
+.video-invites__schedule > .friends-section {
+  margin: 0;
+  padding: 24px;
+  border: 1px solid var(--color-neutral-200);
+  border-radius: 18px;
+  background: var(--color-white);
+}
+.video-invites__empty {
+  margin: 0;
+  padding: 18px;
+  border-radius: 12px;
+  background: var(--color-neutral-50);
+  color: var(--color-neutral-600);
+  line-height: 1.6;
+}
+@media (max-width: 640px) {
+  .video-invites__tabs {
+    width: 100%;
+  }
+  .video-invites__tabs button {
+    flex: 1;
+    padding-inline: 12px;
+  }
+  .video-invites__schedule > .friends-section {
+    padding: 18px;
+  }
+}

@@ -38,8 +38,10 @@ export default function CallRoom({
   const [reactions, setReactions] = useState([]);
   const reactionId = useRef(0);
   const reactionTimers = useRef(new Set());
+
   useEffect(() => {
     const timers = reactionTimers.current;
+
     return () => {
       timers.forEach(clearTimeout);
       timers.clear();
@@ -47,21 +49,22 @@ export default function CallRoom({
   }, []);
   function showReaction(emoji) {
     const id = ++reactionId.current;
+
     setReactions((current) => [...current.slice(-39), { id, emoji }]);
+
     const timer = setTimeout(() => {
       setReactions((current) => current.filter((item) => item.id !== id));
       reactionTimers.current.delete(timer);
     }, 2000);
+
     reactionTimers.current.add(timer);
   }
-  const { mic, camera, previewRef, toggleMedia, stream, mediaRevision } =
-    useLocalMedia(onNotice, mediaOptions);
-  const {
-    messages,
-    sendMessage,
-    status: chatStatus,
-    error: chatError,
-  } = useCallChat(call?.id);
+
+  const { mic, camera, previewRef, toggleMedia, stream, mediaRevision } = useLocalMedia(
+    onNotice,
+    mediaOptions,
+  );
+  const { messages, sendMessage, status: chatStatus, error: chatError } = useCallChat(call?.id);
   const {
     state: connectionState,
     remoteRef,
@@ -73,21 +76,17 @@ export default function CallRoom({
     onEnd: onEndCall,
     onReaction: showReaction,
   });
+
   function sendReaction(emoji) {
-    if (VIDEO_DEMO || transmitReaction(emoji)) showReaction(emoji);
+    if (VIDEO_DEMO || transmitReaction(emoji)) {
+      showReaction(emoji);
+    }
   }
+
   return (
-    <section
-      className={`vc-call vc-enter${splitView ? " vc-call--split" : ""}`}
-    >
+    <section className={`vc-call vc-enter${splitView ? " vc-call--split" : ""}`}>
       <div className="vc-call-backdrop">
-        <h1
-          className={
-            connectionState === "connected" && !VIDEO_DEMO
-              ? "sr-only"
-              : "text-h1"
-          }
-        >
+        <h1 className={connectionState === "connected" && !VIDEO_DEMO ? "sr-only" : "text-h1"}>
           {partner.name}
         </h1>
         {!VIDEO_DEMO && (
@@ -102,9 +101,7 @@ export default function CallRoom({
         {(VIDEO_DEMO || connectionState !== "connected") && (
           <>
             <ParticipantAvatar person={partner} className="vc-remote-avatar" />
-            <span>
-              {VIDEO_DEMO ? "Phòng luyện tập demo" : "Phòng luyện tập"}
-            </span>
+            <span>{VIDEO_DEMO ? "Phòng luyện tập demo" : "Phòng luyện tập"}</span>
             <p>
               {VIDEO_DEMO
                 ? "Camera của đối tác trong phiên demo."
@@ -154,13 +151,7 @@ export default function CallRoom({
         )}
       </header>
       <div className="vc-self">
-        <video
-          ref={previewRef}
-          autoPlay
-          playsInline
-          muted
-          className={camera ? "" : "vc-hidden"}
-        />
+        <video ref={previewRef} autoPlay playsInline muted className={camera ? "" : "vc-hidden"} />
         {!camera && (
           <div>
             <VideoOff size={28} />
@@ -171,9 +162,7 @@ export default function CallRoom({
           type="button"
           className={`vc-self-mic ${mic ? "is-on" : "is-off"}`}
           aria-label={mic ? "Tắt micro của bạn" : "Bật micro của bạn"}
-          title={
-            mic ? "Micro đang bật — bấm để tắt" : "Micro đang tắt — bấm để bật"
-          }
+          title={mic ? "Micro đang bật — bấm để tắt" : "Micro đang tắt — bấm để bật"}
           aria-pressed={mic}
           onClick={() => toggleMedia("audio")}
         >
@@ -182,9 +171,7 @@ export default function CallRoom({
         <button
           type="button"
           className="vc-self-expand"
-          aria-label={
-            splitView ? "Thu nhỏ camera của bạn" : "Chia đôi màn hình cuộc gọi"
-          }
+          aria-label={splitView ? "Thu nhỏ camera của bạn" : "Chia đôi màn hình cuộc gọi"}
           title={splitView ? "Thu nhỏ camera" : "Chia đôi màn hình"}
           aria-pressed={splitView}
           onClick={() => setSplitView((value) => !value)}
@@ -234,23 +221,16 @@ export default function CallRoom({
               message: "Bạn sẽ chuyển đến phần đánh giá buổi luyện tập.",
               confirmLabel: "Kết thúc",
             })
-          )
+          ) {
             onEndCall();
+          }
         }}
       />
       <div className="vc-call-safety">
-        <button
-          title="Báo cáo"
-          aria-label="Báo cáo"
-          onClick={() => onSafetyAction("report")}
-        >
+        <button title="Báo cáo" aria-label="Báo cáo" onClick={() => onSafetyAction("report")}>
           <Flag size={17} />
         </button>
-        <button
-          title="Chặn"
-          aria-label="Chặn"
-          onClick={() => onSafetyAction("block")}
-        >
+        <button title="Chặn" aria-label="Chặn" onClick={() => onSafetyAction("block")}>
           <Ban size={17} />
         </button>
       </div>

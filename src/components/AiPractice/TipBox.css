@@ -73,6 +73,6 @@
   .tip-box__counter {
     align-self: flex-end;
 
-  font-family: var(--font-family-mono);
-}
+    font-family: var(--font-family-mono);
+  }
 }

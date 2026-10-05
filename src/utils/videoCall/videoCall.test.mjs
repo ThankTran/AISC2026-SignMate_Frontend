@@ -14,10 +14,8 @@ test("formats the call timer across minute boundaries", () => {
 
 test("topic and feedback toggles do not mutate the original selection", () => {
   const original = ["Gia đình"];
-  assert.deepEqual(toggleSelection(original, "Du lịch"), [
-    "Gia đình",
-    "Du lịch",
-  ]);
+
+  assert.deepEqual(toggleSelection(original, "Du lịch"), ["Gia đình", "Du lịch"]);
   assert.deepEqual(toggleSelection(original, "Gia đình"), []);
   assert.deepEqual(original, ["Gia đình"]);
 });
@@ -30,13 +28,7 @@ test("matching retains the current partner unless another is requested", () => {
 
 test("matching never selects a blocked profile", () => {
   assert.equal(findAvailablePartner(partners, 0, ["second"], true), 0);
-  assert.equal(
-    findAvailablePartner(partners, 0, ["first", "second"], false),
-    2,
-  );
-  assert.equal(
-    findAvailablePartner(partners, 0, ["first", "second", "third"], true),
-    -1,
-  );
+  assert.equal(findAvailablePartner(partners, 0, ["first", "second"], false), 2);
+  assert.equal(findAvailablePartner(partners, 0, ["first", "second", "third"], true), -1);
   assert.equal(findAvailablePartner([], 0, [], true), -1);
 });

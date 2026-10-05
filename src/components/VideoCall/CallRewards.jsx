@@ -7,6 +7,7 @@ import { demoRewards as rewards } from "../../mockdata/videoCall/review";
 
 export default function CallRewards({ onContinue, partner }) {
   const progress = Math.round((rewards.currentXp / rewards.nextLevelXp) * 100);
+
   return (
     <section className="vc-centered vc-thanks vc-enter">
       <div className="vc-celebration">
@@ -23,55 +24,58 @@ export default function CallRewards({ onContinue, partner }) {
         <br />
         Cảm ơn bạn đã cùng xây dựng cộng đồng SignMate.
       </p>
-      {VIDEO_DEMO && <div className="vc-panel vc-rewards">
-        <div className="vc-section-title">
-          <span className="vc-icon-tile">
-            <Trophy size={22} />
-          </span>
-          <div>
-            <h2 className="text-h2">Một buổi học, nhiều niềm vui</h2>
-            <p>{VIDEO_DEMO ? "Thành tích của bạn trong phiên demo" : "Tổng kết phiên luyện tập"}</p>
+      {VIDEO_DEMO && (
+        <div className="vc-panel vc-rewards">
+          <div className="vc-section-title">
+            <span className="vc-icon-tile">
+              <Trophy size={22} />
+            </span>
+            <div>
+              <h2 className="text-h2">Một buổi học, nhiều niềm vui</h2>
+              <p>
+                {VIDEO_DEMO ? "Thành tích của bạn trong phiên demo" : "Tổng kết phiên luyện tập"}
+              </p>
+            </div>
           </div>
-        </div>
-        <div className="vc-reward-grid">
-          <div>
-            <Trophy size={19} />
-            <small>XP cá nhân</small>
-            <strong>
-              +{rewards.personalXp} <span>XP</span>
-            </strong>
+          <div className="vc-reward-grid">
+            <div>
+              <Trophy size={19} />
+              <small>XP cá nhân</small>
+              <strong>
+                +{rewards.personalXp} <span>XP</span>
+              </strong>
+            </div>
+            <div>
+              <Users size={19} />
+              <small>XP đồng đội</small>
+              <strong>
+                +{rewards.teamXp} <span>XP</span>
+              </strong>
+            </div>
           </div>
-          <div>
-            <Users size={19} />
-            <small>XP đồng đội</small>
-            <strong>
-              +{rewards.teamXp} <span>XP</span>
-            </strong>
+          <div className="vc-level">
+            <strong>Level {rewards.level}</strong>
+            <small>
+              {rewards.currentXp.toLocaleString("vi-VN")} /{" "}
+              {rewards.nextLevelXp.toLocaleString("vi-VN")} XP ({progress}%)
+            </small>
           </div>
+          <div
+            className="vc-progress"
+            role="progressbar"
+            aria-label={`Tiến độ Level ${rewards.level + 1}`}
+            aria-valuenow={rewards.currentXp}
+            aria-valuemin={0}
+            aria-valuemax={rewards.nextLevelXp}
+          >
+            <span style={{ "--xp-progress": `${progress}%` }} />
+          </div>
+          <p>
+            Bạn chỉ còn <strong>{rewards.nextLevelXp - rewards.currentXp} XP</strong> nữa để đạt
+            Level {rewards.level + 1}!
+          </p>
         </div>
-        <div className="vc-level">
-          <strong>Level {rewards.level}</strong>
-          <small>
-            {rewards.currentXp.toLocaleString("vi-VN")} /{" "}
-            {rewards.nextLevelXp.toLocaleString("vi-VN")} XP ({progress}%)
-          </small>
-        </div>
-        <div
-          className="vc-progress"
-          role="progressbar"
-          aria-label={`Tiến độ Level ${rewards.level + 1}`}
-          aria-valuenow={rewards.currentXp}
-          aria-valuemin={0}
-          aria-valuemax={rewards.nextLevelXp}
-        >
-          <span style={{ "--xp-progress": `${progress}%` }} />
-        </div>
-        <p>
-          Bạn chỉ còn{" "}
-          <strong>{rewards.nextLevelXp - rewards.currentXp} XP</strong> nữa để
-          đạt Level {rewards.level + 1}!
-        </p>
-      </div>}
+      )}
       <AddFriendButton person={partner} />
       <div className="vc-actions">
         <Link className="vc-button vc-secondary" to="/dashboard">

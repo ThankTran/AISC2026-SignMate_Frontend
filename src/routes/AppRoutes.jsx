@@ -1,4 +1,11 @@
-import {ForgotPassword,ResetPassword,VerifyEmail,Level,Onboarding,AuthAction} from "../pages/AccountSetup/AccountSetup";
+import {
+  ForgotPassword,
+  ResetPassword,
+  VerifyEmail,
+  Level,
+  Onboarding,
+  AuthAction,
+} from "../pages/AccountSetup/AccountSetup";
 import InfoPage from "../pages/InfoPage";
 import NotFoundPage from "../pages/NotFoundPage";
 import { Routes, Route, Navigate } from "react-router-dom";
@@ -52,13 +59,29 @@ export default function AppRoutes() {
           </PublicOnlyRoute>
         }
       />
-      <Route path="/forgot-password" element={<ForgotPassword/>}/>
-      <Route path="/reset-password" element={<ResetPassword/>}/>
-      <Route path="/verify-email" element={<VerifyEmail/>}/>
-      <Route path="/auth/action" element={<AuthAction/>}/>
-      <Route path="/level" element={<ProtectedRoute setup><Level/></ProtectedRoute>}/>
-      <Route path="/onboarding" element={<ProtectedRoute setup><Onboarding/></ProtectedRoute>}/>
-      {['faq','terms','privacy','contact'].map(page=><Route key={page} path={`/${page}`} element={<InfoPage page={page}/>}/>)}
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/reset-password" element={<ResetPassword />} />
+      <Route path="/verify-email" element={<VerifyEmail />} />
+      <Route path="/auth/action" element={<AuthAction />} />
+      <Route
+        path="/level"
+        element={
+          <ProtectedRoute setup>
+            <Level />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/onboarding"
+        element={
+          <ProtectedRoute setup>
+            <Onboarding />
+          </ProtectedRoute>
+        }
+      />
+      {["faq", "terms", "privacy", "contact"].map((page) => (
+        <Route key={page} path={`/${page}`} element={<InfoPage page={page} />} />
+      ))}
       {/* ---------- Cần đăng nhập, có sidebar (MainLayout) ---------- */}
       <Route
         element={
@@ -70,10 +93,7 @@ export default function AppRoutes() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/learning-path" element={<LearningPathPage />} />
         <Route path="/learning-path/lesson/:lessonId" element={<LessonPage />} />
-        <Route
-          path="/learning-path/quiz/:quizId"
-          element={<QuizPage />}
-        />
+        <Route path="/learning-path/quiz/:quizId" element={<QuizPage />} />
         <Route path="/learning-path/quiz/:quizId/result" element={<QuizResultPage />} />
         <Route path="/practice-ai" element={<AiPracticePage />} />
         <Route path="/ranking" element={<LeaderboardPage />} />
@@ -85,7 +105,6 @@ export default function AppRoutes() {
         <Route path="/friends/video-call-invites" element={<VideoCallInvitesPage />} />
         <Route path="/account/profile" element={<Profile />} />
         <Route path="/account/stats" element={<Stats />} />
-
       </Route>
       <Route path="*" element={<NotFoundPage />} />
     </Routes>

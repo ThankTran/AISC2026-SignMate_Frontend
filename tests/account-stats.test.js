@@ -1,9 +1,89 @@
-import test from 'node:test';
-import assert from 'node:assert/strict';
-import {rankEntries,xpGapToPrevious,xpLevel,curriculumLevel} from '../src/utils/learningLevels.js';
-import {createLeaderboardMock} from '../src/mockdata/leaderboard/weeklyLeaderboard.js';
-import {statsHistory,weeklyXp,learnedLessons,formatStudyTime} from '../src/utils/statsHistory.js';
-test('weekly ranking is sorted, deterministic and does not mutate input',()=>{const rows=[{id:'b',weeklyXp:50,totalXp:9000},{id:'a',weeklyXp:100,totalXp:0},{id:'c',weeklyXp:50,totalXp:9000}];assert.deepEqual(rankEntries(rows).map(row=>[row.id,row.rank]),[['a',1],['b',2],['c',3]]);assert.equal(rows[0].rank,undefined);assert.equal(xpGapToPrevious(rankEntries(rows),'b'),50);assert.equal(xpGapToPrevious(rankEntries(rows),'c'),0);assert.equal(xpGapToPrevious(rankEntries(rows),'a'),null);});
-test('mock riser is computed from ranks and XP level is distinct from curriculum',()=>{const rows=createLeaderboardMock({name:'Test'});assert.equal(rows.length,29);assert.ok(rows.every(row=>row.totalXp>=row.weeklyXp));assert.ok(rows.some(row=>row.previousRank>row.rank));assert.ok(rows.every((row,i)=>row.rank===i+1));assert.equal(rows.filter(row=>row.isMe).length,1);assert.equal(xpLevel(1999),2);assert.equal(xpLevel(2000),3);assert.equal(curriculumLevel({level:5}),'Cơ bản');});
-test('history fills gaps across year boundary and excludes data outside filter',()=>{const history=statsHistory([{date:'2025-12-31',xp:30,studySeconds:120},{date:'2026-01-02',xp:100}],3,new Date('2026-01-01T12:00:00'));assert.deepEqual(history.map(row=>row.date),['2025-12-30','2025-12-31','2026-01-01']);assert.equal(history.reduce((sum,row)=>sum+row.xp,0),30);assert.equal(weeklyXp(history)[0].date,'2025-12-29');assert.equal(formatStudyTime(3660),'1 giờ 1 phút');});
-test('shared chapters count only completed lessons and weekly boundaries are Monday',()=>{assert.equal(learnedLessons([{done:2,total:3},{done:1,total:3},{done:0,total:0}]),3);assert.deepEqual(weeklyXp([{date:'2026-09-27',xp:20},{date:'2026-09-28',xp:30}]),[{date:'2026-09-21',xp:20},{date:'2026-09-28',xp:30}]);assert.equal(statsHistory([],84).length,84);});
+import test from "node:test";
+import assert from "node:assert/strict";
+import {
+  rankEntries,
+  xpGapToPrevious,
+  xpLevel,
+  curriculumLevel,
+} from "../src/utils/learningLevels.js";
+import { createLeaderboardMock } from "../src/mockdata/leaderboard/weeklyLeaderboard.js";
+import {
+  statsHistory,
+  weeklyXp,
+  learnedLessons,
+  formatStudyTime,
+} from "../src/utils/statsHistory.js";
+test("weekly ranking is sorted, deterministic and does not mutate input", () => {
+  const rows = [
+    { id: "b", weeklyXp: 50, totalXp: 9000 },
+    { id: "a", weeklyXp: 100, totalXp: 0 },
+    { id: "c", weeklyXp: 50, totalXp: 9000 },
+  ];
+
+  assert.deepEqual(
+    rankEntries(rows).map((row) => [row.id, row.rank]),
+    [
+      ["a", 1],
+      ["b", 2],
+      ["c", 3],
+    ],
+  );
+  assert.equal(rows[0].rank, undefined);
+  assert.equal(xpGapToPrevious(rankEntries(rows), "b"), 50);
+  assert.equal(xpGapToPrevious(rankEntries(rows), "c"), 0);
+  assert.equal(xpGapToPrevious(rankEntries(rows), "a"), null);
+});
+test("mock riser is computed from ranks and XP level is distinct from curriculum", () => {
+  const rows = createLeaderboardMock({ name: "Test" });
+
+  assert.equal(rows.length, 29);
+  assert.ok(rows.every((row) => row.totalXp >= row.weeklyXp));
+  assert.ok(rows.some((row) => row.previousRank > row.rank));
+  assert.ok(rows.every((row, i) => row.rank === i + 1));
+  assert.equal(rows.filter((row) => row.isMe).length, 1);
+  assert.equal(xpLevel(1999), 2);
+  assert.equal(xpLevel(2000), 3);
+  assert.equal(curriculumLevel({ level: 5 }), "Cơ bản");
+});
+test("history fills gaps across year boundary and excludes data outside filter", () => {
+  const history = statsHistory(
+    [
+      { date: "2025-12-31", xp: 30, studySeconds: 120 },
+      { date: "2026-01-02", xp: 100 },
+    ],
+    3,
+    new Date("2026-01-01T12:00:00"),
+  );
+
+  assert.deepEqual(
+    history.map((row) => row.date),
+    ["2025-12-30", "2025-12-31", "2026-01-01"],
+  );
+  assert.equal(
+    history.reduce((sum, row) => sum + row.xp, 0),
+    30,
+  );
+  assert.equal(weeklyXp(history)[0].date, "2025-12-29");
+  assert.equal(formatStudyTime(3660), "1 giờ 1 phút");
+});
+test("shared chapters count only completed lessons and weekly boundaries are Monday", () => {
+  assert.equal(
+    learnedLessons([
+      { done: 2, total: 3 },
+      { done: 1, total: 3 },
+      { done: 0, total: 0 },
+    ]),
+    3,
+  );
+  assert.deepEqual(
+    weeklyXp([
+      { date: "2026-09-27", xp: 20 },
+      { date: "2026-09-28", xp: 30 },
+    ]),
+    [
+      { date: "2026-09-21", xp: 20 },
+      { date: "2026-09-28", xp: 30 },
+    ],
+  );
+  assert.equal(statsHistory([], 84).length, 84);
+});

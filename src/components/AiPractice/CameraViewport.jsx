@@ -1,12 +1,5 @@
 import { useEffect, useRef } from "react";
-import {
-  Camera,
-  CameraOff,
-  CircleDot,
-  Info,
-  Signal,
-  Sparkles,
-} from "lucide-react";
+import { Camera, CameraOff, CircleDot, Info, Signal, Sparkles } from "lucide-react";
 
 import "./CameraViewport.css";
 
@@ -21,7 +14,7 @@ const CameraViewport = ({
   cameraOn,
   onOpenGuide,
   onRetry,
-  mock=false,
+  mock = false,
 }) => {
   const videoRef = useRef(null);
 
@@ -37,8 +30,7 @@ const CameraViewport = ({
   const isIdle = phase === "idle";
   const isPaused = phase === "paused";
 
-  const confidenceLabel =
-    confidence >= 85 ? "HIGH" : confidence >= 60 ? "MEDIUM" : "LOW";
+  const confidenceLabel = confidence >= 85 ? "HIGH" : confidence >= 60 ? "MEDIUM" : "LOW";
 
   return (
     <div className="cam-viewport">
@@ -63,7 +55,7 @@ const CameraViewport = ({
         {isActive && (
           <span className="cam-viewport__badge cam-viewport__badge--recording">
             <span className="cam-viewport__rec-dot" />
-            {mock?'Phiên demo':'Đang ghi hình'}
+            {mock ? "Phiên demo" : "Đang ghi hình"}
           </span>
         )}
 
@@ -85,25 +77,25 @@ const CameraViewport = ({
       {/* ---- Video / Camera area ---- */}
       <div className="cam-viewport__video">
         {/* Luồng webcam thực */}
-        <video
-          ref={videoRef}
-          autoPlay
-          playsInline
-          muted
-          className="cam-viewport__video-element"
-        />
+        <video ref={videoRef} autoPlay playsInline muted className="cam-viewport__video-element" />
 
         {/* Dark overlay with gradient */}
         <div className="cam-viewport__video-bg" />
 
         {/* Skeleton landmark canvas */}
 
-
         {/* Camera bị từ chối / lỗi */}
         {cameraError && (
           <div className="cam-viewport__error">
             <CameraOff size={28} strokeWidth={1.8} />
-            <p>{cameraError}</p><p>Chrome/Edge: mở biểu tượng cài đặt cạnh địa chỉ → Quyền trang web → Camera → Cho phép. Firefox/Safari: mở cài đặt trang web và cho phép Camera.</p><button type="button" onClick={onRetry}>Thử lại</button>
+            <p>{cameraError}</p>
+            <p>
+              Chrome/Edge: mở biểu tượng cài đặt cạnh địa chỉ → Quyền trang web → Camera → Cho phép.
+              Firefox/Safari: mở cài đặt trang web và cho phép Camera.
+            </p>
+            <button type="button" onClick={onRetry}>
+              Thử lại
+            </button>
           </div>
         )}
 
@@ -153,7 +145,7 @@ const CameraViewport = ({
       </button>
 
       {/* ---- Bottom-right confidence ---- */}
-      {confidence!=null && (isActive || isPaused) && (
+      {confidence != null && (isActive || isPaused) && (
         <div className="cam-viewport__confidence">
           <span className="cam-viewport__conf-label">CONF</span>
           <Signal

@@ -1,4 +1,12 @@
-const relativeDate = (offset, display = false) => { const date=new Date(); date.setDate(date.getDate()+offset); return display ? date.toLocaleDateString('vi-VN') : `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`; };
+const relativeDate = (offset, display = false) => {
+  const date = new Date();
+
+  date.setDate(date.getDate() + offset);
+
+  return display
+    ? date.toLocaleDateString("vi-VN")
+    : `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+};
 // Dữ liệu mẫu - sau này thay bằng data thật từ API
 
 export const recentCallsData = [

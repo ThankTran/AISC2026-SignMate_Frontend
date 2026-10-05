@@ -21,18 +21,19 @@
 
 /* ===== Backdrop ===== */
 
-
-
 @keyframes lrm-fade-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* ===== Card =====
    Một scrollbar duy nhất: modal không bao giờ tạo scrollbar lồng nhau */
 
 .lrm__card {
-
   width: 100%;
   max-width: 540px;
   overscroll-behavior: contain;
@@ -118,7 +119,9 @@
 
   cursor: pointer;
 
-  transition: background-color 0.18s ease, transform 0.12s ease;
+  transition:
+    background-color 0.18s ease,
+    transform 0.12s ease;
 }
 
 .lrm__close:hover {
@@ -200,7 +203,6 @@
 }
 
 .lrm-stat__pct {
-
   font-size: 26px;
   font-weight: 800;
   line-height: 1.1;
@@ -243,7 +245,6 @@
 }
 
 .lrm-stat__value {
-
   font-size: 24px;
   font-weight: 800;
   line-height: 1.1;
@@ -334,7 +335,6 @@
 
   background: var(--lrm-green-soft);
   color: var(--lrm-green);
-
 
   font-size: var(--font-size-caption);
   font-weight: 700;
@@ -472,7 +472,9 @@
 
   cursor: pointer;
 
-  transition: border-color 0.18s ease, background-color 0.18s ease,
+  transition:
+    border-color 0.18s ease,
+    background-color 0.18s ease,
     transform 0.12s ease;
 }
 
@@ -535,7 +537,9 @@
   cursor: pointer;
 
   box-shadow: 0 8px 20px rgba(224, 86, 56, 0.32);
-  transition: box-shadow 0.18s ease, transform 0.12s ease,
+  transition:
+    box-shadow 0.18s ease,
+    transform 0.12s ease,
     filter 0.18s ease;
 }
 
@@ -569,13 +573,13 @@
 
   .lrm-stat--xp {
     order: -1;
-}
+  }
 
   .lrm-xpbar {
     max-width: 120px;
     margin-top: 0;
     padding-top: 0;
-}
+  }
 
   .lrm__footer {
     flex-direction: column;
@@ -591,7 +595,18 @@
     align-items: flex-start;
   }
 }
-.lrm--failed .lrm__hero{background:var(--color-neutral-100);color:var(--color-neutral-900)}
-.lrm--failed .lrm__hero-title,.lrm--failed .lrm__hero-subtitle{color:var(--color-neutral-900)}
-.lrm--failed .lrm-stat__flag,.lrm--failed .lrm-stat__pct{color:var(--color-coral-700)}
-.lrm--failed .lrm-stat__flag{background:var(--color-coral-50)}
+.lrm--failed .lrm__hero {
+  background: var(--color-neutral-100);
+  color: var(--color-neutral-900);
+}
+.lrm--failed .lrm__hero-title,
+.lrm--failed .lrm__hero-subtitle {
+  color: var(--color-neutral-900);
+}
+.lrm--failed .lrm-stat__flag,
+.lrm--failed .lrm-stat__pct {
+  color: var(--color-coral-700);
+}
+.lrm--failed .lrm-stat__flag {
+  background: var(--color-coral-50);
+}

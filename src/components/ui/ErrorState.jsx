@@ -1,1 +1,1 @@
-export {ErrorState as default} from './DataState';
+export { ErrorState as default } from "./DataState";

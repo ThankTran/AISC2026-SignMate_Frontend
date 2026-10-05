@@ -23,8 +23,8 @@ export default function CallReview({
   const [hoverRating, setHoverRating] = useState(0);
   const [tags, setTags] = useState([]);
   const [note, setNote] = useState("");
-  const toggleTag = (tag) =>
-    setTags((current) => toggleSelection(current, tag));
+  const toggleTag = (tag) => setTags((current) => toggleSelection(current, tag));
+
   return (
     <section className="vc-centered vc-review vc-enter">
       <span className="vc-success-pill">
@@ -93,10 +93,11 @@ export default function CallReview({
               ))}
             </div>
           </div>
-          {VIDEO_DEMO && <div className="vc-xp-strip">
-            <Sparkles size={16} /> XP bạn sẽ nhận{" "}
-            <strong>+{demoRewards.personalXp}</strong>
-          </div>}
+          {VIDEO_DEMO && (
+            <div className="vc-xp-strip">
+              <Sparkles size={16} /> XP bạn sẽ nhận <strong>+{demoRewards.personalXp}</strong>
+            </div>
+          )}
           <label className="vc-panel vc-notes">
             Ghi chú thêm <small>(tùy chọn)</small>
             <textarea
@@ -118,14 +119,13 @@ export default function CallReview({
           Báo cáo
         </button>
       </div>
-      <CallButton
-        disabled={!rating}
-        onClick={() => onSubmit({ rating, tags, note })}
-      >
+      <CallButton disabled={!rating} onClick={() => onSubmit({ rating, tags, note })}>
         Gửi đánh giá <ArrowRight size={18} />
       </CallButton>
       <small className="vc-local-note">
-        {VIDEO_DEMO ? "Đánh giá demo được lưu trong phiên trình duyệt này." : "Đánh giá được lưu vào lịch sử cuộc gọi của bạn."}
+        {VIDEO_DEMO
+          ? "Đánh giá demo được lưu trong phiên trình duyệt này."
+          : "Đánh giá được lưu vào lịch sử cuộc gọi của bạn."}
       </small>
     </section>
   );

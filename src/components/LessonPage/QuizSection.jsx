@@ -16,9 +16,7 @@ const QuizSection = ({ question, selected, result, onSelect }) => {
 
       <h2 className="lesson-quiz__question text-h2">{questionText}</h2>
 
-      <p className="lesson-quiz__desc">
-        Xem video bên trái và chọn đáp án phù hợp nhất.
-      </p>
+      <p className="lesson-quiz__desc">Xem video bên trái và chọn đáp án phù hợp nhất.</p>
 
       {/* ---- Answer grid ---- */}
       <div className="lesson-quiz__grid" role="radiogroup" aria-label={questionText}>
@@ -26,28 +24,40 @@ const QuizSection = ({ question, selected, result, onSelect }) => {
           const Icon = option.icon;
           const isSelected = selected === option.id;
           const isCorrect = result !== null && option.id === correctAnswer;
-          const isWrong =
-            answered &&
-            !result.correct &&
-            isSelected &&
-            option.id !== correctAnswer;
-          const showRadioCheck =
-            isSelected && (result === null || result.correct);
+          const isWrong = answered && !result.correct && isSelected && option.id !== correctAnswer;
+          const showRadioCheck = isSelected && (result === null || result.correct);
 
           return (
             <button
               key={option.id}
-              type="button" role="radio" aria-checked={isSelected}
+              type="button"
+              role="radio"
+              aria-checked={isSelected}
               className={`lesson-quiz__card ${
-                isSelected && result === null
-                  ? "lesson-quiz__card--selected"
-                  : ""
+                isSelected && result === null ? "lesson-quiz__card--selected" : ""
               } ${isCorrect ? "lesson-quiz__card--correct" : ""} ${
                 isWrong ? "lesson-quiz__card--wrong" : ""
               }`}
               onClick={() => onSelect(option.id)}
               tabIndex={isSelected || (!selected && index === 0) ? 0 : -1}
-              onKeyDown={(event) => { const direction = ['ArrowRight','ArrowDown'].includes(event.key) ? 1 : ['ArrowLeft','ArrowUp'].includes(event.key) ? -1 : 0; if (direction && !answered) { event.preventDefault(); const next=(index+direction+options.length)%options.length; onSelect(options[next].id); event.currentTarget.parentElement.querySelectorAll('[role="radio"]')[next]?.focus(); } }}
+              onKeyDown={(event) => {
+                const direction = ["ArrowRight", "ArrowDown"].includes(event.key)
+                  ? 1
+                  : ["ArrowLeft", "ArrowUp"].includes(event.key)
+                    ? -1
+                    : 0;
+
+                if (direction && !answered) {
+                  event.preventDefault();
+
+                  const next = (index + direction + options.length) % options.length;
+
+                  onSelect(options[next].id);
+                  event.currentTarget.parentElement
+                    .querySelectorAll('[role="radio"]')
+                    [next]?.focus();
+                }
+              }}
               disabled={answered}
             >
               {/* Radio */}
@@ -79,12 +89,8 @@ const QuizSection = ({ question, selected, result, onSelect }) => {
 
               {/* Text */}
               <div className="lesson-quiz__card-text">
-                <span className="lesson-quiz__card-title">
-                  {option.title}
-                </span>
-                <span className="lesson-quiz__card-caption">
-                  {option.caption}
-                </span>
+                <span className="lesson-quiz__card-title">{option.title}</span>
+                <span className="lesson-quiz__card-caption">{option.caption}</span>
               </div>
             </button>
           );
@@ -95,23 +101,15 @@ const QuizSection = ({ question, selected, result, onSelect }) => {
       {answered && (
         <div
           className={`lesson-quiz__ai ${
-            result.correct
-              ? "lesson-quiz__ai--ok"
-              : "lesson-quiz__ai--no"
+            result.correct ? "lesson-quiz__ai--ok" : "lesson-quiz__ai--no"
           }`}
         >
           {result.aiAccuracy != null && (
-            <span className="lesson-quiz__ai-accuracy">
-              Độ chính xác AI: {result.aiAccuracy}%
-            </span>
+            <span className="lesson-quiz__ai-accuracy">Độ chính xác AI: {result.aiAccuracy}%</span>
           )}
-          {result.explanation && (
-            <p className="lesson-quiz__ai-explain">{result.explanation}</p>
-          )}
+          {result.explanation && <p className="lesson-quiz__ai-explain">{result.explanation}</p>}
         </div>
       )}
-
-
     </section>
   );
 };

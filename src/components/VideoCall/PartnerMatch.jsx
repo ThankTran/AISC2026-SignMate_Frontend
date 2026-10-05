@@ -1,12 +1,5 @@
 import { VIDEO_DEMO } from "../../services/videoCall/config";
-import {
-  CheckCheck,
-  Sparkles,
-  Video,
-  Star,
-  RotateCcw,
-  MapPin,
-} from "lucide-react";
+import { CheckCheck, Sparkles, Video, Star, RotateCcw, MapPin } from "lucide-react";
 import ParticipantAvatar from "./ParticipantAvatar";
 import CallButton from "./CallButton";
 
@@ -53,27 +46,29 @@ export default function PartnerMatch({
             <h2 className="text-h2">{partner.name}</h2>
             <p className="vc-location">
               <MapPin size={13} />
-              {partner.curriculumLevel || partner.city || 'Bạn học SignMate'}
+              {partner.curriculumLevel || partner.city || "Bạn học SignMate"}
             </p>
             <p>{partner.bio}</p>
           </div>
         </div>
-        {VIDEO_DEMO && <div className="vc-stats">
-          <div>
-            <strong>{partner.sessions}</strong>
-            <small>Buổi học</small>
+        {VIDEO_DEMO && (
+          <div className="vc-stats">
+            <div>
+              <strong>{partner.sessions}</strong>
+              <small>Buổi học</small>
+            </div>
+            <div>
+              <strong>
+                {partner.rating} <Star size={15} />
+              </strong>
+              <small>Đánh giá</small>
+            </div>
+            <div>
+              <strong>{partner.friends}</strong>
+              <small>Bạn bè</small>
+            </div>
           </div>
-          <div>
-            <strong>
-              {partner.rating} <Star size={15} />
-            </strong>
-            <small>Đánh giá</small>
-          </div>
-          <div>
-            <strong>{partner.friends}</strong>
-            <small>Bạn bè</small>
-          </div>
-        </div>}
+        )}
         <small className="vc-label">CHỦ ĐỀ CHUNG</small>
         <div className="vc-tags">
           {selected.map((t) => (

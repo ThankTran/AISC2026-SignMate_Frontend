@@ -1,5 +1,5 @@
 import { Calendar, Video } from "lucide-react";
-import Avatar from '../ui/Avatar';
+import Avatar from "../ui/Avatar";
 
 import "./FriendListItem.css";
 
@@ -8,7 +8,7 @@ const FriendListItem = ({ friend, onSchedule, onCall }) => {
     <div className="friend-item">
       <div className="friend-item__left">
         <div className="friend-item__avatar-wrap">
-          <Avatar user={friend} size={48}/>
+          <Avatar user={friend} size={48} />
 
           <span
             className={`friend-item__status-dot ${
@@ -33,7 +33,8 @@ const FriendListItem = ({ friend, onSchedule, onCall }) => {
       <div className="friend-item__actions">
         <button
           type="button"
-          className="friend-item__schedule-btn" aria-label={`Hẹn lịch với ${friend.name}`}
+          className="friend-item__schedule-btn"
+          aria-label={`Hẹn lịch với ${friend.name}`}
           onClick={() => onSchedule?.(friend)}
         >
           <Calendar size={14} strokeWidth={1.8} />

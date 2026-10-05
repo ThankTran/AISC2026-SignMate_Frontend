@@ -35,19 +35,31 @@ const EXPLORE = [
     icon: BookOpen,
     title: "Thư viện Ký hiệu có cấu trúc",
     desc: "Cơ sở dữ liệu đa phương tiện phân loại theo cấu trúc phân cấp - từ bảng chữ cái ngón tay đến từ vựng và cụm từ giao tiếp thường dùng theo chủ đề.",
-    bullets: ["Video ký hiệu theo chủ đề & cấp độ", "Bảng chữ cái ngón tay (Fingerspelling)", "Cơ sở dữ liệu mở rộng cho AI"],
+    bullets: [
+      "Video ký hiệu theo chủ đề & cấp độ",
+      "Bảng chữ cái ngón tay (Fingerspelling)",
+      "Cơ sở dữ liệu mở rộng cho AI",
+    ],
   },
   {
     icon: GraduationCap,
     title: "Học theo lộ trình & AI đánh giá",
     desc: "Nội dung học thiết kế theo chương, cấp độ và chủ đề. Module AI trích xuất 21 điểm mốc khớp bàn tay, đo lệch góc chuyển động và đưa ra phản hồi chỉnh tư thế ngay lập tức.",
-    bullets: ["AI đánh giá tư thế tay theo thời gian thực", "Theo dõi tiến độ, điểm thưởng & huy hiệu", "Bài tập tương tác & kiểm tra cuối chương"],
+    bullets: [
+      "AI đánh giá tư thế tay theo thời gian thực",
+      "Theo dõi tiến độ, điểm thưởng & huy hiệu",
+      "Bài tập tương tác & kiểm tra cuối chương",
+    ],
   },
   {
     icon: Users,
     title: "Giao tiếp video thực tế",
     desc: "Gọi video tối ưu cho ngôn ngữ ký hiệu - khung hình quan sát rõ khuôn mặt & bàn tay, WebRTC độ trễ thấp. Ghép cặp thông minh theo sở thích để thực hành giao tiếp hai chiều.",
-    bullets: ["Video call tối ưu góc quay bàn tay - nét mặt", "Ghép cặp theo sở thích & chủ đề giao tiếp", "Chat văn bản song song trong cuộc gọi"],
+    bullets: [
+      "Video call tối ưu góc quay bàn tay - nét mặt",
+      "Ghép cặp theo sở thích & chủ đề giao tiếp",
+      "Chat văn bản song song trong cuộc gọi",
+    ],
   },
 ];
 
@@ -77,12 +89,13 @@ export default function Welcome() {
 
           <div className="hero-content">
             <h1 className="text-display">
-              SignMate - Kết nối qua<br />
+              SignMate - Kết nối qua
+              <br />
               <span className="highlight">ngôn ngữ ký hiệu</span>
             </h1>
             <p className="hero-desc">
-              Lộ trình học cá nhân hóa và luyện tập video 1-1 với người thật - được
-              hỗ trợ bởi AI đánh giá tư thế và phản hồi thời gian thực.
+              Lộ trình học cá nhân hóa và luyện tập video 1-1 với người thật - được hỗ trợ bởi AI
+              đánh giá tư thế và phản hồi thời gian thực.
             </p>
 
             <div className="feature-tags">
@@ -95,7 +108,9 @@ export default function Welcome() {
               <button className="btn-primary hero-cta" onClick={() => navigate("/register")}>
                 Bắt đầu ngay →
               </button>
-              <button className="btn-outline" onClick={scrollToExplore}>Khám phá SignMate</button>
+              <button className="btn-outline" onClick={scrollToExplore}>
+                Khám phá SignMate
+              </button>
             </div>
           </div>
         </div>
@@ -126,11 +141,15 @@ export default function Welcome() {
         <div className="explore-grid">
           {EXPLORE.map(({ icon: Icon, title, desc, bullets }) => (
             <div className="explore-col" key={title}>
-              <div className="explore-icon"><Icon size={26} /></div>
+              <div className="explore-icon">
+                <Icon size={26} />
+              </div>
               <h3 className="text-h3">{title}</h3>
               <p>{desc}</p>
               <ul>
-                {bullets.map((b) => <li key={b}>{b}</li>)}
+                {bullets.map((b) => (
+                  <li key={b}>{b}</li>
+                ))}
               </ul>
             </div>
           ))}

@@ -1,1 +1,1 @@
-export {EmptyState as default} from './DataState';
+export { EmptyState as default } from "./DataState";

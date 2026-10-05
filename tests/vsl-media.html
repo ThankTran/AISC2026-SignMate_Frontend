@@ -1,4 +1,35 @@
-<!doctype html><html lang="vi"><head><meta charset="UTF-8"><title>VSL media checks</title></head><body><h1>Video bài 1</h1><pre id="results"></pre><script type="module">
-const names=['D0489','D0492','D0493','D0494','D0529','D0530','D0531','D0532'];let passed=0;
-for(const name of names){const video=document.createElement('video');video.controls=true;video.muted=true;video.playsInline=true;video.preload='metadata';video.width=240;video.src=`/videos/vsl/${name}.mp4`;document.body.append(video);video.onloadedmetadata=()=>{const ok=video.duration>0&&video.videoWidth>0;document.getElementById('results').textContent+=`${ok?'PASS':'FAIL'} ${name}: ${video.duration.toFixed(2)}s ${video.videoWidth}×${video.videoHeight}\n`;if(ok&&++passed===names.length)document.title='PASS 8 VSL videos';};video.onerror=()=>{document.title='FAIL VSL video';document.getElementById('results').textContent+=`FAIL ${name}\n`;};}
-</script></body></html>
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>VSL media checks</title>
+  </head>
+  <body>
+    <h1>Video bài 1</h1>
+    <pre id="results"></pre>
+    <script type="module">
+      const names = ["D0489", "D0492", "D0493", "D0494", "D0529", "D0530", "D0531", "D0532"];
+      let passed = 0;
+      for (const name of names) {
+        const video = document.createElement("video");
+        video.controls = true;
+        video.muted = true;
+        video.playsInline = true;
+        video.preload = "metadata";
+        video.width = 240;
+        video.src = `/videos/vsl/${name}.mp4`;
+        document.body.append(video);
+        video.onloadedmetadata = () => {
+          const ok = video.duration > 0 && video.videoWidth > 0;
+          document.getElementById("results").textContent +=
+            `${ok ? "PASS" : "FAIL"} ${name}: ${video.duration.toFixed(2)}s ${video.videoWidth}×${video.videoHeight}\n`;
+          if (ok && ++passed === names.length) document.title = "PASS 8 VSL videos";
+        };
+        video.onerror = () => {
+          document.title = "FAIL VSL video";
+          document.getElementById("results").textContent += `FAIL ${name}\n`;
+        };
+      }
+    </script>
+  </body>
+</html>

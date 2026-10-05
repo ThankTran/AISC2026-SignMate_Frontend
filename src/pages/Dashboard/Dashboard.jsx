@@ -1,6 +1,6 @@
 import EmptyState from "../../components/ui/EmptyState";
-import {curriculumLevel, xpLevel} from '../../utils/learningLevels';
-import { useDashboard,useLeaderboard } from "../../hooks/useLearningData";
+import { curriculumLevel, xpLevel } from "../../utils/learningLevels";
+import { useDashboard, useLeaderboard } from "../../hooks/useLearningData";
 import Skeleton from "../../components/ui/Skeleton";
 import Avatar from "../../components/ui/Avatar";
 import { useCurrentUser } from "../../hooks/useCurrentUser";
@@ -12,7 +12,6 @@ import { Award, Flame, Trophy, Check, Lock, Star } from "lucide-react";
 import "./Dashboard.css";
 
 const MEDALS = ["🥇", "🥈", "🥉"];
-
 
 function StatCard({ icon, value, label }) {
   return (
@@ -29,7 +28,12 @@ function ChapterItem({ chapter }) {
 
   if (status === "locked") {
     return (
-      <div className="db-chapter db-chapter--locked" tabIndex={0} title="Hoàn thành các bài học trước để mở khóa chương này." aria-label={`${title}: Hoàn thành các bài học trước để mở khóa.`}>
+      <div
+        className="db-chapter db-chapter--locked"
+        tabIndex={0}
+        title="Hoàn thành các bài học trước để mở khóa chương này."
+        aria-label={`${title}: Hoàn thành các bài học trước để mở khóa.`}
+      >
         <span className="db-chapter__lead">
           <Lock size={26} strokeWidth={1.8} />
         </span>
@@ -54,7 +58,8 @@ function ChapterItem({ chapter }) {
             Chương {id} · {title}
           </p>
           <p className="db-chapter__sub db-chapter__sub--green">
-            {done}/{total} bài học · {quiz.status === "completed" ? "Đã hoàn thành kiểm tra" : "Chờ kiểm tra cuối chương"}
+            {done}/{total} bài học ·{" "}
+            {quiz.status === "completed" ? "Đã hoàn thành kiểm tra" : "Chờ kiểm tra cuối chương"}
           </p>
         </div>
         <Star className="db-chapter__star" size={34} fill="#f6c945" stroke="#e0a800" />
@@ -86,15 +91,35 @@ function Dashboard() {
   const navigate = useNavigate();
   const { data, error, retry } = useDashboard();
   const board = useLeaderboard(tab);
-  if (!data || error) return error ? <ApiState error={error} retry={retry} /> : <Skeleton />;
-  if(!data.chapters.length)return <EmptyState title="Chưa có tiến độ học" description="Mở lộ trình để bắt đầu bài học đầu tiên."/>;
+
+  if (!data || error) {
+    return error ? <ApiState error={error} retry={retry} /> : <Skeleton />;
+  }
+
+  if (!data.chapters.length) {
+    return (
+      <EmptyState
+        title="Chưa có tiến độ học"
+        description="Mở lộ trình để bắt đầu bài học đầu tiên."
+      />
+    );
+  }
+
   const { chapters } = data;
-  const user = { ...currentUser, ...data.stats, name: currentUser.name, photoURL: currentUser.photoURL };
+  const user = {
+    ...currentUser,
+    ...data.stats,
+    name: currentUser.name,
+    photoURL: currentUser.photoURL,
+  };
   const target = getContinueTarget(chapters);
   const current = target?.chapter;
   const currentPercent = current ? percent(current.done, current.total) : 0;
-  const allCompleted = chapters.length > 0 && chapters.every((chapter) =>
-    chapter.done === chapter.total && chapter.quiz.status === "completed");
+  const allCompleted =
+    chapters.length > 0 &&
+    chapters.every(
+      (chapter) => chapter.done === chapter.total && chapter.quiz.status === "completed",
+    );
 
   return (
     <div className="db">
@@ -104,7 +129,9 @@ function Dashboard() {
           <p className="db-welcome__eyebrow">CHÀO MỪNG TRỞ LẠI</p>
           <h1 className="db-welcome__title text-h1">
             Chào {user.name} <span aria-hidden="true">👋</span>
-            <span className="db-welcome__level">Cấp độ: {curriculumLevel(user)} · Level {xpLevel(user.xp)}</span>
+            <span className="db-welcome__level">
+              Cấp độ: {curriculumLevel(user)} · Level {xpLevel(user.xp)}
+            </span>
           </h1>
           <p className="db-welcome__desc">
             Hôm nay là ngày học thứ {user.streak} liên tiếp - giữ vững phong độ nhé.
@@ -137,19 +164,30 @@ function Dashboard() {
             <div className="db-continue__info">
               <p className="db-continue__eyebrow">TIẾP TỤC HỌC</p>
               <h2 className="db-continue__title text-h2">
-                {current ? `Chương ${current.id} · ${current.title}`
-                  : allCompleted ? "Bạn đã hoàn thành lộ trình!" : "Chưa có bài học khả dụng"}
+                {current
+                  ? `Chương ${current.id} · ${current.title}`
+                  : allCompleted
+                    ? "Bạn đã hoàn thành lộ trình!"
+                    : "Chưa có bài học khả dụng"}
               </h2>
-              {current && <div className="db-continue__bar" aria-hidden="true">
-                <span style={{ width: `${currentPercent}%` }} />
-              </div>}
+              {current && (
+                <div className="db-continue__bar" aria-hidden="true">
+                  <span style={{ width: `${currentPercent}%` }} />
+                </div>
+              )}
               <p className="db-continue__meta">
-                {current ? `${current.done}/${current.total} bài học · ${currentPercent}% · 1 bài kiểm tra cuối chương`
-                  : allCompleted ? "Ôn tập các bài học trong lộ trình." : "Xem lộ trình để biết các bài học hiện có."}
+                {current
+                  ? `${current.done}/${current.total} bài học · ${currentPercent}% · 1 bài kiểm tra cuối chương`
+                  : allCompleted
+                    ? "Ôn tập các bài học trong lộ trình."
+                    : "Xem lộ trình để biết các bài học hiện có."}
               </p>
             </div>
-            <button type="button" className="db-continue__btn"
-              onClick={() => navigate(target?.path ?? "/learning-path")}>
+            <button
+              type="button"
+              className="db-continue__btn"
+              onClick={() => navigate(target?.path ?? "/learning-path")}
+            >
               {target?.label ?? "Xem lộ trình →"}
             </button>
           </section>
@@ -193,19 +231,16 @@ function Dashboard() {
             </button>
           </div>
 
-          {!board.data && (board.error ? <ApiState error={board.error} retry={board.retry} /> : <Skeleton />)}
+          {!board.data &&
+            (board.error ? <ApiState error={board.error} retry={board.retry} /> : <Skeleton />)}
           {board.data?.entries.length === 0 && <p>Chưa có dữ liệu xếp hạng.</p>}
           <ol className="db-board__list">
-            {(board.data?.entries || []).slice(0,6).map((p, i) => (
+            {(board.data?.entries || []).slice(0, 6).map((p, i) => (
               <li key={p.id} className="db-rank">
-                <span className="db-rank__pos">
-                  {i < 3 ? MEDALS[i] : `#${i + 1}`}
-                </span>
+                <span className="db-rank__pos">{i < 3 ? MEDALS[i] : `#${i + 1}`}</span>
                 <Avatar user={p} size={36} />
                 <span className="db-rank__name">{p.name}</span>
-                <span className="db-rank__score">
-                  {p.weeklyXp.toLocaleString("vi-VN")}
-                </span>
+                <span className="db-rank__score">{p.weeklyXp.toLocaleString("vi-VN")}</span>
               </li>
             ))}
           </ol>
@@ -214,9 +249,7 @@ function Dashboard() {
             <span className="db-rank__pos">#{user.rank}</span>
             <Avatar user={user} size={36} />
             <span className="db-rank__name">{user.name}</span>
-            <span className="db-rank__score">
-              {user.xp.toLocaleString("vi-VN")}
-            </span>
+            <span className="db-rank__score">{user.xp.toLocaleString("vi-VN")}</span>
           </div>
         </aside>
       </div>

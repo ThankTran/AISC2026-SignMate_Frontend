@@ -7,9 +7,11 @@ const ScrollToTop = () => {
 
   useEffect(() => {
     const mainEl = document.querySelector(".main-layout__body");
+
     if (mainEl) {
       mainEl.scrollTo({ top: 0, behavior: "instant" });
     }
+
     window.scrollTo(0, 0);
   }, [pathname, search]);
 

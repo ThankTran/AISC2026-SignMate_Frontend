@@ -4,25 +4,22 @@ export default function AiAnalyticsCard({ result, phase }) {
   const score = result?.form?.score;
   const regions = result?.form?.region_scores;
   const circumference = 2 * Math.PI * 54;
+
   return (
     <section className="ai-analytics" aria-label="Điểm động tác">
       <div className="ai-analytics__header">
-        <h2 className="ai-analytics__title text-h2">
-          AI Analytics · Phản hồi động tác
-        </h2>
+        <h2 className="ai-analytics__title text-h2">AI Analytics · Phản hồi động tác</h2>
       </div>
-      {(phase === "processing" || phase === "recording") && <p className="ai-analytics__status" role="status">
-        {phase === "processing"
-          ? "AI đang chấm động tác…"
-          : "Đang ghi hình · Chấm điểm khi kết thúc"}
-      </p>}
+      {(phase === "processing" || phase === "recording") && (
+        <p className="ai-analytics__status" role="status">
+          {phase === "processing"
+            ? "AI đang chấm động tác…"
+            : "Đang ghi hình · Chấm điểm khi kết thúc"}
+        </p>
+      )}
       <div className="ai-analytics__gauge">
         <div className="ai-analytics__gauge-ring">
-          <svg
-            viewBox="0 0 120 120"
-            className="ai-analytics__gauge-svg"
-            aria-hidden="true"
-          >
+          <svg viewBox="0 0 120 120" className="ai-analytics__gauge-svg" aria-hidden="true">
             <circle className="ai-analytics__gauge-bg" cx="60" cy="60" r="54" />
             <circle
               className="ai-analytics__gauge-fill"

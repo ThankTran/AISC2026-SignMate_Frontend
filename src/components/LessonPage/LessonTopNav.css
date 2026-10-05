@@ -47,7 +47,6 @@
 
 .lesson-topnav__index,
 .lesson-topnav__pct {
-
   font-size: 13px;
   font-weight: 700;
   color: var(--color-neutral-700);
@@ -87,7 +86,9 @@
   border: none;
   border-radius: 4px;
   padding: 0;
-  transition: background 0.2s ease, transform 0.12s ease;
+  transition:
+    background 0.2s ease,
+    transform 0.12s ease;
 }
 
 button.lesson-topnav__segment {
@@ -148,7 +149,9 @@ button.lesson-topnav__segment:hover {
 
   text-decoration: none;
 
-  transition: background 0.18s ease, border-color 0.18s ease;
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease;
 }
 
 .lesson-topnav__exit:hover {
@@ -184,12 +187,59 @@ button.lesson-topnav__segment:hover {
   .lesson-topnav__center {
     display: none;
   }
-}.lesson-topnav__mobile-progress { display:none; }
-@media(max-width:768px) {
- .lesson-topnav { flex-wrap:wrap; }
- .lesson-topnav__center { display:flex; flex:0 0 100%; order:3; width:100%; }
- .lesson-topnav__segments { display:none; }
- .lesson-topnav__mobile-progress { display:block; height:6px; flex:1; border:0; accent-color:var(--color-teal-500); }
 }
-.lesson-topnav{flex-wrap:wrap;padding-block:12px}.lesson-topnav__title{white-space:normal;min-width:0}.lesson-topnav__center{flex:1 1 280px}.lesson-topnav__segments{flex-shrink:1;min-width:0}.lesson-topnav__segment{flex-shrink:1}.lesson-topnav__right{flex-wrap:wrap;min-width:0}
-@media(max-width:768px){.lesson-topnav__title{flex:1 1 100%;}.lesson-topnav__right{width:100%;justify-content:space-between}}
+.lesson-topnav__mobile-progress {
+  display: none;
+}
+@media (max-width: 768px) {
+  .lesson-topnav {
+    flex-wrap: wrap;
+  }
+  .lesson-topnav__center {
+    display: flex;
+    flex: 0 0 100%;
+    order: 3;
+    width: 100%;
+  }
+  .lesson-topnav__segments {
+    display: none;
+  }
+  .lesson-topnav__mobile-progress {
+    display: block;
+    height: 6px;
+    flex: 1;
+    border: 0;
+    accent-color: var(--color-teal-500);
+  }
+}
+.lesson-topnav {
+  flex-wrap: wrap;
+  padding-block: 12px;
+}
+.lesson-topnav__title {
+  white-space: normal;
+  min-width: 0;
+}
+.lesson-topnav__center {
+  flex: 1 1 280px;
+}
+.lesson-topnav__segments {
+  flex-shrink: 1;
+  min-width: 0;
+}
+.lesson-topnav__segment {
+  flex-shrink: 1;
+}
+.lesson-topnav__right {
+  flex-wrap: wrap;
+  min-width: 0;
+}
+@media (max-width: 768px) {
+  .lesson-topnav__title {
+    flex: 1 1 100%;
+  }
+  .lesson-topnav__right {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
