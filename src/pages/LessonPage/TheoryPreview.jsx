@@ -13,7 +13,8 @@ import {
   Pause,
   Lightbulb,
 } from "lucide-react";
-import { useTheoryPreview } from "../../hooks/useTheoryPreview";
+import { useTheoryItems, useTheoryPreview } from "../../hooks/useTheoryPreview";
+import { useTheoryVideo } from "../../hooks/useTheoryVideo";
 import vocabulary from "../../data/theoryVocabulary.json";
 import "./TheoryPreview.css";
 
@@ -40,12 +41,13 @@ function groupsFor(lesson) {
   );
 }
 
-// Media is supplied with real segment boundaries; no translation requests here.
-function SegmentPlayer({ segment, speed, onComplete }) {
+function SegmentPlayer({ segment, loading, loadError, retry, speed, onComplete }) {
   const player = useRef(null);
   const [playing, setPlaying] = useState(false);
   const [error, setError] = useState("");
   const [ready, setReady] = useState(false);
+  const [mediaAttempt, setMediaAttempt] = useState(0);
+  const completed = useRef(false);
   useEffect(() => {
     if (player.current) player.current.playbackRate = speed;
   }, [speed]);
@@ -62,14 +64,22 @@ function SegmentPlayer({ segment, speed, onComplete }) {
       setError("Nhấn Phát để bắt đầu video.");
     }
   }
+  function finish() {
+    if (!completed.current && !error) {
+      completed.current = true;
+      onComplete();
+    }
+  }
   return (
     <>
       <div className="theory__media">
         {segment?.videoUrl ? (
           <video
+            key={mediaAttempt}
             ref={player}
             src={segment.videoUrl}
             playsInline
+            muted
             preload="metadata"
             onLoadedMetadata={() => {
               player.current.currentTime = segment.start || 0;
@@ -82,26 +92,49 @@ function SegmentPlayer({ segment, speed, onComplete }) {
             onTimeUpdate={() => {
               if (segment.end != null && player.current.currentTime >= segment.end) {
                 player.current.pause();
-                onComplete();
+                finish();
               }
             }}
-            onEnded={onComplete}
+            onEnded={finish}
             onError={() => {
               setError("Không tải được video. Vui lòng thử lại sau.");
               setReady(false);
             }}
           />
         ) : (
-          <div className="theory__placeholder">
+          <div className="theory__placeholder" role="status" aria-busy={loading}>
             <Video size={40} strokeWidth={1.5} />
-            <strong>Video ký hiệu đang được chuẩn bị</strong>
-            <p>Bạn có thể chọn ký tự và đánh dấu những mục đã học.</p>
+            <strong>
+              {loading
+                ? "Đang tải video ký hiệu…"
+                : loadError
+                  ? "Video chưa khả dụng"
+                  : "Chọn ký hiệu để bắt đầu"}
+            </strong>
+            {loadError && <p>{loadError.message}</p>}
+            {loadError && loadError.status !== 404 && (
+              <button type="button" className="theory__retry" onClick={retry}>
+                Thử lại
+              </button>
+            )}
           </div>
         )}
       </div>
       {error && (
         <p role="status" className="theory__media-error">
           {error}
+          {!ready && (
+            <button
+              type="button"
+              className="theory__retry"
+              onClick={() => {
+                setError("");
+                setMediaAttempt((value) => value + 1);
+              }}
+            >
+              Tải lại video
+            </button>
+          )}
         </p>
       )}
       <div className="theory__playback">
@@ -128,26 +161,22 @@ export default function TheoryPreview({ lesson }) {
   const all = groups.flatMap((group) => group.terms);
   const [groupIndex, setGroupIndex] = useState(0);
   const [selectedId, setSelectedId] = useState(all[0]?.id);
-  const [seen, setSeen] = useState(() => (isDone(lesson.id) ? all.map((item) => item.id) : []));
   const [speed, setSpeed] = useState(1);
   const done = isDone(lesson.id);
   const group = groups[groupIndex];
   const selected = all.find((item) => item.id === selectedId);
-  const viewed = seen;
+  const progress = useTheoryItems(lesson.id, all, done);
+  const viewed = progress.ids;
   const count = group?.terms.filter((item) => viewed.includes(item.id)).length || 0;
   const canContinue = done || (all.length > 0 && viewed.length >= all.length);
   const mark = () => {
-    if (selected) setSeen((previous) => [...new Set([...previous, selected.id])]);
+    if (selected) progress.mark(selected.id);
   };
   const toggleLearned = () => {
     if (!selected) return;
-    setSeen((previous) =>
-      previous.includes(selected.id)
-        ? previous.filter((id) => id !== selected.id)
-        : [...previous, selected.id],
-    );
+    progress.toggle(selected.id);
   };
-  const segment = lesson.theorySegments?.find((item) => item.itemId === selectedId);
+  const video = useTheoryVideo(selected?.term);
   function switchGroup(index) {
     setGroupIndex(index);
     setSelectedId(groups[index].terms[0]?.id);
@@ -198,7 +227,15 @@ export default function TheoryPreview({ lesson }) {
       </div>
       <div className="theory__grid">
         <div className="theory__viewer">
-          <SegmentPlayer key={selectedId} segment={segment} speed={speed} onComplete={mark} />
+          <SegmentPlayer
+            key={`${selectedId}:${video.segment?.videoUrl || "loading"}`}
+            segment={video.segment}
+            loading={video.loading}
+            loadError={video.error}
+            retry={video.retry}
+            speed={speed}
+            onComplete={mark}
+          />
           <div className="theory__timeline" aria-label="Các phân đoạn ký hiệu">
             {group?.terms.map((item) => (
               <button
