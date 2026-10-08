@@ -1,0 +1,5956 @@
+{
+  "version": 2,
+  "sourceWorkbook": "Danh_sach_tu_vung_SignMate.xlsx",
+  "sourceSheet": "Tu_vung_SignMate",
+  "sourceRange": "A2:D651",
+  "sourceVocabularySha256": "4c7a2b3e4a60693c3367c3d905762dece4fa512ea00d9668cd9015600cab4b41",
+  "datasetLabelsSha256": "a256d9550658259960bc949640e85941c90907ac8a17b82d106711bd45d9e2ae",
+  "topics": {
+    "Bảng chữ cái": {
+      "Cơ bản": [
+        {
+          "sourceTerm": "A",
+          "term": "A",
+          "videoLabel": "a",
+          "matchType": "exact",
+          "filename": "D0489.mp4",
+          "sourceRow": 2,
+          "sourceOrder": 1
+        },
+        {
+          "sourceTerm": "Ă",
+          "term": "Ă",
+          "videoLabel": "ă",
+          "matchType": "exact",
+          "filename": "D0490B.mp4",
+          "sourceRow": 3,
+          "sourceOrder": 2
+        },
+        {
+          "sourceTerm": "Â",
+          "term": "Â",
+          "videoLabel": "â",
+          "matchType": "exact",
+          "filename": "D0491B.mp4",
+          "sourceRow": 4,
+          "sourceOrder": 3
+        },
+        {
+          "sourceTerm": "B",
+          "term": "B",
+          "videoLabel": "b",
+          "matchType": "exact",
+          "filename": "D0492.mp4",
+          "sourceRow": 5,
+          "sourceOrder": 4
+        },
+        {
+          "sourceTerm": "C",
+          "term": "C",
+          "videoLabel": "c",
+          "matchType": "exact",
+          "filename": "D0493.mp4",
+          "sourceRow": 6,
+          "sourceOrder": 5
+        },
+        {
+          "sourceTerm": "D",
+          "term": "D",
+          "videoLabel": "d",
+          "matchType": "exact",
+          "filename": "D0494.mp4",
+          "sourceRow": 7,
+          "sourceOrder": 6
+        },
+        {
+          "sourceTerm": "Đ",
+          "term": "Đ",
+          "videoLabel": "đ",
+          "matchType": "exact",
+          "filename": "D0495.mp4",
+          "sourceRow": 8,
+          "sourceOrder": 7
+        },
+        {
+          "sourceTerm": "E",
+          "term": "E",
+          "videoLabel": "e",
+          "matchType": "exact",
+          "filename": "D0496.mp4",
+          "sourceRow": 9,
+          "sourceOrder": 8
+        },
+        {
+          "sourceTerm": "Ê",
+          "term": "Ê",
+          "videoLabel": "ê",
+          "matchType": "exact",
+          "filename": "D0497B.mp4",
+          "sourceRow": 10,
+          "sourceOrder": 9
+        },
+        {
+          "sourceTerm": "G",
+          "term": "G",
+          "videoLabel": "g",
+          "matchType": "exact",
+          "filename": "D0498B.mp4",
+          "sourceRow": 11,
+          "sourceOrder": 10
+        },
+        {
+          "sourceTerm": "H",
+          "term": "H",
+          "videoLabel": "h",
+          "matchType": "exact",
+          "filename": "D0500B.mp4",
+          "sourceRow": 12,
+          "sourceOrder": 11
+        },
+        {
+          "sourceTerm": "I",
+          "term": "I",
+          "videoLabel": "i",
+          "matchType": "exact",
+          "filename": "D0501.mp4",
+          "sourceRow": 13,
+          "sourceOrder": 12
+        },
+        {
+          "sourceTerm": "K",
+          "term": "K",
+          "videoLabel": "k",
+          "matchType": "exact",
+          "filename": "D0502.mp4",
+          "sourceRow": 14,
+          "sourceOrder": 13
+        },
+        {
+          "sourceTerm": "L",
+          "term": "L",
+          "videoLabel": "l",
+          "matchType": "exact",
+          "filename": "D0503.mp4",
+          "sourceRow": 15,
+          "sourceOrder": 14
+        },
+        {
+          "sourceTerm": "M",
+          "term": "M",
+          "videoLabel": "m",
+          "matchType": "exact",
+          "filename": "D0504.mp4",
+          "sourceRow": 16,
+          "sourceOrder": 15
+        },
+        {
+          "sourceTerm": "N",
+          "term": "N",
+          "videoLabel": "n",
+          "matchType": "exact",
+          "filename": "D0505.mp4",
+          "sourceRow": 17,
+          "sourceOrder": 16
+        },
+        {
+          "sourceTerm": "O",
+          "term": "O",
+          "videoLabel": "o",
+          "matchType": "exact",
+          "filename": "D0506.mp4",
+          "sourceRow": 18,
+          "sourceOrder": 17
+        },
+        {
+          "sourceTerm": "Ô",
+          "term": "Ô",
+          "videoLabel": "ô",
+          "matchType": "exact",
+          "filename": "D0507B.mp4",
+          "sourceRow": 19,
+          "sourceOrder": 18
+        },
+        {
+          "sourceTerm": "Ơ",
+          "term": "Ơ",
+          "videoLabel": "ơ",
+          "matchType": "exact",
+          "filename": "D0508N.mp4",
+          "sourceRow": 20,
+          "sourceOrder": 19
+        },
+        {
+          "sourceTerm": "P",
+          "term": "P",
+          "videoLabel": "p",
+          "matchType": "exact",
+          "filename": "D0509N.mp4",
+          "sourceRow": 21,
+          "sourceOrder": 20
+        },
+        {
+          "sourceTerm": "Q",
+          "term": "Q",
+          "videoLabel": "q",
+          "matchType": "exact",
+          "filename": "D0510.mp4",
+          "sourceRow": 22,
+          "sourceOrder": 21
+        },
+        {
+          "sourceTerm": "R",
+          "term": "R",
+          "videoLabel": "r",
+          "matchType": "exact",
+          "filename": "D0511.mp4",
+          "sourceRow": 23,
+          "sourceOrder": 22
+        },
+        {
+          "sourceTerm": "S",
+          "term": "S",
+          "videoLabel": "s",
+          "matchType": "exact",
+          "filename": "D0512.mp4",
+          "sourceRow": 24,
+          "sourceOrder": 23
+        },
+        {
+          "sourceTerm": "T",
+          "term": "T",
+          "videoLabel": "t",
+          "matchType": "exact",
+          "filename": "D0513B.mp4",
+          "sourceRow": 25,
+          "sourceOrder": 24
+        },
+        {
+          "sourceTerm": "U",
+          "term": "U",
+          "videoLabel": "u",
+          "matchType": "exact",
+          "filename": "D0514.mp4",
+          "sourceRow": 26,
+          "sourceOrder": 25
+        },
+        {
+          "sourceTerm": "Ư",
+          "term": "Ư",
+          "videoLabel": "ư",
+          "matchType": "exact",
+          "filename": "D0515N.mp4",
+          "sourceRow": 27,
+          "sourceOrder": 26
+        },
+        {
+          "sourceTerm": "V",
+          "term": "V",
+          "videoLabel": "v",
+          "matchType": "exact",
+          "filename": "D0516.mp4",
+          "sourceRow": 28,
+          "sourceOrder": 27
+        },
+        {
+          "sourceTerm": "X",
+          "term": "X",
+          "videoLabel": "x",
+          "matchType": "exact",
+          "filename": "D0517B.mp4",
+          "sourceRow": 29,
+          "sourceOrder": 28
+        },
+        {
+          "sourceTerm": "Y",
+          "term": "Y",
+          "videoLabel": "y",
+          "matchType": "exact",
+          "filename": "D0518N.mp4",
+          "sourceRow": 30,
+          "sourceOrder": 29
+        }
+      ]
+    },
+    "Số": {
+      "Cơ bản": [
+        {
+          "sourceTerm": "0",
+          "term": "0",
+          "videoLabel": "0 (số không)",
+          "matchType": "equivalent",
+          "filename": "D0529.mp4",
+          "sourceRow": 31,
+          "sourceOrder": 1
+        },
+        {
+          "sourceTerm": "1",
+          "term": "1",
+          "videoLabel": "1",
+          "matchType": "exact",
+          "filename": "D0530.mp4",
+          "sourceRow": 32,
+          "sourceOrder": 2
+        },
+        {
+          "sourceTerm": "2",
+          "term": "2",
+          "videoLabel": "2",
+          "matchType": "exact",
+          "filename": "D0531.mp4",
+          "sourceRow": 33,
+          "sourceOrder": 3
+        },
+        {
+          "sourceTerm": "3",
+          "term": "3",
+          "videoLabel": "3",
+          "matchType": "exact",
+          "filename": "D0532.mp4",
+          "sourceRow": 34,
+          "sourceOrder": 4
+        },
+        {
+          "sourceTerm": "4",
+          "term": "4",
+          "videoLabel": "4",
+          "matchType": "exact",
+          "filename": "D0533.mp4",
+          "sourceRow": 35,
+          "sourceOrder": 5
+        },
+        {
+          "sourceTerm": "5",
+          "term": "5",
+          "videoLabel": "5",
+          "matchType": "exact",
+          "filename": "D0534.mp4",
+          "sourceRow": 36,
+          "sourceOrder": 6
+        },
+        {
+          "sourceTerm": "6",
+          "term": "6",
+          "videoLabel": "6",
+          "matchType": "exact",
+          "filename": "D0535B.mp4",
+          "sourceRow": 37,
+          "sourceOrder": 7
+        },
+        {
+          "sourceTerm": "7",
+          "term": "7",
+          "videoLabel": "7",
+          "matchType": "exact",
+          "filename": "D0536.mp4",
+          "sourceRow": 38,
+          "sourceOrder": 8
+        },
+        {
+          "sourceTerm": "8",
+          "term": "8",
+          "videoLabel": "8",
+          "matchType": "exact",
+          "filename": "D0537.mp4",
+          "sourceRow": 39,
+          "sourceOrder": 9
+        },
+        {
+          "sourceTerm": "9",
+          "term": "9",
+          "videoLabel": "9",
+          "matchType": "exact",
+          "filename": "D0538.mp4",
+          "sourceRow": 40,
+          "sourceOrder": 10
+        },
+        {
+          "sourceTerm": "10",
+          "term": "10",
+          "videoLabel": "10",
+          "matchType": "exact",
+          "filename": "D0539.mp4",
+          "sourceRow": 41,
+          "sourceOrder": 11
+        },
+        {
+          "sourceTerm": "11",
+          "term": "11",
+          "videoLabel": "11",
+          "matchType": "exact",
+          "filename": "D0540B.mp4",
+          "sourceRow": 42,
+          "sourceOrder": 12
+        },
+        {
+          "sourceTerm": "12",
+          "term": "12",
+          "videoLabel": "12",
+          "matchType": "exact",
+          "filename": "D0541B.mp4",
+          "sourceRow": 43,
+          "sourceOrder": 13
+        },
+        {
+          "sourceTerm": "13",
+          "term": "23",
+          "videoLabel": "23",
+          "matchType": "replacement",
+          "filename": "D0542N.mp4",
+          "sourceRow": 44,
+          "sourceOrder": 14
+        },
+        {
+          "sourceTerm": "14",
+          "term": "33",
+          "videoLabel": "33",
+          "matchType": "replacement",
+          "filename": "D0543N.mp4",
+          "sourceRow": 45,
+          "sourceOrder": 15
+        },
+        {
+          "sourceTerm": "15",
+          "term": "40",
+          "videoLabel": "40",
+          "matchType": "replacement",
+          "filename": "D0544.mp4",
+          "sourceRow": 46,
+          "sourceOrder": 16
+        },
+        {
+          "sourceTerm": "16",
+          "term": "80",
+          "videoLabel": "80",
+          "matchType": "replacement",
+          "filename": "D0545.mp4",
+          "sourceRow": 47,
+          "sourceOrder": 17
+        },
+        {
+          "sourceTerm": "17",
+          "term": "90",
+          "videoLabel": "90",
+          "matchType": "replacement",
+          "filename": "D0546N.mp4",
+          "sourceRow": 48,
+          "sourceOrder": 18
+        },
+        {
+          "sourceTerm": "18",
+          "term": "100",
+          "videoLabel": "100",
+          "matchType": "replacement",
+          "filename": "D0547.mp4",
+          "sourceRow": 49,
+          "sourceOrder": 19
+        },
+        {
+          "sourceTerm": "19",
+          "term": "Số chẵn",
+          "videoLabel": "số chẵn",
+          "matchType": "replacement",
+          "filename": "W02979.mp4",
+          "sourceRow": 50,
+          "sourceOrder": 20
+        },
+        {
+          "sourceTerm": "20",
+          "term": "Số lẻ",
+          "videoLabel": "số lẻ",
+          "matchType": "replacement",
+          "filename": "W02989.mp4",
+          "sourceRow": 51,
+          "sourceOrder": 21
+        }
+      ]
+    },
+    "Chào hỏi cơ bản": {
+      "Cơ bản": [
+        {
+          "sourceTerm": "Xin chào",
+          "term": "Xin chào",
+          "videoLabel": "chào",
+          "matchType": "equivalent",
+          "filename": "W00489.mp4",
+          "sourceRow": 52,
+          "sourceOrder": 1
+        },
+        {
+          "sourceTerm": "Tạm biệt",
+          "term": "Tạm biệt",
+          "videoLabel": "tạm biệt",
+          "matchType": "exact",
+          "filename": "W03075.mp4",
+          "sourceRow": 53,
+          "sourceOrder": 2
+        },
+        {
+          "sourceTerm": "Cảm ơn",
+          "term": "Lễ phép",
+          "videoLabel": "lễ phép",
+          "matchType": "replacement",
+          "filename": "W01983.mp4",
+          "sourceRow": 54,
+          "sourceOrder": 3
+        },
+        {
+          "sourceTerm": "Xin lỗi",
+          "term": "Xin lỗi",
+          "videoLabel": "xin lỗi",
+          "matchType": "exact",
+          "filename": "W03990.mp4",
+          "sourceRow": 55,
+          "sourceOrder": 4
+        },
+        {
+          "sourceTerm": "Không sao",
+          "term": "Thông cảm",
+          "videoLabel": "thông cảm",
+          "matchType": "replacement",
+          "filename": "W03286.mp4",
+          "sourceRow": 56,
+          "sourceOrder": 5
+        },
+        {
+          "sourceTerm": "Có",
+          "term": "Tán thành",
+          "videoLabel": "tán thành",
+          "matchType": "replacement",
+          "filename": "W03077.mp4",
+          "sourceRow": 57,
+          "sourceOrder": 6
+        },
+        {
+          "sourceTerm": "Không",
+          "term": "Từ chối",
+          "videoLabel": "từ chối",
+          "matchType": "replacement",
+          "filename": "D0103B.mp4",
+          "sourceRow": 58,
+          "sourceOrder": 7
+        },
+        {
+          "sourceTerm": "Được",
+          "term": "Làm được",
+          "videoLabel": "làm được",
+          "matchType": "replacement",
+          "filename": "D0438.mp4",
+          "sourceRow": 59,
+          "sourceOrder": 8
+        },
+        {
+          "sourceTerm": "Xin mời",
+          "term": "Xin mời",
+          "videoLabel": "mời",
+          "matchType": "equivalent",
+          "filename": "W02263.mp4",
+          "sourceRow": 60,
+          "sourceOrder": 9
+        },
+        {
+          "sourceTerm": "Làm ơn",
+          "term": "Yêu cầu",
+          "videoLabel": "yêu cầu",
+          "matchType": "replacement",
+          "filename": "W04057B.mp4",
+          "sourceRow": 61,
+          "sourceOrder": 10
+        },
+        {
+          "sourceTerm": "Rất vui được gặp bạn",
+          "term": "Gặp gỡ",
+          "videoLabel": "gặp gỡ",
+          "matchType": "replacement",
+          "filename": "W01395.mp4",
+          "sourceRow": 62,
+          "sourceOrder": 11
+        },
+        {
+          "sourceTerm": "Bạn tên gì?",
+          "term": "Bạn tên gì?",
+          "videoLabel": "tên là gì?",
+          "matchType": "equivalent",
+          "filename": "W03129N.mp4",
+          "sourceRow": 63,
+          "sourceOrder": 12
+        },
+        {
+          "sourceTerm": "Tôi tên là...",
+          "term": "Giới thiệu",
+          "videoLabel": "giới thiệu",
+          "matchType": "replacement",
+          "filename": "W01494.mp4",
+          "sourceRow": 64,
+          "sourceOrder": 13
+        },
+        {
+          "sourceTerm": "Bạn khỏe không?",
+          "term": "Thăm hỏi",
+          "videoLabel": "thăm hỏi",
+          "matchType": "replacement",
+          "filename": "W03197B.mp4",
+          "sourceRow": 65,
+          "sourceOrder": 14
+        },
+        {
+          "sourceTerm": "Tôi khỏe",
+          "term": "Sức khỏe",
+          "videoLabel": "sức khỏe",
+          "matchType": "replacement",
+          "filename": "W03043.mp4",
+          "sourceRow": 66,
+          "sourceOrder": 15
+        },
+        {
+          "sourceTerm": "Bình thường",
+          "term": "Bình thường",
+          "videoLabel": "bình thường",
+          "matchType": "exact",
+          "filename": "W00286B.mp4",
+          "sourceRow": 67,
+          "sourceOrder": 16
+        },
+        {
+          "sourceTerm": "Hẹn gặp lại",
+          "term": "Hẹn",
+          "videoLabel": "hẹn",
+          "matchType": "replacement",
+          "filename": "D0163N.mp4",
+          "sourceRow": 68,
+          "sourceOrder": 17
+        },
+        {
+          "sourceTerm": "Chúc buổi sáng tốt lành",
+          "term": "Buổi sáng",
+          "videoLabel": "buổi sáng",
+          "matchType": "replacement",
+          "filename": "W00368N.mp4",
+          "sourceRow": 69,
+          "sourceOrder": 18
+        },
+        {
+          "sourceTerm": "Chúc ngủ ngon",
+          "term": "Buổi tối",
+          "videoLabel": "buổi tối",
+          "matchType": "replacement",
+          "filename": "W00369B.mp4",
+          "sourceRow": 70,
+          "sourceOrder": 19
+        },
+        {
+          "sourceTerm": "Chào mừng",
+          "term": "Chào mừng",
+          "videoLabel": "chào mừng",
+          "matchType": "exact",
+          "filename": "W00492.mp4",
+          "sourceRow": 71,
+          "sourceOrder": 20
+        }
+      ]
+    },
+    "Thành viên gia đình": {
+      "Cơ bản": [
+        {
+          "sourceTerm": "Gia đình",
+          "term": "Anh chị em",
+          "videoLabel": "anh chị em",
+          "matchType": "replacement",
+          "filename": "W00011.mp4",
+          "sourceRow": 72,
+          "sourceOrder": 1
+        },
+        {
+          "sourceTerm": "Bố/Cha",
+          "term": "Bố/Cha",
+          "videoLabel": "bố",
+          "matchType": "equivalent",
+          "filename": "W00325.mp4",
+          "sourceRow": 73,
+          "sourceOrder": 2
+        },
+        {
+          "sourceTerm": "Mẹ",
+          "term": "Mẹ",
+          "videoLabel": "má (giống: mẹ)",
+          "matchType": "equivalent",
+          "filename": "W02110.mp4",
+          "sourceRow": 74,
+          "sourceOrder": 3
+        },
+        {
+          "sourceTerm": "Bố mẹ",
+          "term": "Bố mẹ",
+          "videoLabel": "bố mẹ",
+          "matchType": "exact",
+          "filename": "W00327.mp4",
+          "sourceRow": 75,
+          "sourceOrder": 4
+        },
+        {
+          "sourceTerm": "Anh",
+          "term": "Anh họ",
+          "videoLabel": "anh họ",
+          "matchType": "replacement",
+          "filename": "W00014N.mp4",
+          "sourceRow": 76,
+          "sourceOrder": 5
+        },
+        {
+          "sourceTerm": "Chị",
+          "term": "Chị",
+          "videoLabel": "chị",
+          "matchType": "exact",
+          "filename": "W00570B.mp4",
+          "sourceRow": 77,
+          "sourceOrder": 6
+        },
+        {
+          "sourceTerm": "Em",
+          "term": "Em út",
+          "videoLabel": "em út",
+          "matchType": "replacement",
+          "filename": "W01353.mp4",
+          "sourceRow": 78,
+          "sourceOrder": 7
+        },
+        {
+          "sourceTerm": "Anh trai",
+          "term": "Anh trai",
+          "videoLabel": "anh ruột",
+          "matchType": "equivalent",
+          "filename": "W00019B.mp4",
+          "sourceRow": 79,
+          "sourceOrder": 8
+        },
+        {
+          "sourceTerm": "Chị gái",
+          "term": "Chị họ",
+          "videoLabel": "chị họ",
+          "matchType": "replacement",
+          "filename": "D0152B.mp4",
+          "sourceRow": 80,
+          "sourceOrder": 9
+        },
+        {
+          "sourceTerm": "Em trai",
+          "term": "Em trai",
+          "videoLabel": "em trai",
+          "matchType": "exact",
+          "filename": "W01352B.mp4",
+          "sourceRow": 81,
+          "sourceOrder": 10
+        },
+        {
+          "sourceTerm": "Con",
+          "term": "Cháu trai",
+          "videoLabel": "cháu trai",
+          "matchType": "replacement",
+          "filename": "W00498B.mp4",
+          "sourceRow": 82,
+          "sourceOrder": 11
+        },
+        {
+          "sourceTerm": "Con trai",
+          "term": "Con trai",
+          "videoLabel": "con trai",
+          "matchType": "exact",
+          "filename": "W04068.mp4",
+          "sourceRow": 83,
+          "sourceOrder": 12
+        },
+        {
+          "sourceTerm": "Con gái",
+          "term": "Con gái",
+          "videoLabel": "con gái",
+          "matchType": "exact",
+          "filename": "W00760.mp4",
+          "sourceRow": 84,
+          "sourceOrder": 13
+        },
+        {
+          "sourceTerm": "Ông",
+          "term": "Ông nội",
+          "videoLabel": "ông nội",
+          "matchType": "replacement",
+          "filename": "W02576B.mp4",
+          "sourceRow": 85,
+          "sourceOrder": 14
+        },
+        {
+          "sourceTerm": "Bà",
+          "term": "Ông bà",
+          "videoLabel": "ông bà",
+          "matchType": "replacement",
+          "filename": "D0151B.mp4",
+          "sourceRow": 86,
+          "sourceOrder": 15
+        },
+        {
+          "sourceTerm": "Chú",
+          "term": "Chú",
+          "videoLabel": "chú ( người)",
+          "matchType": "equivalent",
+          "filename": "W00506.mp4",
+          "sourceRow": 87,
+          "sourceOrder": 16
+        },
+        {
+          "sourceTerm": "Cô",
+          "term": "Chị dâu",
+          "videoLabel": "chị dâu",
+          "matchType": "replacement",
+          "filename": "W00572.mp4",
+          "sourceRow": 88,
+          "sourceOrder": 17
+        },
+        {
+          "sourceTerm": "Dì",
+          "term": "Thím",
+          "videoLabel": "thím",
+          "matchType": "replacement",
+          "filename": "W03272.mp4",
+          "sourceRow": 89,
+          "sourceOrder": 18
+        },
+        {
+          "sourceTerm": "Vợ",
+          "term": "Cô dâu",
+          "videoLabel": "cô dâu",
+          "matchType": "replacement",
+          "filename": "W00809.mp4",
+          "sourceRow": 90,
+          "sourceOrder": 19
+        },
+        {
+          "sourceTerm": "Chồng",
+          "term": "Chú rể",
+          "videoLabel": "chú rể",
+          "matchType": "replacement",
+          "filename": "W00651.mp4",
+          "sourceRow": 91,
+          "sourceOrder": 20
+        }
+      ]
+    },
+    "Giao tiếp hằng ngày": {
+      "Cơ bản": [
+        {
+          "sourceTerm": "Tôi",
+          "term": "Chúng tôi (đại từ)",
+          "videoLabel": "chúng tôi (đại từ)",
+          "matchType": "replacement",
+          "filename": "D0134.mp4",
+          "sourceRow": 92,
+          "sourceOrder": 1
+        },
+        {
+          "sourceTerm": "Bạn",
+          "term": "Bạn",
+          "videoLabel": "bạn",
+          "matchType": "exact",
+          "filename": "W00110B.mp4",
+          "sourceRow": 93,
+          "sourceOrder": 2
+        },
+        {
+          "sourceTerm": "Chúng ta",
+          "term": "Các bạn",
+          "videoLabel": "các bạn",
+          "matchType": "replacement",
+          "filename": "W00400.mp4",
+          "sourceRow": 94,
+          "sourceOrder": 3
+        },
+        {
+          "sourceTerm": "Ai",
+          "term": "Ai",
+          "videoLabel": "ai",
+          "matchType": "exact",
+          "filename": "W00004B.mp4",
+          "sourceRow": 95,
+          "sourceOrder": 4
+        },
+        {
+          "sourceTerm": "Cái gì",
+          "term": "Đúng không?",
+          "videoLabel": "đúng không?",
+          "matchType": "replacement",
+          "filename": "D0119T.mp4",
+          "sourceRow": 96,
+          "sourceOrder": 5
+        },
+        {
+          "sourceTerm": "Ở đâu",
+          "term": "Bên trong",
+          "videoLabel": "bên trong",
+          "matchType": "replacement",
+          "filename": "W00241.mp4",
+          "sourceRow": 97,
+          "sourceOrder": 6
+        },
+        {
+          "sourceTerm": "Khi nào",
+          "term": "Khi nào",
+          "videoLabel": "bao giờ?",
+          "matchType": "equivalent",
+          "filename": "W00145B.mp4",
+          "sourceRow": 98,
+          "sourceOrder": 7
+        },
+        {
+          "sourceTerm": "Tại sao",
+          "term": "Tại sao",
+          "videoLabel": "vì sao?",
+          "matchType": "equivalent",
+          "filename": "W03825B.mp4",
+          "sourceRow": 99,
+          "sourceOrder": 8
+        },
+        {
+          "sourceTerm": "Như thế nào",
+          "term": "Như thế nào",
+          "videoLabel": "thế nào?",
+          "matchType": "equivalent",
+          "filename": "W03239B.mp4",
+          "sourceRow": 100,
+          "sourceOrder": 9
+        },
+        {
+          "sourceTerm": "Bao nhiêu",
+          "term": "Bao nhiêu",
+          "videoLabel": "bao nhiêu?",
+          "matchType": "exact",
+          "filename": "W00147.mp4",
+          "sourceRow": 101,
+          "sourceOrder": 10
+        },
+        {
+          "sourceTerm": "Hiểu",
+          "term": "Hiểu",
+          "videoLabel": "hiểu",
+          "matchType": "exact",
+          "filename": "W01591B.mp4",
+          "sourceRow": 102,
+          "sourceOrder": 11
+        },
+        {
+          "sourceTerm": "Không hiểu",
+          "term": "Không hiểu",
+          "videoLabel": "không hiểu",
+          "matchType": "exact",
+          "filename": "W01840N.mp4",
+          "sourceRow": 103,
+          "sourceOrder": 12
+        },
+        {
+          "sourceTerm": "Biết",
+          "term": "Tìm hiểu",
+          "videoLabel": "tìm hiểu",
+          "matchType": "replacement",
+          "filename": "W03433B.mp4",
+          "sourceRow": 104,
+          "sourceOrder": 13
+        },
+        {
+          "sourceTerm": "Không biết",
+          "term": "Giải thích",
+          "videoLabel": "giải thích",
+          "matchType": "replacement",
+          "filename": "W01424.mp4",
+          "sourceRow": 105,
+          "sourceOrder": 14
+        },
+        {
+          "sourceTerm": "Muốn",
+          "term": "Muốn",
+          "videoLabel": "muốn",
+          "matchType": "exact",
+          "filename": "W02221B.mp4",
+          "sourceRow": 106,
+          "sourceOrder": 15
+        },
+        {
+          "sourceTerm": "Cần",
+          "term": "Cần không?",
+          "videoLabel": "cần không?",
+          "matchType": "replacement",
+          "filename": "D0122T.mp4",
+          "sourceRow": 107,
+          "sourceOrder": 16
+        },
+        {
+          "sourceTerm": "Giúp đỡ",
+          "term": "Giúp đỡ",
+          "videoLabel": "giúp đỡ",
+          "matchType": "exact",
+          "filename": "W01497B.mp4",
+          "sourceRow": 108,
+          "sourceOrder": 17
+        },
+        {
+          "sourceTerm": "Chờ",
+          "term": "Ngừng lại",
+          "videoLabel": "ngừng lại",
+          "matchType": "replacement",
+          "filename": "D0179.mp4",
+          "sourceRow": 109,
+          "sourceOrder": 18
+        },
+        {
+          "sourceTerm": "Đi",
+          "term": "Đi",
+          "videoLabel": "đi",
+          "matchType": "exact",
+          "filename": "W01190.mp4",
+          "sourceRow": 110,
+          "sourceOrder": 19
+        },
+        {
+          "sourceTerm": "Đến",
+          "term": "Vào",
+          "videoLabel": "vào",
+          "matchType": "replacement",
+          "filename": "W03780.mp4",
+          "sourceRow": 111,
+          "sourceOrder": 20
+        }
+      ]
+    },
+    "Màu sắc & hình dạng": {
+      "Cơ bản": [
+        {
+          "sourceTerm": "Màu sắc",
+          "term": "Bảng màu",
+          "videoLabel": "bảng màu",
+          "matchType": "replacement",
+          "filename": "W00123B.mp4",
+          "sourceRow": 112,
+          "sourceOrder": 1
+        },
+        {
+          "sourceTerm": "Đỏ",
+          "term": "Đỏ",
+          "videoLabel": "màu đỏ",
+          "matchType": "equivalent",
+          "filename": "W02134.mp4",
+          "sourceRow": 113,
+          "sourceOrder": 2
+        },
+        {
+          "sourceTerm": "Xanh dương",
+          "term": "Xanh dương",
+          "videoLabel": "màu xanh da trời",
+          "matchType": "equivalent",
+          "filename": "W02142B.mp4",
+          "sourceRow": 114,
+          "sourceOrder": 3
+        },
+        {
+          "sourceTerm": "Xanh lá",
+          "term": "Xanh lá",
+          "videoLabel": "màu xanh lá cây",
+          "matchType": "equivalent",
+          "filename": "W02143B.mp4",
+          "sourceRow": 115,
+          "sourceOrder": 4
+        },
+        {
+          "sourceTerm": "Vàng",
+          "term": "Màu nâu",
+          "videoLabel": "màu nâu",
+          "matchType": "replacement",
+          "filename": "W02137N.mp4",
+          "sourceRow": 116,
+          "sourceOrder": 5
+        },
+        {
+          "sourceTerm": "Cam",
+          "term": "Cam",
+          "videoLabel": "màu cam",
+          "matchType": "equivalent",
+          "filename": "W02132.mp4",
+          "sourceRow": 117,
+          "sourceOrder": 6
+        },
+        {
+          "sourceTerm": "Tím",
+          "term": "Bột màu",
+          "videoLabel": "bột màu",
+          "matchType": "replacement",
+          "filename": "W00341B.mp4",
+          "sourceRow": 118,
+          "sourceOrder": 7
+        },
+        {
+          "sourceTerm": "Hồng",
+          "term": "Bút màu",
+          "videoLabel": "bút màu",
+          "matchType": "replacement",
+          "filename": "W00383B.mp4",
+          "sourceRow": 119,
+          "sourceOrder": 8
+        },
+        {
+          "sourceTerm": "Đen",
+          "term": "Đen",
+          "videoLabel": "màu đen",
+          "matchType": "equivalent",
+          "filename": "W02133B.mp4",
+          "sourceRow": 120,
+          "sourceOrder": 9
+        },
+        {
+          "sourceTerm": "Trắng",
+          "term": "Trắng",
+          "videoLabel": "màu trắng",
+          "matchType": "equivalent",
+          "filename": "W02140B.mp4",
+          "sourceRow": 121,
+          "sourceOrder": 10
+        },
+        {
+          "sourceTerm": "Đậm",
+          "term": "Giấy màu",
+          "videoLabel": "giấy màu",
+          "matchType": "replacement",
+          "filename": "W01472B.mp4",
+          "sourceRow": 122,
+          "sourceOrder": 11
+        },
+        {
+          "sourceTerm": "Nhạt",
+          "term": "Tô màu",
+          "videoLabel": "tô màu",
+          "matchType": "replacement",
+          "filename": "W03486B.mp4",
+          "sourceRow": 123,
+          "sourceOrder": 12
+        },
+        {
+          "sourceTerm": "Hình tròn",
+          "term": "Hình tròn",
+          "videoLabel": "tròn",
+          "matchType": "equivalent",
+          "filename": "W03607.mp4",
+          "sourceRow": 124,
+          "sourceOrder": 13
+        },
+        {
+          "sourceTerm": "Hình vuông",
+          "term": "Hình vuông",
+          "videoLabel": "hình vuông",
+          "matchType": "exact",
+          "filename": "W03908.mp4",
+          "sourceRow": 125,
+          "sourceOrder": 14
+        },
+        {
+          "sourceTerm": "Hình tam giác",
+          "term": "Hình tam giác",
+          "videoLabel": "tam giác",
+          "matchType": "equivalent",
+          "filename": "W03074.mp4",
+          "sourceRow": 126,
+          "sourceOrder": 15
+        },
+        {
+          "sourceTerm": "Hình chữ nhật",
+          "term": "Hình dáng",
+          "videoLabel": "hình dáng",
+          "matchType": "replacement",
+          "filename": "W01603.mp4",
+          "sourceRow": 127,
+          "sourceOrder": 16
+        },
+        {
+          "sourceTerm": "Hình ngôi sao",
+          "term": "Hình elip",
+          "videoLabel": "hình elip",
+          "matchType": "replacement",
+          "filename": "W01604.mp4",
+          "sourceRow": 128,
+          "sourceOrder": 17
+        },
+        {
+          "sourceTerm": "Thẳng",
+          "term": "Hình thang",
+          "videoLabel": "hình thang",
+          "matchType": "replacement",
+          "filename": "W01612.mp4",
+          "sourceRow": 129,
+          "sourceOrder": 18
+        },
+        {
+          "sourceTerm": "Cong",
+          "term": "Cong",
+          "videoLabel": "cong",
+          "matchType": "exact",
+          "filename": "W00804.mp4",
+          "sourceRow": 130,
+          "sourceOrder": 19
+        },
+        {
+          "sourceTerm": "Hình trái tim",
+          "term": "Hình tứ giác",
+          "videoLabel": "hình tứ giác",
+          "matchType": "replacement",
+          "filename": "W01617.mp4",
+          "sourceRow": 131,
+          "sourceOrder": 20
+        }
+      ]
+    },
+    "Hoạt động hằng ngày": {
+      "Cơ bản": [
+        {
+          "sourceTerm": "Thức dậy",
+          "term": "Vệ sinh cá nhân",
+          "videoLabel": "vệ sinh cá nhân",
+          "matchType": "replacement",
+          "filename": "W03819.mp4",
+          "sourceRow": 132,
+          "sourceOrder": 1
+        },
+        {
+          "sourceTerm": "Ngủ",
+          "term": "Giấc ngủ",
+          "videoLabel": "giấc ngủ",
+          "matchType": "replacement",
+          "filename": "W01462.mp4",
+          "sourceRow": 133,
+          "sourceOrder": 2
+        },
+        {
+          "sourceTerm": "Đánh răng",
+          "term": "Đánh răng",
+          "videoLabel": "đánh răng",
+          "matchType": "exact",
+          "filename": "D0414.mp4",
+          "sourceRow": 134,
+          "sourceOrder": 3
+        },
+        {
+          "sourceTerm": "Rửa mặt",
+          "term": "Rửa mặt",
+          "videoLabel": "rửa mặt",
+          "matchType": "exact",
+          "filename": "W02887.mp4",
+          "sourceRow": 135,
+          "sourceOrder": 4
+        },
+        {
+          "sourceTerm": "Tắm",
+          "term": "Rửa tay",
+          "videoLabel": "rửa tay",
+          "matchType": "replacement",
+          "filename": "W02888.mp4",
+          "sourceRow": 136,
+          "sourceOrder": 5
+        },
+        {
+          "sourceTerm": "Thay quần áo",
+          "term": "Mặc quần áo",
+          "videoLabel": "mặc quần áo",
+          "matchType": "replacement",
+          "filename": "W02160.mp4",
+          "sourceRow": 137,
+          "sourceOrder": 6
+        },
+        {
+          "sourceTerm": "Ăn",
+          "term": "Ăn uống",
+          "videoLabel": "ăn uống",
+          "matchType": "replacement",
+          "filename": "W00042.mp4",
+          "sourceRow": 138,
+          "sourceOrder": 7
+        },
+        {
+          "sourceTerm": "Uống",
+          "term": "Đồ uống",
+          "videoLabel": "đồ uống",
+          "matchType": "replacement",
+          "filename": "D0443.mp4",
+          "sourceRow": 139,
+          "sourceOrder": 8
+        },
+        {
+          "sourceTerm": "Nấu ăn",
+          "term": "Nấu ăn",
+          "videoLabel": "nấu nướng",
+          "matchType": "equivalent",
+          "filename": "D0104.mp4",
+          "sourceRow": 140,
+          "sourceOrder": 9
+        },
+        {
+          "sourceTerm": "Đi học",
+          "term": "Đi học",
+          "videoLabel": "đi học",
+          "matchType": "exact",
+          "filename": "W01191.mp4",
+          "sourceRow": 141,
+          "sourceOrder": 10
+        },
+        {
+          "sourceTerm": "Học",
+          "term": "Học",
+          "videoLabel": "học tập",
+          "matchType": "equivalent",
+          "filename": "W01670.mp4",
+          "sourceRow": 142,
+          "sourceOrder": 11
+        },
+        {
+          "sourceTerm": "Làm việc",
+          "term": "Làm việc",
+          "videoLabel": "làm việc",
+          "matchType": "exact",
+          "filename": "W01928.mp4",
+          "sourceRow": 143,
+          "sourceOrder": 12
+        },
+        {
+          "sourceTerm": "Đọc",
+          "term": "Đọc sách",
+          "videoLabel": "đọc sách",
+          "matchType": "replacement",
+          "filename": "W01239.mp4",
+          "sourceRow": 144,
+          "sourceOrder": 13
+        },
+        {
+          "sourceTerm": "Viết",
+          "term": "Tập viết",
+          "videoLabel": "tập viết",
+          "matchType": "replacement",
+          "filename": "W03118.mp4",
+          "sourceRow": 145,
+          "sourceOrder": 14
+        },
+        {
+          "sourceTerm": "Xem",
+          "term": "Xem",
+          "videoLabel": "xem",
+          "matchType": "exact",
+          "filename": "D0192B.mp4",
+          "sourceRow": 146,
+          "sourceOrder": 15
+        },
+        {
+          "sourceTerm": "Nghe",
+          "term": "Nghe",
+          "videoLabel": "nghe",
+          "matchType": "exact",
+          "filename": "W02353.mp4",
+          "sourceRow": 147,
+          "sourceOrder": 16
+        },
+        {
+          "sourceTerm": "Đi bộ",
+          "term": "Đi dạo",
+          "videoLabel": "đi dạo",
+          "matchType": "replacement",
+          "filename": "D0157B.mp4",
+          "sourceRow": 148,
+          "sourceOrder": 17
+        },
+        {
+          "sourceTerm": "Tập thể dục",
+          "term": "Tập thể dục",
+          "videoLabel": "tập thể dục",
+          "matchType": "exact",
+          "filename": "W03116B.mp4",
+          "sourceRow": 149,
+          "sourceOrder": 18
+        },
+        {
+          "sourceTerm": "Nghỉ ngơi",
+          "term": "Nghỉ ngơi",
+          "videoLabel": "nghỉ ngơi",
+          "matchType": "exact",
+          "filename": "W02364.mp4",
+          "sourceRow": 150,
+          "sourceOrder": 19
+        },
+        {
+          "sourceTerm": "Đi ngủ",
+          "term": "Quét nhà",
+          "videoLabel": "quét nhà",
+          "matchType": "replacement",
+          "filename": "W02795.mp4",
+          "sourceRow": 151,
+          "sourceOrder": 20
+        }
+      ]
+    },
+    "Biểu cảm & cảm xúc": {
+      "Cơ bản": [
+        {
+          "sourceTerm": "Vui",
+          "term": "Vui mừng",
+          "videoLabel": "vui mừng",
+          "matchType": "replacement",
+          "filename": "W03889B.mp4",
+          "sourceRow": 152,
+          "sourceOrder": 1
+        },
+        {
+          "sourceTerm": "Buồn",
+          "term": "Buồn thảm",
+          "videoLabel": "buồn thảm",
+          "matchType": "replacement",
+          "filename": "D0064.mp4",
+          "sourceRow": 153,
+          "sourceOrder": 2
+        },
+        {
+          "sourceTerm": "Tức giận",
+          "term": "Tức giận",
+          "videoLabel": "giận dữ",
+          "matchType": "equivalent",
+          "filename": "W01465.mp4",
+          "sourceRow": 154,
+          "sourceOrder": 3
+        },
+        {
+          "sourceTerm": "Sợ",
+          "term": "Hoảng sợ",
+          "videoLabel": "hoảng sợ",
+          "matchType": "replacement",
+          "filename": "W01650.mp4",
+          "sourceRow": 155,
+          "sourceOrder": 4
+        },
+        {
+          "sourceTerm": "Lo lắng",
+          "term": "Lo sợ",
+          "videoLabel": "lo sợ",
+          "matchType": "replacement",
+          "filename": "W02016.mp4",
+          "sourceRow": 156,
+          "sourceOrder": 5
+        },
+        {
+          "sourceTerm": "Mệt",
+          "term": "Mệt",
+          "videoLabel": "mệt mỏi",
+          "matchType": "equivalent",
+          "filename": "D0369.mp4",
+          "sourceRow": 157,
+          "sourceOrder": 6
+        },
+        {
+          "sourceTerm": "Hạnh phúc",
+          "term": "Vui sướng",
+          "videoLabel": "vui sướng",
+          "matchType": "replacement",
+          "filename": "W03890B.mp4",
+          "sourceRow": 158,
+          "sourceOrder": 7
+        },
+        {
+          "sourceTerm": "Yêu",
+          "term": "Yêu",
+          "videoLabel": "thương yêu",
+          "matchType": "equivalent",
+          "filename": "W03373B.mp4",
+          "sourceRow": 159,
+          "sourceOrder": 8
+        },
+        {
+          "sourceTerm": "Thích",
+          "term": "Thích thú",
+          "videoLabel": "thích thú",
+          "matchType": "replacement",
+          "filename": "W03252B.mp4",
+          "sourceRow": 160,
+          "sourceOrder": 9
+        },
+        {
+          "sourceTerm": "Ghét",
+          "term": "Ác cảm",
+          "videoLabel": "ác cảm",
+          "matchType": "replacement",
+          "filename": "W00001.mp4",
+          "sourceRow": 161,
+          "sourceOrder": 10
+        },
+        {
+          "sourceTerm": "Ngạc nhiên",
+          "term": "Ngạc nhiên",
+          "videoLabel": "ngạc nhiên",
+          "matchType": "exact",
+          "filename": "W02332.mp4",
+          "sourceRow": 162,
+          "sourceOrder": 11
+        },
+        {
+          "sourceTerm": "Xấu hổ",
+          "term": "E thẹn",
+          "videoLabel": "e thẹn",
+          "matchType": "replacement",
+          "filename": "W01348B.mp4",
+          "sourceRow": 163,
+          "sourceOrder": 12
+        },
+        {
+          "sourceTerm": "Cô đơn",
+          "term": "Cô đơn",
+          "videoLabel": "cô đơn",
+          "matchType": "exact",
+          "filename": "W00811.mp4",
+          "sourceRow": 164,
+          "sourceOrder": 13
+        },
+        {
+          "sourceTerm": "Thất vọng",
+          "term": "Tuyệt vọng",
+          "videoLabel": "tuyệt vọng",
+          "matchType": "replacement",
+          "filename": "W03708.mp4",
+          "sourceRow": 165,
+          "sourceOrder": 14
+        },
+        {
+          "sourceTerm": "Tự hào",
+          "term": "Tự hào",
+          "videoLabel": "tự hào",
+          "matchType": "exact",
+          "filename": "D0333.mp4",
+          "sourceRow": 166,
+          "sourceOrder": 15
+        },
+        {
+          "sourceTerm": "Bình tĩnh",
+          "term": "Yên tâm",
+          "videoLabel": "yên tâm",
+          "matchType": "replacement",
+          "filename": "W04048.mp4",
+          "sourceRow": 167,
+          "sourceOrder": 16
+        },
+        {
+          "sourceTerm": "Thoải mái",
+          "term": "Dễ chịu",
+          "videoLabel": "dễ chịu",
+          "matchType": "replacement",
+          "filename": "W01026.mp4",
+          "sourceRow": 168,
+          "sourceOrder": 17
+        },
+        {
+          "sourceTerm": "Khó chịu",
+          "term": "Bực mình",
+          "videoLabel": "bực mình",
+          "matchType": "replacement",
+          "filename": "D0036.mp4",
+          "sourceRow": 169,
+          "sourceOrder": 18
+        },
+        {
+          "sourceTerm": "Hồi hộp",
+          "term": "Hồi hộp",
+          "videoLabel": "hồi hộp",
+          "matchType": "exact",
+          "filename": "W01690B.mp4",
+          "sourceRow": 170,
+          "sourceOrder": 19
+        },
+        {
+          "sourceTerm": "Chán",
+          "term": "Giận dỗi",
+          "videoLabel": "giận dỗi",
+          "matchType": "replacement",
+          "filename": "W01464.mp4",
+          "sourceRow": 171,
+          "sourceOrder": 20
+        }
+      ]
+    },
+    "Trường học": {
+      "Dễ": [
+        {
+          "sourceTerm": "Trường học",
+          "term": "Trường học",
+          "videoLabel": "nhà trường",
+          "matchType": "equivalent",
+          "filename": "W02455N.mp4",
+          "sourceRow": 172,
+          "sourceOrder": 1
+        },
+        {
+          "sourceTerm": "Học sinh",
+          "term": "Học sinh",
+          "videoLabel": "học trò",
+          "matchType": "equivalent",
+          "filename": "W01671.mp4",
+          "sourceRow": 173,
+          "sourceOrder": 2
+        },
+        {
+          "sourceTerm": "Giáo viên",
+          "term": "Thầy giáo",
+          "videoLabel": "thầy giáo",
+          "matchType": "replacement",
+          "filename": "W03224B.mp4",
+          "sourceRow": 174,
+          "sourceOrder": 3
+        },
+        {
+          "sourceTerm": "Lớp học",
+          "term": "Lớp học",
+          "videoLabel": "lớp",
+          "matchType": "equivalent",
+          "filename": "W02052.mp4",
+          "sourceRow": 175,
+          "sourceOrder": 4
+        },
+        {
+          "sourceTerm": "Bạn học",
+          "term": "Bạn",
+          "videoLabel": "bạn",
+          "matchType": "replacement",
+          "filename": "W00110B.mp4",
+          "sourceRow": 176,
+          "sourceOrder": 5
+        },
+        {
+          "sourceTerm": "Sách",
+          "term": "Sách",
+          "videoLabel": "sách",
+          "matchType": "exact",
+          "filename": "W02900.mp4",
+          "sourceRow": 177,
+          "sourceOrder": 6
+        },
+        {
+          "sourceTerm": "Vở",
+          "term": "Vở",
+          "videoLabel": "quyển vở",
+          "matchType": "equivalent",
+          "filename": "W02818T.mp4",
+          "sourceRow": 178,
+          "sourceOrder": 7
+        },
+        {
+          "sourceTerm": "Bút",
+          "term": "Bút",
+          "videoLabel": "bút",
+          "matchType": "exact",
+          "filename": "W00380.mp4",
+          "sourceRow": 179,
+          "sourceOrder": 8
+        },
+        {
+          "sourceTerm": "Bút chì",
+          "term": "Đồ dùng học tập",
+          "videoLabel": "đồ dùng học tập",
+          "matchType": "replacement",
+          "filename": "W01251.mp4",
+          "sourceRow": 180,
+          "sourceOrder": 9
+        },
+        {
+          "sourceTerm": "Bảng",
+          "term": "Bảng đen",
+          "videoLabel": "bảng đen",
+          "matchType": "replacement",
+          "filename": "W00121B.mp4",
+          "sourceRow": 181,
+          "sourceOrder": 10
+        },
+        {
+          "sourceTerm": "Bàn",
+          "term": "Bàn ghế",
+          "videoLabel": "bàn ghế",
+          "matchType": "replacement",
+          "filename": "W00094.mp4",
+          "sourceRow": 182,
+          "sourceOrder": 11
+        },
+        {
+          "sourceTerm": "Ghế",
+          "term": "Hộp bút",
+          "videoLabel": "hộp bút",
+          "matchType": "replacement",
+          "filename": "W01703.mp4",
+          "sourceRow": 183,
+          "sourceOrder": 12
+        },
+        {
+          "sourceTerm": "Cặp sách",
+          "term": "Cặp sách",
+          "videoLabel": "cặp sách",
+          "matchType": "exact",
+          "filename": "W00428.mp4",
+          "sourceRow": 184,
+          "sourceOrder": 13
+        },
+        {
+          "sourceTerm": "Học",
+          "term": "Học",
+          "videoLabel": "học tập",
+          "matchType": "equivalent",
+          "filename": "W01670.mp4",
+          "sourceRow": 185,
+          "sourceOrder": 14
+        },
+        {
+          "sourceTerm": "Đọc",
+          "term": "Đọc sách",
+          "videoLabel": "đọc sách",
+          "matchType": "replacement",
+          "filename": "W01239.mp4",
+          "sourceRow": 186,
+          "sourceOrder": 15
+        },
+        {
+          "sourceTerm": "Viết",
+          "term": "Tập viết",
+          "videoLabel": "tập viết",
+          "matchType": "replacement",
+          "filename": "W03118.mp4",
+          "sourceRow": 187,
+          "sourceOrder": 16
+        },
+        {
+          "sourceTerm": "Nghe",
+          "term": "Nghe",
+          "videoLabel": "nghe",
+          "matchType": "exact",
+          "filename": "W02353.mp4",
+          "sourceRow": 188,
+          "sourceOrder": 17
+        },
+        {
+          "sourceTerm": "Hỏi",
+          "term": "Hỏi",
+          "videoLabel": "hỏi",
+          "matchType": "exact",
+          "filename": "W01672N.mp4",
+          "sourceRow": 189,
+          "sourceOrder": 18
+        },
+        {
+          "sourceTerm": "Trả lời",
+          "term": "Trả lời",
+          "videoLabel": "trả lời",
+          "matchType": "exact",
+          "filename": "W03526.mp4",
+          "sourceRow": 190,
+          "sourceOrder": 19
+        },
+        {
+          "sourceTerm": "Bài tập",
+          "term": "Làm bài tập",
+          "videoLabel": "làm bài tập",
+          "matchType": "replacement",
+          "filename": "W01924.mp4",
+          "sourceRow": 191,
+          "sourceOrder": 20
+        }
+      ],
+      "Trung bình": [
+        {
+          "sourceTerm": "Môn học",
+          "term": "Cô giáo",
+          "videoLabel": "cô giáo",
+          "matchType": "replacement",
+          "filename": "W00812B.mp4",
+          "sourceRow": 192,
+          "sourceOrder": 1
+        },
+        {
+          "sourceTerm": "Toán",
+          "term": "Toán",
+          "videoLabel": "môn Toán",
+          "matchType": "equivalent",
+          "filename": "W02250.mp4",
+          "sourceRow": 193,
+          "sourceOrder": 2
+        },
+        {
+          "sourceTerm": "Tiếng Anh",
+          "term": "Tiếng Anh",
+          "videoLabel": "tiếng Anh",
+          "matchType": "exact",
+          "filename": "W03409B.mp4",
+          "sourceRow": 194,
+          "sourceOrder": 3
+        },
+        {
+          "sourceTerm": "Ngữ văn",
+          "term": "Gọt bút chì",
+          "videoLabel": "gọt bút chì",
+          "matchType": "replacement",
+          "filename": "W01515.mp4",
+          "sourceRow": 195,
+          "sourceOrder": 4
+        },
+        {
+          "sourceTerm": "Khoa học",
+          "term": "Khoa học",
+          "videoLabel": "khoa học",
+          "matchType": "exact",
+          "filename": "W01804.mp4",
+          "sourceRow": 196,
+          "sourceOrder": 5
+        },
+        {
+          "sourceTerm": "Tin học",
+          "term": "Tin học",
+          "videoLabel": "tin học",
+          "matchType": "exact",
+          "filename": "W03436.mp4",
+          "sourceRow": 197,
+          "sourceOrder": 6
+        },
+        {
+          "sourceTerm": "Thư viện",
+          "term": "Thư viện",
+          "videoLabel": "phòng thư viện",
+          "matchType": "equivalent",
+          "filename": "W02680.mp4",
+          "sourceRow": 198,
+          "sourceOrder": 7
+        },
+        {
+          "sourceTerm": "Phòng học",
+          "term": "Phấn (viết bảng)",
+          "videoLabel": "phấn (viết bảng)",
+          "matchType": "replacement",
+          "filename": "W02630N.mp4",
+          "sourceRow": 199,
+          "sourceOrder": 8
+        },
+        {
+          "sourceTerm": "Bài kiểm tra",
+          "term": "Chăm học",
+          "videoLabel": "chăm học",
+          "matchType": "replacement",
+          "filename": "W00507.mp4",
+          "sourceRow": 200,
+          "sourceOrder": 9
+        },
+        {
+          "sourceTerm": "Điểm",
+          "term": "Môn Tiếng Việt",
+          "videoLabel": "môn Tiếng Việt",
+          "matchType": "replacement",
+          "filename": "W02248.mp4",
+          "sourceRow": 201,
+          "sourceOrder": 10
+        },
+        {
+          "sourceTerm": "Bài tập về nhà",
+          "term": "Môn Ngoại ngữ",
+          "videoLabel": "môn Ngoại ngữ",
+          "matchType": "replacement",
+          "filename": "W02246.mp4",
+          "sourceRow": 202,
+          "sourceOrder": 11
+        },
+        {
+          "sourceTerm": "Thi",
+          "term": "Thi",
+          "videoLabel": "thi cử",
+          "matchType": "equivalent",
+          "filename": "W03243B.mp4",
+          "sourceRow": 203,
+          "sourceOrder": 12
+        },
+        {
+          "sourceTerm": "Nghỉ học",
+          "term": "Nghỉ học",
+          "videoLabel": "nghỉ học",
+          "matchType": "exact",
+          "filename": "W02361B.mp4",
+          "sourceRow": 204,
+          "sourceOrder": 13
+        },
+        {
+          "sourceTerm": "Đi học",
+          "term": "Đi học",
+          "videoLabel": "đi học",
+          "matchType": "exact",
+          "filename": "W01191.mp4",
+          "sourceRow": 205,
+          "sourceOrder": 14
+        },
+        {
+          "sourceTerm": "Nhóm",
+          "term": "Nhóm",
+          "videoLabel": "nhóm",
+          "matchType": "exact",
+          "filename": "W02503.mp4",
+          "sourceRow": 206,
+          "sourceOrder": 15
+        },
+        {
+          "sourceTerm": "Thuyết trình",
+          "term": "Thuyết trình",
+          "videoLabel": "thuyết trình",
+          "matchType": "exact",
+          "filename": "W03352.mp4",
+          "sourceRow": 207,
+          "sourceOrder": 16
+        },
+        {
+          "sourceTerm": "Dự án",
+          "term": "Dự án",
+          "videoLabel": "dự án",
+          "matchType": "exact",
+          "filename": "D0259.mp4",
+          "sourceRow": 208,
+          "sourceOrder": 17
+        },
+        {
+          "sourceTerm": "Máy tính",
+          "term": "Phòng học tin học",
+          "videoLabel": "phòng học tin học",
+          "matchType": "replacement",
+          "filename": "W02675.mp4",
+          "sourceRow": 209,
+          "sourceOrder": 18
+        },
+        {
+          "sourceTerm": "Tài liệu",
+          "term": "Kiểm tra",
+          "videoLabel": "kiểm tra",
+          "matchType": "replacement",
+          "filename": "W01878N.mp4",
+          "sourceRow": 210,
+          "sourceOrder": 19
+        },
+        {
+          "sourceTerm": "Giải lao",
+          "term": "Giải lao",
+          "videoLabel": "giải lao",
+          "matchType": "exact",
+          "filename": "W01437.mp4",
+          "sourceRow": 211,
+          "sourceOrder": 20
+        }
+      ],
+      "Khó": [
+        {
+          "sourceTerm": "Đại học",
+          "term": "Chấm điểm",
+          "videoLabel": "chấm điểm",
+          "matchType": "replacement",
+          "filename": "W00520.mp4",
+          "sourceRow": 212,
+          "sourceOrder": 1
+        },
+        {
+          "sourceTerm": "Chuyên ngành",
+          "term": "Chép bài",
+          "videoLabel": "chép bài",
+          "matchType": "replacement",
+          "filename": "W00555.mp4",
+          "sourceRow": 213,
+          "sourceOrder": 2
+        },
+        {
+          "sourceTerm": "Khoa",
+          "term": "Máy tính (laptop)",
+          "videoLabel": "máy tính (laptop)",
+          "matchType": "replacement",
+          "filename": "W02151.mp4",
+          "sourceRow": 214,
+          "sourceOrder": 3
+        },
+        {
+          "sourceTerm": "Giảng viên",
+          "term": "Sách giáo khoa",
+          "videoLabel": "sách giáo khoa",
+          "matchType": "replacement",
+          "filename": "W02901.mp4",
+          "sourceRow": 215,
+          "sourceOrder": 4
+        },
+        {
+          "sourceTerm": "Sinh viên",
+          "term": "Môn Kĩ thuật",
+          "videoLabel": "môn Kĩ thuật",
+          "matchType": "replacement",
+          "filename": "W02243.mp4",
+          "sourceRow": 216,
+          "sourceOrder": 5
+        },
+        {
+          "sourceTerm": "Học kỳ",
+          "term": "Môn Sinh học",
+          "videoLabel": "môn Sinh học",
+          "matchType": "replacement",
+          "filename": "W02247.mp4",
+          "sourceRow": 217,
+          "sourceOrder": 6
+        },
+        {
+          "sourceTerm": "Tín chỉ",
+          "term": "Môn Địa lý",
+          "videoLabel": "môn Địa lý",
+          "matchType": "replacement",
+          "filename": "W04066B.mp4",
+          "sourceRow": 218,
+          "sourceOrder": 7
+        },
+        {
+          "sourceTerm": "Học bổng",
+          "term": "Học bổng",
+          "videoLabel": "học bổng",
+          "matchType": "exact",
+          "filename": "W01665.mp4",
+          "sourceRow": 219,
+          "sourceOrder": 8
+        },
+        {
+          "sourceTerm": "Nghiên cứu",
+          "term": "Nghiên cứu",
+          "videoLabel": "nghiên cứu",
+          "matchType": "exact",
+          "filename": "W02367.mp4",
+          "sourceRow": 220,
+          "sourceOrder": 9
+        },
+        {
+          "sourceTerm": "Đồ án",
+          "term": "Môn Mĩ thuật",
+          "videoLabel": "môn Mĩ thuật",
+          "matchType": "replacement",
+          "filename": "W02245.mp4",
+          "sourceRow": 221,
+          "sourceOrder": 10
+        },
+        {
+          "sourceTerm": "Luận văn",
+          "term": "Môn Âm nhạc",
+          "videoLabel": "môn Âm nhạc",
+          "matchType": "replacement",
+          "filename": "W02238.mp4",
+          "sourceRow": 222,
+          "sourceOrder": 11
+        },
+        {
+          "sourceTerm": "Thực tập",
+          "term": "Môn Lịch sử",
+          "videoLabel": "môn Lịch sử",
+          "matchType": "replacement",
+          "filename": "W02244B.mp4",
+          "sourceRow": 223,
+          "sourceOrder": 12
+        },
+        {
+          "sourceTerm": "Đăng ký môn",
+          "term": "Du học",
+          "videoLabel": "du học",
+          "matchType": "replacement",
+          "filename": "W01062.mp4",
+          "sourceRow": 224,
+          "sourceOrder": 13
+        },
+        {
+          "sourceTerm": "Tốt nghiệp",
+          "term": "Nhà bác học",
+          "videoLabel": "nhà bác học",
+          "matchType": "replacement",
+          "filename": "W02441.mp4",
+          "sourceRow": 225,
+          "sourceOrder": 14
+        },
+        {
+          "sourceTerm": "Kết quả học tập",
+          "term": "Viện nghiên cứu",
+          "videoLabel": "viện nghiên cứu",
+          "matchType": "replacement",
+          "filename": "W03841.mp4",
+          "sourceRow": 226,
+          "sourceOrder": 15
+        },
+        {
+          "sourceTerm": "Hạn nộp",
+          "term": "Phòng thí nghiệm",
+          "videoLabel": "phòng thí nghiệm",
+          "matchType": "replacement",
+          "filename": "W02679.mp4",
+          "sourceRow": 227,
+          "sourceOrder": 16
+        },
+        {
+          "sourceTerm": "Đánh giá",
+          "term": "Đánh giá",
+          "videoLabel": "đánh giá",
+          "matchType": "exact",
+          "filename": "W01110.mp4",
+          "sourceRow": 228,
+          "sourceOrder": 17
+        },
+        {
+          "sourceTerm": "Kiến thức",
+          "term": "Kiến thức",
+          "videoLabel": "kiến thức",
+          "matchType": "exact",
+          "filename": "W01885.mp4",
+          "sourceRow": 229,
+          "sourceOrder": 18
+        },
+        {
+          "sourceTerm": "Kỹ năng",
+          "term": "Kỹ năng",
+          "videoLabel": "kỹ năng",
+          "matchType": "exact",
+          "filename": "D0097.mp4",
+          "sourceRow": 230,
+          "sourceOrder": 19
+        },
+        {
+          "sourceTerm": "Giáo dục",
+          "term": "Giáo dục",
+          "videoLabel": "giáo dục",
+          "matchType": "exact",
+          "filename": "W01456.mp4",
+          "sourceRow": 231,
+          "sourceOrder": 20
+        }
+      ]
+    },
+    "Công việc": {
+      "Dễ": [
+        {
+          "sourceTerm": "Công việc",
+          "term": "Công việc",
+          "videoLabel": "công việc",
+          "matchType": "exact",
+          "filename": "W00851.mp4",
+          "sourceRow": 232,
+          "sourceOrder": 1
+        },
+        {
+          "sourceTerm": "Làm việc",
+          "term": "Làm việc",
+          "videoLabel": "làm việc",
+          "matchType": "exact",
+          "filename": "W01928.mp4",
+          "sourceRow": 233,
+          "sourceOrder": 2
+        },
+        {
+          "sourceTerm": "Nhân viên",
+          "term": "Nhân viên",
+          "videoLabel": "nhân viên",
+          "matchType": "exact",
+          "filename": "D0004.mp4",
+          "sourceRow": 234,
+          "sourceOrder": 3
+        },
+        {
+          "sourceTerm": "Sếp",
+          "term": "Giám đốc",
+          "videoLabel": "giám đốc",
+          "matchType": "replacement",
+          "filename": "W01441.mp4",
+          "sourceRow": 235,
+          "sourceOrder": 4
+        },
+        {
+          "sourceTerm": "Công ty",
+          "term": "Doanh nghiệp",
+          "videoLabel": "doanh nghiệp",
+          "matchType": "replacement",
+          "filename": "W01051.mp4",
+          "sourceRow": 236,
+          "sourceOrder": 5
+        },
+        {
+          "sourceTerm": "Văn phòng",
+          "term": "Tiếp tân",
+          "videoLabel": "tiếp tân",
+          "matchType": "replacement",
+          "filename": "D0003.mp4",
+          "sourceRow": 237,
+          "sourceOrder": 6
+        },
+        {
+          "sourceTerm": "Đồng nghiệp",
+          "term": "Tổ trưởng",
+          "videoLabel": "tổ trưởng",
+          "matchType": "replacement",
+          "filename": "W03495.mp4",
+          "sourceRow": 238,
+          "sourceOrder": 7
+        },
+        {
+          "sourceTerm": "Tiền",
+          "term": "Đồng tiền",
+          "videoLabel": "đồng tiền",
+          "matchType": "replacement",
+          "filename": "W01296.mp4",
+          "sourceRow": 239,
+          "sourceOrder": 8
+        },
+        {
+          "sourceTerm": "Lương",
+          "term": "Thù lao",
+          "videoLabel": "thù lao",
+          "matchType": "replacement",
+          "filename": "W03319.mp4",
+          "sourceRow": 240,
+          "sourceOrder": 9
+        },
+        {
+          "sourceTerm": "Máy tính",
+          "term": "Máy tính (laptop)",
+          "videoLabel": "máy tính (laptop)",
+          "matchType": "replacement",
+          "filename": "W02151.mp4",
+          "sourceRow": 241,
+          "sourceOrder": 10
+        },
+        {
+          "sourceTerm": "Điện thoại",
+          "term": "Điện thoại",
+          "videoLabel": "điện thoại",
+          "matchType": "exact",
+          "filename": "W01208.mp4",
+          "sourceRow": 242,
+          "sourceOrder": 11
+        },
+        {
+          "sourceTerm": "Email",
+          "term": "Email",
+          "videoLabel": "email",
+          "matchType": "exact",
+          "filename": "W01354.mp4",
+          "sourceRow": 243,
+          "sourceOrder": 12
+        },
+        {
+          "sourceTerm": "Gọi điện",
+          "term": "Tin nhắn",
+          "videoLabel": "tin nhắn",
+          "matchType": "replacement",
+          "filename": "W03437.mp4",
+          "sourceRow": 244,
+          "sourceOrder": 13
+        },
+        {
+          "sourceTerm": "Viết",
+          "term": "Tập viết",
+          "videoLabel": "tập viết",
+          "matchType": "replacement",
+          "filename": "W03118.mp4",
+          "sourceRow": 245,
+          "sourceOrder": 14
+        },
+        {
+          "sourceTerm": "Đọc",
+          "term": "Đọc sách",
+          "videoLabel": "đọc sách",
+          "matchType": "replacement",
+          "filename": "W01239.mp4",
+          "sourceRow": 246,
+          "sourceOrder": 15
+        },
+        {
+          "sourceTerm": "Nói",
+          "term": "Nói chuyện",
+          "videoLabel": "nói chuyện",
+          "matchType": "replacement",
+          "filename": "W02523.mp4",
+          "sourceRow": 247,
+          "sourceOrder": 16
+        },
+        {
+          "sourceTerm": "Gặp",
+          "term": "Gặp gỡ",
+          "videoLabel": "gặp gỡ",
+          "matchType": "replacement",
+          "filename": "W01395.mp4",
+          "sourceRow": 248,
+          "sourceOrder": 17
+        },
+        {
+          "sourceTerm": "Nghỉ",
+          "term": "Nghỉ ngơi",
+          "videoLabel": "nghỉ ngơi",
+          "matchType": "replacement",
+          "filename": "W02364.mp4",
+          "sourceRow": 249,
+          "sourceOrder": 18
+        },
+        {
+          "sourceTerm": "Bận",
+          "term": "Họp",
+          "videoLabel": "họp",
+          "matchType": "replacement",
+          "filename": "W01677B.mp4",
+          "sourceRow": 250,
+          "sourceOrder": 19
+        },
+        {
+          "sourceTerm": "Rảnh",
+          "term": "Khách",
+          "videoLabel": "khách",
+          "matchType": "replacement",
+          "filename": "W01758.mp4",
+          "sourceRow": 251,
+          "sourceOrder": 20
+        }
+      ],
+      "Trung bình": [
+        {
+          "sourceTerm": "Cuộc họp",
+          "term": "Cuộc họp",
+          "videoLabel": "họp",
+          "matchType": "equivalent",
+          "filename": "W01677B.mp4",
+          "sourceRow": 252,
+          "sourceOrder": 1
+        },
+        {
+          "sourceTerm": "Khách hàng",
+          "term": "Giám sát",
+          "videoLabel": "giám sát",
+          "matchType": "replacement",
+          "filename": "D0255.mp4",
+          "sourceRow": 253,
+          "sourceOrder": 2
+        },
+        {
+          "sourceTerm": "Quản lý",
+          "term": "Đảm nhiệm",
+          "videoLabel": "đảm nhiệm",
+          "matchType": "replacement",
+          "filename": "W01092.mp4",
+          "sourceRow": 254,
+          "sourceOrder": 3
+        },
+        {
+          "sourceTerm": "Dự án",
+          "term": "Dự án",
+          "videoLabel": "dự án",
+          "matchType": "exact",
+          "filename": "D0259.mp4",
+          "sourceRow": 255,
+          "sourceOrder": 4
+        },
+        {
+          "sourceTerm": "Nhiệm vụ",
+          "term": "Mục tiêu",
+          "videoLabel": "mục tiêu",
+          "matchType": "replacement",
+          "filename": "D0422.mp4",
+          "sourceRow": 256,
+          "sourceOrder": 5
+        },
+        {
+          "sourceTerm": "Kế hoạch",
+          "term": "Công văn",
+          "videoLabel": "công văn",
+          "matchType": "replacement",
+          "filename": "W04061.mp4",
+          "sourceRow": 257,
+          "sourceOrder": 6
+        },
+        {
+          "sourceTerm": "Báo cáo",
+          "term": "Báo cáo",
+          "videoLabel": "báo cáo",
+          "matchType": "exact",
+          "filename": "W00161.mp4",
+          "sourceRow": 258,
+          "sourceOrder": 7
+        },
+        {
+          "sourceTerm": "Hồ sơ",
+          "term": "Giới thiệu",
+          "videoLabel": "giới thiệu",
+          "matchType": "replacement",
+          "filename": "W01494.mp4",
+          "sourceRow": 259,
+          "sourceOrder": 8
+        },
+        {
+          "sourceTerm": "Phỏng vấn",
+          "term": "Trúng tuyển",
+          "videoLabel": "trúng tuyển",
+          "matchType": "replacement",
+          "filename": "W03649B.mp4",
+          "sourceRow": 260,
+          "sourceOrder": 9
+        },
+        {
+          "sourceTerm": "Tuyển dụng",
+          "term": "Thời gian biểu",
+          "videoLabel": "thời gian biểu",
+          "matchType": "replacement",
+          "filename": "W03303.mp4",
+          "sourceRow": 261,
+          "sourceOrder": 10
+        },
+        {
+          "sourceTerm": "Kinh nghiệm",
+          "term": "Kinh nghiệm",
+          "videoLabel": "kinh nghiệm",
+          "matchType": "exact",
+          "filename": "W01898B.mp4",
+          "sourceRow": 262,
+          "sourceOrder": 11
+        },
+        {
+          "sourceTerm": "Kỹ năng",
+          "term": "Kỹ năng",
+          "videoLabel": "kỹ năng",
+          "matchType": "exact",
+          "filename": "D0097.mp4",
+          "sourceRow": 263,
+          "sourceOrder": 12
+        },
+        {
+          "sourceTerm": "Hợp đồng",
+          "term": "Hợp đồng",
+          "videoLabel": "hợp đồng",
+          "matchType": "exact",
+          "filename": "W01707B.mp4",
+          "sourceRow": 264,
+          "sourceOrder": 13
+        },
+        {
+          "sourceTerm": "Thời gian",
+          "term": "Phân công",
+          "videoLabel": "phân công",
+          "matchType": "replacement",
+          "filename": "W02614.mp4",
+          "sourceRow": 265,
+          "sourceOrder": 14
+        },
+        {
+          "sourceTerm": "Ca làm việc",
+          "term": "Họp nhóm",
+          "videoLabel": "họp nhóm",
+          "matchType": "replacement",
+          "filename": "D0452N.mp4",
+          "sourceRow": 266,
+          "sourceOrder": 15
+        },
+        {
+          "sourceTerm": "Làm thêm giờ",
+          "term": "Nghỉ hưu",
+          "videoLabel": "nghỉ hưu",
+          "matchType": "replacement",
+          "filename": "W02362.mp4",
+          "sourceRow": 267,
+          "sourceOrder": 16
+        },
+        {
+          "sourceTerm": "Nghỉ phép",
+          "term": "Ngành nghề",
+          "videoLabel": "ngành nghề",
+          "matchType": "replacement",
+          "filename": "W02333.mp4",
+          "sourceRow": 268,
+          "sourceOrder": 17
+        },
+        {
+          "sourceTerm": "Làm việc nhóm",
+          "term": "Chức vụ",
+          "videoLabel": "chức vụ",
+          "matchType": "replacement",
+          "filename": "W00717.mp4",
+          "sourceRow": 269,
+          "sourceOrder": 18
+        },
+        {
+          "sourceTerm": "Trưởng nhóm",
+          "term": "Trưởng nhóm",
+          "videoLabel": "trưởng nhóm",
+          "matchType": "exact",
+          "filename": "W03676.mp4",
+          "sourceRow": 270,
+          "sourceOrder": 19
+        },
+        {
+          "sourceTerm": "Đồng ý",
+          "term": "Đồng ý",
+          "videoLabel": "tán thành",
+          "matchType": "equivalent",
+          "filename": "W03077.mp4",
+          "sourceRow": 271,
+          "sourceOrder": 20
+        }
+      ],
+      "Khó": [
+        {
+          "sourceTerm": "Thăng chức",
+          "term": "Chứng nhận",
+          "videoLabel": "chứng nhận",
+          "matchType": "replacement",
+          "filename": "W00720.mp4",
+          "sourceRow": 272,
+          "sourceOrder": 1
+        },
+        {
+          "sourceTerm": "Nghỉ việc",
+          "term": "Tiến bộ",
+          "videoLabel": "tiến bộ",
+          "matchType": "replacement",
+          "filename": "D0315.mp4",
+          "sourceRow": 273,
+          "sourceOrder": 2
+        },
+        {
+          "sourceTerm": "Sa thải",
+          "term": "Sa thải",
+          "videoLabel": "sa thải",
+          "matchType": "exact",
+          "filename": "W01324.mp4",
+          "sourceRow": 274,
+          "sourceOrder": 3
+        },
+        {
+          "sourceTerm": "Đào tạo",
+          "term": "Đào tạo",
+          "videoLabel": "đào tạo",
+          "matchType": "exact",
+          "filename": "W01115.mp4",
+          "sourceRow": 275,
+          "sourceOrder": 4
+        },
+        {
+          "sourceTerm": "Hiệu suất",
+          "term": "Sản xuất",
+          "videoLabel": "sản xuất",
+          "matchType": "replacement",
+          "filename": "W02912.mp4",
+          "sourceRow": 276,
+          "sourceOrder": 5
+        },
+        {
+          "sourceTerm": "Đánh giá",
+          "term": "Đánh giá",
+          "videoLabel": "đánh giá",
+          "matchType": "exact",
+          "filename": "W01110.mp4",
+          "sourceRow": 277,
+          "sourceOrder": 6
+        },
+        {
+          "sourceTerm": "Trách nhiệm",
+          "term": "Trách nhiệm",
+          "videoLabel": "trách nhiệm",
+          "matchType": "exact",
+          "filename": "W03528.mp4",
+          "sourceRow": 278,
+          "sourceOrder": 7
+        },
+        {
+          "sourceTerm": "Quyền lợi",
+          "term": "Quyền lợi",
+          "videoLabel": "quyền lợi",
+          "matchType": "exact",
+          "filename": "W02813B.mp4",
+          "sourceRow": 279,
+          "sourceOrder": 8
+        },
+        {
+          "sourceTerm": "Bảo hiểm",
+          "term": "Bảo hiểm",
+          "videoLabel": "bảo hiểm",
+          "matchType": "exact",
+          "filename": "W00153.mp4",
+          "sourceRow": 280,
+          "sourceOrder": 9
+        },
+        {
+          "sourceTerm": "Thu nhập",
+          "term": "Đầu tư",
+          "videoLabel": "đầu tư",
+          "matchType": "replacement",
+          "filename": "D0260.mp4",
+          "sourceRow": 281,
+          "sourceOrder": 10
+        },
+        {
+          "sourceTerm": "Thưởng",
+          "term": "Thương mại",
+          "videoLabel": "thương mại",
+          "matchType": "replacement",
+          "filename": "D0306.mp4",
+          "sourceRow": 282,
+          "sourceOrder": 11
+        },
+        {
+          "sourceTerm": "Hạn chót",
+          "term": "Khởi nghiệp",
+          "videoLabel": "khởi nghiệp",
+          "matchType": "replacement",
+          "filename": "D0325.mp4",
+          "sourceRow": 283,
+          "sourceOrder": 12
+        },
+        {
+          "sourceTerm": "Chiến lược",
+          "term": "Ngân hàng",
+          "videoLabel": "ngân hàng",
+          "matchType": "replacement",
+          "filename": "W02348.mp4",
+          "sourceRow": 284,
+          "sourceOrder": 13
+        },
+        {
+          "sourceTerm": "Ngân sách",
+          "term": "Thuyết phục",
+          "videoLabel": "thuyết phục",
+          "matchType": "replacement",
+          "filename": "W03351.mp4",
+          "sourceRow": 285,
+          "sourceOrder": 14
+        },
+        {
+          "sourceTerm": "Đàm phán",
+          "term": "Tranh luận",
+          "videoLabel": "tranh luận",
+          "matchType": "replacement",
+          "filename": "W03542.mp4",
+          "sourceRow": 286,
+          "sourceOrder": 15
+        },
+        {
+          "sourceTerm": "Hợp tác",
+          "term": "Hợp tác",
+          "videoLabel": "hợp tác",
+          "matchType": "exact",
+          "filename": "W01709.mp4",
+          "sourceRow": 287,
+          "sourceOrder": 16
+        },
+        {
+          "sourceTerm": "Chuyên môn",
+          "term": "Quyết định",
+          "videoLabel": "quyết định",
+          "matchType": "replacement",
+          "filename": "W02814B.mp4",
+          "sourceRow": 288,
+          "sourceOrder": 17
+        },
+        {
+          "sourceTerm": "Kinh doanh",
+          "term": "Phương pháp",
+          "videoLabel": "phương pháp",
+          "matchType": "replacement",
+          "filename": "W02714.mp4",
+          "sourceRow": 289,
+          "sourceOrder": 18
+        },
+        {
+          "sourceTerm": "Doanh nghiệp",
+          "term": "Doanh nghiệp",
+          "videoLabel": "doanh nghiệp",
+          "matchType": "exact",
+          "filename": "W01051.mp4",
+          "sourceRow": 290,
+          "sourceOrder": 19
+        },
+        {
+          "sourceTerm": "Nghề nghiệp",
+          "term": "Nghề nghiệp",
+          "videoLabel": "ngành nghề",
+          "matchType": "equivalent",
+          "filename": "W02333.mp4",
+          "sourceRow": 291,
+          "sourceOrder": 20
+        }
+      ]
+    },
+    "Du lịch": {
+      "Dễ": [
+        {
+          "sourceTerm": "Đi",
+          "term": "Đi",
+          "videoLabel": "đi",
+          "matchType": "exact",
+          "filename": "W01190.mp4",
+          "sourceRow": 292,
+          "sourceOrder": 1
+        },
+        {
+          "sourceTerm": "Đến",
+          "term": "Di chuyển",
+          "videoLabel": "di chuyển",
+          "matchType": "replacement",
+          "filename": "W01029.mp4",
+          "sourceRow": 293,
+          "sourceOrder": 2
+        },
+        {
+          "sourceTerm": "Du lịch",
+          "term": "Tham quan",
+          "videoLabel": "tham quan",
+          "matchType": "replacement",
+          "filename": "W03156B.mp4",
+          "sourceRow": 294,
+          "sourceOrder": 3
+        },
+        {
+          "sourceTerm": "Xe",
+          "term": "Xe khách",
+          "videoLabel": "xe khách",
+          "matchType": "replacement",
+          "filename": "W03967B.mp4",
+          "sourceRow": 295,
+          "sourceOrder": 4
+        },
+        {
+          "sourceTerm": "Xe buýt",
+          "term": "Xe đạp",
+          "videoLabel": "xe đạp",
+          "matchType": "replacement",
+          "filename": "W03959.mp4",
+          "sourceRow": 296,
+          "sourceOrder": 5
+        },
+        {
+          "sourceTerm": "Tàu",
+          "term": "Tàu hoả",
+          "videoLabel": "tàu hoả",
+          "matchType": "replacement",
+          "filename": "W03085B.mp4",
+          "sourceRow": 297,
+          "sourceOrder": 6
+        },
+        {
+          "sourceTerm": "Máy bay",
+          "term": "Hãng máy bay",
+          "videoLabel": "hãng máy bay",
+          "matchType": "replacement",
+          "filename": "W00122.mp4",
+          "sourceRow": 298,
+          "sourceOrder": 7
+        },
+        {
+          "sourceTerm": "Sân bay",
+          "term": "Đường hàng không",
+          "videoLabel": "đường hàng không",
+          "matchType": "replacement",
+          "filename": "W01335.mp4",
+          "sourceRow": 299,
+          "sourceOrder": 8
+        },
+        {
+          "sourceTerm": "Khách sạn",
+          "term": "Khách sạn",
+          "videoLabel": "khách sạn",
+          "matchType": "exact",
+          "filename": "W01760.mp4",
+          "sourceRow": 300,
+          "sourceOrder": 9
+        },
+        {
+          "sourceTerm": "Phòng",
+          "term": "Bến xe",
+          "videoLabel": "bến xe",
+          "matchType": "replacement",
+          "filename": "W00245.mp4",
+          "sourceRow": 301,
+          "sourceOrder": 10
+        },
+        {
+          "sourceTerm": "Vé",
+          "term": "Vé",
+          "videoLabel": "vé",
+          "matchType": "exact",
+          "filename": "W03814.mp4",
+          "sourceRow": 302,
+          "sourceOrder": 11
+        },
+        {
+          "sourceTerm": "Túi",
+          "term": "Túi",
+          "videoLabel": "cái túi",
+          "matchType": "equivalent",
+          "filename": "W00406.mp4",
+          "sourceRow": 303,
+          "sourceOrder": 12
+        },
+        {
+          "sourceTerm": "Hành lý",
+          "term": "Va li",
+          "videoLabel": "va li",
+          "matchType": "replacement",
+          "filename": "W03761.mp4",
+          "sourceRow": 304,
+          "sourceOrder": 13
+        },
+        {
+          "sourceTerm": "Bản đồ",
+          "term": "Bản đồ Việt Nam",
+          "videoLabel": "bản đồ Việt Nam",
+          "matchType": "replacement",
+          "filename": "W00099B.mp4",
+          "sourceRow": 305,
+          "sourceOrder": 14
+        },
+        {
+          "sourceTerm": "Đường",
+          "term": "Đường",
+          "videoLabel": "con đường",
+          "matchType": "equivalent",
+          "filename": "W00757.mp4",
+          "sourceRow": 306,
+          "sourceOrder": 15
+        },
+        {
+          "sourceTerm": "Trái",
+          "term": "Trái",
+          "videoLabel": "bên trái",
+          "matchType": "equivalent",
+          "filename": "W00239.mp4",
+          "sourceRow": 307,
+          "sourceOrder": 16
+        },
+        {
+          "sourceTerm": "Phải",
+          "term": "Phải",
+          "videoLabel": "bên phải",
+          "matchType": "equivalent",
+          "filename": "W00238.mp4",
+          "sourceRow": 308,
+          "sourceOrder": 17
+        },
+        {
+          "sourceTerm": "Gần",
+          "term": "Khoảng cách",
+          "videoLabel": "khoảng cách",
+          "matchType": "replacement",
+          "filename": "W01809.mp4",
+          "sourceRow": 309,
+          "sourceOrder": 18
+        },
+        {
+          "sourceTerm": "Xa",
+          "term": "Bên cạnh",
+          "videoLabel": "bên cạnh",
+          "matchType": "replacement",
+          "filename": "W00236.mp4",
+          "sourceRow": 310,
+          "sourceOrder": 19
+        },
+        {
+          "sourceTerm": "Ở đâu",
+          "term": "Xa xôi",
+          "videoLabel": "xa xôi",
+          "matchType": "replacement",
+          "filename": "W03928.mp4",
+          "sourceRow": 311,
+          "sourceOrder": 20
+        }
+      ],
+      "Trung bình": [
+        {
+          "sourceTerm": "Nhà ga",
+          "term": "Nhà ga",
+          "videoLabel": "ga tàu",
+          "matchType": "equivalent",
+          "filename": "W01364B.mp4",
+          "sourceRow": 312,
+          "sourceOrder": 1
+        },
+        {
+          "sourceTerm": "Trạm xe buýt",
+          "term": "Trạm xe buýt",
+          "videoLabel": "trạm xe buýt",
+          "matchType": "exact",
+          "filename": "W03534.mp4",
+          "sourceRow": 313,
+          "sourceOrder": 2
+        },
+        {
+          "sourceTerm": "Taxi",
+          "term": "Taxi",
+          "videoLabel": "taxi",
+          "matchType": "exact",
+          "filename": "W03089.mp4",
+          "sourceRow": 314,
+          "sourceOrder": 3
+        },
+        {
+          "sourceTerm": "Đặt phòng",
+          "term": "Bên trong",
+          "videoLabel": "bên trong",
+          "matchType": "replacement",
+          "filename": "W00241.mp4",
+          "sourceRow": 315,
+          "sourceOrder": 4
+        },
+        {
+          "sourceTerm": "Hộ chiếu",
+          "term": "Hướng dẫn",
+          "videoLabel": "hướng dẫn",
+          "matchType": "replacement",
+          "filename": "W01724.mp4",
+          "sourceRow": 316,
+          "sourceOrder": 5
+        },
+        {
+          "sourceTerm": "Nhà hàng",
+          "term": "Bãi biển Vũng Tàu",
+          "videoLabel": "Bãi biển Vũng Tàu",
+          "matchType": "replacement",
+          "filename": "W00079.mp4",
+          "sourceRow": 317,
+          "sourceOrder": 6
+        },
+        {
+          "sourceTerm": "Bãi biển",
+          "term": "Núi cao",
+          "videoLabel": "núi cao",
+          "matchType": "replacement",
+          "filename": "D0193.mp4",
+          "sourceRow": 318,
+          "sourceOrder": 7
+        },
+        {
+          "sourceTerm": "Núi",
+          "term": "Thành thị",
+          "videoLabel": "thành thị",
+          "matchType": "replacement",
+          "filename": "W03181.mp4",
+          "sourceRow": 319,
+          "sourceOrder": 8
+        },
+        {
+          "sourceTerm": "Thành phố",
+          "term": "Bến tàu",
+          "videoLabel": "bến tàu",
+          "matchType": "replacement",
+          "filename": "W00243.mp4",
+          "sourceRow": 320,
+          "sourceOrder": 9
+        },
+        {
+          "sourceTerm": "Địa điểm",
+          "term": "Địa điểm",
+          "videoLabel": "địa điểm",
+          "matchType": "exact",
+          "filename": "W01197.mp4",
+          "sourceRow": 321,
+          "sourceOrder": 10
+        },
+        {
+          "sourceTerm": "Tham quan",
+          "term": "Tham quan",
+          "videoLabel": "tham quan",
+          "matchType": "exact",
+          "filename": "W03156B.mp4",
+          "sourceRow": 322,
+          "sourceOrder": 11
+        },
+        {
+          "sourceTerm": "Chụp ảnh",
+          "term": "Chụp ảnh",
+          "videoLabel": "chụp ảnh",
+          "matchType": "exact",
+          "filename": "W00687.mp4",
+          "sourceRow": 323,
+          "sourceOrder": 12
+        },
+        {
+          "sourceTerm": "Hướng dẫn viên",
+          "term": "Bến phà",
+          "videoLabel": "bến phà",
+          "matchType": "replacement",
+          "filename": "W00242.mp4",
+          "sourceRow": 324,
+          "sourceOrder": 13
+        },
+        {
+          "sourceTerm": "Khởi hành",
+          "term": "Cáp treo",
+          "videoLabel": "cáp treo",
+          "matchType": "replacement",
+          "filename": "W00453.mp4",
+          "sourceRow": 325,
+          "sourceOrder": 14
+        },
+        {
+          "sourceTerm": "Đến nơi",
+          "term": "Quá cảnh",
+          "videoLabel": "quá cảnh",
+          "matchType": "replacement",
+          "filename": "W02761.mp4",
+          "sourceRow": 326,
+          "sourceOrder": 15
+        },
+        {
+          "sourceTerm": "Chuyến bay",
+          "term": "Phương hướng",
+          "videoLabel": "phương hướng",
+          "matchType": "replacement",
+          "filename": "W02713.mp4",
+          "sourceRow": 327,
+          "sourceOrder": 16
+        },
+        {
+          "sourceTerm": "Địa chỉ",
+          "term": "Địa chỉ",
+          "videoLabel": "địa chỉ",
+          "matchType": "exact",
+          "filename": "D0001N.mp4",
+          "sourceRow": 328,
+          "sourceOrder": 17
+        },
+        {
+          "sourceTerm": "Lối vào",
+          "term": "Mua vé",
+          "videoLabel": "mua vé",
+          "matchType": "replacement",
+          "filename": "W02267.mp4",
+          "sourceRow": 329,
+          "sourceOrder": 18
+        },
+        {
+          "sourceTerm": "Lối ra",
+          "term": "Lượt đi",
+          "videoLabel": "lượt đi",
+          "matchType": "replacement",
+          "filename": "D0327.mp4",
+          "sourceRow": 330,
+          "sourceOrder": 19
+        },
+        {
+          "sourceTerm": "Kỳ nghỉ",
+          "term": "Nghỉ mát",
+          "videoLabel": "nghỉ mát",
+          "matchType": "replacement",
+          "filename": "W02363.mp4",
+          "sourceRow": 331,
+          "sourceOrder": 20
+        }
+      ],
+      "Khó": [
+        {
+          "sourceTerm": "Hủy chuyến",
+          "term": "Nghỉ hè",
+          "videoLabel": "nghỉ hè",
+          "matchType": "replacement",
+          "filename": "W02360B.mp4",
+          "sourceRow": 332,
+          "sourceOrder": 1
+        },
+        {
+          "sourceTerm": "Trễ chuyến",
+          "term": "Đi lạc (đường, rừng..)",
+          "videoLabel": "đi lạc (đường, rừng..)",
+          "matchType": "replacement",
+          "filename": "D0251.mp4",
+          "sourceRow": 333,
+          "sourceOrder": 2
+        },
+        {
+          "sourceTerm": "Chuyển tiếp",
+          "term": "Bảng chỉ dẫn",
+          "videoLabel": "bảng chỉ dẫn",
+          "matchType": "replacement",
+          "filename": "W00116.mp4",
+          "sourceRow": 334,
+          "sourceOrder": 3
+        },
+        {
+          "sourceTerm": "Hành trình",
+          "term": "Rẽ phải",
+          "videoLabel": "rẽ phải",
+          "matchType": "replacement",
+          "filename": "W02852.mp4",
+          "sourceRow": 335,
+          "sourceOrder": 4
+        },
+        {
+          "sourceTerm": "Đặt vé",
+          "term": "Đường bộ",
+          "videoLabel": "đường bộ",
+          "matchType": "replacement",
+          "filename": "W01330.mp4",
+          "sourceRow": 336,
+          "sourceOrder": 5
+        },
+        {
+          "sourceTerm": "Xác nhận",
+          "term": "Đường sắt",
+          "videoLabel": "đường sắt",
+          "matchType": "replacement",
+          "filename": "W01343.mp4",
+          "sourceRow": 337,
+          "sourceOrder": 6
+        },
+        {
+          "sourceTerm": "Hải quan",
+          "term": "Đường thuỷ",
+          "videoLabel": "đường thuỷ",
+          "matchType": "replacement",
+          "filename": "W01345.mp4",
+          "sourceRow": 338,
+          "sourceOrder": 7
+        },
+        {
+          "sourceTerm": "Nhập cảnh",
+          "term": "Tàu thủy",
+          "videoLabel": "tàu thủy",
+          "matchType": "replacement",
+          "filename": "W03088.mp4",
+          "sourceRow": 339,
+          "sourceOrder": 8
+        },
+        {
+          "sourceTerm": "Xuất cảnh",
+          "term": "Tàu thuyền",
+          "videoLabel": "tàu thuyền",
+          "matchType": "replacement",
+          "filename": "W03087.mp4",
+          "sourceRow": 340,
+          "sourceOrder": 9
+        },
+        {
+          "sourceTerm": "Thị thực",
+          "term": "Ca nô",
+          "videoLabel": "ca nô",
+          "matchType": "replacement",
+          "filename": "W00396.mp4",
+          "sourceRow": 341,
+          "sourceOrder": 10
+        },
+        {
+          "sourceTerm": "Hành lý ký gửi",
+          "term": "Phà",
+          "videoLabel": "phà",
+          "matchType": "replacement",
+          "filename": "W02587.mp4",
+          "sourceRow": 342,
+          "sourceOrder": 11
+        },
+        {
+          "sourceTerm": "Hành lý xách tay",
+          "term": "Xe máy",
+          "videoLabel": "xe máy",
+          "matchType": "replacement",
+          "filename": "W03961.mp4",
+          "sourceRow": 343,
+          "sourceOrder": 12
+        },
+        {
+          "sourceTerm": "Du khách",
+          "term": "Xe lam",
+          "videoLabel": "xe lam",
+          "matchType": "replacement",
+          "filename": "W03968.mp4",
+          "sourceRow": 344,
+          "sourceOrder": 13
+        },
+        {
+          "sourceTerm": "Điểm đến",
+          "term": "Xe tải",
+          "videoLabel": "xe tải",
+          "matchType": "replacement",
+          "filename": "W03615.mp4",
+          "sourceRow": 345,
+          "sourceOrder": 14
+        },
+        {
+          "sourceTerm": "Phương tiện",
+          "term": "Phương tiện",
+          "videoLabel": "phương tiện",
+          "matchType": "exact",
+          "filename": "W02715.mp4",
+          "sourceRow": 346,
+          "sourceOrder": 15
+        },
+        {
+          "sourceTerm": "Lịch trình",
+          "term": "Người nước ngoài",
+          "videoLabel": "người nước ngoài",
+          "matchType": "replacement",
+          "filename": "D0013.mp4",
+          "sourceRow": 347,
+          "sourceOrder": 16
+        },
+        {
+          "sourceTerm": "Đổi tiền",
+          "term": "Danh lam thắng cảnh",
+          "videoLabel": "danh lam thắng cảnh",
+          "matchType": "replacement",
+          "filename": "W00966.mp4",
+          "sourceRow": 348,
+          "sourceOrder": 17
+        },
+        {
+          "sourceTerm": "Bảo hiểm du lịch",
+          "term": "Làng xóm",
+          "videoLabel": "làng xóm",
+          "matchType": "replacement",
+          "filename": "W01939.mp4",
+          "sourceRow": 349,
+          "sourceOrder": 18
+        },
+        {
+          "sourceTerm": "Khẩn cấp",
+          "term": "Phố cổ",
+          "videoLabel": "phố cổ",
+          "matchType": "replacement",
+          "filename": "W02690.mp4",
+          "sourceRow": 350,
+          "sourceOrder": 19
+        },
+        {
+          "sourceTerm": "Đại sứ quán",
+          "term": "Vịnh Hạ Long",
+          "videoLabel": "vịnh Hạ Long",
+          "matchType": "replacement",
+          "filename": "W03849.mp4",
+          "sourceRow": 351,
+          "sourceOrder": 20
+        }
+      ]
+    },
+    "Ăn uống": {
+      "Dễ": [
+        {
+          "sourceTerm": "Ăn",
+          "term": "Ăn uống",
+          "videoLabel": "ăn uống",
+          "matchType": "replacement",
+          "filename": "W00042.mp4",
+          "sourceRow": 352,
+          "sourceOrder": 1
+        },
+        {
+          "sourceTerm": "Uống",
+          "term": "Đồ uống",
+          "videoLabel": "đồ uống",
+          "matchType": "replacement",
+          "filename": "D0443.mp4",
+          "sourceRow": 353,
+          "sourceOrder": 2
+        },
+        {
+          "sourceTerm": "Cơm",
+          "term": "Cơm",
+          "videoLabel": "cơm",
+          "matchType": "exact",
+          "filename": "W00884.mp4",
+          "sourceRow": 354,
+          "sourceOrder": 3
+        },
+        {
+          "sourceTerm": "Nước",
+          "term": "Chai nước",
+          "videoLabel": "chai nước",
+          "matchType": "replacement",
+          "filename": "W00486.mp4",
+          "sourceRow": 355,
+          "sourceOrder": 4
+        },
+        {
+          "sourceTerm": "Thịt",
+          "term": "Thực phẩm",
+          "videoLabel": "thực phẩm",
+          "matchType": "replacement",
+          "filename": "W03366.mp4",
+          "sourceRow": 356,
+          "sourceOrder": 5
+        },
+        {
+          "sourceTerm": "Cá",
+          "term": "Cá",
+          "videoLabel": "con cá",
+          "matchType": "equivalent",
+          "filename": "W00737B.mp4",
+          "sourceRow": 357,
+          "sourceOrder": 6
+        },
+        {
+          "sourceTerm": "Gà",
+          "term": "Gà",
+          "videoLabel": "con gà",
+          "matchType": "equivalent",
+          "filename": "W00759.mp4",
+          "sourceRow": 358,
+          "sourceOrder": 7
+        },
+        {
+          "sourceTerm": "Rau",
+          "term": "Rau",
+          "videoLabel": "rau",
+          "matchType": "exact",
+          "filename": "W02835.mp4",
+          "sourceRow": 359,
+          "sourceOrder": 8
+        },
+        {
+          "sourceTerm": "Trái cây",
+          "term": "Con bò",
+          "videoLabel": "con bò",
+          "matchType": "replacement",
+          "filename": "W00735T.mp4",
+          "sourceRow": 360,
+          "sourceOrder": 9
+        },
+        {
+          "sourceTerm": "Bánh mì",
+          "term": "Bánh mì",
+          "videoLabel": "bánh mì",
+          "matchType": "exact",
+          "filename": "W00137B.mp4",
+          "sourceRow": 361,
+          "sourceOrder": 10
+        },
+        {
+          "sourceTerm": "Sữa",
+          "term": "Sữa",
+          "videoLabel": "sữa",
+          "matchType": "exact",
+          "filename": "W03042B.mp4",
+          "sourceRow": 362,
+          "sourceOrder": 11
+        },
+        {
+          "sourceTerm": "Trứng",
+          "term": "Trứng",
+          "videoLabel": "trứng",
+          "matchType": "exact",
+          "filename": "W03659B.mp4",
+          "sourceRow": 363,
+          "sourceOrder": 12
+        },
+        {
+          "sourceTerm": "Cà phê",
+          "term": "Quả táo",
+          "videoLabel": "quả táo",
+          "matchType": "replacement",
+          "filename": "W02757B.mp4",
+          "sourceRow": 364,
+          "sourceOrder": 13
+        },
+        {
+          "sourceTerm": "Trà",
+          "term": "Trà",
+          "videoLabel": "trà",
+          "matchType": "exact",
+          "filename": "W03524.mp4",
+          "sourceRow": 365,
+          "sourceOrder": 14
+        },
+        {
+          "sourceTerm": "Ngon",
+          "term": "Pha cà phê",
+          "videoLabel": "pha cà phê",
+          "matchType": "replacement",
+          "filename": "W02584.mp4",
+          "sourceRow": 366,
+          "sourceOrder": 15
+        },
+        {
+          "sourceTerm": "Đói",
+          "term": "Ngon miệng",
+          "videoLabel": "ngon miệng",
+          "matchType": "replacement",
+          "filename": "W02390.mp4",
+          "sourceRow": 367,
+          "sourceOrder": 16
+        },
+        {
+          "sourceTerm": "Khát",
+          "term": "Khát",
+          "videoLabel": "khát nước",
+          "matchType": "equivalent",
+          "filename": "W01774.mp4",
+          "sourceRow": 368,
+          "sourceOrder": 17
+        },
+        {
+          "sourceTerm": "Nóng",
+          "term": "Đói không?",
+          "videoLabel": "đói không?",
+          "matchType": "replacement",
+          "filename": "D0371.mp4",
+          "sourceRow": 369,
+          "sourceOrder": 18
+        },
+        {
+          "sourceTerm": "Lạnh",
+          "term": "Trà nóng",
+          "videoLabel": "trà nóng",
+          "matchType": "replacement",
+          "filename": "D0404.mp4",
+          "sourceRow": 370,
+          "sourceOrder": 19
+        },
+        {
+          "sourceTerm": "No",
+          "term": "No",
+          "videoLabel": "no",
+          "matchType": "exact",
+          "filename": "W02520B.mp4",
+          "sourceRow": 371,
+          "sourceOrder": 20
+        }
+      ],
+      "Trung bình": [
+        {
+          "sourceTerm": "Nhà hàng",
+          "term": "Đông lạnh",
+          "videoLabel": "đông lạnh",
+          "matchType": "replacement",
+          "filename": "W01287.mp4",
+          "sourceRow": 372,
+          "sourceOrder": 1
+        },
+        {
+          "sourceTerm": "Quán ăn",
+          "term": "Bồi bàn",
+          "videoLabel": "bồi bàn",
+          "matchType": "replacement",
+          "filename": "W00332.mp4",
+          "sourceRow": 373,
+          "sourceOrder": 2
+        },
+        {
+          "sourceTerm": "Thực đơn",
+          "term": "Cơm bình dân",
+          "videoLabel": "cơm bình dân",
+          "matchType": "replacement",
+          "filename": "W00885B.mp4",
+          "sourceRow": 374,
+          "sourceOrder": 3
+        },
+        {
+          "sourceTerm": "Món ăn",
+          "term": "Đồ ăn",
+          "videoLabel": "đồ ăn",
+          "matchType": "replacement",
+          "filename": "D0444.mp4",
+          "sourceRow": 375,
+          "sourceOrder": 4
+        },
+        {
+          "sourceTerm": "Gọi món",
+          "term": "Bữa cơm",
+          "videoLabel": "bữa cơm",
+          "matchType": "replacement",
+          "filename": "W00385.mp4",
+          "sourceRow": 376,
+          "sourceOrder": 5
+        },
+        {
+          "sourceTerm": "Bữa sáng",
+          "term": "Phở",
+          "videoLabel": "phở",
+          "matchType": "replacement",
+          "filename": "W02696B.mp4",
+          "sourceRow": 377,
+          "sourceOrder": 6
+        },
+        {
+          "sourceTerm": "Bữa trưa",
+          "term": "Bánh cuốn",
+          "videoLabel": "bánh cuốn",
+          "matchType": "replacement",
+          "filename": "W00129N.mp4",
+          "sourceRow": 378,
+          "sourceOrder": 7
+        },
+        {
+          "sourceTerm": "Bữa tối",
+          "term": "Bún chả",
+          "videoLabel": "bún chả",
+          "matchType": "replacement",
+          "filename": "D0084.mp4",
+          "sourceRow": 379,
+          "sourceOrder": 8
+        },
+        {
+          "sourceTerm": "Cay",
+          "term": "Tương ớt",
+          "videoLabel": "tương ớt",
+          "matchType": "replacement",
+          "filename": "D0111B.mp4",
+          "sourceRow": 380,
+          "sourceOrder": 9
+        },
+        {
+          "sourceTerm": "Ngọt",
+          "term": "Quả chanh",
+          "videoLabel": "quả chanh",
+          "matchType": "replacement",
+          "filename": "W02728.mp4",
+          "sourceRow": 381,
+          "sourceOrder": 10
+        },
+        {
+          "sourceTerm": "Chua",
+          "term": "Muối",
+          "videoLabel": "muối",
+          "matchType": "replacement",
+          "filename": "D0456.mp4",
+          "sourceRow": 382,
+          "sourceOrder": 11
+        },
+        {
+          "sourceTerm": "Mặn",
+          "term": "Chát",
+          "videoLabel": "chát",
+          "matchType": "replacement",
+          "filename": "W00494.mp4",
+          "sourceRow": 383,
+          "sourceOrder": 12
+        },
+        {
+          "sourceTerm": "Đắng",
+          "term": "Bát",
+          "videoLabel": "bát",
+          "matchType": "replacement",
+          "filename": "W00170.mp4",
+          "sourceRow": 384,
+          "sourceOrder": 13
+        },
+        {
+          "sourceTerm": "Nấu ăn",
+          "term": "Nấu ăn",
+          "videoLabel": "nấu nướng",
+          "matchType": "equivalent",
+          "filename": "D0104.mp4",
+          "sourceRow": 385,
+          "sourceOrder": 14
+        },
+        {
+          "sourceTerm": "Chiên",
+          "term": "Chiên",
+          "videoLabel": "chiên/rán (1)(2)",
+          "matchType": "equivalent",
+          "filename": "D0373.mp4",
+          "sourceRow": 386,
+          "sourceOrder": 15
+        },
+        {
+          "sourceTerm": "Luộc",
+          "term": "Luộc",
+          "videoLabel": "luộc",
+          "matchType": "exact",
+          "filename": "D0375.mp4",
+          "sourceRow": 387,
+          "sourceOrder": 16
+        },
+        {
+          "sourceTerm": "Nướng",
+          "term": "Nướng",
+          "videoLabel": "nướng",
+          "matchType": "exact",
+          "filename": "D0374.mp4",
+          "sourceRow": 388,
+          "sourceOrder": 17
+        },
+        {
+          "sourceTerm": "Muỗng",
+          "term": "Muỗng",
+          "videoLabel": "thìa",
+          "matchType": "equivalent",
+          "filename": "W03251B.mp4",
+          "sourceRow": 389,
+          "sourceOrder": 18
+        },
+        {
+          "sourceTerm": "Đũa",
+          "term": "Đũa",
+          "videoLabel": "đũa",
+          "matchType": "exact",
+          "filename": "W01318.mp4",
+          "sourceRow": 390,
+          "sourceOrder": 19
+        },
+        {
+          "sourceTerm": "Hóa đơn",
+          "term": "Hóa đơn",
+          "videoLabel": "hóa đơn",
+          "matchType": "exact",
+          "filename": "W00258.mp4",
+          "sourceRow": 391,
+          "sourceOrder": 20
+        }
+      ],
+      "Khó": [
+        {
+          "sourceTerm": "Nguyên liệu",
+          "term": "Chén",
+          "videoLabel": "chén",
+          "matchType": "replacement",
+          "filename": "W00553.mp4",
+          "sourceRow": 392,
+          "sourceOrder": 1
+        },
+        {
+          "sourceTerm": "Công thức",
+          "term": "Công thức",
+          "videoLabel": "công thức",
+          "matchType": "exact",
+          "filename": "W00846.mp4",
+          "sourceRow": 393,
+          "sourceOrder": 2
+        },
+        {
+          "sourceTerm": "Ăn chay",
+          "term": "Dầu ăn",
+          "videoLabel": "dầu ăn",
+          "matchType": "replacement",
+          "filename": "W00993.mp4",
+          "sourceRow": 394,
+          "sourceOrder": 3
+        },
+        {
+          "sourceTerm": "Dị ứng",
+          "term": "Nước mắm",
+          "videoLabel": "nước mắm",
+          "matchType": "replacement",
+          "filename": "D0457.mp4",
+          "sourceRow": 395,
+          "sourceOrder": 4
+        },
+        {
+          "sourceTerm": "Hải sản",
+          "term": "Hải sản",
+          "videoLabel": "hải sản",
+          "matchType": "exact",
+          "filename": "D0388.mp4",
+          "sourceRow": 396,
+          "sourceOrder": 5
+        },
+        {
+          "sourceTerm": "Gia vị",
+          "term": "Nước tương (xì dầu)",
+          "videoLabel": "nước tương (xì dầu)",
+          "matchType": "replacement",
+          "filename": "W03728.mp4",
+          "sourceRow": 397,
+          "sourceOrder": 6
+        },
+        {
+          "sourceTerm": "Khẩu vị",
+          "term": "Bột ngọt",
+          "videoLabel": "bột ngọt",
+          "matchType": "replacement",
+          "filename": "W00342T.mp4",
+          "sourceRow": 398,
+          "sourceOrder": 7
+        },
+        {
+          "sourceTerm": "Dinh dưỡng",
+          "term": "Rau cải",
+          "videoLabel": "rau cải",
+          "matchType": "replacement",
+          "filename": "W02837.mp4",
+          "sourceRow": 399,
+          "sourceOrder": 8
+        },
+        {
+          "sourceTerm": "Đặt bàn",
+          "term": "Hấp",
+          "videoLabel": "hấp",
+          "matchType": "replacement",
+          "filename": "D0380.mp4",
+          "sourceRow": 400,
+          "sourceOrder": 9
+        },
+        {
+          "sourceTerm": "Phục vụ",
+          "term": "Phục vụ",
+          "videoLabel": "phục vụ",
+          "matchType": "exact",
+          "filename": "W02709.mp4",
+          "sourceRow": 401,
+          "sourceOrder": 10
+        },
+        {
+          "sourceTerm": "Thanh toán",
+          "term": "Xào",
+          "videoLabel": "xào",
+          "matchType": "replacement",
+          "filename": "D0376.mp4",
+          "sourceRow": 402,
+          "sourceOrder": 11
+        },
+        {
+          "sourceTerm": "Mang về",
+          "term": "Súp",
+          "videoLabel": "súp",
+          "matchType": "replacement",
+          "filename": "D0078.mp4",
+          "sourceRow": 403,
+          "sourceOrder": 12
+        },
+        {
+          "sourceTerm": "Đặc sản",
+          "term": "Lẩu",
+          "videoLabel": "lẩu",
+          "matchType": "replacement",
+          "filename": "D0377.mp4",
+          "sourceRow": 404,
+          "sourceOrder": 13
+        },
+        {
+          "sourceTerm": "Tráng miệng",
+          "term": "Gỏi/nộm",
+          "videoLabel": "gỏi/nộm",
+          "matchType": "replacement",
+          "filename": "D0378.mp4",
+          "sourceRow": 405,
+          "sourceOrder": 14
+        },
+        {
+          "sourceTerm": "Khai vị",
+          "term": "Gà nướng lu",
+          "videoLabel": "gà nướng lu",
+          "matchType": "replacement",
+          "filename": "D0390.mp4",
+          "sourceRow": 406,
+          "sourceOrder": 15
+        },
+        {
+          "sourceTerm": "Món chính",
+          "term": "Vịt quay",
+          "videoLabel": "vịt quay",
+          "matchType": "replacement",
+          "filename": "D0389.mp4",
+          "sourceRow": 407,
+          "sourceOrder": 16
+        },
+        {
+          "sourceTerm": "Đồ uống",
+          "term": "Đồ uống",
+          "videoLabel": "đồ uống",
+          "matchType": "exact",
+          "filename": "D0443.mp4",
+          "sourceRow": 408,
+          "sourceOrder": 17
+        },
+        {
+          "sourceTerm": "Ít đường",
+          "term": "Bít tết (bò)",
+          "videoLabel": "bít tết (bò)",
+          "matchType": "replacement",
+          "filename": "D0077T.mp4",
+          "sourceRow": 409,
+          "sourceOrder": 18
+        },
+        {
+          "sourceTerm": "Không cay",
+          "term": "Nước ép trái cây",
+          "videoLabel": "nước ép trái cây",
+          "matchType": "replacement",
+          "filename": "D0396N.mp4",
+          "sourceRow": 410,
+          "sourceOrder": 19
+        },
+        {
+          "sourceTerm": "Vệ sinh thực phẩm",
+          "term": "Sinh tố",
+          "videoLabel": "sinh tố",
+          "matchType": "replacement",
+          "filename": "W02958.mp4",
+          "sourceRow": 411,
+          "sourceOrder": 20
+        }
+      ]
+    },
+    "Mua sắm": {
+      "Dễ": [
+        {
+          "sourceTerm": "Mua",
+          "term": "Mua bán",
+          "videoLabel": "mua bán",
+          "matchType": "replacement",
+          "filename": "W02266.mp4",
+          "sourceRow": 412,
+          "sourceOrder": 1
+        },
+        {
+          "sourceTerm": "Bán",
+          "term": "Bán",
+          "videoLabel": "bán hàng",
+          "matchType": "equivalent",
+          "filename": "W00107B.mp4",
+          "sourceRow": 413,
+          "sourceOrder": 2
+        },
+        {
+          "sourceTerm": "Tiền",
+          "term": "Đồng tiền",
+          "videoLabel": "đồng tiền",
+          "matchType": "replacement",
+          "filename": "W01296.mp4",
+          "sourceRow": 414,
+          "sourceOrder": 3
+        },
+        {
+          "sourceTerm": "Giá",
+          "term": "Giá trị",
+          "videoLabel": "giá trị",
+          "matchType": "replacement",
+          "filename": "W01433B.mp4",
+          "sourceRow": 415,
+          "sourceOrder": 4
+        },
+        {
+          "sourceTerm": "Đắt",
+          "term": "Đắt",
+          "videoLabel": "đắt đỏ",
+          "matchType": "equivalent",
+          "filename": "W01131.mp4",
+          "sourceRow": 416,
+          "sourceOrder": 5
+        },
+        {
+          "sourceTerm": "Rẻ",
+          "term": "Tiết kiệm",
+          "videoLabel": "tiết kiệm",
+          "matchType": "replacement",
+          "filename": "W03422B.mp4",
+          "sourceRow": 417,
+          "sourceOrder": 6
+        },
+        {
+          "sourceTerm": "Cửa hàng",
+          "term": "Cửa hàng",
+          "videoLabel": "cửa hàng",
+          "matchType": "exact",
+          "filename": "W00935B.mp4",
+          "sourceRow": 418,
+          "sourceOrder": 7
+        },
+        {
+          "sourceTerm": "Chợ",
+          "term": "Chợ nổi",
+          "videoLabel": "chợ nổi",
+          "matchType": "replacement",
+          "filename": "W00635.mp4",
+          "sourceRow": 419,
+          "sourceOrder": 8
+        },
+        {
+          "sourceTerm": "Quần áo",
+          "term": "Mặc quần áo",
+          "videoLabel": "mặc quần áo",
+          "matchType": "replacement",
+          "filename": "W02160.mp4",
+          "sourceRow": 420,
+          "sourceOrder": 9
+        },
+        {
+          "sourceTerm": "Áo",
+          "term": "Áo",
+          "videoLabel": "áo",
+          "matchType": "exact",
+          "filename": "W00028.mp4",
+          "sourceRow": 421,
+          "sourceOrder": 10
+        },
+        {
+          "sourceTerm": "Quần",
+          "term": "Quần âu",
+          "videoLabel": "quần âu",
+          "matchType": "replacement",
+          "filename": "W02786.mp4",
+          "sourceRow": 422,
+          "sourceOrder": 11
+        },
+        {
+          "sourceTerm": "Giày",
+          "term": "To lớn",
+          "videoLabel": "to lớn",
+          "matchType": "replacement",
+          "filename": "W03466.mp4",
+          "sourceRow": 423,
+          "sourceOrder": 12
+        },
+        {
+          "sourceTerm": "Túi",
+          "term": "Túi",
+          "videoLabel": "cái túi",
+          "matchType": "equivalent",
+          "filename": "W00406.mp4",
+          "sourceRow": 424,
+          "sourceOrder": 13
+        },
+        {
+          "sourceTerm": "To",
+          "term": "Thích thú",
+          "videoLabel": "thích thú",
+          "matchType": "replacement",
+          "filename": "W03252B.mp4",
+          "sourceRow": 425,
+          "sourceOrder": 14
+        },
+        {
+          "sourceTerm": "Nhỏ",
+          "term": "Nhỏ",
+          "videoLabel": "nhỏ/ nhỏ bé",
+          "matchType": "equivalent",
+          "filename": "W02500.mp4",
+          "sourceRow": 426,
+          "sourceOrder": 15
+        },
+        {
+          "sourceTerm": "Đẹp",
+          "term": "Đẹp",
+          "videoLabel": "đẹp đẽ (như đẹp)",
+          "matchType": "equivalent",
+          "filename": "W01170.mp4",
+          "sourceRow": 427,
+          "sourceOrder": 16
+        },
+        {
+          "sourceTerm": "Thích",
+          "term": "Nhu cầu",
+          "videoLabel": "nhu cầu",
+          "matchType": "replacement",
+          "filename": "W02508.mp4",
+          "sourceRow": 428,
+          "sourceOrder": 17
+        },
+        {
+          "sourceTerm": "Muốn",
+          "term": "Muốn",
+          "videoLabel": "muốn",
+          "matchType": "exact",
+          "filename": "W02221B.mp4",
+          "sourceRow": 429,
+          "sourceOrder": 18
+        },
+        {
+          "sourceTerm": "Cần",
+          "term": "Bao nhiêu?",
+          "videoLabel": "bao nhiêu?",
+          "matchType": "replacement",
+          "filename": "W00147.mp4",
+          "sourceRow": 430,
+          "sourceOrder": 19
+        },
+        {
+          "sourceTerm": "Bao nhiêu tiền?",
+          "term": "Bán buôn",
+          "videoLabel": "bán buôn",
+          "matchType": "replacement",
+          "filename": "W00105.mp4",
+          "sourceRow": 431,
+          "sourceOrder": 20
+        }
+      ],
+      "Trung bình": [
+        {
+          "sourceTerm": "Siêu thị",
+          "term": "Siêu thị",
+          "videoLabel": "siêu thị",
+          "matchType": "exact",
+          "filename": "W02951.mp4",
+          "sourceRow": 432,
+          "sourceOrder": 1
+        },
+        {
+          "sourceTerm": "Trung tâm thương mại",
+          "term": "Bảng màu",
+          "videoLabel": "bảng màu",
+          "matchType": "replacement",
+          "filename": "W00123B.mp4",
+          "sourceRow": 433,
+          "sourceOrder": 2
+        },
+        {
+          "sourceTerm": "Kích cỡ",
+          "term": "Trả (đt)",
+          "videoLabel": "trả (đt)",
+          "matchType": "replacement",
+          "filename": "W03525.mp4",
+          "sourceRow": 434,
+          "sourceOrder": 3
+        },
+        {
+          "sourceTerm": "Màu sắc",
+          "term": "Giảm",
+          "videoLabel": "giảm",
+          "matchType": "replacement",
+          "filename": "W01425.mp4",
+          "sourceRow": 435,
+          "sourceOrder": 4
+        },
+        {
+          "sourceTerm": "Thử",
+          "term": "Quảng cáo",
+          "videoLabel": "quảng cáo",
+          "matchType": "replacement",
+          "filename": "W02773.mp4",
+          "sourceRow": 436,
+          "sourceOrder": 5
+        },
+        {
+          "sourceTerm": "Chọn",
+          "term": "Chọn",
+          "videoLabel": "chọn lựa",
+          "matchType": "equivalent",
+          "filename": "W00629.mp4",
+          "sourceRow": 437,
+          "sourceOrder": 6
+        },
+        {
+          "sourceTerm": "Đổi",
+          "term": "Đổi",
+          "videoLabel": "đổi",
+          "matchType": "exact",
+          "filename": "W01256.mp4",
+          "sourceRow": 438,
+          "sourceOrder": 7
+        },
+        {
+          "sourceTerm": "Trả lại",
+          "term": "Tờ tiền",
+          "videoLabel": "tờ tiền",
+          "matchType": "replacement",
+          "filename": "W03512.mp4",
+          "sourceRow": 439,
+          "sourceOrder": 8
+        },
+        {
+          "sourceTerm": "Giảm giá",
+          "term": "Ngân hàng",
+          "videoLabel": "ngân hàng",
+          "matchType": "replacement",
+          "filename": "W02348.mp4",
+          "sourceRow": 440,
+          "sourceOrder": 9
+        },
+        {
+          "sourceTerm": "Khuyến mãi",
+          "term": "Nhận hàng",
+          "videoLabel": "nhận hàng",
+          "matchType": "replacement",
+          "filename": "W02483.mp4",
+          "sourceRow": 441,
+          "sourceOrder": 10
+        },
+        {
+          "sourceTerm": "Tiền mặt",
+          "term": "Khách",
+          "videoLabel": "khách",
+          "matchType": "replacement",
+          "filename": "W01758.mp4",
+          "sourceRow": 442,
+          "sourceOrder": 11
+        },
+        {
+          "sourceTerm": "Thẻ",
+          "term": "Thẻ",
+          "videoLabel": "thẻ",
+          "matchType": "exact",
+          "filename": "W03230.mp4",
+          "sourceRow": 443,
+          "sourceOrder": 12
+        },
+        {
+          "sourceTerm": "Thanh toán",
+          "term": "Nhân viên",
+          "videoLabel": "nhân viên",
+          "matchType": "replacement",
+          "filename": "D0004.mp4",
+          "sourceRow": 444,
+          "sourceOrder": 13
+        },
+        {
+          "sourceTerm": "Hóa đơn",
+          "term": "Hóa đơn",
+          "videoLabel": "hóa đơn",
+          "matchType": "exact",
+          "filename": "W00258.mp4",
+          "sourceRow": 445,
+          "sourceOrder": 14
+        },
+        {
+          "sourceTerm": "Sản phẩm",
+          "term": "Sản xuất",
+          "videoLabel": "sản xuất",
+          "matchType": "replacement",
+          "filename": "W02912.mp4",
+          "sourceRow": 446,
+          "sourceOrder": 15
+        },
+        {
+          "sourceTerm": "Khách hàng",
+          "term": "Dịch vụ",
+          "videoLabel": "dịch vụ",
+          "matchType": "replacement",
+          "filename": "W01033B.mp4",
+          "sourceRow": 447,
+          "sourceOrder": 16
+        },
+        {
+          "sourceTerm": "Nhân viên bán hàng",
+          "term": "Nhân viên bán hàng",
+          "videoLabel": "người bán hàng",
+          "matchType": "equivalent",
+          "filename": "W02426.mp4",
+          "sourceRow": 448,
+          "sourceOrder": 17
+        },
+        {
+          "sourceTerm": "Mở cửa",
+          "term": "Mở cửa",
+          "videoLabel": "mở cửa",
+          "matchType": "exact",
+          "filename": "W02258.mp4",
+          "sourceRow": 449,
+          "sourceOrder": 18
+        },
+        {
+          "sourceTerm": "Đóng cửa",
+          "term": "Đóng cửa",
+          "videoLabel": "đóng cửa",
+          "matchType": "exact",
+          "filename": "W01243.mp4",
+          "sourceRow": 450,
+          "sourceOrder": 19
+        },
+        {
+          "sourceTerm": "Hết hàng",
+          "term": "Mã vạch",
+          "videoLabel": "mã vạch",
+          "matchType": "replacement",
+          "filename": "W02109.mp4",
+          "sourceRow": 451,
+          "sourceOrder": 20
+        }
+      ],
+      "Khó": [
+        {
+          "sourceTerm": "Đặt hàng",
+          "term": "Vận chuyển",
+          "videoLabel": "vận chuyển",
+          "matchType": "replacement",
+          "filename": "W03800.mp4",
+          "sourceRow": 452,
+          "sourceOrder": 1
+        },
+        {
+          "sourceTerm": "Giao hàng",
+          "term": "Giao hàng",
+          "videoLabel": "giao hàng",
+          "matchType": "exact",
+          "filename": "W01429.mp4",
+          "sourceRow": 453,
+          "sourceOrder": 2
+        },
+        {
+          "sourceTerm": "Đơn hàng",
+          "term": "Địa chỉ",
+          "videoLabel": "địa chỉ",
+          "matchType": "replacement",
+          "filename": "D0001N.mp4",
+          "sourceRow": 454,
+          "sourceOrder": 3
+        },
+        {
+          "sourceTerm": "Hoàn tiền",
+          "term": "Thông báo",
+          "videoLabel": "thông báo",
+          "matchType": "replacement",
+          "filename": "W03285.mp4",
+          "sourceRow": 455,
+          "sourceOrder": 4
+        },
+        {
+          "sourceTerm": "Bảo hành",
+          "term": "Bảo đảm",
+          "videoLabel": "bảo đảm",
+          "matchType": "replacement",
+          "filename": "W00152.mp4",
+          "sourceRow": 456,
+          "sourceOrder": 5
+        },
+        {
+          "sourceTerm": "Đổi trả",
+          "term": "Sửa chữa",
+          "videoLabel": "sửa chữa",
+          "matchType": "replacement",
+          "filename": "W03034.mp4",
+          "sourceRow": 457,
+          "sourceOrder": 6
+        },
+        {
+          "sourceTerm": "Thanh toán online",
+          "term": "Hợp đồng",
+          "videoLabel": "hợp đồng",
+          "matchType": "replacement",
+          "filename": "W01707B.mp4",
+          "sourceRow": 458,
+          "sourceOrder": 7
+        },
+        {
+          "sourceTerm": "Mã giảm giá",
+          "term": "Thương mại",
+          "videoLabel": "thương mại",
+          "matchType": "replacement",
+          "filename": "D0306.mp4",
+          "sourceRow": 459,
+          "sourceOrder": 8
+        },
+        {
+          "sourceTerm": "Phí vận chuyển",
+          "term": "Kiểm tra",
+          "videoLabel": "kiểm tra",
+          "matchType": "replacement",
+          "filename": "W01878N.mp4",
+          "sourceRow": 460,
+          "sourceOrder": 9
+        },
+        {
+          "sourceTerm": "Địa chỉ giao hàng",
+          "term": "Hoãn",
+          "videoLabel": "Hoãn",
+          "matchType": "replacement",
+          "filename": "D0350.mp4",
+          "sourceRow": 461,
+          "sourceOrder": 10
+        },
+        {
+          "sourceTerm": "Tình trạng đơn hàng",
+          "term": "Thu mua",
+          "videoLabel": "thu mua",
+          "matchType": "replacement",
+          "filename": "W03316.mp4",
+          "sourceRow": 462,
+          "sourceOrder": 11
+        },
+        {
+          "sourceTerm": "Chất lượng",
+          "term": "Chất lượng",
+          "videoLabel": "chất lượng",
+          "matchType": "exact",
+          "filename": "W00537.mp4",
+          "sourceRow": 463,
+          "sourceOrder": 12
+        },
+        {
+          "sourceTerm": "Thương hiệu",
+          "term": "Xu (tiền)",
+          "videoLabel": "xu (tiền)",
+          "matchType": "replacement",
+          "filename": "W04006.mp4",
+          "sourceRow": 464,
+          "sourceOrder": 13
+        },
+        {
+          "sourceTerm": "So sánh giá",
+          "term": "Bồi thường",
+          "videoLabel": "bồi thường",
+          "matchType": "replacement",
+          "filename": "W00333.mp4",
+          "sourceRow": 465,
+          "sourceOrder": 14
+        },
+        {
+          "sourceTerm": "Phương thức thanh toán",
+          "term": "Tiếp nhận",
+          "videoLabel": "tiếp nhận",
+          "matchType": "replacement",
+          "filename": "W03416.mp4",
+          "sourceRow": 466,
+          "sourceOrder": 15
+        },
+        {
+          "sourceTerm": "Xác nhận đơn",
+          "term": "Thông tin",
+          "videoLabel": "thông tin",
+          "matchType": "replacement",
+          "filename": "W03292N.mp4",
+          "sourceRow": 467,
+          "sourceOrder": 16
+        },
+        {
+          "sourceTerm": "Hủy đơn",
+          "term": "Giới thiệu",
+          "videoLabel": "giới thiệu",
+          "matchType": "replacement",
+          "filename": "W01494.mp4",
+          "sourceRow": 468,
+          "sourceOrder": 17
+        },
+        {
+          "sourceTerm": "Còn hàng",
+          "term": "Mua vé",
+          "videoLabel": "mua vé",
+          "matchType": "replacement",
+          "filename": "W02267.mp4",
+          "sourceRow": 469,
+          "sourceOrder": 18
+        },
+        {
+          "sourceTerm": "Hết hạn",
+          "term": "Trưng bày",
+          "videoLabel": "trưng bày",
+          "matchType": "replacement",
+          "filename": "W03666.mp4",
+          "sourceRow": 470,
+          "sourceOrder": 19
+        },
+        {
+          "sourceTerm": "Chăm sóc khách hàng",
+          "term": "Xếp hàng",
+          "videoLabel": "xếp hàng",
+          "matchType": "replacement",
+          "filename": "W03979.mp4",
+          "sourceRow": 471,
+          "sourceOrder": 20
+        }
+      ]
+    },
+    "Thời tiết": {
+      "Dễ": [
+        {
+          "sourceTerm": "Thời tiết",
+          "term": "Tia nắng",
+          "videoLabel": "tia nắng",
+          "matchType": "replacement",
+          "filename": "W03387.mp4",
+          "sourceRow": 472,
+          "sourceOrder": 1
+        },
+        {
+          "sourceTerm": "Nắng",
+          "term": "Mưa phùn",
+          "videoLabel": "mưa phùn",
+          "matchType": "replacement",
+          "filename": "W02282.mp4",
+          "sourceRow": 473,
+          "sourceOrder": 2
+        },
+        {
+          "sourceTerm": "Mưa",
+          "term": "Gió Lào",
+          "videoLabel": "gió Lào",
+          "matchType": "replacement",
+          "filename": "W01482.mp4",
+          "sourceRow": 474,
+          "sourceOrder": 3
+        },
+        {
+          "sourceTerm": "Gió",
+          "term": "Băng giá",
+          "videoLabel": "băng giá",
+          "matchType": "replacement",
+          "filename": "W00191.mp4",
+          "sourceRow": 475,
+          "sourceOrder": 4
+        },
+        {
+          "sourceTerm": "Mây",
+          "term": "Mây",
+          "videoLabel": "mây",
+          "matchType": "exact",
+          "filename": "W02195.mp4",
+          "sourceRow": 476,
+          "sourceOrder": 5
+        },
+        {
+          "sourceTerm": "Nóng",
+          "term": "Không khí",
+          "videoLabel": "không khí",
+          "matchType": "replacement",
+          "filename": "W01841.mp4",
+          "sourceRow": 477,
+          "sourceOrder": 6
+        },
+        {
+          "sourceTerm": "Lạnh",
+          "term": "Buổi đêm",
+          "videoLabel": "buổi đêm",
+          "matchType": "replacement",
+          "filename": "W00367B.mp4",
+          "sourceRow": 478,
+          "sourceOrder": 7
+        },
+        {
+          "sourceTerm": "Mát",
+          "term": "Ngày nay",
+          "videoLabel": "ngày nay",
+          "matchType": "replacement",
+          "filename": "W02336B.mp4",
+          "sourceRow": 479,
+          "sourceOrder": 8
+        },
+        {
+          "sourceTerm": "Ấm",
+          "term": "Ấm",
+          "videoLabel": "ấm áp",
+          "matchType": "equivalent",
+          "filename": "W00051.mp4",
+          "sourceRow": 480,
+          "sourceOrder": 9
+        },
+        {
+          "sourceTerm": "Trời",
+          "term": "Trời",
+          "videoLabel": "bầu trời",
+          "matchType": "equivalent",
+          "filename": "W00212.mp4",
+          "sourceRow": 481,
+          "sourceOrder": 10
+        },
+        {
+          "sourceTerm": "Sáng",
+          "term": "Sáng",
+          "videoLabel": "sáng",
+          "matchType": "exact",
+          "filename": "W00024.mp4",
+          "sourceRow": 482,
+          "sourceOrder": 11
+        },
+        {
+          "sourceTerm": "Tối",
+          "term": "Tuần sau",
+          "videoLabel": "tuần sau",
+          "matchType": "replacement",
+          "filename": "D0417B.mp4",
+          "sourceRow": 483,
+          "sourceOrder": 12
+        },
+        {
+          "sourceTerm": "Hôm nay",
+          "term": "Khô héo",
+          "videoLabel": "khô héo",
+          "matchType": "replacement",
+          "filename": "W01828.mp4",
+          "sourceRow": 484,
+          "sourceOrder": 13
+        },
+        {
+          "sourceTerm": "Ngày mai",
+          "term": "Giông bão",
+          "videoLabel": "giông bão",
+          "matchType": "replacement",
+          "filename": "W01489.mp4",
+          "sourceRow": 485,
+          "sourceOrder": 14
+        },
+        {
+          "sourceTerm": "Mùa xuân",
+          "term": "Mùa xuân",
+          "videoLabel": "mùa xuân",
+          "matchType": "exact",
+          "filename": "W02272N.mp4",
+          "sourceRow": 486,
+          "sourceOrder": 15
+        },
+        {
+          "sourceTerm": "Mùa hè",
+          "term": "Mùa hè",
+          "videoLabel": "mùa hè",
+          "matchType": "exact",
+          "filename": "W02270B.mp4",
+          "sourceRow": 487,
+          "sourceOrder": 16
+        },
+        {
+          "sourceTerm": "Mùa thu",
+          "term": "Mùa thu",
+          "videoLabel": "mùa thu",
+          "matchType": "exact",
+          "filename": "W02271.mp4",
+          "sourceRow": 488,
+          "sourceOrder": 17
+        },
+        {
+          "sourceTerm": "Mùa đông",
+          "term": "Mùa đông",
+          "videoLabel": "mùa đông",
+          "matchType": "exact",
+          "filename": "W02269.mp4",
+          "sourceRow": 489,
+          "sourceOrder": 18
+        },
+        {
+          "sourceTerm": "Khô",
+          "term": "Sấm sét",
+          "videoLabel": "sấm sét",
+          "matchType": "replacement",
+          "filename": "W02935.mp4",
+          "sourceRow": 490,
+          "sourceOrder": 19
+        },
+        {
+          "sourceTerm": "Ướt",
+          "term": "Ướt",
+          "videoLabel": "ẩm ướt",
+          "matchType": "equivalent",
+          "filename": "W00050.mp4",
+          "sourceRow": 491,
+          "sourceOrder": 20
+        }
+      ],
+      "Trung bình": [
+        {
+          "sourceTerm": "Nhiệt độ",
+          "term": "Nhiệt độ",
+          "videoLabel": "nhiệt độ",
+          "matchType": "exact",
+          "filename": "W01298.mp4",
+          "sourceRow": 492,
+          "sourceOrder": 1
+        },
+        {
+          "sourceTerm": "Bão",
+          "term": "Lốc xoáy",
+          "videoLabel": "lốc xoáy",
+          "matchType": "replacement",
+          "filename": "D0431.mp4",
+          "sourceRow": 493,
+          "sourceOrder": 2
+        },
+        {
+          "sourceTerm": "Sấm",
+          "term": "Sương gió",
+          "videoLabel": "sương gió",
+          "matchType": "replacement",
+          "filename": "W03050.mp4",
+          "sourceRow": 494,
+          "sourceOrder": 3
+        },
+        {
+          "sourceTerm": "Chớp",
+          "term": "Chớp",
+          "videoLabel": "tia chớp",
+          "matchType": "equivalent",
+          "filename": "W03386.mp4",
+          "sourceRow": 495,
+          "sourceOrder": 4
+        },
+        {
+          "sourceTerm": "Mưa lớn",
+          "term": "Hơi nước",
+          "videoLabel": "hơi nước",
+          "matchType": "replacement",
+          "filename": "W01706.mp4",
+          "sourceRow": 496,
+          "sourceOrder": 5
+        },
+        {
+          "sourceTerm": "Mưa nhỏ",
+          "term": "Mưa nhỏ",
+          "videoLabel": "mưa phùn",
+          "matchType": "equivalent",
+          "filename": "W02282.mp4",
+          "sourceRow": 497,
+          "sourceOrder": 6
+        },
+        {
+          "sourceTerm": "Gió mạnh",
+          "term": "Mặt trời mọc",
+          "videoLabel": "Mặt trời mọc",
+          "matchType": "replacement",
+          "filename": "W02219.mp4",
+          "sourceRow": 498,
+          "sourceOrder": 7
+        },
+        {
+          "sourceTerm": "Có mây",
+          "term": "Có mây",
+          "videoLabel": "đám mây",
+          "matchType": "equivalent",
+          "filename": "W01094.mp4",
+          "sourceRow": 499,
+          "sourceOrder": 8
+        },
+        {
+          "sourceTerm": "Nắng nóng",
+          "term": "Mặt trời lặn",
+          "videoLabel": "Mặt trời lặn",
+          "matchType": "replacement",
+          "filename": "W02222.mp4",
+          "sourceRow": 500,
+          "sourceOrder": 9
+        },
+        {
+          "sourceTerm": "Sương mù",
+          "term": "U ám ( trời u ám)",
+          "videoLabel": "u ám ( trời u ám)",
+          "matchType": "replacement",
+          "filename": "W03738.mp4",
+          "sourceRow": 501,
+          "sourceOrder": 10
+        },
+        {
+          "sourceTerm": "Cầu vồng",
+          "term": "Nhiệt kế",
+          "videoLabel": "nhiệt kế",
+          "matchType": "replacement",
+          "filename": "W02497N.mp4",
+          "sourceRow": 502,
+          "sourceOrder": 11
+        },
+        {
+          "sourceTerm": "Độ ẩm",
+          "term": "Môi trường",
+          "videoLabel": "môi trường",
+          "matchType": "replacement",
+          "filename": "W02236.mp4",
+          "sourceRow": 503,
+          "sourceOrder": 12
+        },
+        {
+          "sourceTerm": "Dự báo thời tiết",
+          "term": "Thiên nhiên",
+          "videoLabel": "thiên nhiên",
+          "matchType": "replacement",
+          "filename": "W03256.mp4",
+          "sourceRow": 504,
+          "sourceOrder": 13
+        },
+        {
+          "sourceTerm": "Trời quang",
+          "term": "Lũ quét",
+          "videoLabel": "lũ quét",
+          "matchType": "replacement",
+          "filename": "W02059.mp4",
+          "sourceRow": 505,
+          "sourceOrder": 14
+        },
+        {
+          "sourceTerm": "Lạnh hơn",
+          "term": "Ngập lụt",
+          "videoLabel": "ngập lụt",
+          "matchType": "replacement",
+          "filename": "W02350.mp4",
+          "sourceRow": 506,
+          "sourceOrder": 15
+        },
+        {
+          "sourceTerm": "Nóng hơn",
+          "term": "Tràn ngập (nước)",
+          "videoLabel": "tràn ngập (nước)",
+          "matchType": "replacement",
+          "filename": "W03536.mp4",
+          "sourceRow": 507,
+          "sourceOrder": 16
+        },
+        {
+          "sourceTerm": "Thay đổi",
+          "term": "Sóng thần",
+          "videoLabel": "sóng thần",
+          "matchType": "replacement",
+          "filename": "W02968.mp4",
+          "sourceRow": 508,
+          "sourceOrder": 17
+        },
+        {
+          "sourceTerm": "Buổi sáng",
+          "term": "Buổi sáng",
+          "videoLabel": "buổi sáng",
+          "matchType": "exact",
+          "filename": "W00368N.mp4",
+          "sourceRow": 509,
+          "sourceOrder": 18
+        },
+        {
+          "sourceTerm": "Buổi chiều",
+          "term": "Buổi chiều",
+          "videoLabel": "buổi chiều",
+          "matchType": "exact",
+          "filename": "W00366.mp4",
+          "sourceRow": 510,
+          "sourceOrder": 19
+        },
+        {
+          "sourceTerm": "Buổi tối",
+          "term": "Buổi tối",
+          "videoLabel": "buổi tối",
+          "matchType": "exact",
+          "filename": "W00369B.mp4",
+          "sourceRow": 511,
+          "sourceOrder": 20
+        }
+      ],
+      "Khó": [
+        {
+          "sourceTerm": "Khí hậu",
+          "term": "Sóng biển",
+          "videoLabel": "sóng biển",
+          "matchType": "replacement",
+          "filename": "W02967.mp4",
+          "sourceRow": 512,
+          "sourceOrder": 1
+        },
+        {
+          "sourceTerm": "Áp thấp",
+          "term": "Núi lửa",
+          "videoLabel": "núi lửa",
+          "matchType": "replacement",
+          "filename": "W02551.mp4",
+          "sourceRow": 513,
+          "sourceOrder": 2
+        },
+        {
+          "sourceTerm": "Áp thấp nhiệt đới",
+          "term": "Bốc hơi",
+          "videoLabel": "bốc hơi",
+          "matchType": "replacement",
+          "filename": "W00330.mp4",
+          "sourceRow": 514,
+          "sourceOrder": 3
+        },
+        {
+          "sourceTerm": "Bão nhiệt đới",
+          "term": "Bảo vệ môi trường",
+          "videoLabel": "bảo vệ môi trường",
+          "matchType": "replacement",
+          "filename": "W00159B.mp4",
+          "sourceRow": 515,
+          "sourceOrder": 4
+        },
+        {
+          "sourceTerm": "Lũ lụt",
+          "term": "Ô nhiễm",
+          "videoLabel": "ô nhiễm",
+          "matchType": "replacement",
+          "filename": "W02559.mp4",
+          "sourceRow": 516,
+          "sourceOrder": 5
+        },
+        {
+          "sourceTerm": "Hạn hán",
+          "term": "Hạn hán",
+          "videoLabel": "hạn hán",
+          "matchType": "exact",
+          "filename": "W01537.mp4",
+          "sourceRow": 517,
+          "sourceOrder": 6
+        },
+        {
+          "sourceTerm": "Sạt lở",
+          "term": "Báo động",
+          "videoLabel": "báo động",
+          "matchType": "replacement",
+          "filename": "W00163.mp4",
+          "sourceRow": 518,
+          "sourceOrder": 7
+        },
+        {
+          "sourceTerm": "Nhiệt độ cao",
+          "term": "Cảnh giác",
+          "videoLabel": "cảnh giác",
+          "matchType": "replacement",
+          "filename": "D0254.mp4",
+          "sourceRow": 519,
+          "sourceOrder": 8
+        },
+        {
+          "sourceTerm": "Nhiệt độ thấp",
+          "term": "Thoát hiểm",
+          "videoLabel": "thoát hiểm",
+          "matchType": "replacement",
+          "filename": "W03276.mp4",
+          "sourceRow": 520,
+          "sourceOrder": 9
+        },
+        {
+          "sourceTerm": "Cảnh báo",
+          "term": "Trú mưa",
+          "videoLabel": "trú mưa",
+          "matchType": "replacement",
+          "filename": "W03632.mp4",
+          "sourceRow": 521,
+          "sourceOrder": 10
+        },
+        {
+          "sourceTerm": "Thiên tai",
+          "term": "Quanh năm",
+          "videoLabel": "quanh năm",
+          "matchType": "replacement",
+          "filename": "D0246.mp4",
+          "sourceRow": 522,
+          "sourceOrder": 11
+        },
+        {
+          "sourceTerm": "Biến đổi khí hậu",
+          "term": "Bình minh",
+          "videoLabel": "bình minh",
+          "matchType": "replacement",
+          "filename": "W00279.mp4",
+          "sourceRow": 523,
+          "sourceOrder": 12
+        },
+        {
+          "sourceTerm": "Mực nước",
+          "term": "Hoàng hôn",
+          "videoLabel": "hoàng hôn",
+          "matchType": "replacement",
+          "filename": "W01646.mp4",
+          "sourceRow": 524,
+          "sourceOrder": 13
+        },
+        {
+          "sourceTerm": "Lượng mưa",
+          "term": "Sấm chớp",
+          "videoLabel": "sấm chớp",
+          "matchType": "replacement",
+          "filename": "W02934.mp4",
+          "sourceRow": 525,
+          "sourceOrder": 14
+        },
+        {
+          "sourceTerm": "Tốc độ gió",
+          "term": "Tia nắng",
+          "videoLabel": "tia nắng",
+          "matchType": "replacement",
+          "filename": "W03387.mp4",
+          "sourceRow": 526,
+          "sourceOrder": 15
+        },
+        {
+          "sourceTerm": "Chất lượng không khí",
+          "term": "Mưa phùn",
+          "videoLabel": "mưa phùn",
+          "matchType": "replacement",
+          "filename": "W02282.mp4",
+          "sourceRow": 527,
+          "sourceOrder": 16
+        },
+        {
+          "sourceTerm": "Nắng nóng cực đoan",
+          "term": "Gió Lào",
+          "videoLabel": "gió Lào",
+          "matchType": "replacement",
+          "filename": "W01482.mp4",
+          "sourceRow": 528,
+          "sourceOrder": 17
+        },
+        {
+          "sourceTerm": "Thời tiết nguy hiểm",
+          "term": "Băng giá",
+          "videoLabel": "băng giá",
+          "matchType": "replacement",
+          "filename": "W00191.mp4",
+          "sourceRow": 529,
+          "sourceOrder": 18
+        },
+        {
+          "sourceTerm": "Sơ tán",
+          "term": "Không khí",
+          "videoLabel": "không khí",
+          "matchType": "replacement",
+          "filename": "W01841.mp4",
+          "sourceRow": 530,
+          "sourceOrder": 19
+        },
+        {
+          "sourceTerm": "An toàn",
+          "term": "Ấm áp",
+          "videoLabel": "ấm áp",
+          "matchType": "replacement",
+          "filename": "W00051.mp4",
+          "sourceRow": 531,
+          "sourceOrder": 20
+        }
+      ]
+    },
+    "Sức khỏe": {
+      "Dễ": [
+        {
+          "sourceTerm": "Khỏe",
+          "term": "Sức khỏe",
+          "videoLabel": "sức khỏe",
+          "matchType": "replacement",
+          "filename": "W03043.mp4",
+          "sourceRow": 532,
+          "sourceOrder": 1
+        },
+        {
+          "sourceTerm": "Bệnh",
+          "term": "Bệnh tật",
+          "videoLabel": "bệnh tật",
+          "matchType": "replacement",
+          "filename": "W00249.mp4",
+          "sourceRow": 533,
+          "sourceOrder": 2
+        },
+        {
+          "sourceTerm": "Đau",
+          "term": "Ốm đau",
+          "videoLabel": "ốm đau",
+          "matchType": "replacement",
+          "filename": "W02567.mp4",
+          "sourceRow": 534,
+          "sourceOrder": 3
+        },
+        {
+          "sourceTerm": "Đầu",
+          "term": "Đầu gối",
+          "videoLabel": "đầu gối",
+          "matchType": "replacement",
+          "filename": "W01141.mp4",
+          "sourceRow": 535,
+          "sourceOrder": 4
+        },
+        {
+          "sourceTerm": "Mắt",
+          "term": "Thị giác",
+          "videoLabel": "thị giác",
+          "matchType": "replacement",
+          "filename": "W03247.mp4",
+          "sourceRow": 536,
+          "sourceOrder": 5
+        },
+        {
+          "sourceTerm": "Tai",
+          "term": "Tai",
+          "videoLabel": "tai",
+          "matchType": "exact",
+          "filename": "W03061.mp4",
+          "sourceRow": 537,
+          "sourceOrder": 6
+        },
+        {
+          "sourceTerm": "Mũi",
+          "term": "Cổ họng",
+          "videoLabel": "cổ họng",
+          "matchType": "replacement",
+          "filename": "W00818.mp4",
+          "sourceRow": 538,
+          "sourceOrder": 7
+        },
+        {
+          "sourceTerm": "Miệng",
+          "term": "Súc miệng",
+          "videoLabel": "súc miệng",
+          "matchType": "replacement",
+          "filename": "W03021.mp4",
+          "sourceRow": 539,
+          "sourceOrder": 8
+        },
+        {
+          "sourceTerm": "Tay",
+          "term": "Tay",
+          "videoLabel": "tay",
+          "matchType": "exact",
+          "filename": "W03090.mp4",
+          "sourceRow": 540,
+          "sourceOrder": 9
+        },
+        {
+          "sourceTerm": "Chân",
+          "term": "Bàn chân",
+          "videoLabel": "bàn chân",
+          "matchType": "replacement",
+          "filename": "W00093.mp4",
+          "sourceRow": 541,
+          "sourceOrder": 10
+        },
+        {
+          "sourceTerm": "Bụng",
+          "term": "Bụng",
+          "videoLabel": "bụng",
+          "matchType": "exact",
+          "filename": "W00362.mp4",
+          "sourceRow": 542,
+          "sourceOrder": 11
+        },
+        {
+          "sourceTerm": "Lưng",
+          "term": "Cổ",
+          "videoLabel": "cổ",
+          "matchType": "replacement",
+          "filename": "W00814.mp4",
+          "sourceRow": 543,
+          "sourceOrder": 12
+        },
+        {
+          "sourceTerm": "Ho",
+          "term": "Hắt hơi",
+          "videoLabel": "hắt hơi",
+          "matchType": "replacement",
+          "filename": "W01571.mp4",
+          "sourceRow": 544,
+          "sourceOrder": 13
+        },
+        {
+          "sourceTerm": "Sốt",
+          "term": "Sốt",
+          "videoLabel": "sốt",
+          "matchType": "exact",
+          "filename": "W03008.mp4",
+          "sourceRow": 545,
+          "sourceOrder": 14
+        },
+        {
+          "sourceTerm": "Mệt",
+          "term": "Mệt",
+          "videoLabel": "mệt mỏi",
+          "matchType": "equivalent",
+          "filename": "D0369.mp4",
+          "sourceRow": 546,
+          "sourceOrder": 15
+        },
+        {
+          "sourceTerm": "Ngủ",
+          "term": "Giấc ngủ",
+          "videoLabel": "giấc ngủ",
+          "matchType": "replacement",
+          "filename": "W01462.mp4",
+          "sourceRow": 547,
+          "sourceOrder": 16
+        },
+        {
+          "sourceTerm": "Ăn",
+          "term": "Ăn uống",
+          "videoLabel": "ăn uống",
+          "matchType": "replacement",
+          "filename": "W00042.mp4",
+          "sourceRow": 548,
+          "sourceOrder": 17
+        },
+        {
+          "sourceTerm": "Uống",
+          "term": "Khát nước",
+          "videoLabel": "khát nước",
+          "matchType": "replacement",
+          "filename": "W01774.mp4",
+          "sourceRow": 549,
+          "sourceOrder": 18
+        },
+        {
+          "sourceTerm": "Thuốc",
+          "term": "Thuốc bổ",
+          "videoLabel": "thuốc bổ",
+          "matchType": "replacement",
+          "filename": "W03334.mp4",
+          "sourceRow": 550,
+          "sourceOrder": 19
+        },
+        {
+          "sourceTerm": "Bác sĩ",
+          "term": "Y tế",
+          "videoLabel": "y tế",
+          "matchType": "replacement",
+          "filename": "W04034.mp4",
+          "sourceRow": 551,
+          "sourceOrder": 20
+        }
+      ],
+      "Trung bình": [
+        {
+          "sourceTerm": "Bệnh viện",
+          "term": "Phòng y tế",
+          "videoLabel": "phòng y tế",
+          "matchType": "replacement",
+          "filename": "W02682.mp4",
+          "sourceRow": 552,
+          "sourceOrder": 1
+        },
+        {
+          "sourceTerm": "Y tá",
+          "term": "Trạm y tế",
+          "videoLabel": "trạm y tế",
+          "matchType": "replacement",
+          "filename": "W03535.mp4",
+          "sourceRow": 553,
+          "sourceOrder": 2
+        },
+        {
+          "sourceTerm": "Nhà thuốc",
+          "term": "Nhà thuốc",
+          "videoLabel": "hiệu thuốc",
+          "matchType": "equivalent",
+          "filename": "W01594.mp4",
+          "sourceRow": 554,
+          "sourceOrder": 3
+        },
+        {
+          "sourceTerm": "Đau đầu",
+          "term": "Đau mắt",
+          "videoLabel": "đau mắt",
+          "matchType": "replacement",
+          "filename": "D0355.mp4",
+          "sourceRow": 555,
+          "sourceOrder": 4
+        },
+        {
+          "sourceTerm": "Đau bụng",
+          "term": "Đau bụng",
+          "videoLabel": "đau bụng",
+          "matchType": "exact",
+          "filename": "D0356.mp4",
+          "sourceRow": 556,
+          "sourceOrder": 5
+        },
+        {
+          "sourceTerm": "Đau răng",
+          "term": "Sâu răng",
+          "videoLabel": "sâu răng",
+          "matchType": "replacement",
+          "filename": "W02945.mp4",
+          "sourceRow": 557,
+          "sourceOrder": 6
+        },
+        {
+          "sourceTerm": "Cảm cúm",
+          "term": "Bệnh nhân",
+          "videoLabel": "bệnh nhân",
+          "matchType": "replacement",
+          "filename": "W00248.mp4",
+          "sourceRow": 558,
+          "sourceOrder": 7
+        },
+        {
+          "sourceTerm": "Chóng mặt",
+          "term": "Thở",
+          "videoLabel": "thở",
+          "matchType": "replacement",
+          "filename": "W03305.mp4",
+          "sourceRow": 559,
+          "sourceOrder": 8
+        },
+        {
+          "sourceTerm": "Khó thở",
+          "term": "Vết thương",
+          "videoLabel": "vết thương",
+          "matchType": "replacement",
+          "filename": "W03821.mp4",
+          "sourceRow": 560,
+          "sourceOrder": 9
+        },
+        {
+          "sourceTerm": "Dị ứng",
+          "term": "Chữa bệnh",
+          "videoLabel": "chữa bệnh",
+          "matchType": "replacement",
+          "filename": "W00716.mp4",
+          "sourceRow": 561,
+          "sourceOrder": 10
+        },
+        {
+          "sourceTerm": "Chấn thương",
+          "term": "Thuốc bắc",
+          "videoLabel": "thuốc bắc",
+          "matchType": "replacement",
+          "filename": "W03333.mp4",
+          "sourceRow": 562,
+          "sourceOrder": 11
+        },
+        {
+          "sourceTerm": "Khám bệnh",
+          "term": "Khám bệnh",
+          "videoLabel": "khám bệnh",
+          "matchType": "exact",
+          "filename": "W01767.mp4",
+          "sourceRow": 563,
+          "sourceOrder": 12
+        },
+        {
+          "sourceTerm": "Uống thuốc",
+          "term": "Chăm sóc sức khỏe",
+          "videoLabel": "chăm sóc sức khỏe",
+          "matchType": "replacement",
+          "filename": "W00508B.mp4",
+          "sourceRow": 564,
+          "sourceOrder": 13
+        },
+        {
+          "sourceTerm": "Nghỉ ngơi",
+          "term": "Nghỉ ngơi",
+          "videoLabel": "nghỉ ngơi",
+          "matchType": "exact",
+          "filename": "W02364.mp4",
+          "sourceRow": 565,
+          "sourceOrder": 14
+        },
+        {
+          "sourceTerm": "Tập thể dục",
+          "term": "Tập thể dục",
+          "videoLabel": "tập thể dục",
+          "matchType": "exact",
+          "filename": "W03116B.mp4",
+          "sourceRow": 566,
+          "sourceOrder": 15
+        },
+        {
+          "sourceTerm": "Sức khỏe",
+          "term": "Sức khỏe",
+          "videoLabel": "sức khỏe",
+          "matchType": "exact",
+          "filename": "W03043.mp4",
+          "sourceRow": 567,
+          "sourceOrder": 16
+        },
+        {
+          "sourceTerm": "Cấp cứu",
+          "term": "Cấp cứu",
+          "videoLabel": "cấp cứu",
+          "matchType": "exact",
+          "filename": "W00432.mp4",
+          "sourceRow": 568,
+          "sourceOrder": 17
+        },
+        {
+          "sourceTerm": "Xe cứu thương",
+          "term": "Xe cứu thương",
+          "videoLabel": "xe cứu thương",
+          "matchType": "exact",
+          "filename": "W03965.mp4",
+          "sourceRow": 569,
+          "sourceOrder": 18
+        },
+        {
+          "sourceTerm": "Hẹn bác sĩ",
+          "term": "Băng bó",
+          "videoLabel": "băng bó",
+          "matchType": "replacement",
+          "filename": "W00188.mp4",
+          "sourceRow": 570,
+          "sourceOrder": 19
+        },
+        {
+          "sourceTerm": "Đơn thuốc",
+          "term": "Tiêm",
+          "videoLabel": "tiêm",
+          "matchType": "replacement",
+          "filename": "W03394.mp4",
+          "sourceRow": 571,
+          "sourceOrder": 20
+        }
+      ],
+      "Khó": [
+        {
+          "sourceTerm": "Triệu chứng",
+          "term": "Kháng sinh",
+          "videoLabel": "kháng sinh",
+          "matchType": "replacement",
+          "filename": "W01771.mp4",
+          "sourceRow": 572,
+          "sourceOrder": 1
+        },
+        {
+          "sourceTerm": "Chẩn đoán",
+          "term": "Phòng bệnh",
+          "videoLabel": "phòng bệnh",
+          "matchType": "replacement",
+          "filename": "W02668.mp4",
+          "sourceRow": 573,
+          "sourceOrder": 2
+        },
+        {
+          "sourceTerm": "Điều trị",
+          "term": "Điều trị",
+          "videoLabel": "điều trị",
+          "matchType": "exact",
+          "filename": "W01217.mp4",
+          "sourceRow": 574,
+          "sourceOrder": 3
+        },
+        {
+          "sourceTerm": "Xét nghiệm",
+          "term": "Lây bệnh",
+          "videoLabel": "lây bệnh",
+          "matchType": "replacement",
+          "filename": "W01966.mp4",
+          "sourceRow": 575,
+          "sourceOrder": 4
+        },
+        {
+          "sourceTerm": "Phẫu thuật",
+          "term": "Lao phổi",
+          "videoLabel": "lao phổi",
+          "matchType": "replacement",
+          "filename": "W01944.mp4",
+          "sourceRow": 576,
+          "sourceOrder": 5
+        },
+        {
+          "sourceTerm": "Huyết áp",
+          "term": "Truyền dịch",
+          "videoLabel": "truyền dịch",
+          "matchType": "replacement",
+          "filename": "W03650.mp4",
+          "sourceRow": 577,
+          "sourceOrder": 6
+        },
+        {
+          "sourceTerm": "Nhịp tim",
+          "term": "Phẫu thuật tay",
+          "videoLabel": "phẫu thuật tay",
+          "matchType": "replacement",
+          "filename": "D0360.mp4",
+          "sourceRow": 578,
+          "sourceOrder": 7
+        },
+        {
+          "sourceTerm": "Nhiễm trùng",
+          "term": "Phẫu thuật mắt",
+          "videoLabel": "phẫu thuật mắt",
+          "matchType": "replacement",
+          "filename": "D0362.mp4",
+          "sourceRow": 579,
+          "sourceOrder": 8
+        },
+        {
+          "sourceTerm": "Tiêm chủng",
+          "term": "Phẫu thuật chân",
+          "videoLabel": "phẫu thuật chân",
+          "matchType": "replacement",
+          "filename": "D0361.mp4",
+          "sourceRow": 580,
+          "sourceOrder": 9
+        },
+        {
+          "sourceTerm": "Phục hồi",
+          "term": "Phục hồi",
+          "videoLabel": "phục hồi",
+          "matchType": "exact",
+          "filename": "W02707.mp4",
+          "sourceRow": 581,
+          "sourceOrder": 10
+        },
+        {
+          "sourceTerm": "Bệnh mãn tính",
+          "term": "Phẫu thuật mũi",
+          "videoLabel": "phẫu thuật mũi",
+          "matchType": "replacement",
+          "filename": "D0363.mp4",
+          "sourceRow": 582,
+          "sourceOrder": 11
+        },
+        {
+          "sourceTerm": "Bảo hiểm y tế",
+          "term": "Phẫu thuật cổ",
+          "videoLabel": "phẫu thuật cổ",
+          "matchType": "replacement",
+          "filename": "D0364.mp4",
+          "sourceRow": 583,
+          "sourceOrder": 12
+        },
+        {
+          "sourceTerm": "Tiền sử bệnh",
+          "term": "Phẫu thuật bụng",
+          "videoLabel": "phẫu thuật bụng",
+          "matchType": "replacement",
+          "filename": "D0365.mp4",
+          "sourceRow": 584,
+          "sourceOrder": 13
+        },
+        {
+          "sourceTerm": "Tác dụng phụ",
+          "term": "Tim",
+          "videoLabel": "tim",
+          "matchType": "replacement",
+          "filename": "W03431.mp4",
+          "sourceRow": 585,
+          "sourceOrder": 14
+        },
+        {
+          "sourceTerm": "Liều lượng",
+          "term": "Phổi",
+          "videoLabel": "phổi",
+          "matchType": "replacement",
+          "filename": "W02693.mp4",
+          "sourceRow": 586,
+          "sourceOrder": 15
+        },
+        {
+          "sourceTerm": "Cấp cứu khẩn cấp",
+          "term": "Cấp cứu khẩn cấp",
+          "videoLabel": "cấp cứu",
+          "matchType": "equivalent",
+          "filename": "W00432.mp4",
+          "sourceRow": 587,
+          "sourceOrder": 16
+        },
+        {
+          "sourceTerm": "Dị ứng thuốc",
+          "term": "Gan",
+          "videoLabel": "gan",
+          "matchType": "replacement",
+          "filename": "W01377.mp4",
+          "sourceRow": 588,
+          "sourceOrder": 17
+        },
+        {
+          "sourceTerm": "Hồ sơ y tế",
+          "term": "Thận",
+          "videoLabel": "thận",
+          "matchType": "replacement",
+          "filename": "W03214.mp4",
+          "sourceRow": 589,
+          "sourceOrder": 18
+        },
+        {
+          "sourceTerm": "Chuyên khoa",
+          "term": "Ruột non",
+          "videoLabel": "ruột non",
+          "matchType": "replacement",
+          "filename": "W02880.mp4",
+          "sourceRow": 590,
+          "sourceOrder": 19
+        },
+        {
+          "sourceTerm": "Vật lý trị liệu",
+          "term": "Ruột già",
+          "videoLabel": "ruột già",
+          "matchType": "replacement",
+          "filename": "W02879.mp4",
+          "sourceRow": 591,
+          "sourceOrder": 20
+        }
+      ]
+    },
+    "Văn hóa": {
+      "Dễ": [
+        {
+          "sourceTerm": "Việt Nam",
+          "term": "Việt Nam",
+          "videoLabel": "nước Việt nam",
+          "matchType": "equivalent",
+          "filename": "W02555B.mp4",
+          "sourceRow": 592,
+          "sourceOrder": 1
+        },
+        {
+          "sourceTerm": "Văn hóa",
+          "term": "Nhà văn hóa",
+          "videoLabel": "nhà văn hóa",
+          "matchType": "replacement",
+          "filename": "D0470B.mp4",
+          "sourceRow": 593,
+          "sourceOrder": 2
+        },
+        {
+          "sourceTerm": "Gia đình",
+          "term": "Anh chị em",
+          "videoLabel": "anh chị em",
+          "matchType": "replacement",
+          "filename": "W00011.mp4",
+          "sourceRow": 594,
+          "sourceOrder": 3
+        },
+        {
+          "sourceTerm": "Bạn bè",
+          "term": "Các bạn",
+          "videoLabel": "các bạn",
+          "matchType": "replacement",
+          "filename": "W00400.mp4",
+          "sourceRow": 595,
+          "sourceOrder": 4
+        },
+        {
+          "sourceTerm": "Tết",
+          "term": "Tết Âm",
+          "videoLabel": "Tết Âm",
+          "matchType": "replacement",
+          "filename": "W03131T.mp4",
+          "sourceRow": 596,
+          "sourceOrder": 5
+        },
+        {
+          "sourceTerm": "Lễ hội",
+          "term": "Lễ hội",
+          "videoLabel": "lễ hội",
+          "matchType": "exact",
+          "filename": "W01978N.mp4",
+          "sourceRow": 597,
+          "sourceOrder": 6
+        },
+        {
+          "sourceTerm": "Quê hương",
+          "term": "Quê hương",
+          "videoLabel": "quê",
+          "matchType": "equivalent",
+          "filename": "W02797B.mp4",
+          "sourceRow": 598,
+          "sourceOrder": 7
+        },
+        {
+          "sourceTerm": "Đất nước",
+          "term": "Quốc gia",
+          "videoLabel": "quốc gia",
+          "matchType": "replacement",
+          "filename": "W02800.mp4",
+          "sourceRow": 599,
+          "sourceOrder": 8
+        },
+        {
+          "sourceTerm": "Âm nhạc",
+          "term": "Dân ca",
+          "videoLabel": "dân ca",
+          "matchType": "replacement",
+          "filename": "W00982.mp4",
+          "sourceRow": 600,
+          "sourceOrder": 9
+        },
+        {
+          "sourceTerm": "Múa",
+          "term": "Múa",
+          "videoLabel": "múa",
+          "matchType": "exact",
+          "filename": "W02276.mp4",
+          "sourceRow": 601,
+          "sourceOrder": 10
+        },
+        {
+          "sourceTerm": "Hát",
+          "term": "Hát ru",
+          "videoLabel": "hát ru",
+          "matchType": "replacement",
+          "filename": "W01560.mp4",
+          "sourceRow": 602,
+          "sourceOrder": 11
+        },
+        {
+          "sourceTerm": "Phim",
+          "term": "Phim truyện",
+          "videoLabel": "phim truyện",
+          "matchType": "replacement",
+          "filename": "W02658B.mp4",
+          "sourceRow": 603,
+          "sourceOrder": 12
+        },
+        {
+          "sourceTerm": "Sách",
+          "term": "Sách",
+          "videoLabel": "sách",
+          "matchType": "exact",
+          "filename": "W02900.mp4",
+          "sourceRow": 604,
+          "sourceOrder": 13
+        },
+        {
+          "sourceTerm": "Trò chơi",
+          "term": "Trò chơi",
+          "videoLabel": "trò chơi",
+          "matchType": "exact",
+          "filename": "W03599.mp4",
+          "sourceRow": 605,
+          "sourceOrder": 14
+        },
+        {
+          "sourceTerm": "Quà",
+          "term": "Quà",
+          "videoLabel": "quà",
+          "matchType": "exact",
+          "filename": "W02780.mp4",
+          "sourceRow": 606,
+          "sourceOrder": 15
+        },
+        {
+          "sourceTerm": "Hoa",
+          "term": "Hoa",
+          "videoLabel": "hoa",
+          "matchType": "exact",
+          "filename": "W01619B.mp4",
+          "sourceRow": 607,
+          "sourceOrder": 16
+        },
+        {
+          "sourceTerm": "Áo dài",
+          "term": "Trang phục",
+          "videoLabel": "trang phục",
+          "matchType": "replacement",
+          "filename": "W03537.mp4",
+          "sourceRow": 608,
+          "sourceOrder": 17
+        },
+        {
+          "sourceTerm": "Chùa",
+          "term": "Chùa",
+          "videoLabel": "chùa",
+          "matchType": "exact",
+          "filename": "W00655B.mp4",
+          "sourceRow": 609,
+          "sourceOrder": 18
+        },
+        {
+          "sourceTerm": "Ăn mừng",
+          "term": "Múa lân",
+          "videoLabel": "múa lân",
+          "matchType": "replacement",
+          "filename": "W02277.mp4",
+          "sourceRow": 610,
+          "sourceOrder": 19
+        },
+        {
+          "sourceTerm": "Truyền thống",
+          "term": "Truyền thống",
+          "videoLabel": "truyền thống",
+          "matchType": "exact",
+          "filename": "W03654.mp4",
+          "sourceRow": 611,
+          "sourceOrder": 20
+        }
+      ],
+      "Trung bình": [
+        {
+          "sourceTerm": "Phong tục",
+          "term": "Phong tục",
+          "videoLabel": "phong tục",
+          "matchType": "exact",
+          "filename": "W02666.mp4",
+          "sourceRow": 612,
+          "sourceOrder": 1
+        },
+        {
+          "sourceTerm": "Nghệ thuật",
+          "term": "Nghệ thuật",
+          "videoLabel": "nghệ thuật",
+          "matchType": "exact",
+          "filename": "W02357B.mp4",
+          "sourceRow": 613,
+          "sourceOrder": 2
+        },
+        {
+          "sourceTerm": "Lịch sử",
+          "term": "Múa sạp",
+          "videoLabel": "múa sạp",
+          "matchType": "replacement",
+          "filename": "W02278.mp4",
+          "sourceRow": 614,
+          "sourceOrder": 3
+        },
+        {
+          "sourceTerm": "Di sản",
+          "term": "Múa rối",
+          "videoLabel": "múa rối",
+          "matchType": "replacement",
+          "filename": "W02273.mp4",
+          "sourceRow": 615,
+          "sourceOrder": 4
+        },
+        {
+          "sourceTerm": "Tôn trọng",
+          "term": "Tôn trọng",
+          "videoLabel": "tôn trọng",
+          "matchType": "exact",
+          "filename": "W03491.mp4",
+          "sourceRow": 616,
+          "sourceOrder": 5
+        },
+        {
+          "sourceTerm": "Cộng đồng",
+          "term": "Văn nghệ",
+          "videoLabel": "văn nghệ",
+          "matchType": "replacement",
+          "filename": "W03793B.mp4",
+          "sourceRow": 617,
+          "sourceOrder": 6
+        },
+        {
+          "sourceTerm": "Ngôn ngữ",
+          "term": "Ngôn ngữ",
+          "videoLabel": "ngôn ngữ",
+          "matchType": "exact",
+          "filename": "W02401.mp4",
+          "sourceRow": 618,
+          "sourceOrder": 7
+        },
+        {
+          "sourceTerm": "Ngôn ngữ ký hiệu",
+          "term": "Ngôn ngữ ký hiệu",
+          "videoLabel": "ngôn ngữ kí hiệu",
+          "matchType": "equivalent",
+          "filename": "W04073.mp4",
+          "sourceRow": 619,
+          "sourceOrder": 8
+        },
+        {
+          "sourceTerm": "Người Điếc",
+          "term": "Môn Lịch sử",
+          "videoLabel": "môn Lịch sử",
+          "matchType": "replacement",
+          "filename": "W02244B.mp4",
+          "sourceRow": 620,
+          "sourceOrder": 9
+        },
+        {
+          "sourceTerm": "Giao tiếp",
+          "term": "Giao tiếp",
+          "videoLabel": "giao tiếp",
+          "matchType": "exact",
+          "filename": "W01453B.mp4",
+          "sourceRow": 621,
+          "sourceOrder": 10
+        },
+        {
+          "sourceTerm": "Sự kiện",
+          "term": "Cổ truyền",
+          "videoLabel": "cổ truyền",
+          "matchType": "replacement",
+          "filename": "W00823.mp4",
+          "sourceRow": 622,
+          "sourceOrder": 11
+        },
+        {
+          "sourceTerm": "Biểu diễn",
+          "term": "Xã hội",
+          "videoLabel": "xã hội",
+          "matchType": "replacement",
+          "filename": "W03935B.mp4",
+          "sourceRow": 623,
+          "sourceOrder": 12
+        },
+        {
+          "sourceTerm": "Bảo tàng",
+          "term": "Bảo tàng",
+          "videoLabel": "bảo tàng",
+          "matchType": "exact",
+          "filename": "W00156.mp4",
+          "sourceRow": 624,
+          "sourceOrder": 13
+        },
+        {
+          "sourceTerm": "Du lịch",
+          "term": "Tuần lễ người Điếc thế giới",
+          "videoLabel": "tuần lễ người Điếc thế giới",
+          "matchType": "replacement",
+          "filename": "D0053N.mp4",
+          "sourceRow": 625,
+          "sourceOrder": 14
+        },
+        {
+          "sourceTerm": "Ẩm thực",
+          "term": "Ngày Ngôn ngữ kí hiệu Quốc tế 23/9",
+          "videoLabel": "ngày Ngôn ngữ kí hiệu Quốc tế 23/9",
+          "matchType": "replacement",
+          "filename": "D0052B.mp4",
+          "sourceRow": 626,
+          "sourceOrder": 15
+        },
+        {
+          "sourceTerm": "Ngày lễ",
+          "term": "Nghệ sĩ",
+          "videoLabel": "nghệ sĩ",
+          "matchType": "replacement",
+          "filename": "W02356.mp4",
+          "sourceRow": 627,
+          "sourceOrder": 16
+        },
+        {
+          "sourceTerm": "Tết Nguyên Đán",
+          "term": "Tết Nguyên Đán",
+          "videoLabel": "Tết Âm",
+          "matchType": "equivalent",
+          "filename": "W03131T.mp4",
+          "sourceRow": 628,
+          "sourceOrder": 17
+        },
+        {
+          "sourceTerm": "Trung Thu",
+          "term": "Trung Thu",
+          "videoLabel": "Trung Thu",
+          "matchType": "exact",
+          "filename": "W03645T.mp4",
+          "sourceRow": 629,
+          "sourceOrder": 18
+        },
+        {
+          "sourceTerm": "Đám cưới",
+          "term": "Truyền thông",
+          "videoLabel": "truyền thông",
+          "matchType": "replacement",
+          "filename": "W03653.mp4",
+          "sourceRow": 630,
+          "sourceOrder": 19
+        },
+        {
+          "sourceTerm": "Thế hệ",
+          "term": "Thế hệ",
+          "videoLabel": "thế hệ",
+          "matchType": "exact",
+          "filename": "W03237.mp4",
+          "sourceRow": 631,
+          "sourceOrder": 20
+        }
+      ],
+      "Khó": [
+        {
+          "sourceTerm": "Bản sắc",
+          "term": "Tham quan",
+          "videoLabel": "tham quan",
+          "matchType": "replacement",
+          "filename": "W03156B.mp4",
+          "sourceRow": 632,
+          "sourceOrder": 1
+        },
+        {
+          "sourceTerm": "Đa dạng",
+          "term": "Ngày Quốc tế Lao động",
+          "videoLabel": "ngày Quốc tế Lao động",
+          "matchType": "replacement",
+          "filename": "W02337B.mp4",
+          "sourceRow": 633,
+          "sourceOrder": 2
+        },
+        {
+          "sourceTerm": "Hòa nhập",
+          "term": "Hòa nhập",
+          "videoLabel": "hòa nhập",
+          "matchType": "exact",
+          "filename": "W01637.mp4",
+          "sourceRow": 634,
+          "sourceOrder": 3
+        },
+        {
+          "sourceTerm": "Bình đẳng",
+          "term": "Cô dâu",
+          "videoLabel": "cô dâu",
+          "matchType": "replacement",
+          "filename": "W00809.mp4",
+          "sourceRow": 635,
+          "sourceOrder": 4
+        },
+        {
+          "sourceTerm": "Tiếp cận",
+          "term": "Chú rể",
+          "videoLabel": "chú rể",
+          "matchType": "replacement",
+          "filename": "W00651.mp4",
+          "sourceRow": 636,
+          "sourceOrder": 5
+        },
+        {
+          "sourceTerm": "Di sản văn hóa",
+          "term": "Dân tộc",
+          "videoLabel": "dân tộc",
+          "matchType": "replacement",
+          "filename": "W00988B.mp4",
+          "sourceRow": 637,
+          "sourceOrder": 6
+        },
+        {
+          "sourceTerm": "Văn hóa cộng đồng",
+          "term": "Dân tộc thiểu số",
+          "videoLabel": "dân tộc thiểu số",
+          "matchType": "replacement",
+          "filename": "W00989B.mp4",
+          "sourceRow": 638,
+          "sourceOrder": 7
+        },
+        {
+          "sourceTerm": "Giá trị truyền thống",
+          "term": "Công bằng",
+          "videoLabel": "công bằng",
+          "matchType": "replacement",
+          "filename": "W00838.mp4",
+          "sourceRow": 639,
+          "sourceOrder": 8
+        },
+        {
+          "sourceTerm": "Bảo tồn",
+          "term": "Quyền lợi",
+          "videoLabel": "quyền lợi",
+          "matchType": "replacement",
+          "filename": "W02813B.mp4",
+          "sourceRow": 640,
+          "sourceOrder": 9
+        },
+        {
+          "sourceTerm": "Giao lưu văn hóa",
+          "term": "Tổ tiên",
+          "videoLabel": "tổ tiên",
+          "matchType": "replacement",
+          "filename": "W03494.mp4",
+          "sourceRow": 641,
+          "sourceOrder": 10
+        },
+        {
+          "sourceTerm": "Khác biệt văn hóa",
+          "term": "Thờ cúng",
+          "videoLabel": "thờ cúng",
+          "matchType": "replacement",
+          "filename": "W03299.mp4",
+          "sourceRow": 642,
+          "sourceOrder": 11
+        },
+        {
+          "sourceTerm": "Nhận thức",
+          "term": "Nhận thức",
+          "videoLabel": "nhận thức",
+          "matchType": "exact",
+          "filename": "W02486.mp4",
+          "sourceRow": 643,
+          "sourceOrder": 12
+        },
+        {
+          "sourceTerm": "Định kiến",
+          "term": "Hòa bình",
+          "videoLabel": "hòa bình",
+          "matchType": "replacement",
+          "filename": "W01634.mp4",
+          "sourceRow": 644,
+          "sourceOrder": 13
+        },
+        {
+          "sourceTerm": "Tôn trọng sự khác biệt",
+          "term": "Quốc tế",
+          "videoLabel": "quốc tế",
+          "matchType": "replacement",
+          "filename": "W02805.mp4",
+          "sourceRow": 645,
+          "sourceOrder": 14
+        },
+        {
+          "sourceTerm": "Cộng đồng người Điếc",
+          "term": "Chi hội",
+          "videoLabel": "chi hội",
+          "matchType": "replacement",
+          "filename": "W00561.mp4",
+          "sourceRow": 646,
+          "sourceOrder": 15
+        },
+        {
+          "sourceTerm": "Văn hóa Điếc",
+          "term": "Quốc ca",
+          "videoLabel": "quốc ca",
+          "matchType": "replacement",
+          "filename": "W02799.mp4",
+          "sourceRow": 647,
+          "sourceOrder": 16
+        },
+        {
+          "sourceTerm": "Quyền tiếp cận",
+          "term": "Quốc khánh",
+          "videoLabel": "quốc khánh",
+          "matchType": "replacement",
+          "filename": "W02802.mp4",
+          "sourceRow": 648,
+          "sourceOrder": 17
+        },
+        {
+          "sourceTerm": "Ngôn ngữ mẹ đẻ",
+          "term": "Tết Dương",
+          "videoLabel": "Tết Dương",
+          "matchType": "replacement",
+          "filename": "W03132N.mp4",
+          "sourceRow": 649,
+          "sourceOrder": 18
+        },
+        {
+          "sourceTerm": "Bản sắc người Điếc",
+          "term": "Tết Trung thu",
+          "videoLabel": "Tết Trung thu",
+          "matchType": "replacement",
+          "filename": "W03134B.mp4",
+          "sourceRow": 650,
+          "sourceOrder": 19
+        },
+        {
+          "sourceTerm": "Hòa nhập xã hội",
+          "term": "Lễ Nô-en",
+          "videoLabel": "lễ Nô-en",
+          "matchType": "replacement",
+          "filename": "W01979B.mp4",
+          "sourceRow": 651,
+          "sourceOrder": 20
+        }
+      ]
+    }
+  }
+}
