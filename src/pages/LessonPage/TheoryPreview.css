@@ -403,6 +403,14 @@
   font-size: 13px;
   color: #934531;
 }
+.theory__retry {
+  border: 1px solid var(--study-green);
+  border-radius: 8px;
+  background: white;
+  color: var(--study-green);
+  padding: 8px 14px;
+  margin: 8px;
+}
 @media (max-width: 1024px) {
   .theory {
     padding: 20px var(--page-gutter) 24px;
