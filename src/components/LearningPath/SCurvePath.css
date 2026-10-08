@@ -714,3 +714,53 @@ a:hover > .lp-quiz--locked {
 .lp-chapter--locked {
   opacity: 0.75;
 }
+
+/* Paired learning steps keep the existing S-shaped map. */
+.lp-node__kind {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  color: #08765b;
+}
+.lp-node__kind--practice {
+  color: #936138;
+}
+.lp-node__hint {
+  font-size: 11px;
+  line-height: 1.4;
+  color: #63736a;
+  text-align: center;
+  max-width: 155px;
+}
+.lp-node__badge {
+  position: absolute;
+  bottom: -5px;
+  right: -5px;
+  background: white;
+  color: #08765b;
+  border-radius: 50%;
+  padding: 2px;
+  box-sizing: content-box;
+}
+.lp-node__icon--locked .lp-node__badge {
+  color: #6b7280;
+}
+.lp-node--step .lp-node__link {
+  gap: 10px;
+  padding: 5px;
+  border-radius: 12px;
+}
+.lp-node--step .lp-node__label {
+  display: block;
+  overflow: visible;
+}
+.lp-node--step a:focus-visible {
+  outline: 3px solid #e05638;
+  outline-offset: 5px;
+}
+.lp-quiz--active .lp-quiz__body {
+  color: #08765b;
+}
+.lp-quiz--active .lp-quiz__meta {
+  color: #366253;
+}

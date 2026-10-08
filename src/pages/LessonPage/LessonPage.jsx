@@ -1,8 +1,10 @@
+import TheoryPreview from "./TheoryPreview";
+import { useTheoryPreview } from "../../hooks/useTheoryPreview";
 import { uuid } from "../../utils/uuid";
 import { useProgress } from "../../hooks/useProgress";
 import { useToast } from "../../hooks/useToast";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { Hand } from "lucide-react";
 import { signIcons as ICONS } from "../../utils/signIcons";
 import { useBeforeUnload } from "../../hooks/useBeforeUnload";
@@ -271,6 +273,14 @@ export function LessonSession({
 
 export default function LessonPage() {
   const { lessonId } = useParams();
+  const [search] = useSearchParams();
+  const { chapters } = useProgress();
+  const previouslyCompleted = chapters?.some((chapter) =>
+    chapter.lessons.some(
+      (lesson) => String(lesson.id) === lessonId && lesson.status === "completed",
+    ),
+  );
+  const { isDone } = useTheoryPreview();
   const load = useCallback(() => learningApi.lesson(lessonId), [lessonId]);
   const { data, error } = useApiResource(load);
 
@@ -280,6 +290,10 @@ export default function LessonPage() {
         <ApiState error={error} />
       </LearningAccessGuard>
     );
+  }
+
+  if (search.get("step") !== "practice" || (!isDone(lessonId) && !previouslyCompleted)) {
+    return <TheoryPreview key={lessonId} lesson={data} />;
   }
 
   if (!data.questions?.length) {
