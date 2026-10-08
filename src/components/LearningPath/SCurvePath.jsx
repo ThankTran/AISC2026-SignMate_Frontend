@@ -1,37 +1,9 @@
-import { createElement } from "react";
-import { signIcons } from "../../utils/signIcons";
 import { useChapters } from "../../hooks/useProgress";
-import {
-  Check,
-  Clock,
-  Lock,
-  MessageCircle,
-  Palette,
-  Play,
-  Smile,
-  Star,
-  Sun,
-  Trophy,
-} from "lucide-react";
+import { useTheoryPreview } from "../../hooks/useTheoryPreview";
+import { BookOpen, PencilLine, Check, Lock, Trophy } from "lucide-react";
 import { Link } from "react-router-dom";
-
 import { SON_CHUONG_LABEL } from "../../mockdata";
-
 import "./SCurvePath.css";
-
-/* Icons theo key trong dữ liệu (để dữ liệu thuần, tách khỏi component) */
-const CHAPTER_ICONS = {
-  ...Object.fromEntries(
-    Object.entries(signIcons).map(([key, Icon]) => [
-      key,
-      createElement(Icon, { size: 22, strokeWidth: 2.2 }),
-    ]),
-  ),
-  messageCircle: <MessageCircle size={22} strokeWidth={2.2} />,
-  palette: <Palette size={22} strokeWidth={2.2} />,
-  sun: <Sun size={24} strokeWidth={2} />,
-  smile: <Smile size={22} strokeWidth={2.2} />,
-};
 
 /* =========================================================
    HEADER CHƯƠNG
@@ -68,69 +40,57 @@ const ChapterHeader = ({ chapter }) => {
    NODE BÀI HỌC
    ========================================================= */
 
-const LessonIcon = ({ lesson }) => {
-  const glyph =
-    lesson.status === "completed" ? (
-      <Check size={24} strokeWidth={2.8} />
-    ) : (
-      (CHAPTER_ICONS[lesson.icon] ?? CHAPTER_ICONS.bookOpen)
-    );
-
-  return (
-    <div className={`lp-node__icon lp-node__icon--${lesson.status}`}>
-      <div className={`lp-node__ring lp-node__ring--${lesson.status}`} />
-      <span className="lp-node__glyph">{glyph}</span>
-    </div>
-  );
-};
-
 const LessonNode = ({ lesson }) => {
-  const interactive =
-    lesson.status === "completed" || lesson.status === "unlocked" || lesson.status === "active";
-
+  const locked = lesson.status === "locked";
+  const theory = lesson.kind === "theory";
+  const Icon = theory ? BookOpen : PencilLine;
+  const label = theory ? "Lý thuyết" : "Kiểm tra";
+  const content = (
+    <>
+      <span className={`lp-node__kind ${theory ? "" : "lp-node__kind--practice"}`}>
+        {theory ? "01 · HỌC" : "02 · KIỂM TRA"}
+      </span>
+      <div className={`lp-node__icon lp-node__icon--${lesson.status}`}>
+        <div className={`lp-node__ring lp-node__ring--${lesson.status}`} />
+        <span className="lp-node__glyph">
+          <Icon size={25} />
+        </span>
+        {lesson.status === "completed" && <Check className="lp-node__badge" size={18} />}
+        {locked && <Lock className="lp-node__badge" size={16} />}
+      </div>
+      <span className="lp-node__label">
+        {label} {lesson.title}
+      </span>
+      <span className="lp-node__hint">
+        {lesson.status === "completed"
+          ? "Đã hoàn thành · Xem lại"
+          : locked
+            ? theory
+              ? "Hoàn thành trạm trước"
+              : "Hoàn thành lý thuyết để mở"
+            : theory
+              ? "Khám phá bài học"
+              : "Sẵn sàng luyện tập"}
+      </span>
+    </>
+  );
   return (
     <div
-      className="lp-node"
-      title={lesson.unavailableReason || undefined}
+      className="lp-node lp-node--step"
       style={{ top: lesson.layoutY, left: `${lesson.layoutX}%` }}
     >
-      {interactive ? (
-        <Link className="lp-node__link" to={`/learning-path/lesson/${lesson.id}`}>
-          <LessonIcon lesson={lesson} />
-          <span className="lp-node__label">{lesson.title}</span>
-        </Link>
-      ) : (
-        <>
-          <LessonIcon lesson={lesson} />
-          <span
-            className={`lp-node__label ${
-              lesson.status === "locked" ? "lp-node__label--locked" : ""
-            }`}
-          >
-            {lesson.title}
-            {lesson.published === false && <span className="text-caption"> · Đang cập nhật</span>}
-          </span>
-        </>
-      )}
-
-      {/* Tooltip cho node đang học */}
-      {lesson.status === "active" && lesson.tooltip && (
-        <div className="lp-tooltip">
-          <p className="lp-tooltip__title">{lesson.title}</p>
-          <p className="lp-tooltip__desc">{lesson.tooltip.desc}</p>
-          <div className="lp-tooltip__meta">
-            <span className="lp-tooltip__time">
-              <Clock size={13} /> {lesson.tooltip.duration}
-            </span>
-            <span className="lp-tooltip__xp">
-              <Star size={13} /> {lesson.tooltip.xp}
-            </span>
-          </div>
-          <Link className="lp-tooltip__btn" to={`/learning-path/lesson/${lesson.id}`}>
-            <Play size={16} fill="currentColor" />
-            Bắt đầu học
-          </Link>
+      {locked ? (
+        <div className="lp-node__link" aria-disabled="true">
+          {content}
         </div>
+      ) : (
+        <Link
+          className="lp-node__link"
+          to={`/learning-path/lesson/${lesson.lessonId}${theory ? "" : "?step=practice"}`}
+          aria-label={`${label} ${lesson.title}`}
+        >
+          {content}
+        </Link>
       )}
     </div>
   );
@@ -196,23 +156,44 @@ const QuizNode = ({ chapter }) => {
 
 const SCurvePath = () => {
   const chapters = useChapters();
+  const { isDone } = useTheoryPreview();
 
   return (
     <div className="lp-curve">
       {chapters.map((chapter, chapterIndex) => {
         // Each chapter owns its layout; persisted coordinates may overlap or
         // describe an older curriculum with fewer chapters.
-        let height = 110;
-        const lessons = chapter.lessons.map((lesson, index) => {
-          const positioned = {
-            ...lesson,
-            layoutX: lesson.status === "active" ? 50 : index % 2 ? 70 : 30,
-            layoutY: height,
-          };
-
-          height += lesson.status === "active" && lesson.tooltip ? 340 : 190;
-
-          return positioned;
+        let height = 80;
+        const lessons = chapter.lessons.flatMap((lesson) => {
+          const completed = lesson.status === "completed";
+          const available =
+            lesson.published !== false &&
+            ["active", "unlocked", "completed"].includes(lesson.status);
+          const learned = completed || isDone(lesson.id);
+          return ["theory", "practice"].map((kind) => {
+            const status = !available
+              ? "locked"
+              : kind === "theory"
+                ? learned
+                  ? "completed"
+                  : lesson.status
+                : completed
+                  ? "completed"
+                  : learned
+                    ? "active"
+                    : "locked";
+            const positioned = {
+              ...lesson,
+              lessonId: lesson.id,
+              id: `${lesson.id}-${kind}`,
+              kind,
+              status,
+              layoutX: kind === "theory" ? 32 : 68,
+              layoutY: height,
+            };
+            height += 185;
+            return positioned;
+          });
         });
         const first = lessons[0];
         const last = lessons.at(-1);
