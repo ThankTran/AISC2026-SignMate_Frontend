@@ -10,7 +10,7 @@ const subscribe = (listener) => {
 };
 export function useTheoryPreview() {
   const user = useCurrentUser();
-  const key = `signmate:theory-preview:${user?.uid || "guest"}`;
+  const key = `signmate:theory-preview:v2:${user?.uid || "guest"}`;
   const snapshot = () => {
     try {
       return sessionStorage.getItem(key) || memory.get(key) || "[]";
@@ -43,7 +43,7 @@ export function useTheoryPreview() {
 
 export function useTheoryItems(lessonId, items, completed) {
   const user = useCurrentUser();
-  const key = `signmate:theory-items:${user?.uid || "guest"}:${lessonId}`;
+  const key = `signmate:theory-items:v2:${user?.uid || "guest"}:${lessonId}`;
   const snapshot = () => {
     try {
       return sessionStorage.getItem(key) || memory.get(key) || "";

@@ -15,31 +15,8 @@ import {
 } from "lucide-react";
 import { useTheoryItems, useTheoryPreview } from "../../hooks/useTheoryPreview";
 import { useTheoryVideo } from "../../hooks/useTheoryVideo";
-import vocabulary from "../../data/theoryVocabulary.json";
+import { groupsFor } from "../../utils/theoryVocabulary.js";
 import "./TheoryPreview.css";
-
-const aliases = {
-  "Bảng chữ & Số": ["Bảng chữ cái", "Số"],
-  "Màu sắc & Hình dạng": ["Màu sắc & hình dạng"],
-  "Biểu cảm cảm xúc": ["Biểu cảm & cảm xúc"],
-};
-function groupsFor(lesson) {
-  const topics = aliases[lesson.title] || [lesson.title];
-  return topics.flatMap((topic) =>
-    Object.entries(vocabulary[topic] || {}).map(([level, terms]) => ({
-      id: `${topic}-${level}`,
-      label:
-        topic === "Bảng chữ cái"
-          ? "Chữ cái (A – Y)"
-          : topic === "Số"
-            ? "Số (0 – 20)"
-            : level === "Cơ bản"
-              ? "Từ vựng"
-              : level,
-      terms: terms.map((term) => ({ id: `${topic}-${level}-${term}`, term, topic })),
-    })),
-  );
-}
 
 function SegmentPlayer({ segment, loading, loadError, retry, speed, onComplete }) {
   const player = useRef(null);
@@ -176,7 +153,7 @@ export default function TheoryPreview({ lesson }) {
     if (!selected) return;
     progress.toggle(selected.id);
   };
-  const video = useTheoryVideo(selected?.term);
+  const video = useTheoryVideo(selected?.videoLabel);
   function switchGroup(index) {
     setGroupIndex(index);
     setSelectedId(groups[index].terms[0]?.id);
@@ -218,7 +195,7 @@ export default function TheoryPreview({ lesson }) {
         <h2 aria-live="polite">
           Đang xem:{" "}
           {selected
-            ? `Ký hiệu ${selected.topic === "Bảng chữ cái" ? "chữ " : selected.topic === "Số" ? "số " : ""}${selected.term}`
+            ? `Ký hiệu ${selected.topic === "Bảng chữ cái" ? "chữ " : selected.topic === "Số" && /^\d+$/.test(selected.term) ? "số " : ""}${selected.term}`
             : "Chưa có nội dung"}
         </h2>
         <span>
@@ -300,7 +277,7 @@ export default function TheoryPreview({ lesson }) {
             id="theory-keypad"
             role="tabpanel"
             aria-labelledby={group ? `theory-tab-${groupIndex}` : undefined}
-            className={`theory__keypad ${group?.terms.some((item) => item.term.length > 3) ? "theory__keypad--words" : ""}`}
+            className={`theory__keypad ${!["Bảng chữ cái", "Số"].includes(group?.topic) ? "theory__keypad--words" : ""}`}
           >
             {group?.terms.map((item) => (
               <button
@@ -308,6 +285,9 @@ export default function TheoryPreview({ lesson }) {
                 key={item.id}
                 aria-pressed={selectedId === item.id}
                 aria-label={`${item.term}${viewed.includes(item.id) ? ", đã học" : ""}`}
+                style={
+                  item.term.length > 3 && group?.topic === "Số" ? { fontSize: "0.8rem" } : undefined
+                }
                 className={`${viewed.includes(item.id) ? "is-completed" : ""} ${selectedId === item.id ? "is-active" : ""}`}
                 onClick={() => setSelectedId(item.id)}
               >
