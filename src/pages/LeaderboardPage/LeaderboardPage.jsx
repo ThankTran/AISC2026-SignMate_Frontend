@@ -211,7 +211,7 @@ function Ranking({ entries, levelEntries, user, scope, setScope, stats, source }
         ) : !rows.length ? (
           <EmptyState
             title="Chưa có xếp hạng tuần này"
-            description="Hoàn thành bài học để tích lũy XP."
+            description="Hoàn thành bài học để tích lũy XP." to="/learning-path" actionLabel="Bắt đầu bài học"
           />
         ) : (
           <>

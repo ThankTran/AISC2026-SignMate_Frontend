@@ -4,7 +4,7 @@
 
 .lp-page {
   display: grid;
-  padding: 28px var(--page-gutter) 28px;
+  padding: var(--space-5) var(--page-gutter) var(--space-5);
   min-height: 100%;
   align-items: start;
   gap: var(--space-5);
@@ -29,7 +29,7 @@
 .lp-page__sidebar {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: var(--space-4);
   position: sticky;
   min-width: 0;
   top: 20px;
@@ -50,7 +50,7 @@
   max-width: 460px;
   margin-inline: auto;
   border-radius: 22px;
-  padding: 18px 20px;
+  padding: var(--space-4) var(--space-4);
   box-shadow: var(--shadow-md);
   border: 1px solid var(--color-neutral-200);
 }
@@ -86,7 +86,7 @@
 
 @media (max-width: 1024px) {
   .lp-page {
-    padding: 20px var(--page-gutter) 20px;
+    padding: var(--space-4) var(--page-gutter) var(--space-4);
     grid-template-columns: minmax(0, 1fr) 280px;
     gap: var(--space-4);
   }

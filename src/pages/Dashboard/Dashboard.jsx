@@ -11,7 +11,7 @@ import { getContinueTarget, percent } from "./learningProgress";
 import { Award, Flame, Trophy, Check, Lock, Star } from "lucide-react";
 import "./Dashboard.css";
 
-const MEDALS = ["🥇", "🥈", "🥉"];
+
 
 function StatCard({ icon, value, label }) {
   return (
@@ -100,7 +100,7 @@ function Dashboard() {
     return (
       <EmptyState
         title="Chưa có tiến độ học"
-        description="Mở lộ trình để bắt đầu bài học đầu tiên."
+        description="Mở lộ trình để bắt đầu bài học đầu tiên." to="/learning-path" actionLabel="Bắt đầu bài học"
       />
     );
   }
@@ -128,7 +128,7 @@ function Dashboard() {
         <div className="db-welcome__text">
           <p className="db-welcome__eyebrow">CHÀO MỪNG TRỞ LẠI</p>
           <h1 className="db-welcome__title text-h1">
-            Chào {user.name} <span aria-hidden="true">👋</span>
+            Chào {user.name}
             <span className="db-welcome__level">
               Cấp độ: {curriculumLevel(user)} · Level {xpLevel(user.xp)}
             </span>
@@ -237,7 +237,7 @@ function Dashboard() {
           <ol className="db-board__list">
             {(board.data?.entries || []).slice(0, 6).map((p, i) => (
               <li key={p.id} className="db-rank">
-                <span className="db-rank__pos">{i < 3 ? MEDALS[i] : `#${i + 1}`}</span>
+                <span className="db-rank__pos">{`#${p.rank ?? i + 1}`}</span>
                 <Avatar user={p} size={36} />
                 <span className="db-rank__name">{p.name}</span>
                 <span className="db-rank__score">{p.weeklyXp.toLocaleString("vi-VN")}</span>

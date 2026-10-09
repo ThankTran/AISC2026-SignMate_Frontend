@@ -13,9 +13,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
+  gap: var(--space-4);
 
-  padding: 14px var(--page-gutter) calc(14px + env(safe-area-inset-bottom, 0px));
+  padding: var(--space-3) var(--page-gutter) calc(var(--space-3) + env(safe-area-inset-bottom, 0px));
   box-shadow: var(--shadow-md);
 
   background: var(--color-neutral-900);
@@ -43,7 +43,7 @@
 .lesson-footer__left {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-2);
   min-width: 0;
 }
 
@@ -71,7 +71,7 @@
 }
 
 .lesson-footer__sep {
-  margin: 0 6px;
+  margin: 0 var(--space-1);
   color: var(--color-neutral-700);
 }
 
@@ -80,7 +80,7 @@
 .lesson-footer__right {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: var(--space-4);
   flex-shrink: 0;
 }
 
@@ -143,7 +143,7 @@
 .lesson-footer__status {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: var(--space-3);
   min-width: 0;
 
   animation: footer-status-in 0.45s ease;
@@ -204,7 +204,7 @@
 .lesson-footer__status-text {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: var(--space-1);
   min-width: 0;
 }
 
@@ -230,9 +230,9 @@
 .lesson-footer__btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--space-1);
 
-  padding: var(--space-3) 26px;
+  padding: var(--space-3) var(--space-5);
   border: none;
   border-radius: var(--radius-md);
   color: var(--color-neutral-600);
@@ -255,7 +255,7 @@
 .lesson-footer__btn--enabled {
   color: var(--color-white);
   cursor: pointer;
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
   background: var(--color-coral-500);
 }
 
@@ -267,7 +267,7 @@
 .lesson-footer__btn--advance {
   color: var(--color-white);
   cursor: pointer;
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
   animation: footer-status-in 0.5s ease;
   background: var(--color-coral-500);
 }
@@ -280,7 +280,7 @@
 .lesson-footer__btn--ack {
   color: var(--color-white);
   cursor: pointer;
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
   animation: footer-status-in 0.5s ease;
   background: var(--color-coral-500);
 }
@@ -317,7 +317,7 @@
   }
 
   .lesson-footer__btn {
-    padding: 10px 18px;
+    padding: var(--space-2) var(--space-4);
     font-size: var(--text-sm);
   }
 

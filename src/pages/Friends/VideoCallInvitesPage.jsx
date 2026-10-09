@@ -177,7 +177,7 @@ function Content({
                   title="Chưa có lịch hẹn"
                   description="Chọn ngày trong lịch bên dưới để tạo lời mời."
                   to="/friends/list"
-                  actionLabel="Chọn bạn để hẹn lịch"
+                  actionLabel="Xem bạn bè"
                 />
               )}
               <MonthCalendar

@@ -6,6 +6,8 @@
 | 2 — Màu | Cao | Nhiều palette riêng, CTA cạnh tranh | CSS các màn hình, docs/UI_COLOR_GROUP_2.md | Teal/coral cho học tập, purple/neutral cho AI; sidebar teal; active chapter trắng viền teal. |
 | 3 — Chữ | Trung bình | Cỡ chữ 10–11px, menu 16px, font cứng | CSS toàn src; TheoryPreview.jsx | Chuẩn hóa font-size theo token, nhỏ nhất 12px; menu 14px/500; line-height tối đa 1.6 và heading 1.25. |
 
+| 4 — Trình bày | Trung bình | Khoảng cách lẻ, trang trí nhiều, CTA rỗng chung chung | CSS toàn src; HandScene; Dashboard; DataState và các trang gọi | Spacing theo token; hand + 3 card; bỏ backdrop blur; shadow nút mềm; CTA theo ngữ cảnh. |
+
 ## Kiểm chứng
 
 - Nhóm 1 và 2: ESLint và Vite build thành công.

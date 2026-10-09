@@ -227,7 +227,7 @@ export default function StatsPage() {
   return error || !data ? (
     <ApiState error={error} retry={retry} />
   ) : !data.chapters.length ? (
-    <EmptyState title="Chưa có thống kê" description="Bắt đầu bài học để theo dõi tiến độ." />
+    <EmptyState title="Chưa có thống kê" description="Bắt đầu bài học để theo dõi tiến độ." to="/learning-path" actionLabel="Bắt đầu bài học" />
   ) : (
     <StatsContent stats={data.stats} chapters={data.chapters} user={user} />
   );

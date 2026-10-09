@@ -19,7 +19,7 @@
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  padding: 65px var(--space-5) 35px;
+  padding: 65px var(--space-5) var(--space-6);
   overflow: hidden;
 }
 .vc-back {
@@ -40,7 +40,7 @@
   height: 155px;
   display: grid;
   place-items: center;
-  margin: 5px 0 30px;
+  margin: var(--space-1) 0 var(--space-6);
   color: var(--color-teal-100);
 }
 .vc-search-orb > span {
@@ -66,7 +66,7 @@
 }
 .vc-search h1 {
   font-size: var(--font-size-h1);
-  margin: 15px 0;
+  margin: var(--space-4) 0;
 }
 .vc-search > p {
   font-size: var(--font-size-caption);
@@ -77,15 +77,15 @@
   background: color-mix(in srgb, var(--color-white) 4.71%, transparent);
   border: 1px solid color-mix(in srgb, var(--color-white) 7.45%, transparent);
   border-radius: 18px;
-  padding: 19px 25px;
+  padding: var(--space-4) var(--space-5);
   width: min(350px, 100%);
-  margin: 27px 0;
+  margin: var(--space-5) 0;
 }
 .vc-search-checks > div {
   display: flex;
-  gap: 13px;
+  gap: var(--space-3);
   align-items: center;
-  padding: 9px 0;
+  padding: var(--space-2) 0;
   color: var(--color-teal-700);
   font-size: var(--font-size-caption);
   transition: color 0.4s;
@@ -129,7 +129,7 @@
 .vc-search-demo {
   font-size: var(--font-size-caption);
   color: var(--color-teal-700);
-  margin-top: 19px;
+  margin-top: var(--space-4);
 }
 .vc-search .vc-text-button {
   color: var(--color-teal-100);

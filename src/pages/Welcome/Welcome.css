@@ -9,7 +9,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 11px var(--space-7);
+  padding: var(--space-3) var(--space-7);
   background: var(--color-neutral-100);
   border-bottom: 1px solid var(--color-teal-100);
 }
@@ -31,7 +31,7 @@
 
 .btn-primary-pill {
   border-radius: var(--radius-full);
-  padding: 6px 22px;
+  padding: var(--space-1) var(--space-5);
   font-weight: 600;
   font-size: var(--text-sm);
   cursor: pointer;
@@ -47,7 +47,7 @@
   background: var(--color-white);
   border: 1px solid var(--color-neutral-900);
   border-radius: 10px;
-  padding: 10px 20px;
+  padding: var(--space-2) var(--space-4);
   font-weight: 600;
   font-size: var(--font-size-body);
   cursor: pointer;
@@ -63,7 +63,7 @@
   color: var(--color-white);
   border: none;
   border-radius: 10px;
-  padding: 13px var(--space-5);
+  padding: var(--space-3) var(--space-5);
   font-weight: 600;
   font-size: var(--text-sm);
   cursor: pointer;
@@ -75,12 +75,12 @@
 .hero {
   /* display: flex; */
   /* gap: 56px; */
-  padding: 56px var(--space-7);
+  padding: var(--space-7) var(--space-7);
   align-items: center;
 }
 .hero-inner {
   display: flex;
-  gap: 56px;
+  gap: var(--space-7);
   align-items: center;
   max-width: 1200px;
   margin: 0 auto;
@@ -105,10 +105,10 @@
   background: var(--color-white);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-lg);
-  padding: 10px 14px;
+  padding: var(--space-2) var(--space-3);
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-2);
   font-size: var(--font-size-caption);
   max-width: calc(100% - 32px);
 }
@@ -154,24 +154,24 @@
   font-weight: var(--font-weight-bold);
 }
 .hero-desc {
-  padding: 5px;
+  padding: var(--space-1);
   color: var(--color-neutral-900);
   font-size: var(--text-lg);
   line-height: 1.6;
-  margin-bottom: 20px;
+  margin-bottom: var(--space-4);
 }
 
 .feature-tags {
   display: flex;
   gap: var(--space-4);
   flex-wrap: wrap;
-  margin-bottom: 28px;
+  margin-bottom: var(--space-5);
 }
 .tag {
   background: var(--color-neutral-900);
   color: var(--color-white);
   border-radius: var(--radius-full);
-  padding: var(--space-2) 28px;
+  padding: var(--space-2) var(--space-5);
   font-size: var(--font-size-caption);
   font-weight: 500;
   min-width: 160px;
@@ -180,7 +180,7 @@
 
 .hero-actions {
   display: flex;
-  gap: 15px;
+  gap: var(--space-4);
 }
 .hero-cta {
   width: auto;
@@ -193,12 +193,12 @@
 }
 
 .challenges {
-  padding: 56px var(--space-7);
+  padding: var(--space-7) var(--space-7);
   text-align: center;
 }
 
 .explore {
-  padding: 56px var(--space-7);
+  padding: var(--space-7) var(--space-7);
   text-align: center;
   background: var(--color-neutral-50);
   scroll-margin-top: 90px;
@@ -209,7 +209,7 @@
   font-size: var(--font-size-h1);
   font-weight: 800;
   color: var(--color-neutral-900);
-  margin: 0 0 5px;
+  margin: 0 0 var(--space-1);
 }
 .section-subtitle {
   color: var(--color-neutral-700);
@@ -228,7 +228,7 @@
 .challenge-card {
   border: 1.5px dashed var(--color-neutral-200);
   border-radius: var(--radius-lg);
-  padding: 20px;
+  padding: var(--space-4);
 }
 .challenge-card--coral {
   border-color: var(--color-coral-200);
@@ -250,7 +250,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 10px;
+  margin-bottom: var(--space-2);
 }
 .challenge-icon--coral {
   background: var(--color-coral-50);
@@ -320,7 +320,7 @@
 .explore-col h3 {
   font-size: var(--font-size-h3);
   font-family: var(--font-family-body);
-  margin: 0 0 10px;
+  margin: 0 0 var(--space-2);
   color: var(--color-neutral-900);
 }
 .explore-col p {
@@ -338,7 +338,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-2);
   text-align: left;
   max-width: 325px;
 }

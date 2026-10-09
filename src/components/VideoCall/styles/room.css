@@ -21,7 +21,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 100px 25px 160px;
+  padding: 100px var(--space-5) 160px;
 }
 .vc-call-backdrop .vc-remote-avatar {
   width: 155px;
@@ -29,7 +29,7 @@
   box-shadow:
     0 0 0 14px color-mix(in srgb, var(--color-white) 1.57%, transparent),
     0 0 0 30px color-mix(in srgb, var(--color-white) 1.18%, transparent);
-  margin-bottom: 30px;
+  margin-bottom: var(--space-6);
 }
 .vc-call-backdrop h1 {
   font-size: var(--font-size-h1);
@@ -44,7 +44,7 @@
   color: var(--color-neutral-200);
   max-width: 310px;
   text-align: center;
-  margin-top: 13px;
+  margin-top: var(--space-3);
 }
 .vc-call-header {
   position: absolute;
@@ -57,12 +57,12 @@
   width: fit-content;
   max-width: calc(100% - 56px);
   align-items: center;
-  gap: 20px;
+  gap: var(--space-4);
   z-index: 3;
 }
 .vc-call-header > div {
   display: flex;
-  gap: 10px;
+  gap: var(--space-2);
   align-items: center;
   width: fit-content;
   padding: var(--space-2) var(--space-3);
@@ -83,7 +83,7 @@
 .vc-call-header small {
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: var(--space-2);
   font-size: var(--font-size-caption);
   color: var(--color-neutral-300);
   margin-top: var(--space-1);
@@ -96,7 +96,7 @@
   padding: var(--space-2) var(--space-3);
   font-size: var(--font-size-caption);
   display: flex;
-  gap: 6px;
+  gap: var(--space-1);
   align-items: center;
 
   font-family: var(--font-family-mono);
@@ -119,7 +119,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  gap: 14px;
+  gap: var(--space-3);
   color: var(--color-neutral-400);
 }
 .vc-self > div > span {
@@ -178,7 +178,7 @@
 }
 .vc-call--split .vc-call-backdrop {
   inset: 0 50% 0 0;
-  padding: 30px 20px;
+  padding: var(--space-6) var(--space-4);
   border-radius: 0;
   border: 0;
   text-align: center;
@@ -206,10 +206,10 @@
 }
 .vc-wave {
   display: flex;
-  gap: 5px;
+  gap: var(--space-1);
   height: 28px;
   align-items: center;
-  margin-top: 23px;
+  margin-top: var(--space-5);
 }
 .vc-wave i {
   width: 3px;
@@ -226,7 +226,7 @@
   width: min(360px, calc(50vw - 265px));
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: var(--space-3);
   animation: vc-enter 0.3s ease;
 }
 .vc-chat button {
@@ -243,7 +243,7 @@
   height: min(280px, 35dvh);
   overflow-y: auto;
   scrollbar-width: none;
-  padding: 28px var(--space-1) 0;
+  padding: var(--space-5) var(--space-1) 0;
   mask-image: linear-gradient(to bottom, transparent, var(--color-neutral-900) 32px);
   scroll-behavior: smooth;
 }
@@ -258,7 +258,7 @@
 .vc-chat-message {
   display: flex;
   align-items: flex-start;
-  gap: 9px;
+  gap: var(--space-2);
   margin-bottom: var(--space-3);
   animation: vc-chat-rise 0.35s ease-out both;
 }
@@ -287,7 +287,7 @@
 .vc-chat-messages strong {
   color: var(--color-teal-100);
   font-weight: 700;
-  margin-right: 5px;
+  margin-right: var(--space-1);
 }
 .vc-chat-messages .mine strong {
   color: var(--color-teal-100);
@@ -298,9 +298,8 @@
   align-items: center;
   gap: var(--space-1);
   background: color-mix(in srgb, var(--color-neutral-900) 40%, transparent);
-  backdrop-filter: blur(8px);
   border-radius: var(--radius-xl);
-  padding: 6px var(--space-2) 6px var(--space-4);
+  padding: var(--space-1) var(--space-2) var(--space-1) var(--space-4);
 }
 .vc-chat input {
   min-width: 0;
@@ -362,13 +361,12 @@
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 10px;
+  gap: var(--space-2);
   padding: var(--space-3);
   background: color-mix(in srgb, var(--color-neutral-900) 85.1%, transparent);
   border: 1px solid color-mix(in srgb, var(--color-white) 9.8%, transparent);
   border-radius: 25px;
   box-shadow: var(--shadow-lg);
-  backdrop-filter: blur(20px);
 }
 .vc-call-toolbar button {
   border: 0;
@@ -394,7 +392,7 @@
 .vc-call-toolbar > span {
   width: 1px;
   background: color-mix(in srgb, var(--color-white) 8.24%, transparent);
-  margin: var(--space-2) 2px;
+  margin: var(--space-2) var(--space-1);
 }
 .vc-call-toolbar button.vc-hangup {
   background: var(--color-coral-500);
@@ -446,7 +444,7 @@
   text-shadow: 0 1px 4px var(--color-neutral-900);
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--space-1);
   width: max-content;
   max-width: calc(100% - 24px);
   text-align: center;
@@ -480,12 +478,12 @@
 }
 @media (max-width: 640px) {
   .vc-call--split .vc-call-backdrop {
-    padding: 20px 10px;
+    padding: var(--space-4) var(--space-2);
   }
   .vc-call--split .vc-call-backdrop .vc-remote-avatar {
     width: 64px;
     height: 64px;
-    margin-bottom: 20px;
+    margin-bottom: var(--space-4);
   }
   .vc-call--split .vc-call-backdrop h1 {
     font-size: var(--font-size-h1);

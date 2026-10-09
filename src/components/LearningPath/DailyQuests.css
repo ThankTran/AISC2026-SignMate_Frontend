@@ -1,5 +1,5 @@
 .lp-quests {
-  padding: 22px;
+  padding: var(--space-5);
   border: 1px solid var(--color-neutral-200);
   border-radius: 18px;
   background: var(--color-white);
@@ -8,8 +8,8 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 6px;
-  margin-bottom: 16px;
+  gap: var(--space-1);
+  margin-bottom: var(--space-4);
 }
 .lp-quests__title {
   margin: 0;
@@ -32,17 +32,17 @@
 }
 .lp-quests__list {
   display: grid;
-  gap: 12px;
+  gap: var(--space-3);
   list-style: none;
   padding: 0;
-  margin: 20px 0 0;
+  margin: var(--space-4) 0 0;
 }
 .lp-quest {
   display: grid;
   grid-template-columns: 28px minmax(0, 1fr);
   align-items: start;
-  gap: 12px;
-  padding: 16px;
+  gap: var(--space-3);
+  padding: var(--space-4);
   border: 1px solid var(--color-neutral-200);
   border-radius: 12px;
   background: var(--color-neutral-50);
@@ -67,7 +67,7 @@
 .lp-quest__content {
   display: grid;
   min-width: 0;
-  gap: 8px;
+  gap: var(--space-2);
 }
 .lp-quest__label {
   color: var(--color-neutral-900);
@@ -86,6 +86,6 @@
 }
 @media (max-width: 640px) {
   .lp-quests {
-    padding: 18px;
+    padding: var(--space-4);
   }
 }

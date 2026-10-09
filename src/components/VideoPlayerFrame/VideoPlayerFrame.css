@@ -5,7 +5,7 @@
 .vp-frame {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--space-4);
 }
 
 .vp-frame__video {
@@ -18,10 +18,10 @@
   background: #f3f2ee;
   border: 1px solid #e6e5e0;
   border-radius: 18px;
-  padding: 20px;
+  padding: var(--space-4);
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: var(--space-3);
 }
 
 .vp-frame__thumb {
@@ -31,7 +31,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: var(--space-2);
 
   min-height: 260px;
 }
@@ -103,7 +103,7 @@
   justify-content: center;
 
   cursor: pointer;
-  box-shadow: 0 6px 20px rgba(13, 138, 106, 0.4);
+  box-shadow: var(--shadow-sm);
 
   transform: translate(-50%, -50%);
   transition:
@@ -138,7 +138,7 @@
 
 .vp-frame__center-btn--pause {
   background: rgba(17, 24, 39, 0.55);
-  box-shadow: 0 6px 20px rgba(17, 24, 39, 0.3);
+  box-shadow: var(--shadow-sm);
 }
 
 .vp-frame__center-btn--pause:hover {
@@ -154,9 +154,9 @@
 
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-2);
 
-  padding: 8px 14px;
+  padding: var(--space-2) var(--space-3);
   border-radius: 10px;
 
   background: rgba(17, 24, 39, 0.88);
@@ -197,7 +197,7 @@
 .vp-frame__seek {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--space-1);
 }
 
 .vp-frame__seek-bar {
@@ -239,7 +239,7 @@
   z-index: 6;
   pointer-events: none;
 
-  padding: 4px 9px;
+  padding: var(--space-1) var(--space-2);
   border-radius: 7px;
 
   background: #111827;
@@ -290,22 +290,22 @@
 .vp-frame__controls {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-2);
   flex-wrap: wrap;
 }
 
 .vp-frame__speeds {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--space-1);
 
-  padding: 3px;
+  padding: var(--space-1);
   border-radius: 10px;
   background: #ecebe6;
 }
 
 .vp-frame__speed {
-  padding: 6px 14px;
+  padding: var(--space-1) var(--space-3);
   border: none;
   border-radius: 8px;
 
@@ -335,9 +335,9 @@
 .vp-frame__btn {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: var(--space-1);
 
-  padding: 7px 14px;
+  padding: var(--space-2) var(--space-3);
   border: 1px solid #e2e0da;
   border-radius: 10px;
   background: #fff;
@@ -390,7 +390,7 @@
 
 @media (max-width: 640px) {
   .vp-frame__player {
-    padding: 14px;
+    padding: var(--space-3);
   }
 
   .vp-frame__thumb {
@@ -420,8 +420,8 @@
 .vp-frame__loading {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 12px;
+  gap: var(--space-2);
+  padding: var(--space-3);
 }
 .vp-frame__spinner {
   animation: vp-spin 1s linear infinite;

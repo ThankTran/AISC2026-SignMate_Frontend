@@ -4,7 +4,7 @@
 
 .lp-next {
   border-radius: 18px;
-  padding: 22px;
+  padding: var(--space-5);
   color: var(--color-white);
   display: flex;
   align-items: center;
@@ -71,6 +71,6 @@
 
 @media (max-width: 1024px) {
   .lp-next {
-    padding: 18px;
+    padding: var(--space-4);
   }
 }

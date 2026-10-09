@@ -2,9 +2,9 @@
   --st-mono: var(--font-family-mono);
   max-width: 1160px;
   margin: auto;
-  padding: 24px;
+  padding: var(--space-5);
   display: grid;
-  gap: 24px;
+  gap: var(--space-5);
   color: var(--color-neutral-900);
 }
 .st header p,
@@ -14,19 +14,19 @@
 .st-summaries {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 16px;
+  gap: var(--space-4);
 }
 .st-summary,
 .st-card {
   background: white;
   border: 1px solid var(--color-neutral-200);
   border-radius: 18px;
-  padding: 24px;
+  padding: var(--space-5);
 }
 .st-summary {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--space-3);
 }
 .st-summary strong {
   font-family: var(--st-mono);
@@ -46,7 +46,7 @@
 }
 .st-card {
   display: grid;
-  gap: 16px;
+  gap: var(--space-4);
 }
 .st-card h2,
 .st-card h3,
@@ -77,14 +77,14 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  gap: var(--space-4);
 }
 .st-filter > div {
   display: flex;
-  gap: 8px;
+  gap: var(--space-2);
 }
 .st-filter button {
-  padding: 10px 14px;
+  padding: var(--space-2) var(--space-3);
   background: white;
   border: 1px solid var(--color-neutral-300);
   border-radius: 10px;
@@ -99,7 +99,7 @@
 .st-charts {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  gap: var(--space-4);
   min-width: 0;
 }
 .st-charts > section {
@@ -108,16 +108,16 @@
 .st-bars {
   display: flex;
   align-items: flex-end;
-  gap: 12px;
+  gap: var(--space-3);
   overflow-x: auto;
-  padding: 16px 0;
+  padding: var(--space-4) 0;
 }
 .st-bars__column {
   flex: 1;
   min-width: 36px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--space-2);
   align-items: center;
   font-size: var(--font-size-caption);
 }
@@ -128,7 +128,7 @@
   border-radius: 5px 5px 0 0;
 }
 .st-empty {
-  padding: 24px 0;
+  padding: var(--space-5) 0;
   line-height: 1.6;
 }
 .st-charts svg {
@@ -144,7 +144,7 @@
   grid-template-columns: repeat(12, minmax(0, 1fr));
   grid-template-rows: repeat(7, 16px);
   grid-auto-flow: column;
-  gap: 5px;
+  gap: var(--space-1);
 }
 .st-heatmap > span {
   background: var(--color-neutral-100);
@@ -163,7 +163,7 @@
 .st-chapter {
   display: grid;
   grid-template-columns: 52px 1fr;
-  gap: 16px;
+  gap: var(--space-4);
   align-items: center;
 }
 .st-chapter__badge {
@@ -182,23 +182,23 @@
 .st-chapter__heading {
   display: flex;
   justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 10px;
+  gap: var(--space-3);
+  margin-bottom: var(--space-2);
 }
 .st-chapter__heading > span {
   white-space: nowrap;
 }
 @media (max-width: 768px) {
   .st {
-    padding: 16px;
-    gap: 20px;
+    padding: var(--space-4);
+    gap: var(--space-4);
   }
   .st-summaries {
     grid-template-columns: 1fr 1fr;
   }
   .st-summary,
   .st-card {
-    padding: 18px;
+    padding: var(--space-4);
   }
   .st-charts {
     grid-template-columns: 1fr;

@@ -39,7 +39,7 @@
   flex-direction: column;
   align-items: center;
 
-  padding: 30px 28px 26px;
+  padding: var(--space-6) var(--space-5) var(--space-5);
 
   background: linear-gradient(
     135deg,
@@ -120,7 +120,7 @@
 
 .lrm__hero-tag {
   display: inline-flex;
-  padding: 5px 14px;
+  padding: var(--space-1) var(--space-3);
   border-radius: var(--radius-full);
 
   background: color-mix(in srgb, var(--color-white) 16%, transparent);
@@ -130,7 +130,7 @@
 }
 
 .lrm__hero-title {
-  margin: 10px 0 0;
+  margin: var(--space-2) 0 0;
 
   font-family: var(--font-family-main);
   font-size: var(--font-size-h2);
@@ -153,16 +153,16 @@
   grid-template-columns: repeat(3, 1fr);
   gap: var(--space-3);
 
-  padding: 20px 22px 0;
+  padding: var(--space-4) var(--space-5) 0;
 }
 
 .lrm-stat {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 5px;
+  gap: var(--space-1);
 
-  padding: 14px var(--space-4);
+  padding: var(--space-3) var(--space-4);
 
   border: 1px solid var(--color-coral-50);
   border-radius: 14px;
@@ -181,7 +181,7 @@
 
 .lrm-stat__flag {
   display: inline-flex;
-  padding: 3px 10px;
+  padding: var(--space-1) var(--space-2);
   border-radius: var(--radius-full);
 
   background: var(--color-teal-700);
@@ -194,7 +194,7 @@
 .lrm-stat__note {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: var(--space-1);
 
   font-family: var(--font-family-body);
   font-size: var(--font-size-caption);
@@ -224,7 +224,7 @@
 .lrm-stat__value--time {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
+  gap: var(--space-2);
 
   color: var(--color-teal-800);
 
@@ -248,11 +248,11 @@
 .lrm-xpbar {
   display: flex;
   align-items: center;
-  gap: 3px;
+  gap: var(--space-1);
 
   width: 100%;
   margin-top: auto;
-  padding-top: 6px;
+  padding-top: var(--space-1);
 }
 
 .lrm-xpbar__seg {
@@ -270,8 +270,8 @@
 /* ===== ACCURACY BREAKDOWN ===== */
 
 .lrm-breakdown {
-  margin: 20px 22px 0;
-  padding: 18px 20px;
+  margin: var(--space-4) var(--space-5) 0;
+  padding: var(--space-4) var(--space-4);
 
   border: 1px solid var(--color-coral-50);
   border-radius: var(--radius-lg);
@@ -285,7 +285,7 @@
   justify-content: space-between;
   gap: var(--space-3);
 
-  margin-bottom: 14px;
+  margin-bottom: var(--space-3);
 }
 
 .lrm-breakdown__title {
@@ -375,11 +375,11 @@
 .lrm-breakdown__legend {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: var(--space-4);
   flex-wrap: wrap;
 
   margin-top: var(--space-4);
-  padding-top: 14px;
+  padding-top: var(--space-3);
 
   border-top: 1px dashed var(--color-coral-50);
 }
@@ -387,7 +387,7 @@
 .lrm-legend {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
+  gap: var(--space-2);
 
   font-family: var(--font-family-body);
   font-size: var(--font-size-caption);
@@ -414,10 +414,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 14px;
+  gap: var(--space-3);
   flex-wrap: wrap;
 
-  padding: 18px 22px 22px;
+  padding: var(--space-4) var(--space-5) var(--space-5);
 }
 
 .lrm__retake {
@@ -427,7 +427,7 @@
   gap: var(--space-2);
 
   min-height: 44px;
-  padding: 0 20px;
+  padding: 0 var(--space-4);
   border: 1px solid var(--color-teal-600);
   border-radius: 13px;
 
@@ -468,7 +468,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 1px;
+  gap: var(--space-1);
 }
 
 .lrm__next-label {
@@ -491,7 +491,7 @@
   gap: var(--space-2);
 
   min-height: 44px;
-  padding: 0 22px;
+  padding: 0 var(--space-5);
   border: none;
   border-radius: 13px;
 
@@ -504,7 +504,7 @@
 
   cursor: pointer;
 
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
   transition:
     box-shadow var(--duration-base) var(--ease-standard),
     transform var(--duration-fast) var(--ease-standard),
@@ -514,7 +514,7 @@
 .lrm__next-btn:hover {
   filter: brightness(1.06);
   transform: translateY(-1px);
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-sm);
 }
 
 .lrm__next-btn:focus-visible {
@@ -544,14 +544,14 @@
 @media (max-width: 640px) {
   .lrm__stats {
     grid-template-columns: 1fr;
-    gap: 10px;
+    gap: var(--space-2);
   }
 
   .lrm-stat {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    gap: 10px;
+    gap: var(--space-2);
   }
 
   .lrm-stat--xp {

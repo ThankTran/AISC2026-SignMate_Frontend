@@ -5,7 +5,7 @@
   --vc-purple: var(--color-teal-500);
   --vc-orange: var(--color-coral-500);
   color: var(--vc-ink);
-  padding: 26px var(--page-gutter) 40px;
+  padding: var(--space-5) var(--page-gutter) var(--space-6);
   width: 100%;
   max-width: none;
   margin: 0;
@@ -28,9 +28,9 @@
   border: 1px solid transparent;
   border-radius: 9px;
   background: var(--color-teal-50);
-  padding: 13px;
+  padding: var(--space-3);
   color: var(--color-neutral-700);
-  margin-top: 11px;
+  margin-top: var(--space-3);
   font-size: var(--font-size-caption);
   line-height: 1.6;
 }
@@ -71,7 +71,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 38px;
+  margin-bottom: var(--space-6);
   font-size: var(--font-size-caption);
   color: var(--color-neutral-500);
 }
@@ -89,7 +89,7 @@
   font-size: var(--font-size-caption);
   letter-spacing: 1px;
   border: 1px solid var(--color-neutral-200);
-  padding: 3px 6px;
+  padding: var(--space-1) var(--space-1);
   border-radius: 4px;
   color: var(--color-neutral-500);
 }
@@ -103,7 +103,7 @@
   background: var(--color-white);
   border: 1px solid var(--color-neutral-100);
   border-radius: 20px;
-  padding: 28px;
+  padding: var(--space-5);
   box-shadow: var(--shadow-md);
 }
 .vc-section-title {
@@ -156,32 +156,32 @@
   max-width: 600px;
   margin: 0 auto;
   text-align: center;
-  padding: var(--space-1) 0 35px;
+  padding: var(--space-1) 0 var(--space-6);
 }
 .vc-centered > h1 {
   font-size: var(--font-size-h1);
-  margin: 19px 0 var(--space-3);
+  margin: var(--space-4) 0 var(--space-3);
 }
 .vc-centered > p {
   font-size: var(--font-size-caption);
   color: var(--color-neutral-500);
-  margin-bottom: 27px;
+  margin-bottom: var(--space-5);
 }
 .vc-success-pill {
   display: inline-flex;
-  gap: 7px;
+  gap: var(--space-2);
   align-items: center;
   border: 1px solid var(--color-teal-50);
   background: var(--color-teal-50);
   color: var(--color-teal-700);
   font-size: var(--font-size-caption);
-  padding: 6px var(--space-3);
+  padding: var(--space-1) var(--space-3);
   border-radius: 20px;
 }
 .vc-actions {
   display: flex;
   gap: var(--space-3);
-  margin-top: 20px;
+  margin-top: var(--space-4);
 }
 .vc-actions > * {
   flex: 1;
@@ -191,7 +191,7 @@
   border: 0;
   color: var(--color-neutral-500);
   font-size: var(--font-size-caption);
-  padding: 15px;
+  padding: var(--space-4);
 }
 .vc-page.vc-stage-search {
   max-width: none;
@@ -229,7 +229,7 @@
   top: -5px;
   right: -5px;
   border-radius: var(--radius-full);
-  padding: 2px 6px;
+  padding: var(--space-1) var(--space-1);
   background: var(--color-coral-500);
   color: var(--color-white);
   font-family: var(--font-family-mono);

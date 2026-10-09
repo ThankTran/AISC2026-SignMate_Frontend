@@ -120,15 +120,15 @@
 .main-layout__body > .app-footer {
   min-height: var(--app-bottom-height);
   flex-shrink: 0;
-  padding: 10px var(--page-gutter);
+  padding: var(--space-2) var(--page-gutter);
   box-sizing: border-box;
-  gap: 12px;
+  gap: var(--space-3);
 }
 .main-layout__page > :is(.st, .pf) {
   max-width: none;
   margin: 0;
   grid-template-columns: minmax(0, 1fr);
-  padding: 24px var(--page-gutter);
+  padding: var(--space-5) var(--page-gutter);
 }
 .main-layout__page > :is(.db, .lp-page, .lb, .friends-page, .ai-practice, .quiz, .qr) {
   min-width: 0;
@@ -140,6 +140,6 @@
     --page-gutter: 16px;
   }
   .main-layout__page > :is(.st, .pf) {
-    padding: 20px var(--page-gutter);
+    padding: var(--space-4) var(--page-gutter);
   }
 }

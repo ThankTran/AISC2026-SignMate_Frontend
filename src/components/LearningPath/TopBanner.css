@@ -5,7 +5,7 @@
 .lp-banner {
   background: var(--color-teal-600);
   border-radius: 18px;
-  padding: 28px var(--space-6);
+  padding: var(--space-5) var(--space-6);
   color: var(--color-white);
 }
 
@@ -21,13 +21,13 @@
 .lp-banner__left {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--space-1);
 }
 
 .lp-banner__tag {
   display: inline-flex;
   align-self: flex-start;
-  padding: 3px var(--space-3);
+  padding: var(--space-1) var(--space-3);
   border-radius: 20px;
   background: color-mix(in srgb, var(--color-white) 20%, transparent);
   font-size: var(--font-size-caption);
@@ -72,7 +72,7 @@
 }
 
 .lp-banner__badge {
-  padding: var(--space-1) 14px;
+  padding: var(--space-1) var(--space-3);
   border-radius: 20px;
   background: color-mix(in srgb, var(--color-white) 22%, transparent);
   font-size: var(--font-size-caption);
@@ -86,7 +86,7 @@
 
 @media (max-width: 640px) {
   .lp-banner {
-    padding: 20px 18px;
+    padding: var(--space-4) var(--space-4);
   }
 
   .lp-banner__title {

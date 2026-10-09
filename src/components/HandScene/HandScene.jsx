@@ -122,54 +122,6 @@ export default function HandScene() {
 
   return (
     <div className="hand-scene" ref={sceneRef}>
-      <div className="hand-scene-halo" aria-hidden="true" />
-      <div className="hand-scene-energy" aria-hidden="true">
-        {[0, 1, 2, 3].map((index) => (
-          <div className={`hand-scene-orbit-plane hand-scene-orbit-plane-${index}`} key={index}>
-            <div className="hand-scene-orbit-track">
-              <i />
-              <i />
-              <i />
-            </div>
-          </div>
-        ))}
-      </div>
-      <div className="hand-scene-ring" aria-hidden="true">
-        <i />
-      </div>
-      <div className="hand-scene-ring hand-scene-ring-top" aria-hidden="true">
-        <i />
-      </div>
-      <div className="hand-scene-ring hand-scene-ring-bottom" aria-hidden="true">
-        <i />
-      </div>
-      <div className="hand-scene-star" aria-hidden="true">
-        ✳
-      </div>
-      <div className="hand-scene-star hand-scene-star-small" aria-hidden="true">
-        ✧
-      </div>
-      <div className="hand-scene-particles" aria-hidden="true">
-        {Array.from({ length: 28 }, (_, index) => {
-          const angle = index * 2.39996;
-          const radius = 30 + (index % 4) * 4;
-
-          return (
-            <i
-              key={index}
-              style={{
-                "--i": index,
-                left: `${49 + Math.cos(angle) * radius}%`,
-                top: `${50 + Math.sin(angle) * radius}%`,
-                "--drift-x": `${Math.cos(angle + 1) * 15}px`,
-                "--drift-y": `${-12 - (index % 5) * 5}px`,
-                "--particle-size": `${3 + (index % 4)}px`,
-                "--particle-duration": `${4 + (index % 6)}s`,
-              }}
-            />
-          );
-        })}
-      </div>
       <div className="hand-scene-shadow" aria-hidden="true" />
       <div className="hand-scene-hand">
         <div className="hand-scene-hand-float">
@@ -209,30 +161,6 @@ export default function HandScene() {
         <div className="hand-card">
           <strong>Người học tích cực</strong>
           <Plus aria-hidden="true" />
-        </div>
-      </div>
-      <div className="hand-card-slot hand-card-joints">
-        <div className="hand-card">
-          <span className="hand-card-label">Điểm mốc khớp tay</span>
-          <strong className="hand-card-number">21</strong>
-          <svg viewBox="0 0 100 75" className="hand-card-joint-map" aria-hidden="true">
-            <path d="M 22 47 L 12 28 L 24 13 L 42 40 L 56 18 L 72 31 L 85 40 M 42 40 L 49 51 L 67 59 M 22 47 L 32 62 L 45 69" />
-            {[
-              [22, 47],
-              [12, 28],
-              [24, 13],
-              [42, 40],
-              [56, 18],
-              [72, 31],
-              [85, 40],
-              [49, 51],
-              [67, 59],
-              [32, 62],
-              [45, 69],
-            ].map(([x, y], i) => (
-              <circle key={i} cx={x} cy={y} r="3.7" style={{ animationDelay: `${i * 0.15}s` }} />
-            ))}
-          </svg>
         </div>
       </div>
     </div>

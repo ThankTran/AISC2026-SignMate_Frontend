@@ -280,7 +280,7 @@ export default function QuizResultPage() {
     return (
       <EmptyState
         title="Chưa có kết quả kiểm tra"
-        description="Hoàn thành bài kiểm tra để xem kết quả và câu trả lời."
+        description="Hoàn thành bài kiểm tra để xem kết quả và câu trả lời." to="/learning-path" actionLabel="Chọn bài kiểm tra"
       />
     );
   }

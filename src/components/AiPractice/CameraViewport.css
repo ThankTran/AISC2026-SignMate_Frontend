@@ -20,20 +20,19 @@
   z-index: 10;
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: var(--space-2);
 }
 
 .cam-viewport__badge {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  padding: 5px 12px;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-3);
   border-radius: 999px;
   font-family: var(--font-family-body);
   font-size: var(--font-size-caption);
   font-weight: var(--font-weight-semibold);
   color: var(--color-white);
-  backdrop-filter: blur(6px);
   white-space: nowrap;
 }
 
@@ -130,8 +129,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 14px;
-  padding: 20px;
+  gap: var(--space-3);
+  padding: var(--space-4);
   background: rgba(18, 19, 28, 0.82);
   color: rgba(255, 255, 255, 0.75);
 }
@@ -154,7 +153,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: var(--space-3);
   background: var(--color-neutral-900);
   color: rgba(255, 255, 255, 0.9);
 }
@@ -233,10 +232,9 @@
 }
 
 .cam-viewport__idle-prompt p {
-  padding: 8px 18px;
+  padding: var(--space-2) var(--space-4);
   border-radius: 999px;
   background: rgba(18, 19, 28, 0.55);
-  backdrop-filter: blur(4px);
   color: var(--color-white);
   font-family: var(--font-family-body);
   font-size: var(--font-size-caption);
@@ -252,7 +250,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: var(--space-2);
   background: rgba(18, 19, 28, 0.6);
   color: rgba(255, 255, 255, 0.7);
 }
@@ -271,12 +269,11 @@
   z-index: 10;
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 14px;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-3);
   border-radius: 12px;
   border: none;
   background: rgba(30, 28, 45, 0.85);
-  backdrop-filter: blur(6px);
   color: inherit;
   font-family: inherit;
   text-align: left;
@@ -329,11 +326,10 @@
   z-index: 10;
   display: flex;
   align-items: center;
-  gap: 5px;
-  padding: 5px 12px;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-3);
   border-radius: 10px;
   background: rgba(30, 28, 45, 0.85);
-  backdrop-filter: blur(6px);
 }
 
 .cam-viewport__conf-label {
@@ -389,11 +385,11 @@
   .cam-viewport__badges-top {
     top: 10px;
     left: 10px;
-    gap: 5px;
+    gap: var(--space-1);
   }
 
   .cam-viewport__badge {
-    padding: 4px 9px;
+    padding: var(--space-1) var(--space-2);
     font-size: var(--font-size-caption);
   }
 }

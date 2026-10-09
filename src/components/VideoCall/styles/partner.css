@@ -11,10 +11,10 @@
 .vc-compatibility {
   display: flex;
   align-items: center;
-  gap: 13px;
+  gap: var(--space-3);
   background: var(--color-teal-700);
   color: var(--color-white);
-  padding: 14px 20px;
+  padding: var(--space-3) var(--space-4);
   border-radius: var(--radius-md);
 }
 .vc-compatibility small {
@@ -37,8 +37,8 @@
 }
 .vc-partner-main {
   display: flex;
-  gap: 23px;
-  margin: 26px 0 22px;
+  gap: var(--space-5);
+  margin: var(--space-5) 0 var(--space-5);
 }
 .vc-partner-avatar {
   position: relative;
@@ -56,17 +56,17 @@
   font-size: var(--font-size-caption);
   background: var(--color-white);
   border: 1px solid var(--color-teal-50);
-  padding: var(--space-1) 7px;
+  padding: var(--space-1) var(--space-2);
   border-radius: 20px;
 }
 .vc-partner-main h2 {
   font-size: var(--font-size-h2);
-  margin-bottom: 5px;
+  margin-bottom: var(--space-1);
 }
 .vc-partner-main p {
   font-size: var(--font-size-caption);
   color: var(--color-neutral-500);
-  margin-top: 9px;
+  margin-top: var(--space-2);
 }
 .vc-partner-main .vc-location {
   font-size: var(--font-size-caption);
@@ -78,11 +78,11 @@
 .vc-stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  gap: var(--space-2);
   margin-bottom: var(--space-5);
 }
 .vc-stats > div {
-  padding: 13px;
+  padding: var(--space-3);
   background: var(--color-teal-50);
   border-radius: 11px;
   text-align: center;
@@ -100,7 +100,7 @@
   display: block;
   font-size: var(--font-size-caption);
   color: var(--color-neutral-500);
-  margin-top: 3px;
+  margin-top: var(--space-1);
 }
 .vc-label {
   font-size: var(--font-size-caption);
@@ -109,26 +109,26 @@
 }
 .vc-tags {
   display: flex;
-  gap: 6px;
+  gap: var(--space-1);
   flex-wrap: wrap;
-  margin: 9px 0 18px;
+  margin: var(--space-2) 0 var(--space-4);
 }
 .vc-tags span {
   background: var(--color-teal-50);
   color: var(--color-teal-700);
   border-radius: 20px;
-  padding: 5px 10px;
+  padding: var(--space-1) var(--space-2);
   font-size: var(--font-size-caption);
 }
 .vc-prompt {
   border-radius: 11px;
-  padding: 15px;
+  padding: var(--space-4);
   background: var(--color-teal-50);
   border: 1px solid var(--color-teal-50);
 }
 .vc-prompt small {
   display: flex;
-  gap: 6px;
+  gap: var(--space-1);
   align-items: center;
   font-size: var(--font-size-caption);
   letter-spacing: 1px;

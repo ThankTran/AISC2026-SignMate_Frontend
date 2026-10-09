@@ -4,11 +4,11 @@
 .vc-review-person {
   display: flex;
   align-items: center;
-  gap: 13px;
+  gap: var(--space-3);
   text-align: left;
-  padding: 17px 20px;
+  padding: var(--space-4) var(--space-4);
   border-radius: 13px;
-  margin-bottom: 19px;
+  margin-bottom: var(--space-4);
 }
 .vc-review-person strong {
   font-size: var(--font-size-caption);
@@ -17,7 +17,7 @@
   display: block;
   font-size: var(--font-size-caption);
   color: var(--color-neutral-500);
-  margin-top: 3px;
+  margin-top: var(--space-1);
 }
 .vc-review-person span:not(.vc-avatar) {
   font-size: var(--font-size-caption);
@@ -34,7 +34,7 @@
   font-family: var(--font-family-mono);
 }
 .vc-rating {
-  padding: 25px 18px;
+  padding: var(--space-5) var(--space-4);
   border-radius: 13px;
 }
 .vc-rating h2 {
@@ -44,13 +44,13 @@
 .vc-stars {
   display: flex;
   justify-content: center;
-  gap: 7px;
-  margin: 20px 0 var(--space-2);
+  gap: var(--space-2);
+  margin: var(--space-4) 0 var(--space-2);
 }
 .vc-stars button {
   background: none;
   border: 0;
-  padding: 3px;
+  padding: var(--space-1);
   color: var(--color-neutral-200);
   transition: transform var(--duration-base);
 }
@@ -65,18 +65,18 @@
   font-size: var(--font-size-caption);
 }
 .vc-review-extra > .vc-panel {
-  margin-top: 17px;
-  padding: 20px;
+  margin-top: var(--space-4);
+  padding: var(--space-4);
   border-radius: 13px;
   text-align: left;
 }
 .vc-review-extra h3 {
   font-size: var(--font-size-h3);
-  margin-bottom: 13px;
+  margin-bottom: var(--space-3);
 }
 .vc-feedback-tags {
   display: flex;
-  gap: 7px;
+  gap: var(--space-2);
   flex-wrap: wrap;
 }
 .vc-feedback-tags button {
@@ -85,7 +85,7 @@
   border: 1px solid var(--color-neutral-100);
   border-radius: 20px;
   font-size: var(--font-size-caption);
-  padding: 7px 10px;
+  padding: var(--space-2) var(--space-2);
   transition: background var(--duration-base);
 }
 .vc-feedback-tags button.selected {
@@ -102,7 +102,7 @@
   padding: var(--space-3) var(--space-4);
   border-radius: 9px;
   font-size: var(--font-size-caption);
-  margin-top: 17px;
+  margin-top: var(--space-4);
 }
 .vc-xp-strip strong {
   margin-left: auto;
@@ -119,19 +119,19 @@
 }
 .vc-safety-actions {
   display: flex;
-  gap: 10px;
-  margin: 20px 0;
+  gap: var(--space-2);
+  margin: var(--space-4) 0;
 }
 .vc-safety-actions button {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--space-1);
   border: 1px solid var(--color-neutral-200);
   color: var(--color-neutral-500);
   background: none;
   border-radius: 20px;
   font-size: var(--font-size-caption);
-  padding: 6px 11px;
+  padding: var(--space-1) var(--space-3);
 }
 .vc-review > .vc-button {
   width: 100%;
