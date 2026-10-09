@@ -133,7 +133,7 @@
 }
 .st-charts svg {
   width: 100%;
-  color: var(--color-purple-500, #7964ab);
+  color: var(--color-purple-500);
 }
 .st-ai-values {
   max-height: 160px;

@@ -15,10 +15,7 @@
   background: #ffffff;
   box-shadow: 0 8px 18px rgba(68, 68, 65, 0.04);
 
-  transition:
-    box-shadow 0.18s ease,
-    border-color 0.18s ease,
-    transform 0.18s ease;
+  transition: transform var(--duration-base) var(--ease-standard);
 }
 
 .recent-call-card:hover {
@@ -84,9 +81,8 @@
 
   cursor: pointer;
   transition:
-    background-color 0.18s ease,
-    opacity 0.18s ease,
-    transform 0.18s ease;
+    opacity var(--duration-base) var(--ease-standard),
+    transform var(--duration-base) var(--ease-standard);
 }
 
 .recent-call-card__action:hover:not(:disabled) {

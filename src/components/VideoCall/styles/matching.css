@@ -49,16 +49,14 @@
   border: 1px solid color-mix(in srgb, var(--color-teal-200) 31.37%, transparent);
   border-radius: 50%;
   background: color-mix(in srgb, var(--color-teal-200) 3.92%, transparent);
-  animation: vc-ripple 3.6s ease-out infinite;
+  animation: none;
 }
 .vc-search-orb > span:nth-child(2) {
-  animation-delay: 1.2s;
 }
 .vc-search-orb > span:nth-child(3) {
-  animation-delay: 2.4s;
 }
 .vc-search-orb > svg {
-  animation: vc-float 4s ease-in-out infinite;
+  animation: none;
 }
 .vc-search .vc-eyebrow {
   color: var(--color-teal-200);
@@ -86,9 +84,9 @@
   gap: var(--space-3);
   align-items: center;
   padding: var(--space-2) 0;
-  color: var(--color-teal-700);
+  color: var(--color-teal-50);
   font-size: var(--font-size-caption);
-  transition: color 0.4s;
+  transition: none;
 }
 .vc-search-checks > div > span {
   width: 25px;
@@ -111,13 +109,13 @@
   border: 1px solid var(--color-teal-500);
   border-top-color: var(--color-teal-100);
   border-radius: 50%;
-  animation: vc-spin 1s linear infinite;
+  animation: vc-spin calc(var(--duration-slow) * 3) var(--ease-standard) infinite;
 }
 .vc-wait small {
   display: block;
   letter-spacing: 2px;
   font-size: var(--font-size-caption);
-  color: var(--color-teal-700);
+  color: var(--color-teal-50);
 }
 .vc-wait strong {
   display: block;
@@ -128,7 +126,7 @@
 }
 .vc-search-demo {
   font-size: var(--font-size-caption);
-  color: var(--color-teal-700);
+  color: var(--color-teal-50);
   margin-top: var(--space-4);
 }
 .vc-search .vc-text-button {

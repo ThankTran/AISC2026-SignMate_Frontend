@@ -38,7 +38,7 @@
   font-size: var(--text-sm);
   font-family: var(--font-family-body);
   outline: 2px solid transparent;
-  transition: border-color 0.15s;
+  transition: none;
 }
 .field input:focus {
   border-color: var(--color-teal-500);
@@ -71,7 +71,7 @@
   font-size: var(--text-sm);
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.15s;
+  transition: none;
 }
 .btn-primary:hover {
   background: var(--color-coral-700);

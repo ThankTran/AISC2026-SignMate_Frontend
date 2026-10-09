@@ -40,10 +40,7 @@
   padding: var(--space-3) var(--space-4);
   border-radius: var(--radius-md);
   font-size: var(--font-size-caption);
-  transition:
-    background var(--duration-base),
-    transform var(--duration-base),
-    border-color var(--duration-base);
+  transition: transform var(--duration-base) var(--ease-standard);
 }
 .vc-topic:hover {
   transform: translateY(-3px);
@@ -107,7 +104,7 @@
   font-size: var(--font-size-caption);
   line-height: 1.6;
   color: var(--color-neutral-700);
-  transition: background var(--duration-base);
+  transition: none;
 }
 .vc-suggestions > button svg {
   flex-shrink: 0;
@@ -200,7 +197,7 @@
     0 12px 25px color-mix(in srgb, var(--color-teal-500) 22.35%, transparent),
     inset 0 2px 1px color-mix(in srgb, var(--color-white) 33.33%, transparent);
   transform: rotate(-8deg);
-  animation: vc-float 5s ease-in-out infinite;
+  animation: none;
 }
 .vc-orbit-node {
   position: absolute;
@@ -210,7 +207,7 @@
   display: grid;
   place-items: center;
   box-shadow: var(--shadow-md);
-  animation: vc-float 5s ease-in-out infinite reverse;
+  animation: none;
 }
 .vc-orbit-spark {
   position: absolute;
@@ -306,7 +303,6 @@
   top: 25px;
   background: var(--color-teal-50);
   color: var(--color-teal-200);
-  animation-delay: -2s;
 }
 
 :where(.vc-custom input) {

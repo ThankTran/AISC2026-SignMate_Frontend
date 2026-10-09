@@ -66,7 +66,7 @@
 .ai-practice__progress-fill {
   height: 100%;
   border-radius: 999px;
-  transition: width 0.5s ease;
+  transition: width calc(var(--duration-slow) * 2) var(--ease-standard);
   background: var(--color-purple-500);
 }
 
@@ -229,7 +229,7 @@
   background: white;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s;
+  transition: none;
 }
 .practice-primary {
   background: var(--color-purple-700) !important;
@@ -410,4 +410,13 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-3);
+}
+
+.ai-practice__header > h1 {
+  margin: 0 0 var(--space-4);
+}
+@media (max-width: 768px) {
+  .practice-lesson select {
+    min-height: 44px;
+  }
 }

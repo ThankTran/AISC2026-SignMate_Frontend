@@ -5,15 +5,12 @@
   margin: 0;
   padding: var(--space-5) var(--page-gutter) var(--space-6);
   color: var(--color-neutral-700);
-  --study-green: var(--color-teal-700, #08765b);
+  --study-green: var(--color-teal-700);
 }
 .theory button {
   font: inherit;
   cursor: pointer;
-  transition:
-    background 0.18s,
-    border-color 0.18s,
-    transform 0.18s;
+  transition: transform var(--duration-base) var(--ease-standard);
 }
 .theory button:disabled {
   cursor: not-allowed;
@@ -453,6 +450,12 @@
 }
 
 @media (max-width: 768px) {
-  .theory__timeline { overflow-x: auto; max-width: 100%; scrollbar-width: thin; }
-  .theory__timeline button { flex: 0 0 44px; }
+  .theory__timeline {
+    overflow-x: auto;
+    max-width: 100%;
+    scrollbar-width: thin;
+  }
+  .theory__timeline button {
+    flex: 0 0 44px;
+  }
 }

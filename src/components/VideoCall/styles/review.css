@@ -52,7 +52,7 @@
   border: 0;
   padding: var(--space-1);
   color: var(--color-neutral-200);
-  transition: transform var(--duration-base);
+  transition: transform var(--duration-base) var(--ease-standard);
 }
 .vc-stars button:hover {
   transform: translateY(-4px) scale(1.12);
@@ -86,7 +86,7 @@
   border-radius: 20px;
   font-size: var(--font-size-caption);
   padding: var(--space-2) var(--space-2);
-  transition: background var(--duration-base);
+  transition: none;
 }
 .vc-feedback-tags button.selected {
   background: var(--color-teal-50);

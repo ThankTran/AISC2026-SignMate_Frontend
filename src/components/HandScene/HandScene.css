@@ -26,7 +26,7 @@
 .hand-scene-hand-float {
   width: 100%;
   height: 100%;
-  animation: hand-breathe 6s ease-in-out infinite;
+  animation: none;
 }
 .hand-scene-image {
   width: 100%;
@@ -43,13 +43,13 @@
   border-radius: 50%;
   background: #50877526;
   filter: blur(5px);
-  animation: hand-shadow 6s ease-in-out infinite;
+  animation: none;
   z-index: -1;
 }
 .hand-card-slot {
   position: absolute;
   z-index: 2;
-  animation: hand-card-enter 750ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
+  animation: hand-card-enter calc(var(--duration-slow) * 2) var(--ease-standard) both;
   pointer-events: none;
 }
 .hand-card {
@@ -59,7 +59,7 @@
   border-radius: 24px;
   background: #eef7ed80;
   box-shadow: 0 10px 28px #38654808;
-  animation: hand-card-float 6s ease-in-out infinite;
+  animation: none;
 }
 .hand-card strong {
   font-size: var(--font-size-caption);
@@ -75,10 +75,8 @@
   right: 0;
   top: 18%;
   width: 33%;
-  animation-delay: 100ms;
 }
 .hand-card-accuracy .hand-card {
-  animation-delay: -1s;
 }
 .hand-card-accuracy .hand-card-label {
   text-align: center;
@@ -124,19 +122,18 @@
   border-radius: inherit;
   background: #50ab8c;
   transform-origin: left;
-  animation: hand-progress 1.4s 0.4s both;
+  animation: hand-progress calc(var(--duration-slow) * 4) var(--duration-slow) both
+    var(--ease-standard);
 }
 .hand-card-analysis {
   right: 1%;
   top: 51%;
   width: 29%;
-  animation-delay: 260ms;
 }
 .hand-card-analysis .hand-card {
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  animation-delay: -3s;
 }
 .hand-card-analysis .hand-card-check {
   background: #79b69f;
@@ -146,66 +143,17 @@
   right: 3%;
   top: 73%;
   width: 32%;
-  animation-delay: 420ms;
 }
 .hand-card-community .hand-card {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-1);
-  animation-delay: -2s;
 }
 .hand-card-community svg {
   width: 24px;
   flex-shrink: 0;
   color: #48a081;
-}
-@keyframes hand-breathe {
-  0%,
-  100% {
-    transform: translateY(0) rotate(-1deg);
-  }
-  50% {
-    transform: translateY(-10px) rotate(1deg);
-  }
-}
-@keyframes hand-shadow {
-  0%,
-  100% {
-    transform: scaleX(1);
-    opacity: 0.8;
-  }
-  50% {
-    transform: scaleX(0.9);
-    opacity: 0.5;
-  }
-}
-@keyframes hand-orbit {
-  to {
-    transform: rotate(360deg);
-  }
-}
-@keyframes hand-star {
-  0%,
-  100% {
-    transform: rotate(0) scale(0.9);
-    opacity: 0.6;
-  }
-  50% {
-    transform: rotate(45deg) scale(1.1);
-    opacity: 1;
-  }
-}
-@keyframes hand-particle {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) scale(0.7);
-    opacity: 0.3;
-  }
-  50% {
-    transform: translate3d(var(--drift-x), var(--drift-y), 0) scale(1.15);
-    opacity: 0.9;
-  }
 }
 @keyframes hand-card-enter {
   from {
@@ -217,30 +165,12 @@
     transform: translateY(0) scale(1);
   }
 }
-@keyframes hand-card-float {
-  0%,
-  100% {
-    transform: translateY(0) rotate(-0.5deg);
-  }
-  50% {
-    transform: translateY(-7px) rotate(0.5deg);
-  }
-}
 @keyframes hand-progress {
   from {
     transform: scaleX(0);
   }
   to {
     transform: scaleX(1);
-  }
-}
-@keyframes hand-joint {
-  0%,
-  100% {
-    opacity: 0.45;
-  }
-  50% {
-    opacity: 1;
   }
 }
 @media (max-width: 1024px) {

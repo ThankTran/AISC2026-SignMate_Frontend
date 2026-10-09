@@ -34,7 +34,7 @@
 
   overflow: hidden;
 
-  transition: margin-left 0.25s ease;
+  transition: none;
 }
 
 /* Header cố định trên cùng, không bị co lại */

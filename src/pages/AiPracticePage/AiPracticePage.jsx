@@ -384,6 +384,7 @@ export default function AiPracticePage() {
   return (
     <div className="ai-practice">
       <div className="ai-practice__header">
+        <h1 className="text-h1">Luyện tập với AI</h1>
         {loading && <p role="status">Đang tải động tác từ HandSign…</p>}
         {(error || session.error) && (
           <div className="practice-error" role="alert">

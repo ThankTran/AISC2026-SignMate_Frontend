@@ -48,7 +48,7 @@
 }
 
 .lp-progress__donut-arc {
-  transition: stroke-dashoffset 0.8s ease;
+  transition: stroke-dashoffset calc(var(--duration-slow) * 3) var(--ease-standard);
 }
 
 .lp-progress__donut-label {
@@ -104,7 +104,7 @@
   height: 100%;
   border-radius: 20px;
   background: var(--color-teal-600);
-  transition: width 0.8s ease;
+  transition: width calc(var(--duration-slow) * 3) var(--ease-standard);
 }
 
 /* --- Stats --- */

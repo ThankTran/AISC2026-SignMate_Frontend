@@ -42,7 +42,7 @@
 /* Trong chương - đoạn đang học (xanh lá phát sáng) */
 .lp-curve__segment--active {
   stroke-dasharray: 14 8;
-  animation: dash-scroll 20s linear infinite;
+  animation: none;
   stroke: var(--color-coral-500);
 }
 
@@ -64,12 +64,6 @@
 
 .lp-curve__segment--transition.lp-curve__segment--pending {
   stroke-dasharray: 2 14;
-}
-
-@keyframes dash-scroll {
-  to {
-    stroke-dashoffset: -224;
-  }
 }
 
 /* =========================================================
@@ -104,9 +98,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition:
-    transform var(--duration-base) var(--ease-standard),
-    box-shadow var(--duration-base) var(--ease-standard);
+  transition: transform var(--duration-base) var(--ease-standard);
 }
 
 a:hover > .lp-node__icon:not(.lp-node__icon--locked) {
@@ -150,22 +142,10 @@ a:hover > .lp-node__icon:not(.lp-node__icon--locked) {
 }
 
 .lp-node__ring--active {
-  animation: pulse-ring 2s ease-in-out infinite;
+  animation: none;
   border-color: var(--color-coral-500);
   border: 2.5px solid var(--color-coral-500);
   background: transparent;
-}
-
-@keyframes pulse-ring {
-  0%,
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.22);
-    opacity: 0.4;
-  }
 }
 
 /* --- Trạng thái: Mở khóa (Unlocked) --- */
@@ -330,7 +310,7 @@ a:hover > .lp-node__icon:not(.lp-node__icon--locked) {
   height: 100%;
   border-radius: 20px;
   background: var(--color-white);
-  transition: width 0.4s var(--ease-standard);
+  transition: width var(--duration-slow) var(--ease-standard);
 }
 
 .lp-chapter__count {
@@ -353,9 +333,7 @@ a:hover > .lp-node__icon:not(.lp-node__icon--locked) {
   border-radius: 18px;
   cursor: pointer;
   box-shadow: var(--shadow-lg);
-  transition:
-    transform var(--duration-base) var(--ease-standard),
-    box-shadow var(--duration-base) var(--ease-standard);
+  transition: transform var(--duration-base) var(--ease-standard);
   max-width: 100%;
   box-sizing: border-box;
 }
@@ -523,9 +501,7 @@ a:hover > .lp-quiz--locked {
   font-size: var(--text-sm);
   font-weight: 700;
   cursor: pointer;
-  transition:
-    background var(--duration-base) var(--ease-standard),
-    transform var(--duration-fast) var(--ease-standard);
+  transition: transform var(--duration-fast) var(--ease-standard);
   text-decoration: none;
   background: var(--color-white);
   color: var(--color-teal-800);
@@ -683,6 +659,15 @@ a:hover > .lp-quiz--locked {
 }
 
 @media (max-width: 768px) {
-  .lp-node--step .lp-node__label { max-width: 180px; width: 100%; display: block; overflow: visible; -webkit-line-clamp: unset; }
-  .lp-curve__chapter .lp-tooltip { max-width: calc(100vw - 32px); width: min(260px, 90cqw); }
+  .lp-node--step .lp-node__label {
+    max-width: 180px;
+    width: 100%;
+    display: block;
+    overflow: visible;
+    -webkit-line-clamp: unset;
+  }
+  .lp-curve__chapter .lp-tooltip {
+    max-width: calc(100vw - 32px);
+    width: min(260px, 90cqw);
+  }
 }

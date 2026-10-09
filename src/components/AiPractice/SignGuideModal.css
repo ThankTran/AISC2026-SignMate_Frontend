@@ -10,17 +10,6 @@
   padding: var(--space-5);
 }
 
-@keyframes sign-modal-pop {
-  from {
-    transform: scale(0.92) translateY(10px);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1) translateY(0);
-    opacity: 1;
-  }
-}
-
 .sign-modal__close {
   position: absolute;
   top: 14px;
@@ -35,7 +24,7 @@
   background: var(--color-neutral-100);
   color: var(--color-neutral-700);
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: none;
 }
 
 .sign-modal__close:hover {
@@ -132,7 +121,7 @@
   font-size: var(--text-sm);
   font-weight: var(--font-weight-bold);
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: none;
 }
 
 .sign-modal__cta:hover {

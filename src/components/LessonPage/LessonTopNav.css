@@ -41,7 +41,7 @@ button.lesson-topnav__segment:hover {
 }
 
 .lesson-topnav__segment--done {
-  background: var(--color-teal-500, #0d8a6a);
+  background: var(--color-teal-500);
 }
 
 .lesson-topnav__segment--todo {
@@ -83,9 +83,7 @@ button.lesson-topnav__segment:hover {
 
   text-decoration: none;
 
-  transition:
-    background 0.18s ease,
-    border-color 0.18s ease;
+  transition: none;
 }
 
 .lesson-topnav__exit:hover {
@@ -167,7 +165,7 @@ button.lesson-topnav__segment:hover {
 }
 .lesson-topnav__title {
   margin: 0;
-  color: var(--color-teal-700, #0d8a6a);
+  color: var(--color-teal-700);
   font-weight: 700;
   font-size: var(--font-size-h1);
   font-family: var(--font-family-main);
@@ -184,7 +182,6 @@ button.lesson-topnav__segment:hover {
   flex: 1 1 280px;
 }
 .lesson-topnav__segments {
-
   flex: none;
   align-items: center;
   gap: var(--space-1);
@@ -193,9 +190,7 @@ button.lesson-topnav__segment:hover {
   min-width: 0;
 }
 .lesson-topnav__segment {
-  transition:
-    background 0.2s ease,
-    transform 0.12s ease;
+  transition: transform var(--duration-fast) var(--ease-standard);
   padding: 0;
   border-radius: 4px;
   border: none;
@@ -222,8 +217,23 @@ button.lesson-topnav__segment:hover {
 }
 
 @media (max-width: 768px) {
-  .lesson-topnav { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-2); }
-  .lesson-topnav__title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 100%; }
-  .lesson-topnav__right { flex-wrap: nowrap; width: 100%; }
-  .lesson-topnav__center { width: 100%; order: 3; }
+  .lesson-topnav {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-2);
+  }
+  .lesson-topnav__title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+  }
+  .lesson-topnav__right {
+    flex-wrap: nowrap;
+    width: 100%;
+  }
+  .lesson-topnav__center {
+    width: 100%;
+    order: 3;
+  }
 }
