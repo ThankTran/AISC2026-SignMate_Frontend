@@ -306,7 +306,7 @@ textarea {
   }
 }
 .lucide-flame {
-  color: var(--color-coral-500);
+  color: var(--color-coral-700);
 }
 /* Shared accessibility rules; breakpoints: 640 / 768 / 1024 / 1280. */
 :is(
@@ -321,7 +321,7 @@ textarea {
   summary,
   [tabindex]
 ):focus-visible {
-  outline: 2px solid var(--focus-ring-color);
+  outline: 2px solid var(--color-teal-500);
   outline-offset: 2px;
 }
 :where(button, select, textarea, [role="button"], [role="tab"], summary) {
@@ -594,4 +594,16 @@ textarea {
     transition: none !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* Visible labels, selected states and mobile target geometry. */
+.ui-input-label { display: block; font-size: var(--text-sm); font-weight: 500; margin-block: var(--space-3) var(--space-2); }
+.friends-search > label { font-size: var(--text-sm); font-weight: 500; white-space: nowrap; }
+:is(.friends-search, .vc-custom, .schedule-form, .vc-chat form):focus-within { outline: 2px solid var(--color-teal-500); outline-offset: 2px; }
+:is([role="tab"][aria-selected="true"], .lb-tabs [aria-pressed="true"], .db-board__tabs [aria-pressed="true"]) { text-decoration: underline; text-underline-offset: 5px; text-decoration-thickness: 2px; }
+@media (max-width: 768px) {
+  :is(button, a[href], [role="button"], [role="tab"], [role="radio"], summary) { min-width: 44px; min-height: 44px; }
+  .friends-search { flex-wrap: wrap; }
+  .friends-search > label { flex-basis: 100%; }
+  .friends-search__input { min-width: 0; }
 }

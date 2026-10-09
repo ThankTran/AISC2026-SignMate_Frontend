@@ -13,7 +13,7 @@
   color: var(--color-neutral-900);
 }
 .auth-card .subtitle {
-  color: var(--color-neutral-500);
+  color: var(--color-neutral-700);
   font-size: var(--text-sm);
   margin: 0 0 var(--space-5);
 }
@@ -51,7 +51,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: var(--color-neutral-500);
+  color: var(--color-neutral-700);
   display: inline-flex;
   align-items: center;
 }
@@ -99,7 +99,7 @@
 
 .divider {
   text-align: center;
-  color: var(--color-neutral-500);
+  color: var(--color-neutral-700);
   font-size: var(--font-size-caption);
   margin: var(--space-4) 0 0;
 }
@@ -111,13 +111,13 @@
   margin-top: var(--space-4);
 }
 .auth-footnote a {
-  color: var(--color-teal-500);
+  color: var(--color-teal-700);
   font-weight: 600;
   text-decoration: none;
 }
 
 .link-inline {
-  color: var(--color-teal-500);
+  color: var(--color-teal-700);
   font-weight: 600;
   text-decoration: none;
   font-size: var(--font-size-caption);

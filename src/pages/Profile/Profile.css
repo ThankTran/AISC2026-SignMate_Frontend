@@ -8,7 +8,7 @@
 }
 .pf header p,
 .pf-card > p {
-  color: var(--color-neutral-600);
+  color: var(--color-neutral-700);
 }
 .pf-card {
   padding: var(--space-5);

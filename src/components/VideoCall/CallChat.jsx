@@ -13,6 +13,7 @@ export default function CallChat({ partner, messages, onSend, onClose, status = 
   const composerRef = useRef(null);
   const emojiButtonRef = useRef(null);
   const emojiPanelId = useId();
+  const messageInputId = useId();
   const chatRef = useRef(null);
 
   useEffect(() => {
@@ -122,6 +123,7 @@ export default function CallChat({ partner, messages, onSend, onClose, status = 
         ))}
       </div>
       {sendError && <p role="alert">{sendError}</p>}
+      <label className="ui-input-label" htmlFor={messageInputId}>Tin nhắn</label>
       <form
         onSubmit={send}
         ref={composerRef}
@@ -133,8 +135,8 @@ export default function CallChat({ partner, messages, onSend, onClose, status = 
       >
         <input
           ref={inputRef}
-          aria-label="Tin nhắn"
-          placeholder="Gửi lời nhắn…"
+          id={messageInputId}
+          placeholder="Ví dụ: Chào bạn!"
           value={draft}
           disabled={sending}
           onChange={(e) => setDraft(e.target.value)}

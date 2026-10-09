@@ -101,11 +101,12 @@ export default function TopicSelection({
                 </button>
               ))}
           </div>
+          <label className="ui-input-label" htmlFor="call-custom-topic">Chủ đề khác</label>
           <form className="vc-custom" onSubmit={addTopic}>
             <Plus size={17} />
             <input
-              aria-label="Thêm chủ đề khác"
-              placeholder="Thêm một chủ đề của riêng bạn…"
+              id="call-custom-topic"
+              placeholder="Ví dụ: Du lịch cuối tuần"
               value={custom}
               maxLength={60}
               onChange={(e) => setCustom(e.target.value)}

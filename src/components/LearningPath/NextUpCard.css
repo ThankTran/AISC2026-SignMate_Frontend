@@ -48,7 +48,7 @@
   flex-shrink: 0;
   border: none;
   border-radius: 50%;
-  background: var(--color-coral-500);
+  background: var(--color-coral-700);
   color: var(--color-white);
   display: flex;
   align-items: center;

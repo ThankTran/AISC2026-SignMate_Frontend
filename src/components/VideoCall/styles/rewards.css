@@ -13,7 +13,7 @@
   transition:
     transform var(--duration-base),
     box-shadow var(--duration-base);
-  background: var(--color-coral-500);
+  background: var(--color-coral-700);
   color: var(--color-white);
 }
 .vc-button:hover:not(:disabled) {
@@ -42,7 +42,7 @@
   width: 77px;
   height: 77px;
   border-radius: 50%;
-  background: var(--color-teal-600);
+  background: var(--color-teal-700);
   color: var(--color-white);
   display: grid;
   place-items: center;
@@ -126,7 +126,7 @@
 }
 .vc-level small {
   font-size: var(--font-size-caption);
-  color: var(--color-neutral-400);
+  color: var(--color-neutral-700);
 }
 .vc-progress {
   height: 9px;
@@ -145,7 +145,7 @@
 .vc-rewards > p {
   text-align: center;
   font-size: var(--font-size-caption);
-  color: var(--color-neutral-500);
+  color: var(--color-neutral-700);
   margin-top: var(--space-3);
 }
 .vc-thanks-note {
@@ -154,7 +154,7 @@
   align-items: center;
   gap: var(--space-2);
   font-size: var(--font-size-caption);
-  color: var(--color-neutral-400);
+  color: var(--color-neutral-700);
   margin-top: var(--space-5);
 }
 .vc-secondary:hover {

@@ -45,7 +45,7 @@
     135deg,
     var(--color-teal-900) 0%,
     var(--color-teal-700) 52%,
-    var(--color-teal-600) 100%
+    var(--color-teal-700) 100%
   );
   color: var(--color-white);
 
@@ -98,7 +98,7 @@
 }
 
 .lrm__close:focus-visible {
-  outline: 2px solid var(--color-white);
+  outline: 2px solid var(--color-teal-500);
   outline-offset: 2px;
 }
 
@@ -198,7 +198,7 @@
 
   font-family: var(--font-family-body);
   font-size: var(--font-size-caption);
-  color: var(--color-neutral-600);
+  color: var(--color-neutral-700);
 }
 
 /* --- XP card (highlighted) --- */
@@ -242,7 +242,7 @@
   font-family: var(--font-family-body);
   font-size: var(--font-size-caption);
   font-weight: 700;
-  color: var(--color-neutral-600);
+  color: var(--color-neutral-700);
 }
 
 .lrm-xpbar {
@@ -391,7 +391,7 @@
 
   font-family: var(--font-family-body);
   font-size: var(--font-size-caption);
-  color: var(--color-neutral-600);
+  color: var(--color-neutral-700);
 }
 
 .lrm-legend__dot {
@@ -453,7 +453,7 @@
 }
 
 .lrm__retake:focus-visible {
-  outline: 2px solid var(--color-teal-700);
+  outline: 2px solid var(--color-teal-500);
   outline-offset: 2px;
 }
 
@@ -474,7 +474,7 @@
 .lrm__next-label {
   font-family: var(--font-family-body);
   font-size: var(--font-size-caption);
-  color: var(--color-neutral-600);
+  color: var(--color-neutral-700);
 }
 
 .lrm__next-name {
@@ -495,7 +495,7 @@
   border: none;
   border-radius: 13px;
 
-  background: linear-gradient(135deg, var(--color-coral-500) 0%, var(--color-coral-500) 100%);
+  background: linear-gradient(135deg, var(--color-coral-700) 0%, var(--color-coral-700) 100%);
   color: var(--color-white);
 
   font-family: var(--font-family-main);
@@ -518,8 +518,8 @@
 }
 
 .lrm__next-btn:focus-visible {
-  outline: 2px solid var(--color-coral-500);
-  outline-offset: 3px;
+  outline: 2px solid var(--color-teal-500);
+  outline-offset: 2px;
 }
 
 /* =========================================================

@@ -40,7 +40,7 @@
 .lesson-quiz__desc {
   font-family: var(--font-family-body);
   font-size: var(--text-sm);
-  color: var(--color-neutral-500);
+  color: var(--color-neutral-700);
   margin: 0;
 }
 
@@ -234,7 +234,7 @@
 .lesson-quiz__card-caption {
   font-family: var(--font-family-body);
   font-size: var(--font-size-caption);
-  color: var(--color-neutral-500);
+  color: var(--color-neutral-700);
 }
 
 /* ---- Attempts ---- */
@@ -249,7 +249,7 @@
   font-family: var(--font-family-body);
   font-size: var(--font-size-caption);
   font-weight: 600;
-  color: var(--color-neutral-500);
+  color: var(--color-neutral-700);
 }
 
 .lesson-quiz__attempts-arrow {

@@ -1,6 +1,6 @@
 import { clearSession } from "../../services/localAuth";
 import DataState from "../../components/ui/DataState";
-import { useState, useRef } from "react";
+import { useState, useRef, useId } from "react";
 import { useCurrentUser } from "../../hooks/useCurrentUser";
 import { useToast } from "../../hooks/useToast";
 import { useConfirm } from "../../hooks/useConfirm";
@@ -56,6 +56,7 @@ function RadioGroup({ label, options, value, onChange, disabled }) {
 }
 
 function EditableField({ label, value, onSave, disabled, maxLength }) {
+  const fieldId = useId();
   const [editing, setEditing] = useState(false),
     [draft, setDraft] = useState(value || "");
 
@@ -70,11 +71,11 @@ function EditableField({ label, value, onSave, disabled, maxLength }) {
         }
       }}
     >
-      <span>{label}</span>
+      <label htmlFor={editing ? fieldId : undefined}>{label}</label>
       <div>
         {editing ? (
           <input
-            aria-label={label}
+            id={fieldId}
             autoFocus
             maxLength={maxLength}
             value={draft}

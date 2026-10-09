@@ -64,7 +64,7 @@
 
 .header-icon-btn:hover {
   background: var(--color-neutral-100);
-  color: var(--color-teal-600, var(--color-teal-500));
+  color: var(--color-teal-600, var(--color-teal-700));
 }
 
 .header-icon-btn:focus-visible {
@@ -99,7 +99,7 @@
 
   border-radius: 999px;
 
-  background: var(--color-coral-500);
+  background: var(--color-coral-700);
   color: white;
 
   font-family: var(--font-family-mono);
@@ -147,7 +147,7 @@
 
   font-family: var(--font-family-body);
   font-size: var(--text-sm);
-  color: var(--color-neutral-500);
+  color: var(--color-neutral-700);
 }
 
 .header-notification__list {
@@ -194,7 +194,7 @@
 .header-notification__item-time {
   font-family: var(--font-family-body);
   font-size: var(--font-size-caption);
-  color: var(--color-neutral-500);
+  color: var(--color-neutral-700);
 }
 
 /* =========================================================
@@ -273,7 +273,7 @@
 
 .header-settings__item:focus-visible {
   outline: 2px solid var(--color-teal-500);
-  outline-offset: -2px;
+  outline-offset: 2px;
 }
 
 .header-settings__item:disabled {

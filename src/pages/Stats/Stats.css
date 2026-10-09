@@ -9,7 +9,7 @@
 }
 .st header p,
 .st-card p {
-  color: var(--color-neutral-600);
+  color: var(--color-neutral-700);
 }
 .st-summaries {
   display: grid;
@@ -42,7 +42,7 @@
 }
 .st-summary--streak strong,
 .st-summary--streak svg {
-  color: var(--color-coral-500);
+  color: var(--color-coral-700);
 }
 .st-card {
   display: grid;

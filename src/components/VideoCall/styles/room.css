@@ -36,7 +36,7 @@
 }
 .vc-call-backdrop > span {
   font-size: var(--font-size-caption);
-  color: var(--color-neutral-300);
+  color: var(--color-neutral-700);
   margin-top: var(--space-2);
 }
 .vc-call-backdrop > p {
@@ -85,7 +85,7 @@
   align-items: center;
   gap: var(--space-2);
   font-size: var(--font-size-caption);
-  color: var(--color-neutral-300);
+  color: var(--color-neutral-700);
   margin-top: var(--space-1);
 }
 .vc-call-xp {
@@ -120,7 +120,7 @@
   justify-content: center;
   flex-direction: column;
   gap: var(--space-3);
-  color: var(--color-neutral-400);
+  color: var(--color-neutral-700);
 }
 .vc-self > div > span {
   font-size: var(--font-size-caption);
@@ -270,7 +270,7 @@
   border-radius: 50%;
   display: grid;
   place-items: center;
-  background: var(--color-teal-600);
+  background: var(--color-teal-700);
   color: var(--color-white);
   font-size: var(--font-size-caption);
 }
@@ -386,7 +386,7 @@
   background: color-mix(in srgb, var(--color-white) 18.82%, transparent);
 }
 .vc-call-toolbar button.active {
-  background: var(--color-teal-600);
+  background: var(--color-teal-700);
   color: var(--color-white);
 }
 .vc-call-toolbar > span {
@@ -429,7 +429,7 @@
   border-radius: 50%;
   background: color-mix(in srgb, var(--color-neutral-900) 60%, transparent);
   border: 1px solid color-mix(in srgb, var(--color-white) 7.84%, transparent);
-  color: var(--color-neutral-300);
+  color: var(--color-neutral-700);
   display: grid;
   place-items: center;
 }

@@ -122,7 +122,7 @@
 }
 .auth-submit {
   color: white;
-  background: var(--color-coral-500);
+  background: var(--color-coral-700);
   border-radius: 24px;
   font-weight: 700;
 }
@@ -148,7 +148,7 @@
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  color: var(--color-neutral-600);
+  color: var(--color-neutral-700);
 }
 @media (max-width: 1024px) {
   .auth-mobile-brand {
@@ -166,7 +166,7 @@
   text-align: center;
 }
 .auth-form > p {
-  color: var(--color-neutral-600);
+  color: var(--color-neutral-700);
   line-height: 1.5;
 }
 .auth-form .auth-field-error {
@@ -218,7 +218,7 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
-  color: var(--color-neutral-600);
+  color: var(--color-neutral-700);
 }
 .auth-password-rules .is-met {
   color: var(--color-teal-700);

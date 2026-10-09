@@ -3,7 +3,7 @@
    ========================================================= */
 
 .lp-banner {
-  background: var(--color-teal-600);
+  background: var(--color-teal-700);
   border-radius: 18px;
   padding: var(--space-5) var(--space-6);
   color: var(--color-white);

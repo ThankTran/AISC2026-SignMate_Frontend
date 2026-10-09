@@ -40,7 +40,7 @@
 
 .qr-crumbs__chevron,
 .qr-crumbs__current {
-  color: var(--color-neutral-600);
+  color: var(--color-neutral-700);
 }
 
 /* =========================================================
@@ -64,7 +64,7 @@
     120deg,
     var(--color-teal-900) 0%,
     var(--color-teal-700) 52%,
-    var(--color-teal-600) 100%
+    var(--color-teal-700) 100%
   );
   color: var(--color-white);
 }
@@ -271,7 +271,7 @@
 
 .qr-stat--coral .qr-stat__icon {
   background: var(--color-coral-50);
-  color: var(--color-coral-500);
+  color: var(--color-coral-700);
 }
 
 .qr-stat--teal .qr-stat__icon {
@@ -281,7 +281,7 @@
 
 .qr-stat--gold .qr-stat__icon {
   background: var(--color-coral-50);
-  color: var(--color-coral-500);
+  color: var(--color-coral-700);
 }
 
 .qr-stat__value {
@@ -303,7 +303,7 @@
 .qr-stat__note {
   font-family: var(--font-family-body);
   font-size: var(--font-size-caption);
-  color: var(--color-neutral-600);
+  color: var(--color-neutral-700);
 }
 
 /* =========================================================
@@ -349,7 +349,7 @@
 .qr-review__summary {
   font-family: var(--font-family-body);
   font-size: var(--font-size-caption);
-  color: var(--color-neutral-600);
+  color: var(--color-neutral-700);
 }
 
 .qr-review__tabs {
@@ -370,7 +370,7 @@
   border-radius: 9px;
 
   background: transparent;
-  color: var(--color-neutral-600);
+  color: var(--color-neutral-700);
 
   font-family: var(--font-family-body);
   font-size: var(--font-size-caption);
@@ -391,7 +391,7 @@
 }
 
 .qr-review__tab:focus-visible {
-  outline: 2px solid transparent;
+  outline: 2px solid var(--color-teal-500);
   box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-teal-700) 35%, transparent);
 }
 
@@ -424,7 +424,7 @@
   border-radius: 50%;
 
   background: var(--color-coral-50);
-  color: var(--color-neutral-600);
+  color: var(--color-neutral-700);
 
   font-family: var(--font-family-mono);
   font-size: var(--font-size-caption);
@@ -499,7 +499,7 @@
     background-color var(--duration-base) var(--ease-standard),
     transform var(--duration-fast) var(--ease-standard),
     box-shadow var(--duration-base) var(--ease-standard);
-  background: var(--color-coral-500);
+  background: var(--color-coral-700);
 }
 
 .qr-actions__primary:hover {
@@ -509,8 +509,8 @@
 }
 
 .qr-actions__primary:focus-visible {
-  outline: 2px solid var(--color-teal-700);
-  outline-offset: 3px;
+  outline: 2px solid var(--color-teal-500);
+  outline-offset: 2px;
 }
 
 .qr-actions__secondary {
@@ -544,8 +544,8 @@
 }
 
 .qr-actions__secondary:focus-visible {
-  outline: 2px solid var(--color-teal-700);
-  outline-offset: 3px;
+  outline: 2px solid var(--color-teal-500);
+  outline-offset: 2px;
 }
 
 /* =========================================================

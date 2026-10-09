@@ -30,7 +30,7 @@
   border-radius: 50%;
 
   background: var(--color-coral-50);
-  color: var(--color-coral-500);
+  color: var(--color-coral-700);
 
   display: flex;
   align-items: center;
@@ -79,7 +79,7 @@
   font-family: var(--font-family-body);
   font-size: var(--text-sm);
   line-height: 1.6;
-  color: var(--color-neutral-600);
+  color: var(--color-neutral-700);
 }
 
 /* Buttons */
@@ -107,7 +107,7 @@
   transition:
     transform var(--duration-fast) var(--ease-standard),
     box-shadow var(--duration-base) var(--ease-standard);
-  background: var(--color-coral-500);
+  background: var(--color-coral-700);
 }
 
 .ooh-modal__card__primary:hover {

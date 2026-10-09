@@ -66,11 +66,11 @@
 }
 .lp-page .lp-chapter--locked {
   background: var(--color-neutral-100);
-  color: var(--color-neutral-600);
+  color: var(--color-neutral-700);
   opacity: 1;
 }
 .lp-page .lp-chapter__desc {
-  color: var(--color-neutral-600);
+  color: var(--color-neutral-700);
 }
 .lp-page .lp-chapter__tag,
 .lp-page .lp-chapter__status {
