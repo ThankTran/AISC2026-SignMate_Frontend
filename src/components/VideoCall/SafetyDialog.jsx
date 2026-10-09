@@ -1,5 +1,6 @@
 import { VIDEO_DEMO } from "../../services/videoCall/config";
 import { useState } from "react";
+import { InlineLoader } from "../ui/Skeleton";
 import Modal from "../ui/Modal";
 import CallButton from "./CallButton";
 import { errorMessage } from "../../services/errorMessages";
@@ -58,7 +59,8 @@ export default function SafetyDialog({ action, partner, onClose, onConfirm }) {
             }
           }}
         >
-          Xác nhận
+          {busy && <InlineLoader />}
+          {isBlock ? "Chặn người dùng" : "Gửi báo cáo"}
         </CallButton>
       </div>
       {error && <p role="alert">{errorMessage(error)}</p>}

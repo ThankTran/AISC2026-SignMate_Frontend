@@ -7,7 +7,7 @@ export function ConfirmDialog({
   title,
   message,
   confirmationText,
-  confirmLabel = "Xác nhận",
+  confirmLabel,
   onConfirm,
   onClose,
 }) {
@@ -69,6 +69,9 @@ export function ConfirmProvider({ children }) {
   );
 
   const confirm = (options) => {
+    if (!options.confirmLabel?.trim()) {
+      throw new Error("ConfirmDialog requires a specific confirmLabel.");
+    }
     resolver.current?.(false);
     setOptions({ ...options, routeKey });
 

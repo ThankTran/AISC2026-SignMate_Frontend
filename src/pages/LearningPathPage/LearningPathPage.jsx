@@ -13,7 +13,7 @@ const LearningPathPage = () => {
   const { data, error, retry } = useDashboard();
 
   if (!data || error) {
-    return <ApiState error={error} retry={retry} />;
+    return <ApiState error={error} retry={retry} variant="learning-path" />;
   }
 
   if (!data.chapters.length) {

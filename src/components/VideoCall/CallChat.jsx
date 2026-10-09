@@ -1,5 +1,6 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { Send, Smile, X } from "lucide-react";
+import { InlineLoader } from "../ui/Skeleton";
 import ParticipantAvatar from "./ParticipantAvatar";
 
 import { emojis } from "../../mockdata/videoCall/emojis";
@@ -177,7 +178,7 @@ export default function CallChat({ partner, messages, onSend, onClose, status = 
           </div>
         )}
         <button aria-label="Gửi tin nhắn" disabled={!draft.trim() || sending}>
-          <Send size={18} />
+          {sending ? <InlineLoader label="Đang gửi" /> : <Send size={18} />}
         </button>
         <button type="button" aria-label="Đóng trò chuyện" onClick={onClose}>
           <X size={18} />

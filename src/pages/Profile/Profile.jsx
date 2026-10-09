@@ -3,12 +3,12 @@ import DataState from "../../components/ui/DataState";
 import { useState, useRef, useId } from "react";
 import { useCurrentUser } from "../../hooks/useCurrentUser";
 import { useToast } from "../../hooks/useToast";
-import { useConfirm } from "../../hooks/useConfirm";
 import { useApiResource } from "../../hooks/useApiResource";
 import { accountApi, authApi } from "../../services/api";
 import { authErrorMessage } from "../../services/authValidation";
 import Avatar from "../../components/ui/Avatar";
 import LevelBadges from "../../components/ui/LevelBadges";
+import { InlineLoader } from "../../components/ui/Skeleton";
 import Modal from "../../components/ui/Modal";
 import "./Profile.css";
 
@@ -116,12 +116,12 @@ function EditableField({ label, value, onSave, disabled, maxLength }) {
 
 export default function ProfilePage() {
   const current = useCurrentUser(),
-    toast = useToast(),
-    confirm = useConfirm();
+    toast = useToast();
   const { data: storedProfile } = useApiResource(accountApi.me);
   const [saving, setSaving] = useState(false),
     [dialog, setDialog] = useState(null),
     [error, setError] = useState("");
+  const [privacyDraft, setPrivacyDraft] = useState(null);
   const busy = useRef(false);
   const profile = {
     name: current.displayName,
@@ -168,18 +168,8 @@ export default function ProfilePage() {
     }
   }
 
-  async function openDelete() {
-    if (
-      await confirm({
-        title: "Xóa tài khoản?",
-        message:
-          "Hồ sơ, tiến độ học, kết nối và lịch sử cuộc gọi liên quan đến bạn sẽ bị xóa. Thao tác này không thể hoàn tác.",
-        confirmationText: current.email || "XÓA TÀI KHOẢN",
-        confirmLabel: "Tiếp tục xóa",
-      })
-    ) {
-      setDialog("delete");
-    }
+  function openDelete() {
+    setDialog("delete");
   }
 
   if (current._profileStatus === "loading" || current._profileError) {
@@ -256,6 +246,7 @@ export default function ProfilePage() {
       </section>
       <section className="pf-card">
         <h2 className="text-h2">Quyền riêng tư</h2>
+        <p>Chọn quyền xem rồi nhấn Lưu thay đổi để áp dụng.</p>
         <p>
           Quyền xem được kiểm soát trên máy chủ. Giao diện xem hồ sơ và danh sách bạn bè của người
           khác đang được phát triển.
@@ -270,8 +261,10 @@ export default function ProfilePage() {
             <RadioGroup
               label={label}
               disabled={saving}
-              value={profile.privacy[id]}
-              onChange={(value) => update({ privacy: { ...profile.privacy, [id]: value } })}
+              value={(privacyDraft ?? profile.privacy)[id]}
+              onChange={(value) =>
+                setPrivacyDraft((draft) => ({ ...(draft ?? profile.privacy), [id]: value }))
+              }
               options={[
                 { id: "public", label: "Công khai" },
                 { id: "friends", label: "Bạn bè" },
@@ -280,6 +273,19 @@ export default function ProfilePage() {
             />
           </div>
         ))}
+        <div className="pf-account-actions">
+          <button
+            disabled={saving || !privacyDraft}
+            onClick={async () => {
+              if (await update({ privacy: privacyDraft })) setPrivacyDraft(null);
+            }}
+          >
+            {saving && <InlineLoader />}Lưu thay đổi
+          </button>
+          <button disabled={saving || !privacyDraft} onClick={() => setPrivacyDraft(null)}>
+            Hủy thay đổi
+          </button>
+        </div>
       </section>
       <section className="pf-card">
         <h2 className="text-h2">Tài khoản</h2>
@@ -303,6 +309,9 @@ export default function ProfilePage() {
 
 function AccountAction({ mode, onClose }) {
   const toast = useToast();
+  const current = useCurrentUser();
+  const confirmationText = current.email || "XÓA TÀI KHOẢN";
+  const [confirmation, setConfirmation] = useState("");
   const [password, setPassword] = useState(""),
     [next, setNext] = useState(""),
     [repeat, setRepeat] = useState(""),
@@ -314,6 +323,11 @@ function AccountAction({ mode, onClose }) {
     event.preventDefault();
 
     if (busy) {
+      return;
+    }
+
+    if (mode === "delete" && (confirmation !== confirmationText || !password)) {
+      setError("Chưa đủ thông tin xác nhận. Hãy nhập đúng email và mật khẩu hiện tại.");
       return;
     }
 
@@ -355,13 +369,28 @@ function AccountAction({ mode, onClose }) {
     >
       <form className="pf-account-form" onSubmit={submit}>
         <h2 id="pf-account-title" className="text-h2">
-          {mode === "delete" ? "Xác thực để xóa tài khoản" : "Đổi mật khẩu"}
+          {mode === "delete" ? "Xóa tài khoản — không thể hoàn tác" : "Đổi mật khẩu"}
         </h2>
         <p>
           {hasPassword
             ? "Nhập mật khẩu hiện tại để xác thực tài khoản."
             : "Xác thực lại với Google để tiếp tục."}
         </p>
+        {mode === "delete" && (
+          <>
+            <p>Hồ sơ, tiến độ học, kết nối và lịch sử cuộc gọi sẽ bị xóa vĩnh viễn.</p>
+            <label>
+              Nhập {confirmationText} để xác nhận
+              <input
+                autoComplete="off"
+                required
+                value={confirmation}
+                disabled={busy}
+                onChange={(event) => setConfirmation(event.target.value)}
+              />
+            </label>
+          </>
+        )}
         {hasPassword && (
           <label>
             Mật khẩu hiện tại
@@ -407,8 +436,13 @@ function AccountAction({ mode, onClose }) {
           <button type="button" disabled={busy} onClick={onClose}>
             Hủy
           </button>
-          <button disabled={busy}>
-            {busy ? "Đang xử lý…" : mode === "delete" ? "Xóa tài khoản" : "Lưu mật khẩu"}
+          <button
+            disabled={
+              busy || (mode === "delete" && (confirmation !== confirmationText || !password))
+            }
+          >
+            {busy && <InlineLoader />}
+            {mode === "delete" ? "Xóa tài khoản" : "Lưu mật khẩu"}
           </button>
         </div>
       </form>

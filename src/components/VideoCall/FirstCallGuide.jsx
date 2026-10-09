@@ -34,7 +34,7 @@ export default function FirstCallGuide() {
           setDismissed(true);
         }}
       >
-        Đã hiểu
+        Ẩn hướng dẫn này
       </button>
     </section>
   );
