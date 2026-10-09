@@ -4,11 +4,11 @@
 
 .lp-page {
   display: grid;
-  grid-template-columns: 1fr 340px;
-  gap: 28px;
   padding: 28px var(--page-gutter) 28px;
   min-height: 100%;
   align-items: start;
+  gap: var(--space-5);
+  grid-template-columns: minmax(0, 1fr) 300px;
 }
 
 /* =========================================================
@@ -19,6 +19,7 @@
   display: flex;
   flex-direction: column;
   gap: 0;
+  min-width: 0;
 }
 
 /* =========================================================
@@ -30,124 +31,19 @@
   flex-direction: column;
   gap: 20px;
   position: sticky;
-  top: 28px;
-}
-
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
-
-@media (max-width: 1024px) {
-  .lp-page {
-    grid-template-columns: 1fr;
-    padding: 20px var(--page-gutter) 20px;
-  }
-
-  .lp-page__sidebar {
-    position: static;
-  }
-}
-
-.lp-page {
-  grid-template-columns: minmax(0, 1fr) 340px;
-}
-
-.lp-page__main,
-.lp-page__sidebar {
   min-width: 0;
-}
-
-@media (max-width: 1024px) {
-  .lp-page {
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
-@media (max-width: 768px) {
-  .lp-page {
-    display: flex;
-    flex-direction: column;
-  }
-  .lp-page__main,
-  .lp-page__sidebar {
-    display: contents;
-  }
-  .lp-page .lp-banner {
-    order: 0;
-  }
-  .lp-page .lp-progress {
-    order: 1;
-    width: 100%;
-  }
-  .lp-page .lp-next {
-    order: 2;
-    width: 100%;
-  }
-  .lp-page .lp-curve {
-    order: 3;
-    width: 100%;
-  }
-  .lp-page .lp-page__daily {
-    order: 4;
-    width: 100%;
-  }
-}
-.lp-page {
-  gap: 24px;
-  grid-template-columns: minmax(0, 1fr) 300px;
-}
-/* Reserve the 64px header, 28px page inset and 20px bottom breathing room. */
-.lp-page__sidebar {
   top: 20px;
   max-height: calc(100dvh - 112px);
   box-sizing: border-box;
   overflow-y: auto;
   overscroll-behavior: contain;
-  padding: 4px 8px 12px 4px;
+  padding: var(--space-1) var(--space-2) var(--space-3) var(--space-1);
   scrollbar-width: thin;
 }
-.lp-page__main {
-  min-width: 0;
-}
-.lp-page .lp-chapter {
-  width: min(100%, 460px);
-  margin-inline: auto;
-  border-radius: 22px;
-  padding: 18px 20px;
-  box-shadow: 0 3px 12px #153d2d08;
-}
-@media (max-width: 1024px) {
-  .lp-page {
-    grid-template-columns: minmax(0, 1fr) 280px;
-    gap: 16px;
-  }
-  .lp-page .lp-chapter {
-    padding: 16px;
-  }
-}
-@media (max-width: 768px) {
-  .lp-page {
-    display: flex;
-    align-items: stretch;
-  }
-  .lp-page__sidebar {
-    display: contents;
-    max-height: none;
-    overflow: visible;
-  }
-  .lp-page .lp-banner {
-    width: 100%;
-    min-width: 0;
-  }
-  .lp-page .lp-page__daily {
-    order: 3;
-  }
-  .lp-page .lp-curve {
-    order: 4;
-  }
-  .lp-page .lp-chapter {
-    width: min(100%, 400px);
-  }
-}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
 /* Compact chapter cards retain room for the lesson path around them. */
 .lp-page .lp-curve__chapter .lp-chapter {
   width: min(100%, 460px);
@@ -155,7 +51,7 @@
   margin-inline: auto;
   border-radius: 22px;
   padding: 18px 20px;
-  box-shadow: 0 3px 12px #153d2d08;
+  box-shadow: var(--shadow-md);
   border: 1px solid var(--color-neutral-200);
 }
 .lp-page .lp-chapter--completed {
@@ -163,10 +59,10 @@
   color: var(--color-teal-900);
   border-color: var(--color-teal-100);
 }
-.lp-page .lp-chapter--active {
-  background: var(--color-white, #fff);
+.lp-page .lp-curve__chapter .lp-chapter--active {
   color: var(--color-neutral-900);
-  border-color: var(--color-coral-500);
+  border-color: var(--color-teal-600);
+  background: var(--color-white);
 }
 .lp-page .lp-chapter--locked {
   background: var(--color-neutral-100);
@@ -178,18 +74,64 @@
 }
 .lp-page .lp-chapter__tag,
 .lp-page .lp-chapter__status {
-  background: #fff9;
+  background: color-mix(in srgb, var(--color-white) 60%, transparent);
   color: inherit;
 }
 .lp-page .lp-chapter__bar {
   background: var(--color-neutral-200);
 }
 .lp-page .lp-chapter__bar i {
-  background: var(--color-teal-500);
+  background: var(--color-teal-600);
+}
+
+@media (max-width: 1024px) {
+  .lp-page {
+    padding: 20px var(--page-gutter) 20px;
+    grid-template-columns: minmax(0, 1fr) 280px;
+    gap: var(--space-4);
+  }
+
+  .lp-page__sidebar {
+    position: static;
+  }
 }
 @media (max-width: 768px) {
+  .lp-page {
+    flex-direction: column;
+    display: flex;
+    align-items: stretch;
+  }
+  .lp-page__main {
+    display: contents;
+  }
+  .lp-page__sidebar {
+    display: contents;
+    max-height: none;
+    overflow: visible;
+  }
+  .lp-page .lp-banner {
+    order: 0;
+    width: 100%;
+    min-width: 0;
+  }
+  .lp-page .lp-progress {
+    order: 1;
+    width: 100%;
+  }
+  .lp-page .lp-next {
+    order: 2;
+    width: 100%;
+  }
+  .lp-page .lp-curve {
+    width: 100%;
+    order: 4;
+  }
+  .lp-page .lp-page__daily {
+    width: 100%;
+    order: 3;
+  }
   .lp-page .lp-curve__chapter .lp-chapter {
-    padding: 16px;
+    padding: var(--space-4);
     width: min(100%, 400px);
   }
 }

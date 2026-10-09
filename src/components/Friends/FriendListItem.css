@@ -61,7 +61,7 @@
 }
 
 .friend-item__status-dot--online {
-  background: var(--color-green-500);
+  background: var(--color-teal-500);
   box-shadow: 0 0 0 4px rgba(99, 153, 34, 0.14);
 }
 
@@ -94,7 +94,7 @@
 }
 
 .friend-item__status-text--online {
-  color: var(--color-green-500);
+  color: var(--color-teal-500);
   font-weight: var(--font-weight-medium);
 }
 

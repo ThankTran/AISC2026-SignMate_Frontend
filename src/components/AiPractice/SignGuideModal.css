@@ -5,7 +5,7 @@
 .sign-modal__card {
   width: 100%;
   max-width: 440px;
-  background: #fff;
+  background: var(--color-white);
   border-radius: 20px;
   padding: 26px;
 }
@@ -32,21 +32,21 @@
   height: 32px;
   border-radius: 50%;
   border: none;
-  background: var(--color-neutral-100, #f1efe8);
-  color: var(--color-neutral-700, #5f5e5a);
+  background: var(--color-neutral-100);
+  color: var(--color-neutral-700);
   cursor: pointer;
   transition: background 0.2s ease;
 }
 
 .sign-modal__close:hover {
-  background: var(--color-neutral-200, #d3d1c7);
+  background: var(--color-neutral-200);
 }
 
 .sign-modal__title {
   font-family: var(--font-family-main);
   font-size: var(--font-size-h3);
   font-weight: var(--font-weight-bold);
-  color: var(--color-neutral-900, #444441);
+  color: var(--color-neutral-900);
   line-height: 1.4;
   margin-right: 36px;
 }
@@ -60,7 +60,7 @@
   gap: 8px;
   padding: 22px;
   border-radius: 16px;
-  background: linear-gradient(135deg, #f5f3ff 0%, #e8f5f0 100%);
+  background: var(--color-purple-50);
 }
 
 .sign-modal__hand {
@@ -73,7 +73,7 @@
   font-family: var(--font-family-body);
   font-size: var(--font-size-caption);
   font-weight: var(--font-weight-medium);
-  color: var(--color-neutral-500, #888780);
+  color: var(--color-neutral-500);
 }
 
 /* ===== STEPS ===== */
@@ -99,8 +99,8 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: var(--color-purple-50, #eeedfe);
-  color: var(--color-purple-700, #534ab7);
+  background: var(--color-purple-50);
+  color: var(--color-purple-700);
   font-family: var(--font-family-mono);
   font-size: 13px;
   font-weight: var(--font-weight-bold);
@@ -110,7 +110,7 @@
   font-family: var(--font-family-body);
   font-size: 14px;
   font-weight: var(--font-weight-regular);
-  color: var(--color-neutral-700, #5f5e5a);
+  color: var(--color-neutral-700);
   line-height: 1.55;
   padding-top: 3px;
 }
@@ -126,8 +126,8 @@
   padding: 13px 20px;
   border: none;
   border-radius: 14px;
-  background: var(--color-purple-500, #7f77dd);
-  color: #fff;
+  background: var(--color-purple-500);
+  color: var(--color-white);
   font-family: var(--font-family-main);
   font-size: 15px;
   font-weight: var(--font-weight-bold);
@@ -136,7 +136,7 @@
 }
 
 .sign-modal__cta:hover {
-  background: var(--color-purple-700, #534ab7);
+  background: var(--color-purple-700);
 }
 
 /* ===== RESPONSIVE ===== */

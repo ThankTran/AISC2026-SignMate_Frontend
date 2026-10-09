@@ -377,13 +377,13 @@
   background: var(--study-green);
 }
 .theory__cta {
-  background: var(--study-green);
   color: white;
   padding: 14px 20px;
   border: 0;
   border-radius: 10px;
   font-size: 14px !important;
   font-weight: 600 !important;
+  background: var(--color-coral-500);
 }
 .theory__cta:disabled {
   background: #e3e9e6;
@@ -391,7 +391,7 @@
   opacity: 1 !important;
 }
 .theory__cta:not(:disabled):hover {
-  background: #065d48;
+  background: var(--color-coral-700);
 }
 .theory a:focus-visible,
 .theory button:focus-visible,

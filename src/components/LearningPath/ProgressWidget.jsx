@@ -37,13 +37,20 @@ const ProgressWidget = () => {
       {/* Donut */}
       <div className="lp-progress__donut-wrap">
         <svg viewBox="0 0 100 100" className="lp-progress__donut">
-          <circle cx="50" cy="50" r={RADIUS} fill="none" stroke="#e5e7eb" strokeWidth="9" />
           <circle
             cx="50"
             cy="50"
             r={RADIUS}
             fill="none"
-            stroke="#0d8a6a"
+            stroke="var(--color-neutral-200)"
+            strokeWidth="9"
+          />
+          <circle
+            cx="50"
+            cy="50"
+            r={RADIUS}
+            fill="none"
+            stroke="var(--color-teal-600)"
             strokeWidth="9"
             strokeLinecap="round"
             strokeDasharray={CIRCUMFERENCE}

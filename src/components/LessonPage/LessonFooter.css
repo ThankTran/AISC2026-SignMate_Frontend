@@ -16,26 +16,26 @@
   gap: 20px;
 
   padding: 14px var(--page-gutter) calc(14px + env(safe-area-inset-bottom, 0px));
-  box-shadow: 0 -4px 16px rgb(17 24 39 / 12%);
+  box-shadow: var(--shadow-md);
 
-  background: #111827;
-  color: #e5e7eb;
+  background: var(--color-neutral-900);
+  color: var(--color-neutral-100);
 
-  transition: background 0.35s ease;
+  transition: background 0.35s var(--ease-standard);
 }
 
 /* ---- SUCCESS (đáp án đúng) ---- */
 
 .lesson-footer--success {
-  background: #e6f4ea;
-  color: #14532d;
+  background: var(--color-teal-50);
+  color: var(--color-teal-900);
 }
 
 /* ---- ERROR (đáp án sai) ---- */
 
 .lesson-footer--error {
-  background: #fce8e6;
-  color: #7f1d1d;
+  background: var(--color-coral-50);
+  color: var(--color-coral-900);
 }
 
 /* ---- Left: context (default dark) ---- */
@@ -52,27 +52,27 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: #22c55e;
-  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.18);
+  background: var(--color-teal-500);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-teal-500) 18%, transparent);
 }
 
 .lesson-footer__text {
   margin: 0;
   font-family: var(--font-family-body);
   font-size: 14px;
-  color: #9ca3af;
+  color: var(--color-neutral-300);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .lesson-footer__text strong {
-  color: #f9fafb;
+  color: var(--color-neutral-50);
 }
 
 .lesson-footer__sep {
   margin: 0 6px;
-  color: #4b5563;
+  color: var(--color-neutral-700);
 }
 
 /* ---- Right ---- */
@@ -87,7 +87,7 @@
 .lesson-footer__hint {
   font-family: var(--font-family-body);
   font-size: 13px;
-  color: #6b7280;
+  color: var(--color-neutral-600);
 }
 
 /* ---- Auto-advance note ---- */
@@ -96,7 +96,7 @@
   font-family: var(--font-family-body);
   font-size: var(--font-size-caption);
   font-weight: 600;
-  color: #6b7280;
+  color: var(--color-neutral-600);
   white-space: nowrap;
 
   animation: footer-note-pulse 1.4s ease-in-out infinite;
@@ -113,11 +113,11 @@
 }
 
 .lesson-footer--success .lesson-footer__note {
-  color: #15803d;
+  color: var(--color-teal-700);
 }
 
 .lesson-footer--error .lesson-footer__note {
-  color: #b91c1c;
+  color: var(--color-coral-700);
 }
 
 /* ---- Checking spinner ---- */
@@ -126,8 +126,8 @@
   width: 15px;
   height: 15px;
   border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.35);
-  border-top-color: #fff;
+  border: 2px solid color-mix(in srgb, var(--color-white) 35%, transparent);
+  border-top-color: var(--color-white);
 
   animation: footer-spin 0.8s linear infinite;
 }
@@ -170,7 +170,7 @@
   align-items: center;
   justify-content: center;
 
-  color: #fff;
+  color: var(--color-white);
   animation: footer-icon-bounce 0.5s ease;
 }
 
@@ -192,13 +192,13 @@
 }
 
 .lesson-footer__status-icon--ok {
-  background: #16a34a;
-  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.35);
+  background: var(--color-teal-700);
+  box-shadow: var(--shadow-md);
 }
 
 .lesson-footer__status-icon--no {
-  background: #dc2626;
-  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.35);
+  background: var(--color-coral-500);
+  box-shadow: var(--shadow-md);
 }
 
 .lesson-footer__status-text {
@@ -222,7 +222,7 @@
 }
 
 .lesson-footer--success .lesson-footer__status-sub strong {
-  color: #15803d;
+  color: var(--color-teal-700);
 }
 
 /* ---- Buttons ---- */
@@ -232,12 +232,10 @@
   align-items: center;
   gap: 6px;
 
-  padding: 12px 26px;
+  padding: var(--space-3) 26px;
   border: none;
-  border-radius: 12px;
-
-  background: #374151;
-  color: #6b7280;
+  border-radius: var(--radius-md);
+  color: var(--color-neutral-600);
 
   font-family: var(--font-family-body);
   font-size: 15px;
@@ -246,52 +244,54 @@
   cursor: not-allowed;
 
   transition:
-    background 0.18s ease,
-    color 0.18s ease,
-    transform 0.12s ease,
-    box-shadow 0.18s ease;
+    background var(--duration-base) var(--ease-standard),
+    color var(--duration-base) var(--ease-standard),
+    transform var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-base) var(--ease-standard);
+
+  background: var(--color-neutral-200);
 }
 
 .lesson-footer__btn--enabled {
-  background: #0d8a6a;
-  color: #fff;
+  color: var(--color-white);
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(13, 138, 106, 0.35);
+  box-shadow: var(--shadow-md);
+  background: var(--color-coral-500);
 }
 
 .lesson-footer__btn--enabled:hover {
-  background: #0b785c;
   transform: translateY(-1px);
+  background: var(--color-coral-700);
 }
 
 .lesson-footer__btn--advance {
-  background: #0d8a6a;
-  color: #fff;
+  color: var(--color-white);
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(13, 138, 106, 0.35);
+  box-shadow: var(--shadow-md);
   animation: footer-status-in 0.5s ease;
+  background: var(--color-coral-500);
 }
 
 .lesson-footer__btn--advance:hover {
-  background: #0b785c;
   transform: translateY(-1px);
+  background: var(--color-coral-700);
 }
 
 .lesson-footer__btn--ack {
-  background: #7f1d1d;
-  color: #fff;
+  color: var(--color-white);
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(127, 29, 29, 0.3);
+  box-shadow: var(--shadow-md);
   animation: footer-status-in 0.5s ease;
+  background: var(--color-coral-500);
 }
 
 .lesson-footer__btn--ack:hover {
-  background: #991b1b;
   transform: translateY(-1px);
+  background: var(--color-coral-700);
 }
 
 .lesson-footer__btn:focus-visible {
-  outline: 2px solid #fff;
+  outline: 2px solid var(--color-white);
   outline-offset: 2px;
 }
 
@@ -301,7 +301,8 @@
 
 @media (max-width: 1024px) {
   .lesson-footer {
-    padding: 12px var(--page-gutter) calc(12px + env(safe-area-inset-bottom, 0px));
+    padding: var(--space-3) var(--page-gutter)
+      calc(var(--space-3) + env(safe-area-inset-bottom, 0px));
   }
 
   .lesson-footer__hint,

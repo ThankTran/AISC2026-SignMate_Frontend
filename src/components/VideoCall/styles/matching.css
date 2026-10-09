@@ -2,15 +2,24 @@
   position: relative;
   min-height: calc(100dvh - 64px);
   background:
-    radial-gradient(ellipse at 80% 10%, #51438c66, transparent 55%),
-    radial-gradient(ellipse at 10% 90%, #20544e55, transparent 50%), #251c4c;
-  color: #fff;
+    radial-gradient(
+      ellipse at 80% 10%,
+      color-mix(in srgb, var(--color-teal-900) 40%, transparent),
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse at 10% 90%,
+      color-mix(in srgb, var(--color-teal-800) 33.33%, transparent),
+      transparent 50%
+    ),
+    var(--color-teal-900);
+  color: var(--color-white);
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  padding: 65px 24px 35px;
+  padding: 65px var(--space-5) 35px;
   overflow: hidden;
 }
 .vc-back {
@@ -19,10 +28,10 @@
   top: 25px;
   border: 0;
   background: none;
-  color: #c9c0e7;
+  color: var(--color-teal-100);
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-2);
   font-size: var(--font-size-caption);
 }
 .vc-search-orb {
@@ -32,14 +41,14 @@
   display: grid;
   place-items: center;
   margin: 5px 0 30px;
-  color: #89dab9;
+  color: var(--color-teal-100);
 }
 .vc-search-orb > span {
   position: absolute;
   inset: 18px;
-  border: 1px solid #a495d750;
+  border: 1px solid color-mix(in srgb, var(--color-teal-200) 31.37%, transparent);
   border-radius: 50%;
-  background: #aca0da0a;
+  background: color-mix(in srgb, var(--color-teal-200) 3.92%, transparent);
   animation: vc-ripple 3.6s ease-out infinite;
 }
 .vc-search-orb > span:nth-child(2) {
@@ -52,7 +61,7 @@
   animation: vc-float 4s ease-in-out infinite;
 }
 .vc-search .vc-eyebrow {
-  color: #afa0d5;
+  color: var(--color-teal-200);
   font-size: var(--font-size-caption);
 }
 .vc-search h1 {
@@ -61,12 +70,12 @@
 }
 .vc-search > p {
   font-size: var(--font-size-caption);
-  color: #b5a9d0;
+  color: var(--color-teal-200);
 }
 .vc-search-checks {
   text-align: left;
-  background: #ffffff0c;
-  border: 1px solid #ffffff13;
+  background: color-mix(in srgb, var(--color-white) 4.71%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-white) 7.45%, transparent);
   border-radius: 18px;
   padding: 19px 25px;
   width: min(350px, 100%);
@@ -77,7 +86,7 @@
   gap: 13px;
   align-items: center;
   padding: 9px 0;
-  color: #9286b0;
+  color: var(--color-teal-700);
   font-size: var(--font-size-caption);
   transition: color 0.4s;
 }
@@ -87,20 +96,20 @@
   border-radius: 50%;
   display: grid;
   place-items: center;
-  background: #ffffff08;
+  background: color-mix(in srgb, var(--color-white) 3.14%, transparent);
 }
 .vc-search-checks > div.complete {
-  color: #d9f7e9;
+  color: var(--color-teal-50);
 }
 .vc-search-checks > div.complete > span {
-  background: #328268;
-  color: #c4ffe2;
+  background: var(--color-teal-600);
+  color: var(--color-teal-50);
 }
 .vc-loader {
   width: 11px;
   height: 11px;
-  border: 1px solid #8a7fae;
-  border-top-color: #d6c6ff;
+  border: 1px solid var(--color-teal-500);
+  border-top-color: var(--color-teal-100);
   border-radius: 50%;
   animation: vc-spin 1s linear infinite;
 }
@@ -108,20 +117,20 @@
   display: block;
   letter-spacing: 2px;
   font-size: var(--font-size-caption);
-  color: #9486b3;
+  color: var(--color-teal-700);
 }
 .vc-wait strong {
   display: block;
   font-family: var(--font-family-mono);
   font-size: 16px;
   font-weight: 400;
-  margin-top: 8px;
+  margin-top: var(--space-2);
 }
 .vc-search-demo {
   font-size: var(--font-size-caption);
-  color: #9486b3;
+  color: var(--color-teal-700);
   margin-top: 19px;
 }
 .vc-search .vc-text-button {
-  color: #c6b9e5;
+  color: var(--color-teal-100);
 }

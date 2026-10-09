@@ -9,8 +9,8 @@
   gap: 16px;
   padding: 14px 20px;
   border-radius: 14px;
-  background: #fff;
-  border: 1px solid var(--color-neutral-200, #d3d1c7);
+  background: var(--color-white);
+  border: 1px solid var(--color-neutral-200);
 }
 
 .tip-box__content {
@@ -29,8 +29,8 @@
   width: 28px;
   height: 28px;
   border-radius: 8px;
-  background: var(--color-purple-50, #eeedfe);
-  color: var(--color-purple-500, #7f77dd);
+  background: var(--color-purple-50);
+  color: var(--color-purple-500);
   margin-top: 1px;
 }
 
@@ -38,13 +38,13 @@
   font-family: var(--font-family-body);
   font-size: 14px;
   font-weight: var(--font-weight-regular);
-  color: var(--color-neutral-700, #5f5e5a);
+  color: var(--color-neutral-700);
   line-height: 1.5;
 }
 
 .tip-box__text strong {
   font-weight: var(--font-weight-semibold);
-  color: var(--color-neutral-900, #444441);
+  color: var(--color-neutral-900);
 }
 
 .tip-box__counter {
@@ -52,8 +52,8 @@
 
   font-size: 13px;
   font-weight: var(--font-weight-semibold);
-  color: var(--color-purple-500, #7f77dd);
-  background: var(--color-purple-50, #eeedfe);
+  color: var(--color-purple-500);
+  background: var(--color-purple-50);
   padding: 5px 12px;
   border-radius: 999px;
   white-space: nowrap;

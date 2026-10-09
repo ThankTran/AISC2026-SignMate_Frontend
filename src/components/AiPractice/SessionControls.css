@@ -12,7 +12,7 @@
   font-family: var(--font-family-main);
   font-size: var(--font-size-caption);
   font-weight: var(--font-weight-bold);
-  color: var(--color-neutral-500, #888780);
+  color: var(--color-neutral-500);
   letter-spacing: 1.2px;
   text-transform: uppercase;
 }
@@ -31,43 +31,43 @@
   gap: 6px;
   padding: 10px 14px;
   border-radius: 12px;
-  border: 1px solid var(--color-neutral-200, #d3d1c7);
-  background: #fff;
+  border: 1px solid var(--color-neutral-200);
+  background: var(--color-white);
   font-family: var(--font-family-body);
   font-size: 13px;
   font-weight: var(--font-weight-semibold);
-  color: var(--color-neutral-700, #5f5e5a);
+  color: var(--color-neutral-700);
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .session-ctrl__toggle:hover {
-  background: var(--color-neutral-100, #f1efe8);
+  background: var(--color-neutral-100);
 }
 
 .session-ctrl__toggle--active {
-  background: var(--color-purple-50, #eeedfe);
-  border-color: var(--color-purple-200, #afa9ec);
-  color: var(--color-purple-700, #534ab7);
+  background: var(--color-purple-50);
+  border-color: var(--color-purple-200);
+  color: var(--color-purple-700);
 }
 
 .session-ctrl__toggle--active:hover {
-  background: var(--color-purple-100, #cecbf6);
+  background: var(--color-purple-100);
 }
 
 /* Trạng thái TẮT (Off): nút xám đục + icon gạch chéo đỏ */
 .session-ctrl__toggle--off {
-  background: #f0f0f2;
-  border-color: #dddee2;
-  color: #9596a0;
+  background: var(--color-neutral-100);
+  border-color: var(--color-neutral-200);
+  color: var(--color-neutral-500);
 }
 
 .session-ctrl__toggle--off:hover {
-  background: #e8e8eb;
+  background: var(--color-neutral-100);
 }
 
 .session-ctrl__toggle--off .session-ctrl__toggle-off-ic {
-  color: #ef5350;
+  color: var(--color-purple-700);
 }
 
 /* ===== PRIMARY BUTTON ===== */
@@ -88,21 +88,21 @@
 }
 
 .session-ctrl__primary--start {
-  background: var(--color-purple-500, #7f77dd);
-  color: #fff;
+  background: var(--color-purple-500);
+  color: var(--color-white);
 }
 
 .session-ctrl__primary--start:hover {
-  background: var(--color-purple-700, #534ab7);
+  background: var(--color-purple-700);
 }
 
 .session-ctrl__primary--stop {
-  background: var(--color-neutral-900, #444441);
-  color: #fff;
+  background: var(--color-neutral-900);
+  color: var(--color-white);
 }
 
 .session-ctrl__primary--stop:hover {
-  background: #333330;
+  background: var(--color-neutral-900);
 }
 
 /* ===== RESPONSIVE ===== */

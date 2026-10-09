@@ -7,7 +7,7 @@
   flex-direction: column;
   gap: 24px;
   padding: 22px var(--page-gutter) 22px;
-  background: #f8f9fa;
+  background: var(--color-neutral-50);
 }
 
 /* ===== LEFT COLUMN ===== */
@@ -31,7 +31,7 @@
   font-family: var(--font-family-main);
   font-size: var(--font-size-h1);
   font-weight: var(--font-weight-bold);
-  color: var(--color-neutral-900, #444441);
+  color: var(--color-neutral-900);
   display: flex;
   align-items: center;
   gap: 8px;
@@ -39,14 +39,14 @@
 }
 
 .ai-practice__topnav-sep {
-  color: var(--color-neutral-300, #b4b2a9);
+  color: var(--color-neutral-300);
   font-size: 18px;
 }
 
 .ai-practice__topnav-sub {
   font-size: 15px;
   font-weight: var(--font-weight-semibold);
-  color: var(--color-purple-500, #7f77dd);
+  color: var(--color-purple-500);
 }
 
 .ai-practice__topnav-right {
@@ -59,26 +59,22 @@
   width: 120px;
   height: 6px;
   border-radius: 999px;
-  background: var(--color-neutral-200, #d3d1c7);
+  background: var(--color-neutral-200);
   overflow: hidden;
 }
 
 .ai-practice__progress-fill {
   height: 100%;
   border-radius: 999px;
-  background: linear-gradient(
-    90deg,
-    var(--color-purple-500, #7f77dd),
-    var(--color-teal-500, #1d9e75)
-  );
   transition: width 0.5s ease;
+  background: var(--color-purple-500);
 }
 
 .ai-practice__progress-text {
   font-family: var(--font-family-mono);
   font-size: 13px;
   font-weight: var(--font-weight-semibold);
-  color: var(--color-neutral-500, #888780);
+  color: var(--color-neutral-500);
   white-space: nowrap;
 }
 
@@ -118,14 +114,6 @@
     width: 80px;
   }
 }
-.ai-practice__progress-fill,
-.ai-analytics__live-dot {
-  background: var(--color-purple-500);
-}
-.ai-analytics__live {
-  color: var(--color-purple-700);
-  background: var(--color-purple-50);
-}
 .ai-practice__demo {
   padding: 12px;
   background: var(--color-purple-50);
@@ -145,18 +133,15 @@
   border-radius: 10px;
   background: white;
 }
-.ai-analytics__gauge-fill {
-  stroke: var(--color-purple-500, #7f77dd);
-}
 .ai-analytics__rating {
   text-align: center;
   font-size: 18px;
   font-weight: 650;
-  color: var(--color-purple-700, #5347a8);
+  color: var(--color-purple-700);
   margin: 0;
 }
 .ai-analytics__status {
-  color: #777;
+  color: var(--color-neutral-600);
   font-size: 13px;
   margin: 0;
 }
@@ -167,7 +152,7 @@
 .ai-analytics__metric-val small {
   font-size: 12px;
   font-weight: 400;
-  color: #777;
+  color: var(--color-neutral-600);
 }
 .ai-feedback__text {
   white-space: pre-line;
@@ -179,17 +164,17 @@
   padding: 0 8px;
   font-size: 12px;
   font-weight: 600;
-  color: #625d70;
+  color: var(--color-neutral-700);
 }
 .practice-lesson select {
   width: 100%;
   min-width: 0;
   min-height: 32px;
   padding: 4px 28px 4px 8px;
-  border: 1px solid #dedce8;
+  border: 1px solid var(--color-neutral-200);
   border-radius: 7px;
   background: white;
-  color: #34313c;
+  color: var(--color-neutral-900);
   font-size: 15px;
   text-overflow: ellipsis;
 }
@@ -213,7 +198,7 @@
 .sign-sample > p,
 .practice-hint {
   font-size: 13px;
-  color: #777;
+  color: var(--color-neutral-600);
   line-height: 1.6;
 }
 .sign-sample__eyebrow,
@@ -221,13 +206,13 @@
   font-size: 10px;
   letter-spacing: 1.4px;
   font-weight: 700;
-  color: var(--color-purple-700, #5347a8);
+  color: var(--color-purple-700);
 }
 .sign-sample video {
   display: block;
   width: 100%;
   max-height: 280px;
-  background: #24232b;
+  background: var(--color-neutral-900);
   border-radius: 12px;
 }
 .practice-controls {
@@ -238,7 +223,7 @@
 .practice-actions button,
 .practice-error button {
   min-height: 44px;
-  border: 1px solid #dedce8;
+  border: 1px solid var(--color-neutral-200);
   border-radius: 10px;
   padding: 10px 14px;
   background: white;
@@ -247,17 +232,17 @@
   transition: background 0.2s;
 }
 .practice-primary {
-  background: var(--color-purple-500, #7f77dd) !important;
+  background: var(--color-purple-500) !important;
   color: white;
   border-color: transparent !important;
 }
 .practice-result {
   padding: 22px;
-  background: #f3f0e8;
+  background: var(--color-neutral-100);
   border-radius: 18px;
 }
 .practice-result--passed {
-  background: #edf5ee;
+  background: var(--color-purple-50);
 }
 .practice-result h2 {
   font-size: 20px;
@@ -281,8 +266,8 @@
 .practice-error {
   padding: 14px;
   border-radius: 12px;
-  background: #fceeed;
-  color: #8a3434;
+  background: var(--color-neutral-100);
+  color: var(--color-neutral-900);
 }
 .ai-practice button:disabled {
   opacity: 0.5;
@@ -291,7 +276,7 @@
 .ai-practice button:focus-visible,
 .ai-practice select:focus-visible,
 .sign-sample video:focus-visible {
-  outline: 3px solid #7f77dd;
+  outline: 3px solid var(--color-purple-500);
   outline-offset: 3px;
 }
 @media (max-width: 600px) {
@@ -315,9 +300,9 @@
   align-items: center;
   gap: 12px;
   padding: 6px;
-  border: 1px solid #dedce8;
+  border: 1px solid var(--color-neutral-200);
   border-radius: 14px;
-  background: #eeedf3;
+  background: var(--color-purple-50);
 }
 .practice-tabs {
   display: flex;
@@ -325,7 +310,7 @@
   gap: 6px;
 }
 .practice-toolbar .practice-lesson {
-  border-left: 1px solid #d5d0e6;
+  border-left: 1px solid var(--color-purple-100);
   padding-left: 18px;
 }
 .practice-tabs button {
@@ -335,18 +320,18 @@
   border: 0;
   border-radius: 10px;
   background: transparent;
-  color: #625d70;
+  color: var(--color-neutral-700);
   font: inherit;
   font-weight: 600;
   cursor: pointer;
 }
 .practice-tabs button[aria-selected="true"] {
   background: white;
-  color: var(--color-purple-700, #5347a8);
+  color: var(--color-purple-700);
   box-shadow: 0 1px 4px #29213f14;
 }
 .practice-tabs button:hover {
-  color: var(--color-purple-700, #5347a8);
+  color: var(--color-purple-700);
 }
 .practice-camera-panel {
   display: flex;
@@ -357,7 +342,7 @@
   display: none;
 }
 .ai-practice [role="tabpanel"]:focus-visible {
-  outline: 3px solid #7f77dd;
+  outline: 3px solid var(--color-purple-500);
   outline-offset: 3px;
 }
 .practice-video-actions {
@@ -392,15 +377,15 @@
   margin: 0;
   padding: 12px 14px;
   border-radius: 12px;
-  background: var(--color-purple-50, #f1effb);
-  color: var(--color-purple-700, #5347a8);
+  background: var(--color-purple-50);
+  color: var(--color-purple-700);
   font-size: 13px;
   line-height: 1.6;
 }
 .practice-shortcut kbd {
   flex-shrink: 0;
   padding: 3px 9px;
-  border: 1px solid #d5d0e6;
+  border: 1px solid var(--color-purple-100);
   border-bottom-width: 3px;
   border-radius: 6px;
   background: white;
@@ -415,7 +400,7 @@
   }
   .practice-toolbar .practice-lesson {
     border-left: 0;
-    border-top: 1px solid #d5d0e6;
+    border-top: 1px solid var(--color-purple-100);
     padding: 10px 8px 4px;
   }
 }

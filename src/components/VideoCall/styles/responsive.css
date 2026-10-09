@@ -21,12 +21,12 @@
   }
   .vc-suggestions {
     margin-top: 36px;
-    padding-top: 32px;
+    padding-top: var(--space-6);
   }
 }
 @media (max-width: 1024px) {
   .vc-page {
-    padding: 24px var(--page-gutter) 24px;
+    padding: var(--space-5) var(--page-gutter) var(--space-5);
   }
   .vc-setup-grid {
     gap: 17px;
@@ -58,7 +58,7 @@
     padding: 0;
   }
   .vc-bottom-steps {
-    gap: 12px;
+    gap: var(--space-3);
   }
   .vc-bottom-steps > span {
     gap: 6px;
@@ -66,8 +66,6 @@
   .vc-bottom-steps svg {
     margin-left: 5px;
   }
-}
-@media (max-width: 1024px) {
   .vc-chat {
     bottom: 120px;
     width: 295px;
@@ -207,7 +205,7 @@
     flex-wrap: wrap;
   }
   .vc-compatibility {
-    padding: 12px;
+    padding: var(--space-3);
   }
   .vc-compatibility > span {
     font-size: var(--font-size-caption);
@@ -237,14 +235,12 @@
     left: 15px;
     right: 15px;
     top: 16px;
-  }
-  .vc-call-header {
     grid-template-columns: minmax(0, 1fr);
     max-width: calc(100% - 140px);
-    gap: 8px;
+    gap: var(--space-2);
   }
   .vc-call-header > div {
-    padding: 6px 8px;
+    padding: 6px var(--space-2);
     gap: 6px;
   }
   .vc-call-header strong {
@@ -280,11 +276,11 @@
     bottom: 122px;
     left: 12px;
     width: calc(100% - 65px);
-    gap: 8px;
+    gap: var(--space-2);
   }
   .vc-chat-messages {
     height: min(180px, 28dvh);
-    padding: 24px 4px 0;
+    padding: var(--space-5) var(--space-1) 0;
   }
   .vc-chat-messages p {
     font-size: var(--font-size-caption);

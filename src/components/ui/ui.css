@@ -119,11 +119,12 @@
 }
 
 .ui-modal.vc-modal {
-  --vc-ink: #233d35;
-  --vc-green: #23785c;
-  --vc-mint: #eaf4ee;
-  --vc-purple: #6556b7;
-  --vc-orange: #bc4c24;
+  --vc-ink: var(--color-neutral-900);
+  --vc-green: var(--color-teal-800);
+  --vc-mint: var(--color-teal-50);
+  --vc-purple: var(--color-teal-600);
+  --vc-orange: var(--color-coral-500);
+  padding: 24px;
 }
 .ui-skeleton {
   display: grid;
@@ -162,9 +163,6 @@
 .ui-modal input,
 .ui-modal textarea {
   font-size: var(--font-size-body);
-}
-.ui-modal.vc-modal {
-  padding: 24px;
 }
 .ui-modal.vc-modal textarea {
   width: 100%;

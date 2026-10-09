@@ -1,23 +1,22 @@
 .welcome-page {
-  height: 100vh;
   height: 100dvh;
   overflow-y: auto;
   overflow-x: hidden;
-  background: #ffffff;
+  background: var(--color-white);
 }
 
 .welcome-nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 11px 48px;
+  padding: 11px var(--space-7);
   background: var(--color-neutral-100);
   border-bottom: 1px solid var(--color-teal-100);
 }
 .welcome-logo {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-2);
 }
 .welcome-logo-text {
   font-family: "Baloo 2", var(--font-family-main), sans-serif;
@@ -31,27 +30,29 @@
 }
 
 .btn-primary-pill {
-  background: var(--color-teal-500);
-  color: #ffffff;
-  border: none;
-  border-radius: 999px;
+  border-radius: var(--radius-full);
   padding: 6px 22px;
   font-weight: 600;
   font-size: 14px;
   cursor: pointer;
+  background: transparent;
+  color: var(--color-teal-800);
+  border: 1px solid var(--color-teal-600);
 }
 .btn-primary-pill:hover {
-  background: var(--color-teal-700);
+  background: var(--color-teal-50);
 }
 
 .btn-outline {
-  background: #ffffff;
+  background: var(--color-white);
   border: 1px solid var(--color-neutral-900);
   border-radius: 10px;
   padding: 10px 20px;
   font-weight: 600;
   font-size: 16px;
   cursor: pointer;
+  color: var(--color-teal-800);
+  border-color: var(--color-teal-600);
 }
 .btn-outline:hover {
   background: var(--color-neutral-100);
@@ -59,10 +60,10 @@
 
 .btn-primary {
   background: var(--color-coral-500);
-  color: #ffffff;
+  color: var(--color-white);
   border: none;
   border-radius: 10px;
-  padding: 13px 24px;
+  padding: 13px var(--space-5);
   font-weight: 600;
   font-size: 14px;
   cursor: pointer;
@@ -74,7 +75,7 @@
 .hero {
   /* display: flex; */
   /* gap: 56px; */
-  padding: 56px 48px;
+  padding: 56px var(--space-7);
   align-items: center;
 }
 .hero-inner {
@@ -101,9 +102,9 @@
   position: absolute;
   bottom: 16px;
   left: 16px;
-  background: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(43, 42, 40, 0.12);
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
   padding: 10px 14px;
   display: flex;
   align-items: center;
@@ -115,7 +116,7 @@
   width: 22px;
   height: 22px;
   background: var(--color-teal-100);
-  color: var(--color-teal-500);
+  color: var(--color-teal-600);
   border-radius: 50%;
   display: inline-flex;
   align-items: center;
@@ -138,23 +139,23 @@
 
 .hero-content {
   flex: 1;
-  font-style: bold;
   min-width: 0;
 }
 .hero-content h1 {
   font-family: var(--font-family-main);
   font-size: var(--font-size-h1);
   line-height: 1.15;
-  margin: 0 0 16px;
+  margin: 0 0 var(--space-4);
   color: var(--color-neutral-900);
+  font-weight: var(--font-weight-bold);
 }
 .hero-content .highlight {
-  color: var(--color-teal-500);
-  font-style: bold;
+  color: var(--color-teal-800);
+  font-weight: var(--font-weight-bold);
 }
 .hero-desc {
   padding: 5px;
-  color: var(--color-neutral-990);
+  color: var(--color-neutral-900);
   font-size: 18px;
   line-height: 1.6;
   margin-bottom: 20px;
@@ -162,15 +163,15 @@
 
 .feature-tags {
   display: flex;
-  gap: 16px;
+  gap: var(--space-4);
   flex-wrap: wrap;
   margin-bottom: 28px;
 }
 .tag {
   background: var(--color-neutral-900);
-  color: #ffffff;
-  border-radius: 999px;
-  padding: 8px 28px;
+  color: var(--color-white);
+  border-radius: var(--radius-full);
+  padding: var(--space-2) 28px;
   font-size: 13px;
   font-weight: 500;
   min-width: 160px;
@@ -188,20 +189,23 @@
 .section-divider {
   border: none;
   border-top: 1px solid var(--color-neutral-200);
-  margin: 0 48px;
+  margin: 0 var(--space-7);
 }
 
-.challenges,
-.explore {
-  padding: 56px 48px;
+.challenges {
+  padding: 56px var(--space-7);
   text-align: center;
+}
+
+.explore {
+  padding: 56px var(--space-7);
+  text-align: center;
+  background: var(--color-neutral-50);
+  scroll-margin-top: 90px;
 }
 .challenges h2,
 .explore h2 {
-  font-size: var(--font-size-h2);
   font-family: "Baloo 2", var(--font-family-main), sans-serif;
-  /* font-family: var(--font-family-display);
-  font-style: bold;*/
   font-size: 32px;
   font-weight: 800;
   color: var(--color-neutral-900);
@@ -210,33 +214,33 @@
 .section-subtitle {
   color: var(--color-neutral-700);
   font-size: 16px;
-  margin: 0 0 32px;
+  margin: 0 0 var(--space-6);
 }
 
 .challenges-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 32px;
+  gap: var(--space-6);
   max-width: 1200px;
   margin: 0 auto;
   text-align: left;
 }
 .challenge-card {
   border: 1.5px dashed var(--color-neutral-200);
-  border-radius: 16px;
+  border-radius: var(--radius-lg);
   padding: 20px;
 }
 .challenge-card--coral {
   border-color: var(--color-coral-200);
 }
 .challenge-card--purple {
-  border-color: var(--color-purple-200);
+  border-color: var(--color-teal-200);
 }
 .challenge-card--teal {
   border-color: var(--color-teal-200);
 }
 .challenge-card--dark {
-  border-color: #5f5e5a;
+  border-color: var(--color-neutral-700);
 }
 
 .challenge-icon {
@@ -253,22 +257,22 @@
   color: var(--color-coral-500);
 }
 .challenge-icon--purple {
-  background: var(--color-purple-50);
-  color: var(--color-purple-500);
-}
-.challenge-icon--teal {
   background: var(--color-teal-50);
   color: var(--color-teal-500);
 }
+.challenge-icon--teal {
+  background: var(--color-teal-50);
+  color: var(--color-teal-600);
+}
 .challenge-icon--dark {
-  background: #ececea;
-  color: #5f5e5a;
+  background: var(--color-neutral-100);
+  color: var(--color-neutral-700);
 }
 
 .challenge-card h3 {
   font-size: var(--font-size-h3);
   font-family: "Be VietNam Pro", var(--font-family-main), sans-serif;
-  margin: 0 0 8px;
+  margin: 0 0 var(--space-2);
   color: var(--color-neutral-900);
 }
 .challenge-card p {
@@ -277,18 +281,13 @@
   color: var(--color-neutral-700);
   margin: 0;
 }
-
-.explore {
-  background: var(--color-neutral-50);
-  scroll-margin-top: 90px;
-}
 .explore-grid {
   position: relative;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
+  gap: var(--space-6);
   max-width: 1200px;
-  margin: 32px auto 0;
+  margin: var(--space-6) auto 0;
   text-align: left;
 }
 .explore-grid::before {
@@ -312,11 +311,11 @@
   height: 56px;
   border-radius: 50%;
   border: 2px solid var(--color-teal-200);
-  color: var(--color-teal-500);
+  color: var(--color-teal-600);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 16px;
+  margin-bottom: var(--space-4);
 }
 .explore-col h3 {
   font-size: var(--font-size-h3);
@@ -328,10 +327,9 @@
   font-size: 14px;
   color: var(--color-neutral-700);
   line-height: 1.6;
-  margin: 0 0 16px;
   text-align: center;
   max-width: 325px;
-  margin: 0 auto 16px;
+  margin: 0 auto var(--space-4);
 }
 .explore-col ul {
   list-style: none;
@@ -347,11 +345,11 @@
 .explore-col li {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-2);
   width: 100%;
   font-size: 13px;
   color: var(--color-neutral-700);
-  padding: 8px 16px;
+  padding: var(--space-2) var(--space-4);
   background: var(--color-teal-50);
   border: none;
   border-radius: 14px;
@@ -362,7 +360,7 @@
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: var(--color-teal-500);
+  background: var(--color-teal-600);
   flex-shrink: 0;
 }
 
@@ -375,9 +373,7 @@
     max-width: 100%;
     width: 100%;
   }
-  .challenges-grid {
-    grid-template-columns: 1fr;
-  }
+  .challenges-grid,
   .explore-grid {
     grid-template-columns: 1fr;
   }

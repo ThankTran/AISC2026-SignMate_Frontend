@@ -5,23 +5,23 @@
 
 .vc-partner {
   text-align: left;
-  padding: 24px;
+  padding: var(--space-5);
   border-radius: 19px;
 }
 .vc-compatibility {
   display: flex;
   align-items: center;
   gap: 13px;
-  background: #6558b5;
-  color: #fff;
+  background: var(--color-teal-700);
+  color: var(--color-white);
   padding: 14px 20px;
-  border-radius: 12px;
+  border-radius: var(--radius-md);
 }
 .vc-compatibility small {
   font-size: var(--font-size-caption);
   letter-spacing: 1.5px;
   display: block;
-  color: #dcd4fc;
+  color: var(--color-teal-100);
 }
 .vc-compatibility strong {
   font-family: var(--font-family-mono);
@@ -32,7 +32,7 @@
   margin-left: auto;
   text-align: right;
   font-size: var(--font-size-caption);
-  color: #e2dcf8;
+  color: var(--color-teal-50);
   line-height: 1.7;
 }
 .vc-partner-main {
@@ -54,9 +54,9 @@
   top: 76px;
   white-space: nowrap;
   font-size: var(--font-size-caption);
-  background: #fff;
-  border: 1px solid #dfe9df;
-  padding: 4px 7px;
+  background: var(--color-white);
+  border: 1px solid var(--color-teal-50);
+  padding: var(--space-1) 7px;
   border-radius: 20px;
 }
 .vc-partner-main h2 {
@@ -65,25 +65,25 @@
 }
 .vc-partner-main p {
   font-size: var(--font-size-caption);
-  color: #76857a;
+  color: var(--color-neutral-500);
   margin-top: 9px;
 }
 .vc-partner-main .vc-location {
   font-size: var(--font-size-caption);
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: var(--space-1);
   margin-top: 0;
 }
 .vc-stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
-  margin-bottom: 24px;
+  margin-bottom: var(--space-5);
 }
 .vc-stats > div {
   padding: 13px;
-  background: #f1f5ef;
+  background: var(--color-teal-50);
   border-radius: 11px;
   text-align: center;
 }
@@ -91,7 +91,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  gap: var(--space-1);
   font-family: var(--font-family-mono);
   font-size: 18px;
   font-weight: 500;
@@ -99,12 +99,12 @@
 .vc-stats small {
   display: block;
   font-size: var(--font-size-caption);
-  color: #819081;
+  color: var(--color-neutral-500);
   margin-top: 3px;
 }
 .vc-label {
   font-size: var(--font-size-caption);
-  color: #93a092;
+  color: var(--color-neutral-400);
   letter-spacing: 1.5px;
 }
 .vc-tags {
@@ -114,8 +114,8 @@
   margin: 9px 0 18px;
 }
 .vc-tags span {
-  background: #ede9fc;
-  color: #7161a8;
+  background: var(--color-teal-50);
+  color: var(--color-teal-700);
   border-radius: 20px;
   padding: 5px 10px;
   font-size: var(--font-size-caption);
@@ -123,8 +123,8 @@
 .vc-prompt {
   border-radius: 11px;
   padding: 15px;
-  background: #f1edff;
-  border: 1px solid #e8e0ff;
+  background: var(--color-teal-50);
+  border: 1px solid var(--color-teal-50);
 }
 .vc-prompt small {
   display: flex;
@@ -132,11 +132,11 @@
   align-items: center;
   font-size: var(--font-size-caption);
   letter-spacing: 1px;
-  color: #8576bb;
-  margin-bottom: 8px;
+  color: var(--color-teal-700);
+  margin-bottom: var(--space-2);
 }
 .vc-prompt strong {
   font-size: var(--font-size-caption);
   font-weight: 500;
-  color: #55477b;
+  color: var(--color-teal-900);
 }

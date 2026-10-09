@@ -1,10 +1,9 @@
 .auth-layout {
   display: flex;
   min-height: 100vh;
-  background:
-    radial-gradient(ellipse at 0% 95%, #d9d2ed 0%, transparent 55%),
-    radial-gradient(ellipse at 95% 0%, #bcd8c9 0%, transparent 60%),
-    linear-gradient(120deg, #eee0d1, #eef0dc);
+  background: var(--color-neutral-50);
+  height: 100dvh;
+  overflow-y: auto;
 }
 
 .auth-illustration {
@@ -43,6 +42,10 @@
   align-items: center;
   justify-content: center;
   padding: 40px;
+  flex-direction: column;
+  gap: 24px;
+  align-self: flex-start;
+  min-height: 100dvh;
 }
 
 @media (max-width: 1024px) {
@@ -52,14 +55,6 @@
   .auth-panel {
     flex: 1;
   }
-}
-.auth-layout {
-  height: 100dvh;
-  overflow-y: auto;
-}
-.auth-panel {
-  flex-direction: column;
-  gap: 24px;
 }
 .auth-mobile-brand {
   display: none;
@@ -77,8 +72,10 @@
   gap: 20px;
   padding: 28px;
   border-radius: 24px;
-  background: var(--color-neutral-50);
   font-size: max(14px, var(--font-size-body));
+  background: var(--color-neutral-0, white);
+  border: 1px solid var(--color-neutral-200);
+  box-shadow: 0 12px 32px rgb(34 60 51 / 10%);
 }
 .auth-form * {
   font-size: inherit;
@@ -124,12 +121,15 @@
   cursor: pointer;
 }
 .auth-submit {
-  background: var(--color-teal-700);
   color: white;
+  background: var(--color-coral-500);
+  border-radius: 24px;
+  font-weight: 700;
 }
 .auth-google {
   border: 1px solid var(--color-neutral-200);
   background: white;
+  border-radius: 24px;
 }
 .auth-form a {
   color: var(--color-teal-700);
@@ -145,6 +145,10 @@
 }
 .auth-divider {
   text-align: center;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--color-neutral-600);
 }
 @media (max-width: 1024px) {
   .auth-mobile-brand {
@@ -157,15 +161,6 @@
     padding: 24px;
   }
 }
-.auth-panel {
-  align-self: flex-start;
-  min-height: 100dvh;
-}
-.auth-form {
-  background: var(--color-neutral-0, white);
-  border: 1px solid var(--color-neutral-200);
-  box-shadow: 0 12px 32px rgb(34 60 51 / 10%);
-}
 .auth-form > h1,
 .auth-form > p {
   text-align: center;
@@ -176,20 +171,6 @@
 }
 .auth-form .auth-field-error {
   color: var(--color-coral-700);
-}
-.auth-submit {
-  background: var(--color-coral-500);
-  border-radius: 24px;
-  font-weight: 700;
-}
-.auth-google {
-  border-radius: 24px;
-}
-.auth-divider {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  color: var(--color-neutral-600);
 }
 .auth-divider::before,
 .auth-divider::after {

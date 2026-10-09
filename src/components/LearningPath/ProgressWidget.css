@@ -103,7 +103,7 @@
 .lp-progress__bar-fill {
   height: 100%;
   border-radius: 20px;
-  background: linear-gradient(90deg, #0d8a6a, #10b981);
+  background: var(--color-teal-600);
   transition: width 0.8s ease;
 }
 

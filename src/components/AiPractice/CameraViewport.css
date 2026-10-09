@@ -9,7 +9,7 @@
   min-height: 560px;
   border-radius: 24px;
   overflow: hidden;
-  background: #12131c;
+  background: var(--color-neutral-900);
 }
 
 /* ===== STATUS BADGES (top-left) ===== */
@@ -32,7 +32,7 @@
   font-family: var(--font-family-body);
   font-size: var(--font-size-caption);
   font-weight: var(--font-weight-semibold);
-  color: #fff;
+  color: var(--color-white);
   backdrop-filter: blur(6px);
   white-space: nowrap;
 }
@@ -67,7 +67,7 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #ff4444;
+  background: var(--color-purple-200);
   animation: cam-rec-blink 1s ease-in-out infinite;
 }
 
@@ -155,7 +155,7 @@
   align-items: center;
   justify-content: center;
   gap: 12px;
-  background: #12131c;
+  background: var(--color-neutral-900);
   color: rgba(255, 255, 255, 0.9);
 }
 
@@ -188,7 +188,7 @@
 .cam-viewport__countdown-num {
   font-size: 120px;
   font-weight: var(--font-weight-bold);
-  color: #fff;
+  color: var(--color-white);
   text-shadow:
     0 0 40px rgba(127, 119, 221, 0.7),
     0 0 80px rgba(127, 119, 221, 0.3);
@@ -237,7 +237,7 @@
   border-radius: 999px;
   background: rgba(18, 19, 28, 0.55);
   backdrop-filter: blur(4px);
-  color: #fff;
+  color: var(--color-white);
   font-family: var(--font-family-body);
   font-size: 13px;
   font-weight: var(--font-weight-semibold);
@@ -292,14 +292,14 @@
 }
 
 .cam-viewport__sign-info:focus-visible {
-  outline: 2px solid var(--color-purple-200, #afa9ec);
+  outline: 2px solid var(--color-purple-200);
   outline-offset: 2px;
 }
 
 .cam-viewport__sign-quote {
   font-size: 18px;
   font-weight: var(--font-weight-bold);
-  color: #fff;
+  color: var(--color-white);
 }
 
 .cam-viewport__sign-label {
@@ -316,8 +316,8 @@
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: var(--color-purple-500, #7f77dd);
-  color: #fff;
+  background: var(--color-purple-500);
+  color: var(--color-white);
   flex-shrink: 0;
 }
 
@@ -347,13 +347,13 @@
   color: rgba(255, 255, 255, 0.6);
 }
 .cam-viewport__conf-icon--high {
-  color: #4ade80;
+  color: var(--color-purple-100);
 }
 .cam-viewport__conf-icon--medium {
-  color: #fbbf24;
+  color: var(--color-purple-200);
 }
 .cam-viewport__conf-icon--low {
-  color: #f87171;
+  color: var(--color-white);
 }
 
 .cam-viewport__conf-value {
@@ -363,13 +363,13 @@
   color: rgba(255, 255, 255, 0.7);
 }
 .cam-viewport__conf-value--high {
-  color: #4ade80;
+  color: var(--color-purple-100);
 }
 .cam-viewport__conf-value--medium {
-  color: #fbbf24;
+  color: var(--color-purple-200);
 }
 .cam-viewport__conf-value--low {
-  color: #f87171;
+  color: var(--color-white);
 }
 
 /* ===== RESPONSIVE ===== */
