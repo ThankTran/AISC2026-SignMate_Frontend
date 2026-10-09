@@ -681,3 +681,8 @@ a:hover > .lp-quiz--locked {
     transition: none;
   }
 }
+
+@media (max-width: 768px) {
+  .lp-node--step .lp-node__label { max-width: 180px; width: 100%; display: block; overflow: visible; -webkit-line-clamp: unset; }
+  .lp-curve__chapter .lp-tooltip { max-width: calc(100vw - 32px); width: min(260px, 90cqw); }
+}

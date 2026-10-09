@@ -246,6 +246,12 @@ const QuizSession = ({ quiz }) => {
             Thoát
           </Link>
         </div>
+        <progress
+          className="quiz__mobile-progress"
+          value={Object.keys(answers).length}
+          max={TOTAL_QUESTIONS}
+          aria-label="Tiến độ bài kiểm tra"
+        />
       </header>
 
       {/* ===== QUESTION BANNER ===== */}

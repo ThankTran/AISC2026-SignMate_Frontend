@@ -12,6 +12,8 @@
 
 | 6 — UX | Cao | Nhãn mơ hồ, XP sai kỳ, privacy tự lưu, hai modal xóa, loader nhấp nháy | Profile, Dashboard, ConfirmDialog, SafetyDialog, FirstCallGuide, TheoryPreview, errorMessages, Skeleton | CTA cụ thể; XP tuần; lưu privacy tập trung; email + mật khẩu trong một modal; loader 100ms, skeleton từng màn sau 1s. |
 
+| 7 — Responsive | Cao | Topnav xuống dòng lộn xộn; lịch rộng; nhãn node cắt | LessonTopNav, QuizPage, SCurvePath, MonthCalendar, FriendsPage | Tiêu đề ellipsis, control một hàng, tiến độ dưới; lịch cuộn riêng có gợi ý; giữ agenda mobile hiện có; nhãn node không clamp. |
+
 ## Kiểm chứng
 
 - Nhóm 1 và 2: ESLint và Vite build thành công.

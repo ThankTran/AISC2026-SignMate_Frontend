@@ -1872,3 +1872,12 @@
     padding: var(--space-4);
   }
 }
+
+.month-calendar__scroll { max-width: 100%; overflow-x: auto; overscroll-behavior-inline: contain; }
+.month-calendar__scroll-hint { color: var(--color-neutral-700); margin-block: var(--space-2); }
+@media (min-width: 769px) {
+  .month-calendar__scroll > :is(.month-calendar__weekdays, .month-calendar__grid) { min-width: 700px; }
+}
+@media (max-width: 768px) {
+  .month-calendar__scroll-hint { display: none; }
+}
