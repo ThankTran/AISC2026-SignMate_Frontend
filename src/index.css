@@ -16,6 +16,8 @@
   --color-teal-500: #1d9e75; /* Primary */
   --color-teal-600: #168663;
   --color-teal-700: #0f6e56;
+  /* Intermediate shade between the documented 700 and 900 stops. */
+  --color-teal-800: #0c5f4c;
   --color-teal-900: #085041;
 
   /* ---------- Coral ---------- */
@@ -56,10 +58,10 @@
   --color-neutral-900: #444441;
 
   /* ---------- Màu chính (Hex chính - theo bảng màu tổng) ---------- */
-  --color-primary-teal: #1d9e75;
-  --color-primary-coral: #d85a30;
-  --color-primary-purple: #7f77dd;
-  --color-primary-dark-neutral: #5f5e5a;
+  --color-primary-teal: var(--color-teal-500);
+  --color-primary-coral: var(--color-coral-500);
+  --color-primary-purple: var(--color-purple-500);
+  --color-primary-dark-neutral: var(--color-neutral-700);
 
   /* ---------- Font Families ---------- */
   --font-family-main: "Plus Jakarta Sans", system-ui, sans-serif; /* Thương hiệu & Điều hướng */
@@ -105,8 +107,41 @@
   --font-size-number-lg-mobile: 22px;
   --font-size-number-sm-mobile: 13px;
 
+  /* Shared geometry: 4 / 8 grid, then larger layout intervals. */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+  /* Edge definition first, soft elevation second. */
+  --shadow-sm:
+    0 0 0 1px color-mix(in srgb, var(--color-neutral-900) 8%, transparent),
+    0 2px 6px color-mix(in srgb, var(--color-neutral-900) 6%, transparent);
+  --shadow-md:
+    0 0 0 1px color-mix(in srgb, var(--color-neutral-900) 8%, transparent),
+    0 6px 18px color-mix(in srgb, var(--color-neutral-900) 10%, transparent);
+  --shadow-lg:
+    0 0 0 1px color-mix(in srgb, var(--color-neutral-900) 10%, transparent),
+    0 12px 32px color-mix(in srgb, var(--color-neutral-900) 14%, transparent);
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+  --duration-slow: 320ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --color-success: var(--color-green-500);
+  --color-danger: var(--color-coral-500);
+  --color-warning: var(--color-coral-700);
+
   --sidebar-width: 210px;
   --sidebar-collapsed-width: 72px;
+  --focus-ring-color: var(--color-teal-500);
 }
 
 /* --------------------------------------------------------------------------
@@ -123,6 +158,9 @@
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100%;
+  overflow: hidden;
+  scroll-behavior: auto;
 }
 
 body {
@@ -132,14 +170,11 @@ body {
   color: var(--color-neutral-900);
   background-color: var(--color-neutral-50);
   line-height: 1.5;
-}
-
-/* ===== App Shell Full-Screen Fixed (chỉ 1 scrollbar duy nhất) ===== */
-html,
-body {
   height: 100%;
   overflow: hidden;
 }
+
+/* ===== App Shell Full-Screen Fixed (chỉ 1 scrollbar duy nhất) ===== */
 
 #root {
   height: 100%;
@@ -210,51 +245,13 @@ body {
 /* --------------------------------------------------------------------------
    5. RESPONSIVE (MOBILE) - Áp dụng size mobile theo tài liệu
    -------------------------------------------------------------------------- */
-@media (max-width: 768px) {
-  .text-display {
-    font-size: var(--font-size-display-mobile);
-  }
-  .text-h1 {
-    font-size: var(--font-size-h1);
-  }
-  .text-h2 {
-    font-size: var(--font-size-h2);
-  }
-  .text-h3 {
-    font-size: var(--font-size-h3);
-  }
-  .text-body {
-    font-size: var(--font-size-body-mobile);
-  }
-  .text-caption {
-    font-size: var(--font-size-caption-mobile);
-  }
-  .text-number-lg {
-    font-size: var(--font-size-number-lg-mobile);
-  }
-  .text-number-sm {
-    font-size: var(--font-size-number-sm-mobile);
-  }
-}
-
-@media (max-width: 768px) {
-  :root {
-    --font-size-display: 28px;
-    --font-size-h1: 24px;
-    --font-size-h2: 20px;
-    --font-size-h3: 16px;
-    --font-size-body: 15px;
-    --font-size-caption: 12px;
-    --font-size-number-lg: 22px;
-    --font-size-number-sm: 13px;
-  }
-}
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
+  line-height: 1.25;
   font-family: var(--font-family-main);
 }
 h1.text-h1 {
@@ -284,13 +281,13 @@ textarea {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 24px;
-  padding: 24px;
+  gap: var(--space-5);
+  padding: var(--space-5);
   text-align: center;
 }
 .not-found nav {
   display: flex;
-  gap: 24px;
+  gap: var(--space-5);
 }
 .not-found a {
   color: var(--color-teal-700);
@@ -311,18 +308,7 @@ textarea {
 .lucide-flame {
   color: var(--color-coral-500);
 }
-@media (prefers-reduced-motion: reduce) {
-  .loading-spinner {
-    animation: none;
-  }
-}
 /* Shared accessibility rules; breakpoints: 640 / 768 / 1024 / 1280. */
-:root {
-  --focus-ring-color: var(--color-teal-500);
-}
-html {
-  scroll-behavior: auto;
-}
 :is(
   a[href],
   button,
@@ -361,7 +347,7 @@ html {
   top: 8px;
   left: 16px;
   z-index: 4000;
-  padding: 12px 18px;
+  padding: var(--space-3) var(--space-4);
   background: white;
   color: var(--color-teal-900);
   transform: translateY(-150%);
@@ -370,10 +356,10 @@ html {
   transform: none;
 }
 .ui-data-state {
-  padding: 28px;
+  padding: var(--space-5);
   display: grid;
   justify-items: start;
-  gap: 12px;
+  gap: var(--space-3);
 }
 .ui-data-state h2,
 .ui-data-state p {
@@ -381,7 +367,7 @@ html {
 }
 .ui-data-state button,
 .ui-data-state a {
-  padding: 10px 16px;
+  padding: var(--space-2) var(--space-4);
   border: 1px solid var(--color-neutral-300);
   border-radius: 10px;
   background: white;
@@ -392,22 +378,51 @@ html {
 .info-page {
   max-width: 1050px;
   margin: auto;
-  padding: 24px;
+  padding: var(--space-5);
 }
 .info-page main {
   display: grid;
-  gap: 28px;
-  padding: 24px 0;
+  gap: var(--space-5);
+  padding: var(--space-5) 0;
 }
 .info-page nav {
   display: flex;
-  gap: 20px;
+  gap: var(--space-4);
   flex-wrap: wrap;
 }
 .info-page p {
-  line-height: 1.8;
+  line-height: 1.6;
 }
+/* Responsive containment for intrinsically wide flex/grid content. */
 @media (max-width: 768px) {
+  .text-display {
+    font-size: var(--font-size-display-mobile);
+  }
+  .text-h2 {
+    font-size: var(--font-size-h2);
+  }
+  .text-body {
+    font-size: var(--font-size-body-mobile);
+  }
+  .text-caption {
+    font-size: var(--font-size-caption-mobile);
+  }
+  .text-number-lg {
+    font-size: var(--font-size-number-lg-mobile);
+  }
+  .text-number-sm {
+    font-size: var(--font-size-number-sm-mobile);
+  }
+  :root {
+    --font-size-display: 28px;
+    --font-size-h1: 24px;
+    --font-size-h2: 20px;
+    --font-size-h3: 16px;
+    --font-size-body: 15px;
+    --font-size-caption: 12px;
+    --font-size-number-lg: 22px;
+    --font-size-number-sm: 13px;
+  }
   :is(button, a):has(> svg:only-child):not(
       .quiz__dot,
       .month-calendar-event__action,
@@ -423,7 +438,7 @@ html {
     min-height: 44px;
   }
   .app-footer {
-    gap: 12px;
+    gap: var(--space-3);
     flex-wrap: wrap;
   }
   .app-footer a {
@@ -432,27 +447,15 @@ html {
     min-height: 44px;
   }
   .info-page {
-    padding: 16px;
+    padding: var(--space-4);
   }
-}
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation: none !important;
-    transition: none !important;
-    scroll-behavior: auto !important;
-  }
-}
-/* Responsive containment for intrinsically wide flex/grid content. */
-@media (max-width: 768px) {
   .db-welcome {
-    padding: 20px;
+    padding: var(--space-4);
   }
   .db-welcome__stats {
     width: 100%;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: var(--space-4);
   }
   .db-stat {
     min-width: 0;
@@ -461,11 +464,8 @@ html {
   .db-board__tabs {
     flex-wrap: wrap;
   }
-  .db-board__header {
-    flex-wrap: wrap;
-  }
   .lp-banner {
-    padding: 20px;
+    padding: var(--space-4);
   }
   .lp-banner__content {
     min-width: 0;
@@ -534,7 +534,7 @@ html {
   }
   .lesson-footer {
     flex-wrap: wrap;
-    gap: 12px;
+    gap: var(--space-3);
   }
   .lesson-footer__left,
   .lesson-footer__right {
@@ -581,5 +581,17 @@ html {
   }
   .qr-review__status {
     grid-column: 2;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .loading-spinner {
+    animation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
   }
 }

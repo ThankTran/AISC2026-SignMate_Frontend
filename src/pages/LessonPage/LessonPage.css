@@ -18,15 +18,15 @@
 .lesson__body {
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-  gap: 28px;
+  gap: var(--space-5);
 
-  padding: 22px var(--page-gutter) 22px;
+  padding: var(--space-5) var(--page-gutter) var(--space-5);
 }
 
 @media (max-width: 1024px) {
   .lesson__body {
     grid-template-columns: 1fr;
-    padding: 18px var(--page-gutter) 18px;
+    padding: var(--space-4) var(--page-gutter) var(--space-4);
     align-content: start;
   }
 }

@@ -4,15 +4,6 @@
 
 /* Backdrop */
 
-@keyframes ooh-fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
 /* Card */
 
 .ooh-modal__card {
@@ -23,23 +14,12 @@
   flex-direction: column;
   align-items: center;
 
-  padding: 34px 30px 26px;
+  padding: var(--space-6) var(--space-6) var(--space-5);
 
-  border-radius: 24px;
-  background: #fff;
+  border-radius: var(--radius-xl);
+  background: var(--color-white);
 
   text-align: center;
-}
-
-@keyframes ooh-card-in {
-  from {
-    opacity: 0;
-    transform: translateY(24px) scale(0.92);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
 }
 
 /* Icon */
@@ -49,14 +29,14 @@
   height: 96px;
   border-radius: 50%;
 
-  background: #ffeaea;
-  color: #dc2626;
+  background: var(--color-coral-50);
+  color: var(--color-coral-500);
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  margin-bottom: 16px;
+  margin-bottom: var(--space-4);
 
   animation: ooh-heart-beat 1.4s ease-in-out infinite;
 }
@@ -88,18 +68,18 @@
   font-family: var(--font-family-main);
   font-size: var(--font-size-h2);
   font-weight: 800;
-  color: #1f2937;
+  color: var(--color-purple-900);
 }
 
 /* Text */
 
 .ooh-modal__card__text {
-  margin: 10px 0 22px;
+  margin: var(--space-2) 0 var(--space-5);
 
   font-family: var(--font-family-body);
-  font-size: 14.5px;
+  font-size: var(--text-sm);
   line-height: 1.6;
-  color: #6b7280;
+  color: var(--color-neutral-600);
 }
 
 /* Buttons */
@@ -110,58 +90,58 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: var(--space-2);
 
-  padding: 13px 0;
+  padding: var(--space-3) 0;
   border: none;
-  border-radius: 12px;
-
-  background: linear-gradient(135deg, #0d8a6a, #10b981);
-  color: #fff;
+  border-radius: var(--radius-md);
+  color: var(--color-white);
 
   font-family: var(--font-family-body);
-  font-size: 15px;
+  font-size: var(--text-sm);
   font-weight: 700;
 
   cursor: pointer;
 
-  box-shadow: 0 6px 18px rgba(13, 138, 106, 0.35);
+  box-shadow: var(--shadow-md);
   transition:
-    transform 0.15s ease,
-    box-shadow 0.18s ease;
+    transform var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-base) var(--ease-standard);
+  background: var(--color-coral-500);
 }
 
 .ooh-modal__card__primary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 8px 22px rgba(13, 138, 106, 0.42);
+  box-shadow: var(--shadow-md);
+  background: var(--color-coral-700);
 }
 
 .ooh-modal__card__secondary {
-  margin-top: 12px;
+  margin-top: var(--space-3);
   width: 100%;
-  padding: 11px 0;
+  padding: var(--space-3) 0;
 
-  border: 1.5px solid #e2e0da;
-  border-radius: 12px;
+  border: 1.5px solid var(--color-neutral-100);
+  border-radius: var(--radius-md);
 
-  background: #fff;
+  background: var(--color-white);
   color: var(--color-neutral-700);
 
   font-family: var(--font-family-body);
-  font-size: 14px;
+  font-size: var(--text-sm);
   font-weight: 600;
 
   text-align: center;
   text-decoration: none;
 
   transition:
-    background 0.18s ease,
-    border-color 0.18s ease;
+    background var(--duration-base) var(--ease-standard),
+    border-color var(--duration-base) var(--ease-standard);
 }
 
 .ooh-modal__card__secondary:hover {
   background: var(--color-neutral-100);
-  border-color: #d3d1c7;
+  border-color: var(--color-neutral-200);
 }
 
 /* =========================================================
@@ -170,7 +150,7 @@
 
 @media (max-width: 640px) {
   .ooh-modal__card {
-    padding: 26px 20px 20px;
+    padding: var(--space-5) var(--space-4) var(--space-4);
     max-width: 340px;
   }
 }

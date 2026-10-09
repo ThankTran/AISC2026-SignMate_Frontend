@@ -3,18 +3,18 @@
    ========================================================= */
 
 .ai-feedback {
-  background: #f5f3ff;
+  background: var(--color-purple-50);
   border-radius: 16px;
-  padding: 18px 20px;
+  padding: var(--space-4) var(--space-4);
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--space-2);
 }
 
 .ai-feedback__header {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-2);
 }
 
 .ai-feedback__icon {
@@ -25,50 +25,50 @@
   height: 26px;
   border-radius: 8px;
   background: rgba(127, 119, 221, 0.2);
-  color: var(--color-purple-500, #7f77dd);
+  color: var(--color-purple-500);
 }
 
 .ai-feedback__title {
   font-family: var(--font-family-main);
   font-size: var(--font-size-h3);
   font-weight: var(--font-weight-bold);
-  color: var(--color-neutral-900, #444441);
+  color: var(--color-neutral-900);
 }
 
 .ai-feedback__text {
   font-family: var(--font-family-body);
-  font-size: 13px;
+  font-size: var(--font-size-caption);
   font-weight: var(--font-weight-regular);
-  color: var(--color-neutral-700, #5f5e5a);
+  color: var(--color-neutral-700);
   line-height: 1.6;
 }
 
 .ai-feedback__items {
   display: grid;
-  gap: 14px;
+  gap: var(--space-3);
 }
 .ai-feedback__item + .ai-feedback__item {
-  padding-top: 14px;
-  border-top: 1px solid #dfdaf3;
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-purple-100);
 }
 .ai-feedback__item-heading {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 4px 12px;
-  margin-bottom: 6px;
+  gap: var(--space-1) var(--space-3);
+  margin-bottom: var(--space-1);
 }
 .ai-feedback__item-heading h3 {
   margin: 0;
-  font-size: 14px;
+  font-size: var(--text-sm);
   font-weight: 700;
-  color: var(--color-neutral-900, #444441);
+  color: var(--color-neutral-900);
 }
 .ai-feedback__item-heading span {
-  font-size: 13px;
+  font-size: var(--font-size-caption);
   font-weight: 600;
-  color: var(--color-purple-700, #5347a8);
+  color: var(--color-purple-700);
   white-space: nowrap;
 }
 .ai-feedback__item .ai-feedback__text {

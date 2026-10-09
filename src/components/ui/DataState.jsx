@@ -5,8 +5,8 @@ import { errorMessage } from "../../services/errorMessages";
 export function EmptyState({
   title = "Chưa có dữ liệu",
   description = "Hãy bắt đầu để xem tiến độ của bạn.",
-  to = "/learning-path",
-  actionLabel = "Xem lộ trình",
+  to,
+  actionLabel,
   onAction,
   icon: Icon = Inbox,
 }) {
@@ -15,11 +15,11 @@ export function EmptyState({
       <Icon aria-hidden="true" size={28} />
       <h2 className="text-h2">{title}</h2>
       <p>{description}</p>
-      {onAction ? (
+      {actionLabel && (onAction ? (
         <button onClick={onAction}>{actionLabel}</button>
       ) : (
         to && <Link to={to}>{actionLabel}</Link>
-      )}
+      ))}
     </div>
   );
 }

@@ -2,26 +2,40 @@
   --vc-ink: var(--color-neutral-900);
   --vc-green: var(--color-teal-700);
   --vc-mint: var(--color-teal-50);
-  --vc-purple: var(--color-purple-500);
+  --vc-purple: var(--color-teal-500);
   --vc-orange: var(--color-coral-500);
   color: var(--vc-ink);
-  padding: 26px var(--page-gutter) 40px;
+  padding: var(--space-5) var(--page-gutter) var(--space-6);
   width: 100%;
   max-width: none;
   margin: 0;
-  font-size: 14px;
-}
-.vc-page button,
-.vc-page input,
-.vc-page textarea {
-  font: inherit;
-}
-.vc-page button,
-.vc-page a {
-  -webkit-tap-highlight-color: transparent;
+  font-size: var(--text-sm);
 }
 .vc-page button {
+  font: inherit;
+  -webkit-tap-highlight-color: transparent;
   cursor: pointer;
+}
+.vc-page input {
+  font: inherit;
+}
+.vc-page textarea {
+  font: inherit;
+  display: block;
+  resize: vertical;
+  min-height: 90px;
+  width: 100%;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: var(--color-teal-50);
+  padding: var(--space-3);
+  color: var(--color-neutral-700);
+  margin-top: var(--space-3);
+  font-size: var(--font-size-caption);
+  line-height: 1.6;
+}
+.vc-page a {
+  -webkit-tap-highlight-color: transparent;
 }
 .vc-page button:disabled {
   opacity: 0.45;
@@ -31,41 +45,39 @@
 .vc-page a:focus-visible,
 .vc-page input:focus-visible,
 .vc-page textarea:focus-visible {
-  outline: 3px solid #9686df;
+  outline: 3px solid var(--color-teal-500);
   outline-offset: 4px;
 }
-.vc-page h1,
-.vc-page h2,
-.vc-page h3 {
-  font-family: var(--font-family-main);
-}
 .vc-page h1 {
+  font-family: var(--font-family-main);
   font-size: var(--font-size-h1);
   line-height: 1.25;
   letter-spacing: -1.6px;
   font-weight: 800;
 }
 .vc-page h2 {
+  font-family: var(--font-family-main);
   font-size: var(--font-size-h2);
   letter-spacing: -0.5px;
 }
 .vc-page h3 {
+  font-family: var(--font-family-main);
   font-size: var(--font-size-h3);
 }
 .vc-page p {
-  line-height: 1.85;
+  line-height: 1.6;
 }
 .vc-topline {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 38px;
+  margin-bottom: var(--space-6);
   font-size: var(--font-size-caption);
-  color: #77867e;
+  color: var(--color-neutral-500);
 }
 .vc-topline > span {
   display: flex;
-  gap: 8px;
+  gap: var(--space-2);
   align-items: center;
 }
 .vc-topline > span:first-child {
@@ -76,10 +88,10 @@
 .vc-demo {
   font-size: var(--font-size-caption);
   letter-spacing: 1px;
-  border: 1px solid #d6dfd8;
-  padding: 3px 6px;
+  border: 1px solid var(--color-neutral-200);
+  padding: var(--space-1) var(--space-1);
   border-radius: 4px;
-  color: #77867e;
+  color: var(--color-neutral-500);
 }
 .vc-eyebrow {
   font-size: var(--font-size-caption);
@@ -88,24 +100,24 @@
   color: var(--vc-green);
 }
 .vc-panel {
-  background: #fff;
-  border: 1px solid #dfe6df;
+  background: var(--color-white);
+  border: 1px solid var(--color-neutral-100);
   border-radius: 20px;
-  padding: 28px;
-  box-shadow: 0 5px 20px #233d3503;
+  padding: var(--space-5);
+  box-shadow: var(--shadow-md);
 }
 .vc-section-title {
   display: flex;
-  gap: 12px;
+  gap: var(--space-3);
   align-items: center;
 }
 .vc-section-title h2 {
   font-size: var(--font-size-h2);
 }
 .vc-section-title p {
-  color: #88938b;
+  color: var(--color-neutral-500);
   font-size: var(--font-size-caption);
-  margin-top: 4px;
+  margin-top: var(--space-1);
 }
 .vc-icon-tile {
   display: grid;
@@ -126,8 +138,8 @@
   place-items: center;
   border-radius: 50%;
   overflow: hidden;
-  background: #d9e8de;
-  color: #35785b;
+  background: var(--color-teal-50);
+  color: var(--color-teal-700);
   font-weight: 700;
 }
 .vc-avatar img {
@@ -144,32 +156,32 @@
   max-width: 600px;
   margin: 0 auto;
   text-align: center;
-  padding: 4px 0 35px;
+  padding: var(--space-1) 0 var(--space-6);
 }
 .vc-centered > h1 {
   font-size: var(--font-size-h1);
-  margin: 19px 0 12px;
+  margin: var(--space-4) 0 var(--space-3);
 }
 .vc-centered > p {
   font-size: var(--font-size-caption);
-  color: #7e8b81;
-  margin-bottom: 27px;
+  color: var(--color-neutral-500);
+  margin-bottom: var(--space-5);
 }
 .vc-success-pill {
   display: inline-flex;
-  gap: 7px;
+  gap: var(--space-2);
   align-items: center;
-  border: 1px solid #c7e8d3;
-  background: #e4f6ea;
-  color: #368764;
+  border: 1px solid var(--color-teal-50);
+  background: var(--color-teal-50);
+  color: var(--color-teal-700);
   font-size: var(--font-size-caption);
-  padding: 6px 12px;
+  padding: var(--space-1) var(--space-3);
   border-radius: 20px;
 }
 .vc-actions {
   display: flex;
-  gap: 12px;
-  margin-top: 20px;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
 }
 .vc-actions > * {
   flex: 1;
@@ -177,9 +189,9 @@
 .vc-text-button {
   background: none;
   border: 0;
-  color: #849283;
+  color: var(--color-neutral-500);
   font-size: var(--font-size-caption);
-  padding: 15px;
+  padding: var(--space-4);
 }
 .vc-page.vc-stage-search {
   max-width: none;
@@ -189,30 +201,16 @@
   padding: 0;
   max-width: none;
 }
-.vc-page textarea {
-  display: block;
-  resize: vertical;
-  min-height: 90px;
-  width: 100%;
-  border: 1px solid transparent;
-  border-radius: 9px;
-  background: #f0f4ee;
-  padding: 13px;
-  color: #536d5a;
-  margin-top: 11px;
-  font-size: var(--font-size-caption);
-  line-height: 1.7;
-}
 .vc-device-check {
   max-width: 680px;
-  margin: 24px auto;
+  margin: var(--space-5) auto;
   display: grid;
-  gap: 16px;
-  padding: 24px;
+  gap: var(--space-4);
+  padding: var(--space-5);
 }
 .vc-device-check label {
   display: flex;
-  gap: 12px;
+  gap: var(--space-3);
   align-items: center;
 }
 .vc-device-check select {
@@ -220,7 +218,7 @@
 }
 .vc-page .vc-button:not(.vc-secondary) {
   background: var(--color-coral-500);
-  color: white;
+  color: var(--color-white);
 }
 .vc-page:not(.vc-stage-call) {
   background: var(--color-neutral-50);
@@ -230,10 +228,10 @@
   position: absolute;
   top: -5px;
   right: -5px;
-  border-radius: 999px;
-  padding: 2px 6px;
+  border-radius: var(--radius-full);
+  padding: var(--space-1) var(--space-1);
   background: var(--color-coral-500);
-  color: white;
+  color: var(--color-white);
   font-family: var(--font-family-mono);
   font-size: var(--font-size-caption);
 }
@@ -241,7 +239,10 @@
   position: relative;
 }
 .vc-chat-message {
-  background: rgba(20, 24, 32, 0.78);
+  background: color-mix(in srgb, var(--color-neutral-900) 78%, transparent);
   border-radius: 10px;
-  padding: 8px;
+  padding: var(--space-2);
+}
+.vc-page .vc-button:not(.vc-secondary):hover:not(:disabled) {
+  background: var(--color-coral-700);
 }

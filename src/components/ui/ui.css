@@ -5,7 +5,7 @@
   background: #142c2866;
   display: grid;
   place-items: center;
-  padding: 24px;
+  padding: var(--space-5);
   overflow-y: auto;
 }
 .ui-modal {
@@ -19,19 +19,19 @@
   animation: modal-in 180ms ease-out;
 }
 .ui-confirm {
-  padding: 28px;
+  padding: var(--space-5);
   display: grid;
-  gap: 20px;
+  gap: var(--space-4);
 }
 .ui-dialog-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 12px;
+  gap: var(--space-3);
 }
 .ui-dialog-actions button,
 .ui-toast button {
   min-height: 44px;
-  padding: 8px 16px;
+  padding: var(--space-2) var(--space-4);
   border-radius: 10px;
   border: 1px solid var(--color-neutral-200);
   cursor: pointer;
@@ -46,14 +46,14 @@
   bottom: 24px;
   z-index: 3000;
   display: grid;
-  gap: 12px;
+  gap: var(--space-3);
   width: min(440px, calc(100vw - 32px));
 }
 .ui-toast {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
   background: white;
   color: var(--color-neutral-900);
   border: 1px solid var(--color-neutral-200);
@@ -107,7 +107,7 @@
 }
 @media (max-width: 768px) {
   .ui-modal-backdrop {
-    padding: 16px;
+    padding: var(--space-4);
   }
   .ui-modal {
     max-height: calc(100dvh - 32px);
@@ -119,16 +119,17 @@
 }
 
 .ui-modal.vc-modal {
-  --vc-ink: #233d35;
-  --vc-green: #23785c;
-  --vc-mint: #eaf4ee;
-  --vc-purple: #6556b7;
-  --vc-orange: #bc4c24;
+  --vc-ink: var(--color-neutral-900);
+  --vc-green: var(--color-teal-800);
+  --vc-mint: var(--color-teal-50);
+  --vc-purple: var(--color-teal-600);
+  --vc-orange: var(--color-coral-500);
+  padding: var(--space-5);
 }
 .ui-skeleton {
   display: grid;
-  gap: 16px;
-  padding: 24px;
+  gap: var(--space-4);
+  padding: var(--space-5);
 }
 .ui-skeleton span {
   height: 48px;
@@ -140,15 +141,15 @@
 }
 .shared-ranking {
   list-style: none;
-  padding: 16px;
+  padding: var(--space-4);
   background: white;
   border-radius: 20px;
 }
 .shared-ranking li {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 16px 0;
+  gap: var(--space-4);
+  padding: var(--space-4) 0;
   border-bottom: 1px solid var(--color-neutral-100);
 }
 .shared-ranking li strong {
@@ -163,23 +164,20 @@
 .ui-modal textarea {
   font-size: var(--font-size-body);
 }
-.ui-modal.vc-modal {
-  padding: 24px;
-}
 .ui-modal.vc-modal textarea {
   width: 100%;
   min-height: 100px;
-  margin-top: 16px;
-  padding: 12px;
+  margin-top: var(--space-4);
+  padding: var(--space-3);
   border: 1px solid var(--color-neutral-200);
   border-radius: 12px;
 }
 
 .level-badges {
   display: flex;
-  gap: 6px 12px;
+  gap: var(--space-1) var(--space-3);
   flex-wrap: wrap;
-  margin-top: 6px;
+  margin-top: var(--space-1);
   font-size: var(--font-size-caption);
   font-weight: 400;
   color: var(--color-neutral-600);
@@ -189,12 +187,12 @@
 }
 .ui-confirm label {
   display: grid;
-  gap: 8px;
+  gap: var(--space-2);
 }
 .ui-confirm input {
   min-width: 0;
   width: 100%;
-  padding: 10px;
+  padding: var(--space-2);
   border: 1px solid var(--color-neutral-300);
   border-radius: 8px;
 }

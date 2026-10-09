@@ -243,8 +243,9 @@ function Content({
                 onAction={() => {
                   setSearchValue("");
                   setFriendFilter("all");
+                  document.querySelector(".friends-search__input")?.focus();
                 }}
-                actionLabel="Xóa bộ lọc"
+                actionLabel={searchValue || friendFilter !== "all" ? "Xóa bộ lọc" : "Tìm bạn học"}
               />
             ) : (
               filteredFriends

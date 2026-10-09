@@ -5,7 +5,7 @@
 .lesson-media {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--space-4);
 }
 
 /* ---- Sub header ---- */
@@ -13,13 +13,13 @@
 .lesson-media__header {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--space-1);
 }
 
 .lesson-media__tag {
   align-self: flex-start;
 
-  padding: 3px 12px;
+  padding: var(--space-1) var(--space-3);
   border-radius: 20px;
   background: var(--color-teal-50, #e1f5ee);
   color: var(--color-teal-700, #0f6e56);
@@ -42,9 +42,9 @@
 .lesson-media__tip {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
+  gap: var(--space-3);
 
-  padding: 14px 16px;
+  padding: var(--space-3) var(--space-4);
   border-radius: 14px;
   border: 1px solid #c9e7df;
   background: #e6f4f1;
@@ -65,7 +65,7 @@
 
 .lesson-media__tip-text {
   font-family: var(--font-family-body);
-  font-size: 13.5px;
+  font-size: var(--font-size-caption);
   line-height: 1.55;
   color: #375a50;
   margin: 0;

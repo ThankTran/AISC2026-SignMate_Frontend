@@ -5,9 +5,9 @@
 .ai-practice {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  padding: 22px var(--page-gutter) 22px;
-  background: #f8f9fa;
+  gap: var(--space-5);
+  padding: var(--space-5) var(--page-gutter) var(--space-5);
+  background: var(--color-neutral-50);
 }
 
 /* ===== LEFT COLUMN ===== */
@@ -16,7 +16,7 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--space-4);
 }
 
 /* ---- Top nav bar ---- */
@@ -31,54 +31,50 @@
   font-family: var(--font-family-main);
   font-size: var(--font-size-h1);
   font-weight: var(--font-weight-bold);
-  color: var(--color-neutral-900, #444441);
+  color: var(--color-neutral-900);
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--space-2);
   flex-wrap: wrap;
 }
 
 .ai-practice__topnav-sep {
-  color: var(--color-neutral-300, #b4b2a9);
-  font-size: 18px;
+  color: var(--color-neutral-300);
+  font-size: var(--text-lg);
 }
 
 .ai-practice__topnav-sub {
-  font-size: 15px;
+  font-size: var(--text-sm);
   font-weight: var(--font-weight-semibold);
-  color: var(--color-purple-500, #7f77dd);
+  color: var(--color-purple-500);
 }
 
 .ai-practice__topnav-right {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--space-2);
 }
 
 .ai-practice__progress-bar {
   width: 120px;
   height: 6px;
   border-radius: 999px;
-  background: var(--color-neutral-200, #d3d1c7);
+  background: var(--color-neutral-200);
   overflow: hidden;
 }
 
 .ai-practice__progress-fill {
   height: 100%;
   border-radius: 999px;
-  background: linear-gradient(
-    90deg,
-    var(--color-purple-500, #7f77dd),
-    var(--color-teal-500, #1d9e75)
-  );
   transition: width 0.5s ease;
+  background: var(--color-purple-500);
 }
 
 .ai-practice__progress-text {
   font-family: var(--font-family-mono);
-  font-size: 13px;
+  font-size: var(--font-size-caption);
   font-weight: var(--font-weight-semibold);
-  color: var(--color-neutral-500, #888780);
+  color: var(--color-neutral-500);
   white-space: nowrap;
 }
 
@@ -89,14 +85,14 @@
   max-width: 380px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--space-4);
 }
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
   .ai-practice {
     flex-direction: column;
-    padding: 18px var(--page-gutter) 18px;
+    padding: var(--space-4) var(--page-gutter) var(--space-4);
   }
 
   .ai-practice__right {
@@ -106,8 +102,8 @@
 
 @media (max-width: 768px) {
   .ai-practice {
-    padding: 14px var(--page-gutter) 14px;
-    gap: 14px;
+    padding: var(--space-3) var(--page-gutter) var(--space-3);
+    gap: var(--space-3);
   }
 
   .ai-practice__topnav-title {
@@ -118,16 +114,8 @@
     width: 80px;
   }
 }
-.ai-practice__progress-fill,
-.ai-analytics__live-dot {
-  background: var(--color-purple-500);
-}
-.ai-analytics__live {
-  color: var(--color-purple-700);
-  background: var(--color-purple-50);
-}
 .ai-practice__demo {
-  padding: 12px;
+  padding: var(--space-3);
   background: var(--color-purple-50);
   color: var(--color-purple-700);
   border-radius: 12px;
@@ -135,154 +123,151 @@
 .ai-practice__sign-nav {
   display: flex;
   justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 16px;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
 }
 .ai-practice__sign-nav button {
   min-height: 44px;
-  padding: 8px 14px;
+  padding: var(--space-2) var(--space-3);
   border: 1px solid var(--color-neutral-200);
   border-radius: 10px;
   background: white;
 }
-.ai-analytics__gauge-fill {
-  stroke: var(--color-purple-500, #7f77dd);
-}
 .ai-analytics__rating {
   text-align: center;
-  font-size: 18px;
+  font-size: var(--text-lg);
   font-weight: 650;
-  color: var(--color-purple-700, #5347a8);
+  color: var(--color-purple-700);
   margin: 0;
 }
 .ai-analytics__status {
-  color: #777;
-  font-size: 13px;
+  color: var(--color-neutral-600);
+  font-size: var(--font-size-caption);
   margin: 0;
 }
 .ai-analytics__match-title {
-  font-size: 15px;
-  margin: 4px 0 -8px;
+  font-size: var(--text-sm);
+  margin: var(--space-1) 0 -8px;
 }
 .ai-analytics__metric-val small {
-  font-size: 12px;
+  font-size: var(--font-size-caption);
   font-weight: 400;
-  color: #777;
+  color: var(--color-neutral-600);
 }
 .ai-feedback__text {
   white-space: pre-line;
 }
 .practice-lesson {
   display: grid;
-  gap: 4px;
+  gap: var(--space-1);
   min-width: 0;
-  padding: 0 8px;
-  font-size: 12px;
+  padding: 0 var(--space-2);
+  font-size: var(--font-size-caption);
   font-weight: 600;
-  color: #625d70;
+  color: var(--color-neutral-700);
 }
 .practice-lesson select {
   width: 100%;
   min-width: 0;
   min-height: 32px;
-  padding: 4px 28px 4px 8px;
-  border: 1px solid #dedce8;
+  padding: var(--space-1) var(--space-5) var(--space-1) var(--space-2);
+  border: 1px solid var(--color-neutral-200);
   border-radius: 7px;
   background: white;
-  color: #34313c;
-  font-size: 15px;
+  color: var(--color-neutral-900);
+  font-size: var(--text-sm);
   text-overflow: ellipsis;
 }
 .sign-sample {
   background: white;
   border-radius: 18px;
-  padding: 20px;
+  padding: var(--space-4);
 }
 .sign-sample__heading {
   display: flex;
   justify-content: space-between;
-  gap: 16px;
+  gap: var(--space-4);
   align-items: center;
-  margin-bottom: 14px;
+  margin-bottom: var(--space-3);
 }
 .sign-sample__heading h2 {
-  font-size: 19px;
-  margin: 6px 0 0;
+  font-size: var(--text-lg);
+  margin: var(--space-1) 0 0;
 }
 .sign-sample__heading > span,
 .sign-sample > p,
 .practice-hint {
-  font-size: 13px;
-  color: #777;
-  line-height: 1.6;
+  font-size: var(--font-size-caption);
+  color: var(--color-neutral-600);
+  line-height: 1.25;
 }
 .sign-sample__eyebrow,
 .practice-result__eyebrow {
-  font-size: 10px;
+  font-size: var(--font-size-caption);
   letter-spacing: 1.4px;
   font-weight: 700;
-  color: var(--color-purple-700, #5347a8);
+  color: var(--color-purple-700);
 }
 .sign-sample video {
   display: block;
   width: 100%;
   max-height: 280px;
-  background: #24232b;
+  background: var(--color-neutral-900);
   border-radius: 12px;
 }
 .practice-controls {
   display: grid;
-  gap: 10px;
+  gap: var(--space-2);
 }
 .practice-controls button,
 .practice-actions button,
 .practice-error button {
   min-height: 44px;
-  border: 1px solid #dedce8;
+  border: 1px solid var(--color-neutral-200);
   border-radius: 10px;
-  padding: 10px 14px;
+  padding: var(--space-2) var(--space-3);
   background: white;
   font-weight: 600;
   cursor: pointer;
   transition: background 0.2s;
 }
 .practice-primary {
-  background: var(--color-purple-500, #7f77dd) !important;
+  background: var(--color-purple-500) !important;
   color: white;
   border-color: transparent !important;
 }
 .practice-result {
-  padding: 22px;
-  background: #f3f0e8;
+  padding: var(--space-5);
+  background: var(--color-neutral-100);
   border-radius: 18px;
 }
 .practice-result--passed {
-  background: #edf5ee;
+  background: var(--color-purple-50);
 }
 .practice-result h2 {
-  font-size: 20px;
-  margin: 10px 0;
-  line-height: 1.35;
+  font-size: var(--text-xl);
+  margin: var(--space-2) 0;
+  line-height: 1.25;
 }
 .practice-result p {
-  font-size: 14px;
-  line-height: 1.7;
-  margin: 12px 0;
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  margin: var(--space-3) 0;
 }
 .practice-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 20px;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
 }
 .practice-actions button {
   flex: 1;
 }
 .practice-error {
-  padding: 14px;
+  padding: var(--space-3);
   border-radius: 12px;
-  background: #fceeed;
-  color: #8a3434;
+  background: var(--color-neutral-100);
+  color: var(--color-neutral-900);
 }
 .ai-practice button:disabled {
   opacity: 0.5;
@@ -291,7 +276,7 @@
 .ai-practice button:focus-visible,
 .ai-practice select:focus-visible,
 .sign-sample video:focus-visible {
-  outline: 3px solid #7f77dd;
+  outline: 3px solid var(--color-purple-500);
   outline-offset: 3px;
 }
 @media (max-width: 600px) {
@@ -307,61 +292,61 @@
 .ai-practice__header {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--space-4);
 }
 .practice-toolbar {
   display: grid;
   grid-template-columns: minmax(0, 2fr) minmax(220px, 1fr);
   align-items: center;
-  gap: 12px;
-  padding: 6px;
-  border: 1px solid #dedce8;
+  gap: var(--space-3);
+  padding: var(--space-1);
+  border: 1px solid var(--color-neutral-200);
   border-radius: 14px;
-  background: #eeedf3;
+  background: var(--color-purple-50);
 }
 .practice-tabs {
   display: flex;
   min-width: 0;
-  gap: 6px;
+  gap: var(--space-1);
 }
 .practice-toolbar .practice-lesson {
-  border-left: 1px solid #d5d0e6;
-  padding-left: 18px;
+  border-left: 1px solid var(--color-purple-100);
+  padding-left: var(--space-4);
 }
 .practice-tabs button {
   flex: 1;
   min-height: 48px;
-  padding: 10px 16px;
+  padding: var(--space-2) var(--space-4);
   border: 0;
   border-radius: 10px;
   background: transparent;
-  color: #625d70;
+  color: var(--color-neutral-700);
   font: inherit;
   font-weight: 600;
   cursor: pointer;
 }
 .practice-tabs button[aria-selected="true"] {
   background: white;
-  color: var(--color-purple-700, #5347a8);
-  box-shadow: 0 1px 4px #29213f14;
+  color: var(--color-purple-700);
+  box-shadow: var(--shadow-sm);
 }
 .practice-tabs button:hover {
-  color: var(--color-purple-700, #5347a8);
+  color: var(--color-purple-700);
 }
 .practice-camera-panel {
   display: flex;
   align-items: flex-start;
-  gap: 24px;
+  gap: var(--space-5);
 }
 .ai-practice [role="tabpanel"][hidden] {
   display: none;
 }
 .ai-practice [role="tabpanel"]:focus-visible {
-  outline: 3px solid #7f77dd;
+  outline: 3px solid var(--color-purple-500);
   outline-offset: 3px;
 }
 .practice-video-actions {
-  margin-top: 16px;
+  margin-top: var(--space-4);
   justify-items: end;
 }
 #practice-panel-video .sign-sample video {
@@ -377,8 +362,8 @@
 }
 @media (max-width: 600px) {
   .practice-tabs button {
-    padding: 10px 8px;
-    font-size: 14px;
+    padding: var(--space-2) var(--space-2);
+    font-size: var(--text-sm);
   }
   .practice-video-actions {
     justify-items: stretch;
@@ -388,19 +373,19 @@
 .practice-shortcut {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: var(--space-3);
   margin: 0;
-  padding: 12px 14px;
+  padding: var(--space-3) var(--space-3);
   border-radius: 12px;
-  background: var(--color-purple-50, #f1effb);
-  color: var(--color-purple-700, #5347a8);
-  font-size: 13px;
+  background: var(--color-purple-50);
+  color: var(--color-purple-700);
+  font-size: var(--font-size-caption);
   line-height: 1.6;
 }
 .practice-shortcut kbd {
   flex-shrink: 0;
-  padding: 3px 9px;
-  border: 1px solid #d5d0e6;
+  padding: var(--space-1) var(--space-2);
+  border: 1px solid var(--color-purple-100);
   border-bottom-width: 3px;
   border-radius: 6px;
   background: white;
@@ -411,12 +396,12 @@
 @media (max-width: 640px) {
   .practice-toolbar {
     grid-template-columns: minmax(0, 1fr);
-    gap: 10px;
+    gap: var(--space-2);
   }
   .practice-toolbar .practice-lesson {
     border-left: 0;
-    border-top: 1px solid #d5d0e6;
-    padding: 10px 8px 4px;
+    border-top: 1px solid var(--color-purple-100);
+    padding: var(--space-2) var(--space-2) var(--space-1);
   }
 }
 
@@ -424,5 +409,5 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: var(--space-3);
 }

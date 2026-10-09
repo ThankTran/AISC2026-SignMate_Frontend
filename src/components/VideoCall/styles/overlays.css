@@ -2,12 +2,12 @@
   max-width: 440px;
   width: 100%;
   color: var(--vc-ink);
-  box-shadow: 0 20px 100px #0002;
+  box-shadow: var(--shadow-lg);
 }
 .vc-modal p {
   font-size: var(--font-size-caption);
-  color: #819082;
-  margin-top: 12px;
+  color: var(--color-neutral-500);
+  margin-top: var(--space-3);
 }
 .vc-modal h2 {
   font-size: var(--font-size-h2);

@@ -1,5 +1,5 @@
 .call-invitations {
-  padding: 24px;
+  padding: var(--space-5);
   border: 1px solid var(--color-neutral-200);
   border-radius: 18px;
   background: var(--color-white);
@@ -7,8 +7,8 @@
 .call-invitations__heading {
   display: flex;
   align-items: center;
-  gap: 14px;
-  margin-bottom: 24px;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
 }
 .call-invitations__heading > div {
   flex: 1;
@@ -18,7 +18,7 @@
   margin: 0;
 }
 .call-invitations p {
-  margin: 6px 0 0;
+  margin: var(--space-1) 0 0;
   color: var(--color-neutral-600);
   font-size: var(--font-size-body);
   line-height: 1.6;
@@ -37,7 +37,7 @@
   color: var(--color-teal-700);
 }
 .call-invitations .call-invitations__empty {
-  padding: 24px;
+  padding: var(--space-5);
   background: var(--color-neutral-50);
   border-radius: 12px;
 }
@@ -45,8 +45,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
-  padding: 20px 0;
+  gap: var(--space-4);
+  padding: var(--space-4) 0;
   border-top: 1px solid var(--color-neutral-200);
 }
 .call-invitations__item > div:first-child {
@@ -55,12 +55,12 @@
 }
 .call-invitations__actions {
   display: flex;
-  gap: 10px;
+  gap: var(--space-2);
   flex-shrink: 0;
 }
 .call-invitations button {
   min-height: 44px;
-  padding: 10px 16px;
+  padding: var(--space-2) var(--space-4);
   border-radius: 10px;
   font: inherit;
   font-weight: 600;
@@ -85,17 +85,17 @@
 }
 @media (max-width: 640px) {
   .call-invitations {
-    padding: 18px;
+    padding: var(--space-4);
   }
   .call-invitations__item {
     align-items: stretch;
     flex-direction: column;
-    gap: 12px;
+    gap: var(--space-3);
   }
   .call-invitations__actions button {
     flex: 1;
   }
   .call-invitations .call-invitations__empty {
-    padding: 18px;
+    padding: var(--space-4);
   }
 }
