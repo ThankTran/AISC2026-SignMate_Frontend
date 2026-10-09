@@ -65,7 +65,7 @@
 
 .lesson-media__tip-text {
   font-family: var(--font-family-body);
-  font-size: 13.5px;
+  font-size: var(--font-size-caption);
   line-height: 1.55;
   color: #375a50;
   margin: 0;

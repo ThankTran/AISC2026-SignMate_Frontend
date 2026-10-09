@@ -14,7 +14,7 @@
 }
 .auth-card .subtitle {
   color: var(--color-neutral-500);
-  font-size: 14px;
+  font-size: var(--text-sm);
   margin: 0 0 24px;
 }
 .field {
@@ -22,7 +22,7 @@
 }
 .field label {
   display: block;
-  font-size: 13px;
+  font-size: var(--font-size-caption);
   font-weight: 600;
   margin-bottom: 6px;
   color: var(--color-neutral-900);
@@ -35,7 +35,7 @@
   padding: 11px 14px;
   border: 1px solid var(--color-neutral-200);
   border-radius: 10px;
-  font-size: 14px;
+  font-size: var(--text-sm);
   font-family: var(--font-family-body);
   outline: 2px solid transparent;
   transition: border-color 0.15s;
@@ -68,7 +68,7 @@
   border: none;
   border-radius: 10px;
   padding: 13px;
-  font-size: 15px;
+  font-size: var(--text-sm);
   font-weight: 600;
   cursor: pointer;
   transition: background 0.15s;
@@ -91,7 +91,7 @@
   border: 1px solid var(--color-neutral-200);
   border-radius: 10px;
   padding: 12px;
-  font-size: 14px;
+  font-size: var(--text-sm);
   font-weight: 600;
   cursor: pointer;
   margin-top: 12px;
@@ -100,13 +100,13 @@
 .divider {
   text-align: center;
   color: var(--color-neutral-500);
-  font-size: 13px;
+  font-size: var(--font-size-caption);
   margin: 18px 0 0;
 }
 
 .auth-footnote {
   text-align: center;
-  font-size: 13px;
+  font-size: var(--font-size-caption);
   color: var(--color-neutral-700);
   margin-top: 18px;
 }
@@ -120,5 +120,5 @@
   color: var(--color-teal-500);
   font-weight: 600;
   text-decoration: none;
-  font-size: 13px;
+  font-size: var(--font-size-caption);
 }

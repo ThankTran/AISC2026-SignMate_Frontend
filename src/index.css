@@ -251,6 +251,7 @@ h3,
 h4,
 h5,
 h6 {
+  line-height: 1.25;
   font-family: var(--font-family-main);
 }
 h1.text-h1 {
@@ -390,7 +391,7 @@ textarea {
   flex-wrap: wrap;
 }
 .info-page p {
-  line-height: 1.8;
+  line-height: 1.6;
 }
 /* Responsive containment for intrinsically wide flex/grid content. */
 @media (max-width: 768px) {

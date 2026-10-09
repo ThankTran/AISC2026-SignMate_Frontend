@@ -46,7 +46,7 @@
 
 .lp-banner__subtitle {
   font-family: var(--font-family-body);
-  font-size: 14px;
+  font-size: var(--text-sm);
   opacity: 0.85;
   margin: 0;
 }

@@ -142,7 +142,7 @@
   margin: var(--space-1) 0 0;
 
   font-family: var(--font-family-body);
-  font-size: 13.5px;
+  font-size: var(--font-size-caption);
   opacity: 0.85;
 }
 
@@ -171,7 +171,7 @@
 }
 
 .lrm-stat__pct {
-  font-size: 26px;
+  font-size: var(--font-size-h2);
   font-weight: 800;
   line-height: 1.1;
   color: var(--color-teal-800);
@@ -213,7 +213,7 @@
 }
 
 .lrm-stat__value {
-  font-size: 24px;
+  font-size: var(--font-size-h2);
   font-weight: 800;
   line-height: 1.1;
   color: var(--color-neutral-900);
@@ -326,7 +326,7 @@
 
 .lrm-bar__label {
   font-family: var(--font-family-body);
-  font-size: 13px;
+  font-size: var(--font-size-caption);
   font-weight: 600;
   color: var(--color-neutral-900);
   white-space: nowrap;
@@ -435,7 +435,7 @@
   color: var(--color-teal-800);
 
   font-family: var(--font-family-main);
-  font-size: 14px;
+  font-size: var(--text-sm);
   font-weight: 800;
 
   cursor: pointer;
@@ -479,7 +479,7 @@
 
 .lrm__next-name {
   font-family: var(--font-family-main);
-  font-size: 13.5px;
+  font-size: var(--font-size-caption);
   font-weight: 800;
   color: var(--color-neutral-900);
 }
@@ -499,7 +499,7 @@
   color: var(--color-white);
 
   font-family: var(--font-family-main);
-  font-size: 14px;
+  font-size: var(--text-sm);
   font-weight: 800;
 
   cursor: pointer;

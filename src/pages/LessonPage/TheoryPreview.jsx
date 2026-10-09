@@ -286,7 +286,7 @@ export default function TheoryPreview({ lesson }) {
                 aria-pressed={selectedId === item.id}
                 aria-label={`${item.term}${viewed.includes(item.id) ? ", đã học" : ""}`}
                 style={
-                  item.term.length > 3 && group?.topic === "Số" ? { fontSize: "0.8rem" } : undefined
+                  item.term.length > 3 && group?.topic === "Số" ? { fontSize: "var(--font-size-caption)" } : undefined
                 }
                 className={`${viewed.includes(item.id) ? "is-completed" : ""} ${selectedId === item.id ? "is-active" : ""}`}
                 onClick={() => setSelectedId(item.id)}

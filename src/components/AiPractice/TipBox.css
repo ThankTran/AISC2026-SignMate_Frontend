@@ -36,7 +36,7 @@
 
 .tip-box__text {
   font-family: var(--font-family-body);
-  font-size: 14px;
+  font-size: var(--text-sm);
   font-weight: var(--font-weight-regular);
   color: var(--color-neutral-700);
   line-height: 1.5;
@@ -50,7 +50,7 @@
 .tip-box__counter {
   flex-shrink: 0;
 
-  font-size: 13px;
+  font-size: var(--font-size-caption);
   font-weight: var(--font-weight-semibold);
   color: var(--color-purple-500);
   background: var(--color-purple-50);

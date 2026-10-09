@@ -4,7 +4,7 @@
   gap: var(--space-6);
   padding: var(--space-6) var(--page-gutter) var(--space-7);
   color: var(--color-neutral-900);
-  font-size: 14px;
+  font-size: var(--text-sm);
   line-height: 1.6;
   max-width: none;
   margin: 0;
@@ -29,7 +29,7 @@
 }
 
 .db-welcome__eyebrow {
-  font-size: 13px;
+  font-size: var(--font-size-caption);
   font-weight: 600;
   letter-spacing: 0.04em;
   color: var(--color-teal-800);
@@ -41,7 +41,7 @@
   gap: 10px;
   margin-top: 6px;
   font-size: var(--font-size-h1);
-  line-height: 1.3;
+  line-height: 1.25;
   flex-wrap: wrap;
   font-weight: 700;
 }
@@ -57,7 +57,7 @@
 
 .db-welcome__desc {
   margin-top: var(--space-2);
-  font-size: 14px;
+  font-size: var(--text-sm);
   color: var(--color-neutral-700);
 }
 
@@ -84,14 +84,14 @@
 }
 
 .db-stat__value {
-  font-size: 20px;
+  font-size: var(--text-xl);
   font-weight: 700;
 
   font-family: var(--font-family-mono);
 }
 
 .db-stat__label {
-  font-size: 13px;
+  font-size: var(--font-size-caption);
   color: var(--color-neutral-700);
 }
 
@@ -128,7 +128,7 @@
 }
 
 .db-continue__eyebrow {
-  font-size: 13px;
+  font-size: var(--font-size-caption);
   letter-spacing: 0.06em;
   opacity: 0.85;
 }
@@ -136,7 +136,7 @@
 .db-continue__title {
   margin-top: var(--space-1);
   font-size: var(--font-size-h2);
-  line-height: 1.4;
+  line-height: 1.25;
   font-weight: 700;
 }
 
@@ -157,7 +157,7 @@
 
 .db-continue__meta {
   margin-top: 10px;
-  font-size: 13px;
+  font-size: var(--font-size-caption);
   opacity: 0.85;
 }
 
@@ -165,7 +165,7 @@
   flex-shrink: 0;
   padding: 10px 20px;
   font: inherit;
-  font-size: 14px;
+  font-size: var(--text-sm);
   font-weight: 600;
   color: var(--color-white);
   background: var(--color-coral-500);
@@ -199,7 +199,7 @@
 }
 
 .db-path__head span {
-  font-size: 13px;
+  font-size: var(--font-size-caption);
   color: var(--color-neutral-600);
 }
 
@@ -236,7 +236,7 @@
 }
 
 .db-chapter__lead--num {
-  font-size: 22px;
+  font-size: var(--text-xl);
   font-weight: 700;
   color: var(--color-white);
   background: var(--color-teal-600);
@@ -249,13 +249,13 @@
 }
 
 .db-chapter__title {
-  font-size: 15px;
+  font-size: var(--text-sm);
   font-weight: 600;
 }
 
 .db-chapter__sub {
   margin-top: 3px;
-  font-size: 14px;
+  font-size: var(--text-sm);
   color: var(--color-neutral-600);
 }
 
@@ -308,7 +308,7 @@
 .db-board__title {
   text-align: center;
   font-size: var(--font-size-h2);
-  line-height: 1.4;
+  line-height: 1.25;
   font-weight: 700;
   letter-spacing: 0.01em;
 }
@@ -327,7 +327,7 @@
 .db-board__tabs button {
   padding: 9px 22px;
   font: inherit;
-  font-size: 14px;
+  font-size: var(--text-sm);
   color: var(--color-neutral-900);
   background: transparent;
   border: none;
@@ -361,7 +361,7 @@
 .db-rank__pos {
   width: 34px;
   flex-shrink: 0;
-  font-size: 16px;
+  font-size: var(--font-size-body);
   text-align: center;
   color: var(--color-neutral-600);
 }
@@ -373,7 +373,7 @@
   width: 34px;
   height: 34px;
   flex-shrink: 0;
-  font-size: 13px;
+  font-size: var(--font-size-caption);
   font-weight: 700;
   color: var(--color-white);
   background: var(--color-teal-600);
@@ -383,7 +383,7 @@
 .db-rank__name {
   flex: 1;
   min-width: 0;
-  font-size: 14px;
+  font-size: var(--text-sm);
   font-weight: 500;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -391,7 +391,7 @@
 }
 
 .db-rank__score {
-  font-size: 14px;
+  font-size: var(--text-sm);
   font-weight: 500;
   font-variant-numeric: tabular-nums;
 

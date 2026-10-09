@@ -162,13 +162,13 @@
   left: 7%;
   top: 19%;
   color: #63b999;
-  font-size: 32px;
+  font-size: var(--font-size-h1);
   animation: hand-star 8s ease-in-out infinite;
 }
 .hand-scene-star-small {
   left: 78%;
   top: 82%;
-  font-size: 28px;
+  font-size: var(--font-size-number-lg);
   animation-delay: -3s;
 }
 .hand-scene-ring-top {
@@ -240,13 +240,13 @@
   animation: hand-card-float 6s ease-in-out infinite;
 }
 .hand-card strong {
-  font-size: clamp(13px, 2.05cqw, 17px);
+  font-size: var(--font-size-caption);
   font-weight: 700;
 }
 .hand-card-label {
   display: block;
   color: #318c6c;
-  font-size: clamp(13px, 2.1cqw, 17px);
+  font-size: var(--font-size-caption);
   font-weight: 700;
 }
 .hand-card-accuracy {
@@ -269,7 +269,7 @@
   font-family: var(--font-family-mono);
 }
 .hand-card-score strong {
-  font-size: clamp(25px, 4.8cqw, 38px);
+  font-size: var(--font-size-h2);
   line-height: 1;
   font-family: var(--font-family-mono);
 }
@@ -351,7 +351,7 @@
 .hand-card-number {
   display: block;
   margin-top: 8px;
-  font-size: 27px !important;
+  font-size: var(--font-size-number-lg) !important;
 }
 .hand-card-joint-map {
   position: absolute;

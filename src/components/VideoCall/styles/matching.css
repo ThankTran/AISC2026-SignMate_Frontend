@@ -122,7 +122,7 @@
 .vc-wait strong {
   display: block;
   font-family: var(--font-family-mono);
-  font-size: 16px;
+  font-size: var(--font-size-body);
   font-weight: 400;
   margin-top: var(--space-2);
 }

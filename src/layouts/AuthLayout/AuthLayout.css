@@ -26,14 +26,14 @@
 .auth-logo-text {
   font-family: var(--font-family-main);
   font-weight: 700;
-  font-size: 30px;
+  font-size: var(--font-size-number-lg);
   color: var(--color-neutral-900);
 }
 
 .auth-tagline {
   margin-top: 8px;
   color: var(--color-neutral-700);
-  font-size: 15px;
+  font-size: var(--text-sm);
 }
 
 .auth-panel {
@@ -72,7 +72,7 @@
   gap: 20px;
   padding: 28px;
   border-radius: 24px;
-  font-size: max(14px, var(--font-size-body));
+  font-size: var(--text-sm);
   background: var(--color-neutral-0, white);
   border: 1px solid var(--color-neutral-200);
   box-shadow: 0 12px 32px rgb(34 60 51 / 10%);
@@ -199,7 +199,7 @@
   text-decoration: underline;
 }
 .auth-form .auth-legal {
-  font-size: max(14px, var(--font-size-caption));
+  font-size: var(--text-sm);
 }
 .auth-email {
   display: block;

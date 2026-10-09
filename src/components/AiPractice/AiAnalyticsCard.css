@@ -105,7 +105,7 @@
 
 .ai-analytics__gauge-num {
   font-family: var(--font-family-mono);
-  font-size: 28px;
+  font-size: var(--font-size-number-lg);
   font-weight: var(--font-weight-bold);
   color: var(--color-neutral-900);
   line-height: 1;
@@ -138,7 +138,7 @@
 
 .ai-analytics__metric-val {
   font-family: var(--font-family-mono);
-  font-size: 18px;
+  font-size: var(--text-lg);
   font-weight: var(--font-weight-bold);
   color: var(--color-neutral-900);
   line-height: 1.2;
@@ -163,6 +163,6 @@
   }
 
   .ai-analytics__gauge-num {
-    font-size: 24px;
+    font-size: var(--font-size-h2);
   }
 }

@@ -11,7 +11,7 @@
   margin-bottom: 19px;
 }
 .vc-review-person strong {
-  font-size: 13px;
+  font-size: var(--font-size-caption);
 }
 .vc-review-person small {
   display: block;
@@ -28,7 +28,7 @@
   text-align: right;
 }
 .vc-review-duration strong {
-  font-size: 20px;
+  font-size: var(--text-xl);
   font-weight: 500;
 
   font-family: var(--font-family-mono);
