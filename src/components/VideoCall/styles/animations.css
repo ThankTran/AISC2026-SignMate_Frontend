@@ -1,12 +1,3 @@
-@keyframes vc-float {
-  0%,
-  100% {
-    translate: 0 0;
-  }
-  50% {
-    translate: 0 -9px;
-  }
-}
 @keyframes vc-enter {
   from {
     opacity: 0;
@@ -17,28 +8,9 @@
     transform: translateY(0);
   }
 }
-@keyframes vc-ripple {
-  0% {
-    transform: scale(0.75);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1.7);
-    opacity: 0;
-  }
-}
 @keyframes vc-spin {
   to {
     transform: rotate(360deg);
-  }
-}
-@keyframes vc-wave {
-  0%,
-  100% {
-    height: 7px;
-  }
-  50% {
-    height: 25px;
   }
 }
 @keyframes vc-heart {

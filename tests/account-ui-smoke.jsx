@@ -74,6 +74,7 @@ function Fixture() {
                   title: "Xóa dữ liệu thử nghiệm",
                   message: "Xác nhận",
                   confirmationText: "DELETE",
+                  confirmLabel: "Xóa dữ liệu thử nghiệm",
                 }),
               ),
             )

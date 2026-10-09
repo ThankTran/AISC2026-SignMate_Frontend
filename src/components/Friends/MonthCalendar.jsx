@@ -44,116 +44,126 @@ export default function MonthCalendar({
         </div>
       </div>
 
-      <div className="month-calendar__weekdays" aria-hidden="true">
-        {calendarWeekdays.map((weekday) => (
-          <span key={weekday}>{weekday}</span>
-        ))}
-      </div>
+      <p className="month-calendar__scroll-hint text-caption">
+        Cuộn ngang để xem đủ các ngày trong tuần.
+      </p>
+      <div
+        className="month-calendar__scroll"
+        role="region"
+        aria-label="Lịch tháng có thể cuộn ngang"
+        tabIndex={0}
+      >
+        <div className="month-calendar__weekdays" aria-hidden="true">
+          {calendarWeekdays.map((weekday) => (
+            <span key={weekday}>{weekday}</span>
+          ))}
+        </div>
 
-      <div className="month-calendar__grid" aria-label={`Lịch tháng ${calendarTitle}`}>
-        {calendarMonthDays
-          .filter(
-            (day) =>
-              !mobile ||
-              (day.isCurrentMonth &&
-                (day.isToday || calendarAppointmentsByDate[day.dateKey]?.length)),
-          )
-          .map((day) => {
-            const appointments = calendarAppointmentsByDate[day.dateKey] || [];
+        <div className="month-calendar__grid" aria-label={`Lịch tháng ${calendarTitle}`}>
+          {calendarMonthDays
+            .filter(
+              (day) =>
+                !mobile ||
+                (day.isCurrentMonth &&
+                  (day.isToday || calendarAppointmentsByDate[day.dateKey]?.length)),
+            )
+            .map((day) => {
+              const appointments = calendarAppointmentsByDate[day.dateKey] || [];
 
-            return (
-              <div
-                className={`month-calendar__day ${
-                  !day.isCurrentMonth ? "month-calendar__day--outside" : ""
-                } ${day.isToday ? "month-calendar__day--today" : ""}`}
-                key={day.dateKey}
-                onClick={(event) => {
-                  if (!event.target.closest("button")) {
-                    openQuickInvite(day.dateKey);
-                  }
-                }}
-              >
-                <div className="month-calendar__day-top">
-                  <span className="month-calendar__date">
-                    {day.dateKey.endsWith("-01")
-                      ? `${day.dayNumber}/${Number(day.dateKey.slice(5, 7))}`
-                      : day.dayNumber}
-                  </span>
+              return (
+                <div
+                  className={`month-calendar__day ${
+                    !day.isCurrentMonth ? "month-calendar__day--outside" : ""
+                  } ${day.isToday ? "month-calendar__day--today" : ""}`}
+                  key={day.dateKey}
+                  onClick={(event) => {
+                    if (!event.target.closest("button")) {
+                      openQuickInvite(day.dateKey);
+                    }
+                  }}
+                >
+                  <div className="month-calendar__day-top">
+                    <span className="month-calendar__date">
+                      {day.dateKey.endsWith("-01")
+                        ? `${day.dayNumber}/${Number(day.dateKey.slice(5, 7))}`
+                        : day.dayNumber}
+                    </span>
 
-                  {day.isCurrentMonth && (
+                    {day.isCurrentMonth && (
+                      <button
+                        type="button"
+                        className="month-calendar__add-day"
+                        aria-label={`Mời call ngày ${day.dateKey}`}
+                        title="Mời call"
+                        onClick={() => openQuickInvite(day.dateKey)}
+                      >
+                        <Plus size={14} strokeWidth={2} />
+                      </button>
+                    )}
+                  </div>
+
+                  {!mobile && appointments.length > 2 && (
                     <button
                       type="button"
-                      className="month-calendar__add-day"
-                      aria-label={`Mời call ngày ${day.dateKey}`}
-                      title="Mời call"
-                      onClick={() => openQuickInvite(day.dateKey)}
+                      onClick={() =>
+                        setExpandedDate(expandedDate === day.dateKey ? null : day.dateKey)
+                      }
                     >
-                      <Plus size={14} strokeWidth={2} />
+                      {expandedDate === day.dateKey
+                        ? "Thu gọn"
+                        : `+${appointments.length - 2} lịch nữa`}
                     </button>
                   )}
-                </div>
+                  <div className="month-calendar__events">
+                    {mobile && !appointments.length && <p>Chưa có lịch hẹn. Bấm + để mời bạn.</p>}
+                    {(mobile || expandedDate === day.dateKey
+                      ? appointments
+                      : appointments.slice(0, 2)
+                    ).map((appointment) => (
+                      <article
+                        className={`month-calendar-event month-calendar-event--${appointment.type}`}
+                        key={`${appointment.type}-${appointment.id}`}
+                      >
+                        <div className="month-calendar-event__title">
+                          <Calendar size={14} strokeWidth={1.8} />
+                          <span>{appointment.name}</span>
+                        </div>
+                        <p className="month-calendar-event__topic">
+                          {appointment.time} · {appointment.topic}
+                        </p>
+                        <div className="month-calendar-event__footer">
+                          <span className="month-calendar-event__status">{appointment.status}</span>
 
-                {!mobile && appointments.length > 2 && (
-                  <button
-                    type="button"
-                    onClick={() =>
-                      setExpandedDate(expandedDate === day.dateKey ? null : day.dateKey)
-                    }
-                  >
-                    {expandedDate === day.dateKey
-                      ? "Thu gọn"
-                      : `+${appointments.length - 2} lịch nữa`}
-                  </button>
-                )}
-                <div className="month-calendar__events">
-                  {mobile && !appointments.length && <p>Chưa có lịch hẹn. Bấm + để mời bạn.</p>}
-                  {(mobile || expandedDate === day.dateKey
-                    ? appointments
-                    : appointments.slice(0, 2)
-                  ).map((appointment) => (
-                    <article
-                      className={`month-calendar-event month-calendar-event--${appointment.type}`}
-                      key={`${appointment.type}-${appointment.id}`}
-                    >
-                      <div className="month-calendar-event__title">
-                        <Calendar size={14} strokeWidth={1.8} />
-                        <span>{appointment.name}</span>
-                      </div>
-                      <p className="month-calendar-event__topic">
-                        {appointment.time} · {appointment.topic}
-                      </p>
-                      <div className="month-calendar-event__footer">
-                        <span className="month-calendar-event__status">{appointment.status}</span>
-
-                        {appointment.type === "pending" && (
-                          <div className="month-calendar-event__actions">
-                            <button
-                              type="button"
-                              className="month-calendar-event__action month-calendar-event__action--accept"
-                              onClick={() => handleAcceptScheduleRequest(appointment)}
-                              aria-label={`Xác nhận lời hẹn của ${appointment.name}`}
-                              title="Xác nhận"
-                            >
-                              <Check size={13} strokeWidth={2.2} />
-                            </button>
-                            <button
-                              type="button"
-                              className="month-calendar-event__action month-calendar-event__action--decline"
-                              onClick={() => handleDeclineScheduleRequest(appointment.id)}
-                              aria-label={`Hủy lời hẹn của ${appointment.name}`}
-                              title="Hủy"
-                            >
-                              <X size={13} strokeWidth={2.2} />
-                            </button>
-                          </div>
-                        )}
-                      </div>
-                    </article>
-                  ))}
+                          {appointment.type === "pending" && (
+                            <div className="month-calendar-event__actions">
+                              <button
+                                type="button"
+                                className="month-calendar-event__action month-calendar-event__action--accept"
+                                onClick={() => handleAcceptScheduleRequest(appointment)}
+                                aria-label={`Xác nhận lời hẹn của ${appointment.name}`}
+                                title="Xác nhận"
+                              >
+                                <Check size={13} strokeWidth={2.2} />
+                              </button>
+                              <button
+                                type="button"
+                                className="month-calendar-event__action month-calendar-event__action--decline"
+                                onClick={() => handleDeclineScheduleRequest(appointment.id)}
+                                aria-label={`Hủy lời hẹn của ${appointment.name}`}
+                                title="Hủy"
+                              >
+                                <X size={13} strokeWidth={2.2} />
+                              </button>
+                            </div>
+                          )}
+                        </div>
+                      </article>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+        </div>
       </div>
     </div>
   );

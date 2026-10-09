@@ -1,3 +1,4 @@
+import { InlineLoader } from "../ui/Skeleton";
 import { ArrowRight, Check, X } from "lucide-react";
 
 import "./LessonFooter.css";
@@ -94,7 +95,7 @@ const LessonFooter = ({
         >
           {checking ? (
             <>
-              <span className="lesson-footer__spinner" aria-hidden="true" />
+              <InlineLoader label="Đang kiểm tra đáp án" />
               Đang kiểm tra...
             </>
           ) : (

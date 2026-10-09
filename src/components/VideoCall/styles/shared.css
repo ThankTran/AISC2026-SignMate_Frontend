@@ -150,7 +150,7 @@
   object-fit: cover;
 }
 .vc-enter {
-  animation: vc-enter 0.5s ease both;
+  animation: vc-enter calc(var(--duration-slow) * 2) var(--ease-standard) both;
 }
 .vc-centered {
   max-width: 600px;

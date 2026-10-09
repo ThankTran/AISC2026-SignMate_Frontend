@@ -21,7 +21,7 @@
   background: var(--color-neutral-900);
   color: var(--color-neutral-100);
 
-  transition: background 0.35s var(--ease-standard);
+  transition: none;
 }
 
 /* ---- SUCCESS (đáp án đúng) ---- */
@@ -99,17 +99,7 @@
   color: var(--color-neutral-700);
   white-space: nowrap;
 
-  animation: footer-note-pulse 1.4s ease-in-out infinite;
-}
-
-@keyframes footer-note-pulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.55;
-  }
+  animation: none;
 }
 
 .lesson-footer--success .lesson-footer__note {
@@ -129,7 +119,7 @@
   border: 2px solid color-mix(in srgb, var(--color-white) 35%, transparent);
   border-top-color: var(--color-white);
 
-  animation: footer-spin 0.8s linear infinite;
+  animation: footer-spin calc(var(--duration-slow) * 3) var(--ease-standard) infinite;
 }
 
 @keyframes footer-spin {
@@ -146,7 +136,7 @@
   gap: var(--space-3);
   min-width: 0;
 
-  animation: footer-status-in 0.45s ease;
+  animation: footer-status-in calc(var(--duration-slow) * 1) var(--ease-standard);
 }
 
 @keyframes footer-status-in {
@@ -171,7 +161,7 @@
   justify-content: center;
 
   color: var(--color-white);
-  animation: footer-icon-bounce 0.5s ease;
+  animation: footer-icon-bounce calc(var(--duration-slow) * 2) var(--ease-standard);
 }
 
 @keyframes footer-icon-bounce {
@@ -243,11 +233,7 @@
 
   cursor: not-allowed;
 
-  transition:
-    background var(--duration-base) var(--ease-standard),
-    color var(--duration-base) var(--ease-standard),
-    transform var(--duration-fast) var(--ease-standard),
-    box-shadow var(--duration-base) var(--ease-standard);
+  transition: transform var(--duration-fast) var(--ease-standard);
 
   background: var(--color-neutral-200);
 }
@@ -268,7 +254,7 @@
   color: var(--color-white);
   cursor: pointer;
   box-shadow: var(--shadow-sm);
-  animation: footer-status-in 0.5s ease;
+  animation: footer-status-in calc(var(--duration-slow) * 2) var(--ease-standard);
   background: var(--color-coral-700);
 }
 
@@ -281,7 +267,7 @@
   color: var(--color-white);
   cursor: pointer;
   box-shadow: var(--shadow-sm);
-  animation: footer-status-in 0.5s ease;
+  animation: footer-status-in calc(var(--duration-slow) * 2) var(--ease-standard);
   background: var(--color-coral-700);
 }
 

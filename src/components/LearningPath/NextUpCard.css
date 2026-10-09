@@ -54,9 +54,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition:
-    background var(--duration-base) var(--ease-standard),
-    transform var(--duration-fast) var(--ease-standard);
+  transition: transform var(--duration-fast) var(--ease-standard);
   box-shadow: var(--shadow-md);
 }
 

@@ -5,15 +5,12 @@
   margin: 0;
   padding: var(--space-5) var(--page-gutter) var(--space-6);
   color: var(--color-neutral-700);
-  --study-green: var(--color-teal-700, #08765b);
+  --study-green: var(--color-teal-700);
 }
 .theory button {
   font: inherit;
   cursor: pointer;
-  transition:
-    background 0.18s,
-    border-color 0.18s,
-    transform 0.18s;
+  transition: transform var(--duration-base) var(--ease-standard);
 }
 .theory button:disabled {
   cursor: not-allowed;
@@ -41,12 +38,13 @@
   text-decoration: none;
   margin-bottom: var(--space-4);
   font-size: var(--text-sm);
+  min-height: 24px;
 }
 .theory__steps {
   flex-wrap: wrap;
   font-size: var(--font-size-caption);
   margin-bottom: var(--space-4);
-  color: #718079;
+  color: var(--color-neutral-700);
 }
 .theory__steps [aria-current] {
   color: var(--study-green);
@@ -139,13 +137,17 @@
   display: flex;
   gap: var(--space-1);
   margin: var(--space-2) 0;
+  overflow-x: auto;
+  max-width: 100%;
+  scrollbar-width: thin;
 }
 .theory__timeline button {
-  flex: 1;
-  min-width: 0;
+  flex: 1 0 24px;
+  min-width: 24px;
   padding: var(--space-2) 0;
   border: 0;
   background: transparent;
+  min-height: 24px;
 }
 .theory__timeline button span {
   display: block;
@@ -246,7 +248,7 @@
   padding: var(--space-2) var(--space-1);
   border-radius: 7px;
   background: transparent;
-  color: #68776f;
+  color: var(--color-neutral-700);
   font-size: var(--font-size-caption);
 }
 .theory__tabs [aria-selected="true"] {
@@ -316,7 +318,7 @@
   gap: var(--space-3);
   margin-top: var(--space-4);
   font-size: var(--font-size-caption);
-  color: #68776f;
+  color: var(--color-neutral-700);
 }
 .theory__legend i {
   width: 9px;
@@ -444,5 +446,16 @@
 @media (prefers-reduced-motion: reduce) {
   .theory button {
     transition: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .theory__timeline {
+    overflow-x: auto;
+    max-width: 100%;
+    scrollbar-width: thin;
+  }
+  .theory__timeline button {
+    flex: 0 0 44px;
   }
 }

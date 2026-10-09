@@ -19,8 +19,8 @@
 
   padding: var(--space-1) var(--space-3);
   border-radius: 20px;
-  background: var(--color-teal-50, #e1f5ee);
-  color: var(--color-teal-700, #0f6e56);
+  background: var(--color-teal-50);
+  color: var(--color-teal-700);
   font-size: var(--font-size-caption);
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -70,15 +70,11 @@
 
   cursor: pointer;
 
-  transition:
-    border-color 0.18s ease,
-    box-shadow 0.18s ease,
-    background 0.18s ease,
-    transform 0.12s ease;
+  transition: transform var(--duration-fast) var(--ease-standard);
 }
 
 .lesson-quiz__card:hover:not(:disabled) {
-  border-color: var(--color-teal-500, #0d8a6a);
+  border-color: var(--color-teal-500);
   box-shadow: 0 6px 16px rgba(13, 138, 106, 0.1);
   transform: translateY(-1px);
 }
@@ -88,19 +84,19 @@
 }
 
 .lesson-quiz__card--selected {
-  border-color: var(--color-teal-500, #0d8a6a);
-  background: var(--color-teal-50, #e1f5ee);
+  border-color: var(--color-teal-500);
+  background: var(--color-teal-50);
 }
 
 .lesson-quiz__card--correct {
-  border-color: #0d8a6a;
+  border-color: var(--color-teal-700);
   background: #e6f4f1;
 }
 
 .lesson-quiz__card--wrong {
   border-color: #ef4444;
   background: #fef1f1;
-  animation: card-shake 0.45s ease;
+  animation: card-shake calc(var(--duration-slow) * 1) var(--ease-standard);
 }
 
 @keyframes card-shake {
@@ -141,7 +137,7 @@
 
 .lesson-quiz__card--selected .lesson-quiz__radio,
 .lesson-quiz__card--correct .lesson-quiz__radio {
-  color: #0d8a6a;
+  color: var(--color-teal-700);
 }
 
 .lesson-quiz__card--wrong .lesson-quiz__radio {
@@ -152,7 +148,7 @@
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background: #0d8a6a;
+  background: var(--color-teal-700);
   color: #fff;
 
   display: flex;
@@ -174,8 +170,8 @@
   width: 56px;
   height: 56px;
   border-radius: 14px;
-  background: var(--color-neutral-100, #f1efe8);
-  color: var(--color-teal-700, #0f6e56);
+  background: var(--color-neutral-100);
+  color: var(--color-teal-700);
 
   display: flex;
   align-items: center;
@@ -253,7 +249,7 @@
 }
 
 .lesson-quiz__attempts-arrow {
-  color: var(--color-teal-500, #0d8a6a);
+  color: var(--color-teal-500);
   font-weight: 700;
 }
 
@@ -269,7 +265,7 @@
 
   border-radius: 13px;
 
-  animation: ai-in 0.4s ease;
+  animation: ai-in var(--duration-slow) var(--ease-standard);
 }
 
 @keyframes ai-in {
@@ -306,7 +302,7 @@
 
 .lesson-quiz__ai--ok .lesson-quiz__ai-accuracy {
   background: #d0efe9;
-  color: #0d8a6a;
+  color: var(--color-teal-700);
 }
 
 .lesson-quiz__ai--no .lesson-quiz__ai-accuracy {

@@ -38,26 +38,7 @@
 
   margin-bottom: var(--space-4);
 
-  animation: ooh-heart-beat 1.4s ease-in-out infinite;
-}
-
-@keyframes ooh-heart-beat {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  12% {
-    transform: scale(1.1);
-  }
-  24% {
-    transform: scale(1);
-  }
-  36% {
-    transform: scale(1.08);
-  }
-  48% {
-    transform: scale(1);
-  }
+  animation: none;
 }
 
 /* Title */
@@ -104,9 +85,7 @@
   cursor: pointer;
 
   box-shadow: var(--shadow-md);
-  transition:
-    transform var(--duration-fast) var(--ease-standard),
-    box-shadow var(--duration-base) var(--ease-standard);
+  transition: transform var(--duration-fast) var(--ease-standard);
   background: var(--color-coral-700);
 }
 
@@ -134,9 +113,7 @@
   text-align: center;
   text-decoration: none;
 
-  transition:
-    background var(--duration-base) var(--ease-standard),
-    border-color var(--duration-base) var(--ease-standard);
+  transition: none;
 }
 
 .ooh-modal__card__secondary:hover {

@@ -24,7 +24,7 @@
   background: var(--sidebar-bg);
   border-right: 1px solid var(--sidebar-border);
 
-  transition: width var(--duration-base) var(--ease-standard);
+  transition: none;
 }
 
 /* =========================================================
@@ -96,9 +96,7 @@
   color: var(--text-primary);
 
   cursor: pointer;
-  transition:
-    background-color var(--duration-base) var(--ease-standard),
-    color var(--duration-base) var(--ease-standard);
+  transition: none;
   position: static;
   display: flex;
   min-width: 32px;
@@ -202,9 +200,7 @@
 
   cursor: pointer;
 
-  transition:
-    background-color var(--duration-base) var(--ease-standard),
-    color var(--duration-base) var(--ease-standard);
+  transition: none;
 }
 
 /* Icon */
@@ -220,7 +216,7 @@
 
   color: var(--color-neutral-700);
 
-  transition: color var(--duration-base) var(--ease-standard);
+  transition: none;
 }
 
 /* Label */
@@ -355,9 +351,7 @@
 
   text-decoration: none;
 
-  transition:
-    background-color var(--duration-base) var(--ease-standard),
-    color var(--duration-base) var(--ease-standard);
+  transition: none;
 }
 
 .sidebar-submenu__item:hover {
@@ -569,7 +563,7 @@
   max-height: 100dvh;
   border-radius: 0;
   overflow: auto;
-  animation: drawer-in 180ms ease-out;
+  animation: drawer-in var(--duration-base) var(--ease-standard);
 }
 .mobile-nav-drawer .sidebar {
   display: flex;

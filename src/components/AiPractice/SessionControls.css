@@ -38,7 +38,9 @@
   font-weight: var(--font-weight-semibold);
   color: var(--color-neutral-700);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition:
+    transform var(--duration-base) var(--ease-standard),
+    opacity var(--duration-base) var(--ease-standard);
 }
 
 .session-ctrl__toggle:hover {
@@ -84,7 +86,9 @@
   font-size: var(--text-sm);
   font-weight: var(--font-weight-bold);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition:
+    transform var(--duration-base) var(--ease-standard),
+    opacity var(--duration-base) var(--ease-standard);
 }
 
 .session-ctrl__primary--start {

@@ -32,7 +32,15 @@ function Fixture() {
       <button
         id="confirm"
         onClick={async () =>
-          setAccepted(String(await confirm({ title: "Confirm action", message: "Continue?" })))
+          setAccepted(
+            String(
+              await confirm({
+                title: "Confirm action",
+                message: "Continue?",
+                confirmLabel: "Tiếp tục",
+              }),
+            ),
+          )
         }
       >
         Confirm

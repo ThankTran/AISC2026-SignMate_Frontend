@@ -378,10 +378,7 @@
 
   cursor: pointer;
 
-  transition:
-    background-color var(--duration-base) var(--ease-standard),
-    color var(--duration-base) var(--ease-standard),
-    box-shadow var(--duration-base) var(--ease-standard);
+  transition: none;
 }
 
 .qr-review__tab--active {
@@ -495,10 +492,7 @@
   text-decoration: none;
 
   box-shadow: var(--shadow-md);
-  transition:
-    background-color var(--duration-base) var(--ease-standard),
-    transform var(--duration-fast) var(--ease-standard),
-    box-shadow var(--duration-base) var(--ease-standard);
+  transition: transform var(--duration-fast) var(--ease-standard);
   background: var(--color-coral-700);
 }
 
@@ -533,9 +527,7 @@
 
   text-decoration: none;
 
-  transition:
-    border-color var(--duration-base) var(--ease-standard),
-    background-color var(--duration-base) var(--ease-standard);
+  transition: none;
 }
 
 .qr-actions__secondary:hover {

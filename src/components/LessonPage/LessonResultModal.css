@@ -87,9 +87,7 @@
 
   cursor: pointer;
 
-  transition:
-    background-color var(--duration-base) var(--ease-standard),
-    transform var(--duration-fast) var(--ease-standard);
+  transition: transform var(--duration-fast) var(--ease-standard);
 }
 
 .lrm__close:hover {
@@ -440,10 +438,7 @@
 
   cursor: pointer;
 
-  transition:
-    border-color var(--duration-base) var(--ease-standard),
-    background-color var(--duration-base) var(--ease-standard),
-    transform var(--duration-fast) var(--ease-standard);
+  transition: transform var(--duration-fast) var(--ease-standard);
 }
 
 .lrm__retake:hover {
@@ -505,10 +500,7 @@
   cursor: pointer;
 
   box-shadow: var(--shadow-sm);
-  transition:
-    box-shadow var(--duration-base) var(--ease-standard),
-    transform var(--duration-fast) var(--ease-standard),
-    filter var(--duration-base) var(--ease-standard);
+  transition: transform var(--duration-fast) var(--ease-standard);
 }
 
 .lrm__next-btn:hover {

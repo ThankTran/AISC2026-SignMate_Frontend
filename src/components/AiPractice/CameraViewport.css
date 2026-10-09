@@ -67,7 +67,7 @@
   height: 8px;
   border-radius: 50%;
   background: var(--color-purple-200);
-  animation: cam-rec-blink 1s ease-in-out infinite;
+  animation: cam-rec-blink calc(var(--duration-slow) * 3) var(--ease-standard) infinite;
 }
 
 @keyframes cam-rec-blink {
@@ -181,7 +181,7 @@
   align-items: center;
   justify-content: center;
   background: var(--color-neutral-900);
-  animation: cam-countdown-fade 0.9s ease-out;
+  animation: none;
 }
 
 .cam-viewport__countdown-num {
@@ -191,7 +191,7 @@
   text-shadow:
     0 0 40px rgba(127, 119, 221, 0.7),
     0 0 80px rgba(127, 119, 221, 0.3);
-  animation: cam-countdown-pop 0.9s ease-out;
+  animation: cam-countdown-pop calc(var(--duration-slow) * 3) var(--ease-standard);
 
   font-family: var(--font-family-mono);
 }
@@ -208,15 +208,6 @@
   100% {
     transform: scale(0.9);
     opacity: 0.9;
-  }
-}
-
-@keyframes cam-countdown-fade {
-  0% {
-    background: var(--color-neutral-900);
-  }
-  100% {
-    background: var(--color-neutral-900);
   }
 }
 
@@ -278,9 +269,7 @@
   font-family: inherit;
   text-align: left;
   cursor: pointer;
-  transition:
-    background 0.2s ease,
-    transform 0.15s ease;
+  transition: transform var(--duration-fast) var(--ease-standard);
 }
 
 .cam-viewport__sign-info:hover {

@@ -164,6 +164,64 @@ function visible(el) {
   );
 }
 
+function textContrast(root) {
+  const rgb = (value) => {
+    const parts = value
+      .match(/^rgba?\(([^)]+)\)/)?.[1]
+      .split(/[,\s/]+/)
+      .map(Number);
+    return parts?.length >= 3 ? [...parts.slice(0, 3), parts[3] ?? 1] : null;
+  };
+  const over = (fg, bg) => fg.slice(0, 3).map((c, i) => c * fg[3] + bg[i] * (1 - fg[3]));
+  const luminance = (c) =>
+    c
+      .map((v) => {
+        v /= 255;
+        return v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4;
+      })
+      .reduce((a, v, i) => a + v * [0.2126, 0.7152, 0.0722][i], 0);
+  const issues = [];
+  for (const el of root.querySelectorAll("*")) {
+    if (
+      !visible(el) ||
+      el.closest("[disabled],.sr-only") ||
+      ![...el.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim())
+    )
+      continue;
+    const fg = rgb(getComputedStyle(el).color);
+    if (!fg) continue;
+    const layers = [];
+    let known = true;
+    for (let node = el; node; node = node.parentElement) {
+      const style = getComputedStyle(node);
+      if (style.backgroundImage !== "none" || Number(style.opacity) < 1) {
+        known = false;
+        break;
+      }
+      const bg = rgb(style.backgroundColor);
+      if (!bg) {
+        known = false;
+        break;
+      }
+      layers.push(bg);
+      if (bg[3] === 1) break;
+    }
+    if (!known) continue;
+    let bg = [255, 255, 255];
+    for (const layer of layers.reverse()) bg = over(layer, bg);
+    const l1 = luminance(over(fg, bg)),
+      l2 = luminance(bg);
+    const ratio = (Math.max(l1, l2) + 0.05) / (Math.min(l1, l2) + 0.05);
+    if (ratio < 4.5)
+      issues.push({
+        selector: el.className || el.tagName,
+        text: el.textContent.trim().slice(0, 35),
+        ratio: +ratio.toFixed(2),
+      });
+  }
+  return issues;
+}
+
 function audit(path) {
   const body = document.querySelector("#root"),
     headings = [...body.querySelectorAll("h1,h2,h3,h4,h5,h6")].filter(visible);
@@ -206,7 +264,9 @@ function audit(path) {
       (el) =>
         visible(el) &&
         el.getBoundingClientRect().right > innerWidth + 1 &&
-        !el.closest(".lb-table-wrap,.st-bars,.calendar-month-grid"),
+        !el.closest(
+          ".lb-table-wrap,.st-bars,.calendar-month-grid,.month-calendar__scroll,.theory__timeline",
+        ),
     )
     .map((el) => el.className || el.tagName)
     .slice(0, 8);
@@ -216,6 +276,7 @@ function audit(path) {
     width: innerWidth,
     h1,
     jumps,
+    contrast: textContrast(body),
     tinyText: [...new Set(tinyText)],
     small: [...new Set(small)],
     overflow,

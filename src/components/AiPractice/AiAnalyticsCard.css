@@ -44,20 +44,8 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  animation: ai-live-pulse 1.2s ease-in-out infinite;
+  animation: none;
   background: var(--color-purple-700);
-}
-
-@keyframes ai-live-pulse {
-  0%,
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.4;
-    transform: scale(0.7);
-  }
 }
 
 /* ===== ACCURACY GAUGE ===== */
@@ -90,7 +78,7 @@
   fill: none;
   stroke-width: 10;
   stroke-linecap: round;
-  transition: stroke-dashoffset 0.8s ease;
+  transition: stroke-dashoffset calc(var(--duration-slow) * 3) var(--ease-standard);
   stroke: var(--color-purple-500);
 }
 
