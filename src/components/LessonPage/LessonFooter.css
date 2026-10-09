@@ -60,7 +60,7 @@
   margin: 0;
   font-family: var(--font-family-body);
   font-size: var(--text-sm);
-  color: var(--color-neutral-300);
+  color: var(--color-neutral-700);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -87,7 +87,7 @@
 .lesson-footer__hint {
   font-family: var(--font-family-body);
   font-size: var(--font-size-caption);
-  color: var(--color-neutral-600);
+  color: var(--color-neutral-700);
 }
 
 /* ---- Auto-advance note ---- */
@@ -96,7 +96,7 @@
   font-family: var(--font-family-body);
   font-size: var(--font-size-caption);
   font-weight: 600;
-  color: var(--color-neutral-600);
+  color: var(--color-neutral-700);
   white-space: nowrap;
 
   animation: footer-note-pulse 1.4s ease-in-out infinite;
@@ -235,7 +235,7 @@
   padding: var(--space-3) var(--space-5);
   border: none;
   border-radius: var(--radius-md);
-  color: var(--color-neutral-600);
+  color: var(--color-neutral-700);
 
   font-family: var(--font-family-body);
   font-size: var(--text-sm);
@@ -256,7 +256,7 @@
   color: var(--color-white);
   cursor: pointer;
   box-shadow: var(--shadow-sm);
-  background: var(--color-coral-500);
+  background: var(--color-coral-700);
 }
 
 .lesson-footer__btn--enabled:hover {
@@ -269,7 +269,7 @@
   cursor: pointer;
   box-shadow: var(--shadow-sm);
   animation: footer-status-in 0.5s ease;
-  background: var(--color-coral-500);
+  background: var(--color-coral-700);
 }
 
 .lesson-footer__btn--advance:hover {
@@ -282,7 +282,7 @@
   cursor: pointer;
   box-shadow: var(--shadow-sm);
   animation: footer-status-in 0.5s ease;
-  background: var(--color-coral-500);
+  background: var(--color-coral-700);
 }
 
 .lesson-footer__btn--ack:hover {
@@ -291,7 +291,7 @@
 }
 
 .lesson-footer__btn:focus-visible {
-  outline: 2px solid var(--color-white);
+  outline: 2px solid var(--color-teal-500);
   outline-offset: 2px;
 }
 

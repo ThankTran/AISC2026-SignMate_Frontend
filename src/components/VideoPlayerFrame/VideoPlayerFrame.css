@@ -282,7 +282,7 @@
   font-family: var(--font-family-mono);
   font-size: var(--font-size-caption);
   font-weight: 500;
-  color: var(--color-neutral-500);
+  color: var(--color-neutral-700);
 }
 
 /* ---- Control bar ---- */

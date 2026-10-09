@@ -19,7 +19,7 @@
 }
 .call-invitations p {
   margin: var(--space-1) 0 0;
-  color: var(--color-neutral-600);
+  color: var(--color-neutral-700);
   font-size: var(--font-size-body);
   line-height: 1.6;
 }

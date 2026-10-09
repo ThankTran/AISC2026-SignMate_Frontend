@@ -8,6 +8,10 @@
 
 | 4 — Trình bày | Trung bình | Khoảng cách lẻ, trang trí nhiều, CTA rỗng chung chung | CSS toàn src; HandScene; Dashboard; DataState và các trang gọi | Spacing theo token; hand + 3 card; bỏ backdrop blur; shadow nút mềm; CTA theo ngữ cảnh. |
 
+| 5 — Accessibility | Cao | Chữ nhạt, focus và nhãn input thiếu nhất quán | CSS toàn src; FriendListPage, TopicSelection, CallChat, Profile | Tăng độ tương phản token; nền tối cho chữ trắng; nhãn hiển thị gắn input; focus container; target mobile 44px; tab chọn có gạch chân. |
+
+| 6 — UX | Cao | Nhãn mơ hồ, XP sai kỳ, privacy tự lưu, hai modal xóa, loader nhấp nháy | Profile, Dashboard, ConfirmDialog, SafetyDialog, FirstCallGuide, TheoryPreview, errorMessages, Skeleton | CTA cụ thể; XP tuần; lưu privacy tập trung; email + mật khẩu trong một modal; loader 100ms, skeleton từng màn sau 1s. |
+
 ## Kiểm chứng
 
 - Nhóm 1 và 2: ESLint và Vite build thành công.

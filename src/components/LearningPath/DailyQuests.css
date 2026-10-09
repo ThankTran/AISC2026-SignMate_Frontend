@@ -16,7 +16,7 @@
   color: var(--color-neutral-900);
 }
 .lp-quests__xp {
-  color: var(--color-neutral-600);
+  color: var(--color-neutral-700);
   font-size: var(--font-size-caption);
 }
 .lp-quests__bar-track {
@@ -57,7 +57,7 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  color: var(--color-neutral-500);
+  color: var(--color-neutral-700);
   background: var(--color-white);
 }
 .lp-quest--done .lp-quest__check {
@@ -77,7 +77,7 @@
   overflow-wrap: anywhere;
 }
 .lp-quest__xp {
-  color: var(--color-neutral-600);
+  color: var(--color-neutral-700);
   font-size: var(--font-size-caption);
   line-height: 1.5;
 }

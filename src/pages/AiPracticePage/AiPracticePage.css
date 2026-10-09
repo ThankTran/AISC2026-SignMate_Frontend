@@ -39,14 +39,14 @@
 }
 
 .ai-practice__topnav-sep {
-  color: var(--color-neutral-300);
+  color: var(--color-neutral-700);
   font-size: var(--text-lg);
 }
 
 .ai-practice__topnav-sub {
   font-size: var(--text-sm);
   font-weight: var(--font-weight-semibold);
-  color: var(--color-purple-500);
+  color: var(--color-purple-700);
 }
 
 .ai-practice__topnav-right {
@@ -74,7 +74,7 @@
   font-family: var(--font-family-mono);
   font-size: var(--font-size-caption);
   font-weight: var(--font-weight-semibold);
-  color: var(--color-neutral-500);
+  color: var(--color-neutral-700);
   white-space: nowrap;
 }
 
@@ -141,7 +141,7 @@
   margin: 0;
 }
 .ai-analytics__status {
-  color: var(--color-neutral-600);
+  color: var(--color-neutral-700);
   font-size: var(--font-size-caption);
   margin: 0;
 }
@@ -152,7 +152,7 @@
 .ai-analytics__metric-val small {
   font-size: var(--font-size-caption);
   font-weight: 400;
-  color: var(--color-neutral-600);
+  color: var(--color-neutral-700);
 }
 .ai-feedback__text {
   white-space: pre-line;
@@ -198,7 +198,7 @@
 .sign-sample > p,
 .practice-hint {
   font-size: var(--font-size-caption);
-  color: var(--color-neutral-600);
+  color: var(--color-neutral-700);
   line-height: 1.25;
 }
 .sign-sample__eyebrow,
@@ -232,7 +232,7 @@
   transition: background 0.2s;
 }
 .practice-primary {
-  background: var(--color-purple-500) !important;
+  background: var(--color-purple-700) !important;
   color: white;
   border-color: transparent !important;
 }
@@ -276,8 +276,8 @@
 .ai-practice button:focus-visible,
 .ai-practice select:focus-visible,
 .sign-sample video:focus-visible {
-  outline: 3px solid var(--color-purple-500);
-  outline-offset: 3px;
+  outline: 2px solid var(--color-teal-500);
+  outline-offset: 2px;
 }
 @media (max-width: 600px) {
   .sign-sample__heading {
@@ -342,8 +342,8 @@
   display: none;
 }
 .ai-practice [role="tabpanel"]:focus-visible {
-  outline: 3px solid var(--color-purple-500);
-  outline-offset: 3px;
+  outline: 2px solid var(--color-teal-500);
+  outline-offset: 2px;
 }
 .practice-video-actions {
   margin-top: var(--space-4);

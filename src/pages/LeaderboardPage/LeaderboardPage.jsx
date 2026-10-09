@@ -360,7 +360,7 @@ export default function LeaderboardPage() {
       {error ? (
         <ApiState error={error} retry={retry} />
       ) : !data ? (
-        <Skeleton />
+        <Skeleton variant="leaderboard" />
       ) : (
         <Ranking
           source={source}

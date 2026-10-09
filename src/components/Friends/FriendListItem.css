@@ -86,7 +86,7 @@
   font-family: var(--font-family-body);
   font-size: var(--text-xs);
   line-height: 1.35;
-  color: var(--color-neutral-500);
+  color: var(--color-neutral-700);
 
   white-space: nowrap;
   overflow: hidden;
@@ -94,7 +94,7 @@
 }
 
 .friend-item__status-text--online {
-  color: var(--color-teal-500);
+  color: var(--color-teal-700);
   font-weight: var(--font-weight-medium);
 }
 

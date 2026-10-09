@@ -17,7 +17,7 @@
 }
 .lb-header p {
   margin: var(--space-1) 0 0;
-  color: var(--color-neutral-600);
+  color: var(--color-neutral-700);
 }
 .lb-main {
   min-width: 0;
@@ -31,7 +31,7 @@
   gap: var(--space-3);
 }
 .lb-filter-row > span {
-  color: var(--color-neutral-600);
+  color: var(--color-neutral-700);
 }
 .lb-filters {
   display: flex;
@@ -54,7 +54,7 @@
   cursor: pointer;
 }
 .lb-filter.is-active {
-  background: var(--color-teal-500);
+  background: var(--color-teal-700);
   color: white;
   box-shadow: 0 2px 5px #153d2d22;
 }
@@ -125,7 +125,7 @@
   overflow-wrap: anywhere;
 }
 .lb-podium__person > .text-caption {
-  color: var(--color-neutral-600);
+  color: var(--color-neutral-700);
 }
 .lb-podium__medal {
   display: flex;
@@ -183,7 +183,7 @@
   margin: 0;
 }
 .lb-ranking__heading > span {
-  color: var(--color-neutral-600);
+  color: var(--color-neutral-700);
 }
 .lb-table-wrap {
   overflow-x: auto;
@@ -203,7 +203,7 @@
 }
 .lb-table thead {
   background: #f3efe4;
-  color: var(--color-neutral-600);
+  color: var(--color-neutral-700);
   font-size: var(--font-size-caption);
 }
 .lb-table th {
@@ -214,7 +214,7 @@
   white-space: nowrap;
 }
 .lb-table td:last-child {
-  color: var(--color-neutral-600);
+  color: var(--color-neutral-700);
 }
 .lb-table__me {
   background: var(--color-teal-50);
@@ -232,7 +232,7 @@
 .lb-person__detail {
   display: block;
   margin-top: var(--space-1);
-  color: var(--color-neutral-600);
+  color: var(--color-neutral-700);
 }
 .lb-level {
   display: inline-flex;
@@ -278,7 +278,7 @@
   overflow-wrap: anywhere;
 }
 .lb-me__name > span {
-  color: var(--color-neutral-600);
+  color: var(--color-neutral-700);
 }
 .lb-me__rank {
   display: flex;
@@ -288,7 +288,7 @@
   color: var(--color-teal-700);
 }
 .lb-me__rank > span {
-  color: var(--color-neutral-600);
+  color: var(--color-neutral-700);
 }
 .lb-me__xp {
   display: flex;
@@ -345,7 +345,7 @@
   color: var(--color-teal-700);
 }
 .lb-me__metrics span {
-  color: var(--color-neutral-600);
+  color: var(--color-neutral-700);
 }
 .lb-card {
   padding: var(--space-4);
@@ -390,7 +390,7 @@
   opacity: 0.65;
 }
 .lb-activity p {
-  color: var(--color-neutral-600);
+  color: var(--color-neutral-700);
   line-height: 1.5;
   margin: var(--space-4) 0 0;
 }
@@ -461,7 +461,7 @@
 .lb-riser li .text-caption {
   display: block;
   margin-top: var(--space-1);
-  color: var(--color-neutral-600);
+  color: var(--color-neutral-700);
 }
 .lb-riser__gain {
   border-radius: 20px;
@@ -473,7 +473,7 @@
   display: flex;
   gap: var(--space-2);
   line-height: 1.6;
-  color: var(--color-neutral-600);
+  color: var(--color-neutral-700);
   margin: 0;
 }
 .lb-sample svg {
@@ -631,7 +631,7 @@
   display: none;
   margin: 0;
   padding: 0 var(--space-4) var(--space-3);
-  color: var(--color-neutral-600);
+  color: var(--color-neutral-700);
 }
 @media (max-width: 768px) {
   .lb-table-hint {

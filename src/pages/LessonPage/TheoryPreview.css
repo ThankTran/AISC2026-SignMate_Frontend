@@ -383,7 +383,7 @@
   border-radius: 10px;
   font-size: var(--text-sm) !important;
   font-weight: 600 !important;
-  background: var(--color-coral-500);
+  background: var(--color-coral-700);
 }
 .theory__cta:disabled {
   background: #e3e9e6;
@@ -396,8 +396,8 @@
 .theory a:focus-visible,
 .theory button:focus-visible,
 .theory input:focus-visible {
-  outline: 3px solid #e05638;
-  outline-offset: 3px;
+  outline: 2px solid var(--color-teal-500);
+  outline-offset: 2px;
 }
 .theory__media-error {
   font-size: var(--font-size-caption);

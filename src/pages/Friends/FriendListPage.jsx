@@ -33,12 +33,14 @@ function Content({
     <>
       {isFriendsHome && (
         <div className="friends-search" role="search">
+          <label htmlFor="friends-name-search">Tìm bạn học</label>
           <Search size={17} strokeWidth={1.8} className="friends-search__icon" />
 
           <input
+            id="friends-name-search"
             type="text"
             className="friends-search__input"
-            placeholder="Tìm theo tên"
+            placeholder="Ví dụ: Minh Anh"
             value={searchValue}
             onChange={(e) => {
               setSearchValue(e.target.value);

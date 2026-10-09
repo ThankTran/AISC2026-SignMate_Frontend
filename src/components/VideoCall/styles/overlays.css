@@ -6,7 +6,7 @@
 }
 .vc-modal p {
   font-size: var(--font-size-caption);
-  color: var(--color-neutral-500);
+  color: var(--color-neutral-700);
   margin-top: var(--space-3);
 }
 .vc-modal h2 {

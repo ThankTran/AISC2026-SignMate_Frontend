@@ -11,8 +11,6 @@ import { getContinueTarget, percent } from "./learningProgress";
 import { Award, Flame, Trophy, Check, Lock, Star } from "lucide-react";
 import "./Dashboard.css";
 
-
-
 function StatCard({ icon, value, label }) {
   return (
     <div className="db-stat">
@@ -93,14 +91,16 @@ function Dashboard() {
   const board = useLeaderboard(tab);
 
   if (!data || error) {
-    return error ? <ApiState error={error} retry={retry} /> : <Skeleton />;
+    return error ? <ApiState error={error} retry={retry} /> : <Skeleton variant="dashboard" />;
   }
 
   if (!data.chapters.length) {
     return (
       <EmptyState
         title="Chưa có tiến độ học"
-        description="Mở lộ trình để bắt đầu bài học đầu tiên." to="/learning-path" actionLabel="Bắt đầu bài học"
+        description="Mở lộ trình để bắt đầu bài học đầu tiên."
+        to="/learning-path"
+        actionLabel="Bắt đầu bài học"
       />
     );
   }
@@ -112,6 +112,9 @@ function Dashboard() {
     name: currentUser.name,
     photoURL: currentUser.photoURL,
   };
+  const myRanking = board.data?.entries.find((entry) => entry.isMe || entry.id === currentUser.uid);
+  const weeklyXp = myRanking?.weeklyXp ?? data.stats.weeklyXp ?? 0;
+  const rank = myRanking?.rank ?? user.rank;
   const target = getContinueTarget(chapters);
   const current = target?.chapter;
   const currentPercent = current ? percent(current.done, current.total) : 0;
@@ -232,7 +235,11 @@ function Dashboard() {
           </div>
 
           {!board.data &&
-            (board.error ? <ApiState error={board.error} retry={board.retry} /> : <Skeleton />)}
+            (board.error ? (
+              <ApiState error={board.error} retry={board.retry} />
+            ) : (
+              <Skeleton variant="leaderboard" />
+            ))}
           {board.data?.entries.length === 0 && <p>Chưa có dữ liệu xếp hạng.</p>}
           <ol className="db-board__list">
             {(board.data?.entries || []).slice(0, 6).map((p, i) => (
@@ -246,10 +253,10 @@ function Dashboard() {
           </ol>
 
           <div className="db-rank db-rank--me">
-            <span className="db-rank__pos">#{user.rank}</span>
+            <span className="db-rank__pos">{rank == null ? "—" : `#${rank}`}</span>
             <Avatar user={user} size={36} />
             <span className="db-rank__name">{user.name}</span>
-            <span className="db-rank__score">{user.xp.toLocaleString("vi-VN")}</span>
+            <span className="db-rank__score">{weeklyXp.toLocaleString("vi-VN")}</span>
           </div>
         </aside>
       </div>

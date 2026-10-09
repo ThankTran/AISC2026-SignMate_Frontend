@@ -1,5 +1,6 @@
 import { useEffect, useId, useRef, useState } from "react";
 import { Send, Smile, X } from "lucide-react";
+import { InlineLoader } from "../ui/Skeleton";
 import ParticipantAvatar from "./ParticipantAvatar";
 
 import { emojis } from "../../mockdata/videoCall/emojis";
@@ -13,6 +14,7 @@ export default function CallChat({ partner, messages, onSend, onClose, status = 
   const composerRef = useRef(null);
   const emojiButtonRef = useRef(null);
   const emojiPanelId = useId();
+  const messageInputId = useId();
   const chatRef = useRef(null);
 
   useEffect(() => {
@@ -122,6 +124,7 @@ export default function CallChat({ partner, messages, onSend, onClose, status = 
         ))}
       </div>
       {sendError && <p role="alert">{sendError}</p>}
+      <label className="ui-input-label" htmlFor={messageInputId}>Tin nhắn</label>
       <form
         onSubmit={send}
         ref={composerRef}
@@ -133,8 +136,8 @@ export default function CallChat({ partner, messages, onSend, onClose, status = 
       >
         <input
           ref={inputRef}
-          aria-label="Tin nhắn"
-          placeholder="Gửi lời nhắn…"
+          id={messageInputId}
+          placeholder="Ví dụ: Chào bạn!"
           value={draft}
           disabled={sending}
           onChange={(e) => setDraft(e.target.value)}
@@ -175,7 +178,7 @@ export default function CallChat({ partner, messages, onSend, onClose, status = 
           </div>
         )}
         <button aria-label="Gửi tin nhắn" disabled={!draft.trim() || sending}>
-          <Send size={18} />
+          {sending ? <InlineLoader label="Đang gửi" /> : <Send size={18} />}
         </button>
         <button type="button" aria-label="Đóng trò chuyện" onClick={onClose}>
           <X size={18} />

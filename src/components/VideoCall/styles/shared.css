@@ -45,8 +45,8 @@
 .vc-page a:focus-visible,
 .vc-page input:focus-visible,
 .vc-page textarea:focus-visible {
-  outline: 3px solid var(--color-teal-500);
-  outline-offset: 4px;
+  outline: 2px solid var(--color-teal-500);
+  outline-offset: 2px;
 }
 .vc-page h1 {
   font-family: var(--font-family-main);
@@ -73,7 +73,7 @@
   align-items: center;
   margin-bottom: var(--space-6);
   font-size: var(--font-size-caption);
-  color: var(--color-neutral-500);
+  color: var(--color-neutral-700);
 }
 .vc-topline > span {
   display: flex;
@@ -91,7 +91,7 @@
   border: 1px solid var(--color-neutral-200);
   padding: var(--space-1) var(--space-1);
   border-radius: 4px;
-  color: var(--color-neutral-500);
+  color: var(--color-neutral-700);
 }
 .vc-eyebrow {
   font-size: var(--font-size-caption);
@@ -115,7 +115,7 @@
   font-size: var(--font-size-h2);
 }
 .vc-section-title p {
-  color: var(--color-neutral-500);
+  color: var(--color-neutral-700);
   font-size: var(--font-size-caption);
   margin-top: var(--space-1);
 }
@@ -164,7 +164,7 @@
 }
 .vc-centered > p {
   font-size: var(--font-size-caption);
-  color: var(--color-neutral-500);
+  color: var(--color-neutral-700);
   margin-bottom: var(--space-5);
 }
 .vc-success-pill {
@@ -189,7 +189,7 @@
 .vc-text-button {
   background: none;
   border: 0;
-  color: var(--color-neutral-500);
+  color: var(--color-neutral-700);
   font-size: var(--font-size-caption);
   padding: var(--space-4);
 }
@@ -217,7 +217,7 @@
   max-width: 100%;
 }
 .vc-page .vc-button:not(.vc-secondary) {
-  background: var(--color-coral-500);
+  background: var(--color-coral-700);
   color: var(--color-white);
 }
 .vc-page:not(.vc-stage-call) {
@@ -230,7 +230,7 @@
   right: -5px;
   border-radius: var(--radius-full);
   padding: var(--space-1) var(--space-1);
-  background: var(--color-coral-500);
+  background: var(--color-coral-700);
   color: var(--color-white);
   font-family: var(--font-family-mono);
   font-size: var(--font-size-caption);

@@ -55,7 +55,7 @@
 .friends-search__icon {
   position: absolute;
   left: 16px;
-  color: var(--color-neutral-500);
+  color: var(--color-neutral-700);
   pointer-events: none;
 }
 
@@ -71,7 +71,7 @@
 }
 
 .friends-search__input::placeholder {
-  color: var(--color-neutral-500);
+  color: var(--color-neutral-700);
 }
 
 .friends-search__clear {
@@ -126,7 +126,7 @@
 
 .friends-section__hint {
   margin-top: var(--space-1);
-  color: var(--color-neutral-500);
+  color: var(--color-neutral-700);
   line-height: 1.45;
 }
 
@@ -193,7 +193,7 @@
 }
 
 .friends-section__count {
-  color: var(--color-neutral-500);
+  color: var(--color-neutral-700);
   font-weight: var(--font-weight-medium);
 
   font-family: var(--font-family-mono);
@@ -208,7 +208,7 @@
   border: none;
   border-radius: var(--radius-sm);
   background: transparent;
-  color: var(--color-neutral-500);
+  color: var(--color-neutral-700);
   cursor: pointer;
   transition:
     background-color var(--duration-base) var(--ease-standard),
@@ -321,7 +321,7 @@
 .friends-section__more-btn:focus-visible,
 .friends-list__load-more:focus-visible,
 .friends-search__clear:focus-visible {
-  outline: 2px solid var(--color-teal-600);
+  outline: 2px solid var(--color-teal-500);
   outline-offset: 2px;
 }
 
@@ -389,7 +389,7 @@
 
 .friend-request-card__meta {
   margin-top: var(--space-1);
-  color: var(--color-neutral-500);
+  color: var(--color-neutral-700);
   font-family: var(--font-family-body);
   font-size: var(--font-size-caption);
   line-height: 1.35;
@@ -433,7 +433,7 @@
   width: 100%;
   padding: 0 var(--space-3);
   border: none;
-  background: var(--color-teal-600);
+  background: var(--color-teal-700);
   color: var(--color-white);
   white-space: nowrap;
 }
@@ -478,7 +478,7 @@
   border: 1px dashed var(--color-neutral-200);
   border-radius: 10px;
   background: var(--color-white);
-  color: var(--color-neutral-500);
+  color: var(--color-neutral-700);
   font-family: var(--font-family-body);
   font-size: var(--text-sm);
 }
@@ -717,14 +717,14 @@
 
 .month-calendar__add-day:focus-visible {
   opacity: 1;
-  outline: 2px solid var(--color-teal-600);
+  outline: 2px solid var(--color-teal-500);
   outline-offset: 2px;
 }
 
 .month-calendar__manage:focus-visible,
 .month-calendar__today:focus-visible,
 .month-calendar__nav:focus-visible {
-  outline: 2px solid var(--color-teal-600);
+  outline: 2px solid var(--color-teal-500);
   outline-offset: 2px;
 }
 
@@ -880,7 +880,7 @@
 }
 
 .month-calendar-event__action:focus-visible {
-  outline: 2px solid var(--color-teal-600);
+  outline: 2px solid var(--color-teal-500);
   outline-offset: 2px;
 }
 
@@ -979,7 +979,7 @@
   width: 32px;
   border: 1px solid var(--color-neutral-200);
   background: var(--color-white);
-  color: var(--color-neutral-500);
+  color: var(--color-neutral-700);
 }
 
 .schedule-request-card__accept:hover {
@@ -1210,7 +1210,7 @@
     color var(--duration-base) var(--ease-standard),
     transform var(--duration-base) var(--ease-standard);
   border: none;
-  background: var(--color-teal-600);
+  background: var(--color-teal-700);
   color: var(--color-white);
 }
 
@@ -1284,7 +1284,7 @@
 .schedule-modal__primary:focus-visible,
 .schedule-modal__secondary:focus-visible,
 .schedule-modal__close:focus-visible {
-  outline: 2px solid var(--color-teal-600);
+  outline: 2px solid var(--color-teal-500);
   outline-offset: 2px;
 }
 
@@ -1361,14 +1361,14 @@
 }
 
 .call-history-modal__header p {
-  color: var(--color-neutral-500);
+  color: var(--color-neutral-700);
   font-family: var(--font-family-body);
   font-size: var(--font-size-caption);
   margin-top: var(--space-1);
 }
 
 .call-history-modal__controls > span {
-  color: var(--color-neutral-500);
+  color: var(--color-neutral-700);
   font-family: var(--font-family-body);
   font-size: var(--font-size-caption);
 }
@@ -1432,13 +1432,13 @@
 }
 
 .call-history-item__meta {
-  color: var(--color-neutral-500);
+  color: var(--color-neutral-700);
   font-family: var(--font-family-body);
   font-size: var(--font-size-caption);
 }
 
 .call-history-item__detail {
-  color: var(--color-neutral-500);
+  color: var(--color-neutral-700);
   font-family: var(--font-family-body);
   font-size: var(--font-size-caption);
   display: flex;
@@ -1495,7 +1495,7 @@
 
 .call-history-modal__close:focus-visible,
 .call-history-item__action:focus-visible {
-  outline: 2px solid var(--color-teal-600);
+  outline: 2px solid var(--color-teal-500);
   outline-offset: 2px;
 }
 
@@ -1557,7 +1557,7 @@
 
 .friends-list__empty-text {
   max-width: 340px;
-  color: var(--color-neutral-500);
+  color: var(--color-neutral-700);
   line-height: 1.6;
 }
 
@@ -1567,7 +1567,7 @@
   padding: 0 var(--space-3);
   border: none;
   border-radius: var(--radius-sm);
-  background: var(--color-teal-600);
+  background: var(--color-teal-700);
   color: var(--color-white);
   font-family: var(--font-family-body);
   font-size: var(--text-sm);
@@ -1587,7 +1587,7 @@
 }
 
 .friends-list__empty-action:focus-visible {
-  outline: 2px solid var(--color-teal-600);
+  outline: 2px solid var(--color-teal-500);
   outline-offset: 2px;
 }
 
@@ -1647,7 +1647,7 @@
   border: 0;
   border-radius: 10px;
   background: transparent;
-  color: var(--color-neutral-600);
+  color: var(--color-neutral-700);
   font: inherit;
   font-weight: 600;
   cursor: pointer;
@@ -1676,7 +1676,7 @@
   padding: var(--space-4);
   border-radius: var(--radius-md);
   background: var(--color-neutral-50);
-  color: var(--color-neutral-600);
+  color: var(--color-neutral-700);
   line-height: 1.6;
 }
 
