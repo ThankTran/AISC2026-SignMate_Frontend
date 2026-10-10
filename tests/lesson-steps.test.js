@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { lessonSteps } from "../src/utils/lessonSteps.js";
+import { lessonSteps, connectorTone } from "../src/utils/lessonSteps.js";
 import { initialProgress, deriveProgress, recordProgress } from "../src/utils/progress.js";
 
 test("chapter stops count 01 through 06 instead of restarting each lesson", () => {
@@ -50,5 +50,34 @@ test("theory and assessment complete their own quests at the 70 percent threshol
 test("passing an assessment does not overwrite an explicit incomplete theory state", () => {
   const steps = lessonSteps({ lessons: [{ id: 1, status: "completed", theoryCompleted: false }] });
   assert.equal(steps[0].status, "active");
-  assert.equal(steps[1].status, "completed");
+  assert.equal(steps[1].status, "locked");
+});
+
+test("an unavailable assessment blocks all later stops even if the server marks them available", () => {
+  const steps = lessonSteps({
+    lessons: [
+      { id: 1, status: "completed", theoryCompleted: true },
+      { id: 2, status: "locked", theoryCompleted: true, theoryUnlocked: true, published: false },
+      { id: 3, status: "active", theoryUnlocked: true },
+    ],
+  });
+  assert.deepEqual(
+    steps.map((s) => s.status),
+    ["completed", "completed", "completed", "locked", "locked", "locked"],
+  );
+});
+
+test("connectors activate only after the source is completed and destination unlocked", () => {
+  for (const from of ["locked", "active", "completed"]) {
+    for (const to of ["locked", "active", "completed"]) {
+      assert.equal(
+        connectorTone({ status: from }, { status: to }),
+        from !== "completed" || to === "locked"
+          ? "pending"
+          : to === "completed"
+            ? "done"
+            : "active",
+      );
+    }
+  }
 });

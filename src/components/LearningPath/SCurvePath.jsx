@@ -1,4 +1,4 @@
-import { lessonSteps } from "../../utils/lessonSteps.js";
+import { lessonSteps, connectorTone } from "../../utils/lessonSteps.js";
 import { useChapters } from "../../hooks/useProgress";
 import { useTheoryPreview } from "../../hooks/useTheoryPreview";
 import { BookOpen, PencilLine, Check, Lock, Trophy } from "lucide-react";
@@ -185,12 +185,7 @@ const SCurvePath = () => {
             : first?.status === "active" || first?.status === "unlocked"
               ? "active"
               : "pending";
-        const quizTone =
-          chapter.quiz.status === "completed"
-            ? "done"
-            : chapter.quiz.status === "unlocked"
-              ? "active"
-              : "pending";
+        const quizTone = connectorTone(last, chapter.quiz);
 
         return (
           <section className="lp-curve__chapter" key={chapter.id} aria-label={chapter.title}>
@@ -216,12 +211,7 @@ const SCurvePath = () => {
                 {lessons.slice(1).map((lesson, index) => {
                   const previous = lessons[index];
                   const middle = (previous.layoutY + lesson.layoutY) / 2;
-                  const tone =
-                    previous.status === "completed"
-                      ? lesson.status === "completed"
-                        ? "done"
-                        : "active"
-                      : "pending";
+                  const tone = connectorTone(previous, lesson);
 
                   return (
                     <path

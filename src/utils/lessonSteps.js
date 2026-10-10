@@ -1,6 +1,6 @@
 // Number each stop in chapter order; theory availability is independent of assessment media.
 export function lessonSteps(chapter, isDone = () => false) {
-  return chapter.lessons.flatMap((lesson, index) => {
+  const steps = chapter.lessons.flatMap((lesson, index) => {
     const passed = lesson.status === "completed";
     const available =
       lesson.theoryUnlocked ?? ["active", "unlocked", "completed"].includes(lesson.status);
@@ -26,4 +26,15 @@ export function lessonSteps(chapter, isDone = () => false) {
                 : "locked",
     }));
   });
+  for (let index = 1; index < steps.length; index++) {
+    if (steps[index - 1].status !== "completed") steps[index].status = "locked";
+  }
+  return steps;
+}
+
+export function connectorTone(from, to) {
+  if (from?.status !== "completed" || !["active", "unlocked", "completed"].includes(to?.status)) {
+    return "pending";
+  }
+  return to.status === "completed" ? "done" : "active";
 }
