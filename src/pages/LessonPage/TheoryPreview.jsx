@@ -152,10 +152,6 @@ export default function TheoryPreview({ lesson }) {
   const mark = () => {
     if (selected) progress.mark(selected.id);
   };
-  const toggleLearned = () => {
-    if (!selected) return;
-    progress.toggle(selected.id);
-  };
   const video = useTheoryVideo(selected?.videoLabel);
   function switchGroup(index) {
     setGroupIndex(index);
@@ -226,6 +222,7 @@ export default function TheoryPreview({ lesson }) {
                 aria-pressed={selectedId === item.id}
                 className={`${viewed.includes(item.id) ? "is-completed" : ""} ${selectedId === item.id ? "is-active" : ""}`}
                 onClick={() => setSelectedId(item.id)}
+                onDoubleClick={() => progress.mark(item.id)}
               >
                 <span />
               </button>
@@ -259,6 +256,7 @@ export default function TheoryPreview({ lesson }) {
             <h2>Chọn ký hiệu</h2>
             <span>{group?.terms.length || 0} mục</span>
           </div>
+          <p>Nhấn đúp vào ký hiệu để đánh dấu đã học.</p>
           <div className="theory__tabs" role="tablist" aria-label="Nhóm từ vựng">
             {groups.map((item, index) => (
               <button
@@ -295,6 +293,7 @@ export default function TheoryPreview({ lesson }) {
                 }
                 className={`${viewed.includes(item.id) ? "is-completed" : ""} ${selectedId === item.id ? "is-active" : ""}`}
                 onClick={() => setSelectedId(item.id)}
+                onDoubleClick={() => progress.mark(item.id)}
               >
                 {item.term}
                 {viewed.includes(item.id) && <span className="theory__dot" />}
@@ -328,10 +327,10 @@ export default function TheoryPreview({ lesson }) {
             <button
               type="button"
               className="theory__mark"
-              disabled={!selected}
+              disabled={!selected || viewed.includes(selectedId)}
               aria-pressed={viewed.includes(selectedId)}
               aria-label="Đánh dấu đã thuộc"
-              onClick={toggleLearned}
+              onClick={mark}
             >
               <Check size={16} />
               Đánh dấu đã thuộc

@@ -2,6 +2,7 @@ import { useSyncExternalStore } from "react";
 import { useCurrentUser } from "./useCurrentUser";
 import { useProgress } from "./useProgress";
 import { learningApi } from "../services/api";
+import { readTheoryItems, markTheoryItem } from "../utils/theoryProgress.js";
 
 // Server completion survives browser sessions; local state bridges the refresh after saving.
 const listeners = new Set();
@@ -63,24 +64,10 @@ export function useTheoryItems(lessonId, items, completed) {
     }
   };
   const raw = useSyncExternalStore(subscribe, snapshot, () => "");
-  let stored;
-  try {
-    stored = JSON.parse(raw);
-  } catch {
-    stored = [];
-  }
-  const validIds = new Set(items.map((item) => item.id));
-  const ids =
-    !raw && completed
-      ? [...validIds]
-      : Array.isArray(stored)
-        ? [...new Set(stored.filter((id) => validIds.has(id)))]
-        : [];
-  function update(id, toggle = false) {
-    if (!validIds.has(id)) return;
-    const next = JSON.stringify(
-      toggle && ids.includes(id) ? ids.filter((value) => value !== id) : [...new Set([...ids, id])],
-    );
+  const ids = readTheoryItems(raw, items, completed);
+  function mark(id) {
+    // Read at event time: video completion and manual clicks may share an old render.
+    const next = markTheoryItem(snapshot(), items, completed, id);
     memory.set(key, next);
     try {
       sessionStorage.setItem(key, next);
@@ -89,5 +76,5 @@ export function useTheoryItems(lessonId, items, completed) {
     }
     listeners.forEach((listener) => listener());
   }
-  return { ids, mark: (id) => update(id), toggle: (id) => update(id, true) };
+  return { ids, mark };
 }

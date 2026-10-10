@@ -576,19 +576,19 @@ a:hover > .lp-quiz--locked {
 }
 
 /* Paired learning steps keep the existing S-shaped map. */
-.lp-node__kind {
+.lp-node__title {
   position: relative;
   z-index: 1;
   padding: 3px 8px;
   border-radius: var(--radius-sm);
   background: var(--color-white);
-  font-size: var(--font-size-caption);
+  max-width: 180px;
+  text-align: center;
+  line-height: 1.4;
+  white-space: normal;
+  font-size: 14px;
   font-weight: 800;
-  letter-spacing: 0.07em;
   color: var(--color-teal-800);
-}
-.lp-node__kind--practice {
-  color: var(--color-neutral-700);
 }
 .lp-node__hint {
   font-size: var(--font-size-caption);

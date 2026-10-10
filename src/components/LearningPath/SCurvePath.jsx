@@ -48,9 +48,7 @@ const LessonNode = ({ lesson }) => {
   const label = theory ? "Lý thuyết" : "Kiểm tra";
   const content = (
     <>
-      <span className={`lp-node__kind ${theory ? "" : "lp-node__kind--practice"}`}>
-        {lesson.number} · {theory ? "HỌC" : "KIỂM TRA"}
-      </span>
+      <span className="lp-node__title">{lesson.title}</span>
       <div className={`lp-node__icon lp-node__icon--${lesson.status}`}>
         <div className={`lp-node__ring lp-node__ring--${lesson.status}`} />
         <span className="lp-node__glyph">
@@ -59,9 +57,6 @@ const LessonNode = ({ lesson }) => {
         {lesson.status === "completed" && <Check className="lp-node__badge" size={18} />}
         {locked && <Lock className="lp-node__badge" size={16} />}
       </div>
-      <span className="lp-node__label">
-        {label} {lesson.title}
-      </span>
       <span className="lp-node__hint">
         {lesson.status === "completed"
           ? "Đã hoàn thành · Xem lại"
