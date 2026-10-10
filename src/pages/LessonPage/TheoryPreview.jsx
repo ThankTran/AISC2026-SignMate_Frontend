@@ -133,19 +133,22 @@ function SegmentPlayer({ segment, loading, loadError, retry, speed, onComplete }
 
 export default function TheoryPreview({ lesson }) {
   const { isDone, complete } = useTheoryPreview();
+  const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState("");
   const navigate = useNavigate();
   const groups = groupsFor(lesson);
   const all = groups.flatMap((group) => group.terms);
   const [groupIndex, setGroupIndex] = useState(0);
   const [selectedId, setSelectedId] = useState(all[0]?.id);
   const [speed, setSpeed] = useState(1);
-  const done = isDone(lesson.id);
+  const done = isDone(lesson.id) || lesson.theoryCompleted;
   const group = groups[groupIndex];
   const selected = all.find((item) => item.id === selectedId);
   const progress = useTheoryItems(lesson.id, all, done);
   const viewed = progress.ids;
   const count = group?.terms.filter((item) => viewed.includes(item.id)).length || 0;
-  const canContinue = done || (all.length > 0 && viewed.length >= all.length);
+  const canContinue =
+    done || lesson.theoryCompleted || (all.length > 0 && viewed.length >= all.length);
   const mark = () => {
     if (selected) progress.mark(selected.id);
   };
@@ -336,6 +339,10 @@ export default function TheoryPreview({ lesson }) {
           </div>
         </aside>
       </div>
+      {saveError && <p role="alert">{saveError}</p>}
+      {lesson.published === false && (
+        <p role="status">Bạn có thể học lý thuyết. Bài kiểm tra đang được cập nhật.</p>
+      )}
       <footer className="theory__footer">
         <div className="theory__progress">
           <div>
@@ -354,13 +361,25 @@ export default function TheoryPreview({ lesson }) {
         <button
           type="button"
           className="theory__cta"
-          disabled={!canContinue}
-          onClick={() => {
-            complete(lesson.id);
-            navigate("?step=practice");
+          disabled={!canContinue || saving}
+          onClick={async () => {
+            setSaving(true);
+            setSaveError("");
+            try {
+              await complete(lesson.id);
+              navigate(lesson.published === false ? "/learning-path" : "?step=practice");
+            } catch (error) {
+              setSaveError(error.message || "Không lưu được tiến độ. Vui lòng thử lại.");
+            } finally {
+              setSaving(false);
+            }
           }}
         >
-          Làm bài kiểm tra
+          {saving
+            ? "Đang lưu…"
+            : lesson.published === false
+              ? "Hoàn thành bài học"
+              : "Hoàn thành & làm kiểm tra"}
           <ArrowRight size={18} />
         </button>
       </footer>

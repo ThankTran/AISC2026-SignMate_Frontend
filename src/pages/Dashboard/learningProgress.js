@@ -3,7 +3,10 @@ export const percent = (done, total) => (total > 0 ? Math.round((done / total) *
 export function getContinueTarget(chapters) {
   for (const chapter of chapters) {
     const lesson = chapter.lessons.find(
-      (item) => item.status === "active" || item.status === "unlocked",
+      (item) =>
+        item.status === "active" ||
+        item.status === "unlocked" ||
+        (item.theoryUnlocked && !item.theoryCompleted),
     );
 
     if (lesson) {

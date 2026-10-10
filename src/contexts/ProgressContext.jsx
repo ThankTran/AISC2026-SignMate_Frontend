@@ -58,6 +58,7 @@ function ServerProgressProvider({ children }) {
       source: "server",
       lessonResults: {},
       quizResults: {},
+      recordTheory: retry,
       recordLesson: retry,
       recordQuiz: retry,
     }),
@@ -71,6 +72,16 @@ function MockProgressProvider({ children, initialState }) {
   const user = useCurrentUser();
   const [state, setState] = useState(() => initialState || initialProgress());
   const data = useMemo(() => deriveProgress(state, user || {}), [state, user]);
+  const recordTheory = useCallback(
+    (id) =>
+      setState((previous) =>
+        recordProgress(previous, "theory", id, {
+          id: `theory-${id}-${new Date().toLocaleDateString()}`,
+          xp: 0,
+        }),
+      ),
+    [],
+  );
   const recordLesson = useCallback(
     (id, result) => setState((previous) => recordProgress(previous, "lesson", id, result)),
     [],
@@ -106,6 +117,7 @@ function MockProgressProvider({ children, initialState }) {
       source: "mock",
       lessonResults: state.lessonResults,
       quizResults: state.quizResults,
+      recordTheory,
       recordLesson,
       recordQuiz,
       notificationStatus: "ready",
@@ -117,6 +129,7 @@ function MockProgressProvider({ children, initialState }) {
       data,
       state.lessonResults,
       state.quizResults,
+      recordTheory,
       recordLesson,
       recordQuiz,
       readAllNotifications,

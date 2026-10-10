@@ -1,7 +1,9 @@
 import { useSyncExternalStore } from "react";
 import { useCurrentUser } from "./useCurrentUser";
+import { useProgress } from "./useProgress";
+import { learningApi } from "../services/api";
 
-// Theory progress is scoped to the account and browser tab, separate from server XP.
+// Server completion survives browser sessions; local state bridges the refresh after saving.
 const listeners = new Set();
 const memory = new Map();
 const subscribe = (listener) => {
@@ -10,7 +12,8 @@ const subscribe = (listener) => {
 };
 export function useTheoryPreview() {
   const user = useCurrentUser();
-  const key = `signmate:theory-preview:v2:${user?.uid || "guest"}`;
+  const { chapters, source, recordTheory } = useProgress();
+  const key = `signmate:theory-preview:v3:${user?.uid || "guest"}`;
   const snapshot = () => {
     try {
       return sessionStorage.getItem(key) || memory.get(key) || "[]";
@@ -27,8 +30,15 @@ export function useTheoryPreview() {
   }
   if (!Array.isArray(ids)) ids = [];
   return {
-    isDone: (id) => ids.includes(String(id)),
-    complete: (id) => {
+    isDone: (id) =>
+      ids.includes(String(id)) ||
+      (chapters || []).some((chapter) =>
+        chapter.lessons.some(
+          (lesson) => String(lesson.id) === String(id) && lesson.theoryCompleted,
+        ),
+      ),
+    complete: async (id) => {
+      if (source === "server") await learningApi.completeTheory(id);
       const next = JSON.stringify([...new Set([...ids, String(id)])]);
       memory.set(key, next);
       try {
@@ -37,6 +47,7 @@ export function useTheoryPreview() {
         /* In-memory fallback. */
       }
       listeners.forEach((listener) => listener());
+      recordTheory?.(id);
     },
   };
 }

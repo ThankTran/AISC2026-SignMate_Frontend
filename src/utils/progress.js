@@ -24,6 +24,9 @@ export function deriveProgress(state, user = {}, today = new Date()) {
       .filter((lesson) => lesson.chapterId === chapter.id)
       .map((lesson) => ({
         ...lesson,
+        theoryCompleted: state.events.some(
+          (event) => event.type === "theory" && event.lessonId === lesson.id,
+        ),
         status: done.has(lesson.id)
           ? "completed"
           : lesson.id === 1 || done.has(lesson.id - 1)
@@ -152,9 +155,12 @@ export function deriveProgress(state, user = {}, today = new Date()) {
       done: state.events.some(
         (event) =>
           event.date === currentDate &&
-          event.type === quest.type &&
-          (quest.type !== "lesson" || event.passed === true) &&
-          (quest.type !== "quiz" || event.score >= 80),
+          (quest.type === "lesson"
+            ? event.type === "theory"
+            : quest.type === "quiz"
+              ? (event.type === "lesson" && event.passed === true) ||
+                (event.type === "quiz" && event.score >= 70)
+              : event.type === quest.type),
       ),
     })),
   };
@@ -182,17 +188,28 @@ export function recordProgress(state, type, id, payload, today = new Date()) {
     quizResults: type === "quiz" ? { ...state.quizResults, [id]: payload } : state.quizResults,
     events: [
       ...state.events,
-      { key, type, date: dateKey(today), xp, seconds, score: result.score, passed: result.passed },
+      {
+        key,
+        type,
+        lessonId: Number(id),
+        date: dateKey(today),
+        xp,
+        seconds,
+        score: result.score,
+        passed: result.passed,
+      },
     ],
     notifications: [
       {
         id: key,
         title:
-          type === "lesson"
-            ? result.passed === true
-              ? "Đã hoàn thành bài học"
-              : "Đã có kết quả bài học"
-            : "Đã có kết quả kiểm tra",
+          type === "theory"
+            ? "Đã hoàn thành bài học"
+            : type === "lesson"
+              ? result.passed === true
+                ? "Đã vượt qua bài kiểm tra"
+                : "Đã có kết quả kiểm tra"
+              : "Đã có kết quả kiểm tra",
         path: type === "quiz" ? `/learning-path/quiz/${id}/result` : "/learning-path",
         time: "Vừa xong",
         read: false,

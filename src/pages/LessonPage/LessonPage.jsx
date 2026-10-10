@@ -281,7 +281,11 @@ export default function LessonPage() {
     ),
   );
   const { isDone } = useTheoryPreview();
-  const load = useCallback(() => learningApi.lesson(lessonId), [lessonId]);
+  const practice = search.get("step") === "practice";
+  const load = useCallback(
+    () => (practice ? learningApi.lesson(lessonId) : learningApi.theory(lessonId)),
+    [lessonId, practice],
+  );
   const { data, error } = useApiResource(load);
 
   if (!data || String(data.id) !== lessonId) {

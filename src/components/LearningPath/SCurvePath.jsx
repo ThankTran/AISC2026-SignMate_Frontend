@@ -1,3 +1,4 @@
+import { lessonSteps } from "../../utils/lessonSteps.js";
 import { useChapters } from "../../hooks/useProgress";
 import { useTheoryPreview } from "../../hooks/useTheoryPreview";
 import { BookOpen, PencilLine, Check, Lock, Trophy } from "lucide-react";
@@ -48,7 +49,7 @@ const LessonNode = ({ lesson }) => {
   const content = (
     <>
       <span className={`lp-node__kind ${theory ? "" : "lp-node__kind--practice"}`}>
-        {theory ? "01 · HỌC" : "02 · KIỂM TRA"}
+        {lesson.number} · {theory ? "HỌC" : "KIỂM TRA"}
       </span>
       <div className={`lp-node__icon lp-node__icon--${lesson.status}`}>
         <div className={`lp-node__ring lp-node__ring--${lesson.status}`} />
@@ -67,7 +68,9 @@ const LessonNode = ({ lesson }) => {
           : locked
             ? theory
               ? "Hoàn thành trạm trước"
-              : "Hoàn thành lý thuyết để mở"
+              : lesson.published === false
+                ? "Bài kiểm tra đang cập nhật"
+                : "Hoàn thành lý thuyết để mở"
             : theory
               ? "Khám phá bài học"
               : "Sẵn sàng luyện tập"}
@@ -164,36 +167,14 @@ const SCurvePath = () => {
         // Each chapter owns its layout; persisted coordinates may overlap or
         // describe an older curriculum with fewer chapters.
         let height = 80;
-        const lessons = chapter.lessons.flatMap((lesson) => {
-          const completed = lesson.status === "completed";
-          const available =
-            lesson.published !== false &&
-            ["active", "unlocked", "completed"].includes(lesson.status);
-          const learned = completed || isDone(lesson.id);
-          return ["theory", "practice"].map((kind) => {
-            const status = !available
-              ? "locked"
-              : kind === "theory"
-                ? learned
-                  ? "completed"
-                  : lesson.status
-                : completed
-                  ? "completed"
-                  : learned
-                    ? "active"
-                    : "locked";
-            const positioned = {
-              ...lesson,
-              lessonId: lesson.id,
-              id: `${lesson.id}-${kind}`,
-              kind,
-              status,
-              layoutX: kind === "theory" ? 32 : 68,
-              layoutY: height,
-            };
-            height += 185;
-            return positioned;
-          });
+        const lessons = lessonSteps(chapter, isDone).map((lesson) => {
+          const positioned = {
+            ...lesson,
+            layoutX: lesson.kind === "theory" ? 32 : 68,
+            layoutY: height,
+          };
+          height += 185;
+          return positioned;
         });
         const first = lessons[0];
         const last = lessons.at(-1);

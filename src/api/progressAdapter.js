@@ -77,7 +77,10 @@ export function adaptProgress({
     completedLessons,
     percent: totalLessons ? Math.round((completedLessons / totalLessons) * 100) : 0,
     nextLesson: lessons.find(
-      (lesson) => lesson.status === "active" || lesson.status === "unlocked",
+      (lesson) =>
+        lesson.status === "active" ||
+        lesson.status === "unlocked" ||
+        (lesson.theoryUnlocked && !lesson.theoryCompleted),
     ),
   };
 }
