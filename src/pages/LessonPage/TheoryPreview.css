@@ -277,18 +277,17 @@
   border-color: #79b59b;
   background: #eff7f2;
 }
-.theory__keypad .is-completed {
-  background: #edf6f0;
-  border-color: #d2e7db;
+/* Completion uses a filled tile; selection uses an outline independently. */
+.theory__keypad button.is-completed,
+.theory__keypad button.is-completed:hover {
+  background: var(--study-green);
+  border-color: var(--study-green);
+  color: white;
 }
 .theory__keypad .is-active {
-  background: var(--study-green);
-  color: white;
-  border-color: var(--study-green);
-  box-shadow: 0 0 0 3px #08765b20;
-}
-.theory__keypad .is-active:hover {
-  background: var(--study-green);
+  outline: 2px solid var(--study-green);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px #08765b20;
 }
 .theory__keypad--words {
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -300,18 +299,6 @@
   font-size: var(--font-size-caption);
   padding: var(--space-3);
   overflow-wrap: anywhere;
-}
-.theory__dot {
-  position: absolute;
-  right: 6px;
-  top: 6px;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #12845d;
-}
-.is-active .theory__dot {
-  background: white;
 }
 .theory__legend {
   flex-wrap: wrap;
@@ -327,10 +314,12 @@
   border-radius: 3px;
 }
 .theory__legend .is-completed {
-  background: #a3cfb9;
+  background: var(--study-green);
+  border-color: var(--study-green);
 }
 .theory__legend .is-active {
-  background: var(--study-green);
+  background: transparent;
+  border: 2px solid var(--study-green);
 }
 .theory__group-progress {
   font-size: var(--font-size-caption);
