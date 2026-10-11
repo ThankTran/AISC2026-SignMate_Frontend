@@ -280,9 +280,9 @@
 /* Completion uses a filled tile; selection uses an outline independently. */
 .theory__keypad button.is-completed,
 .theory__keypad button.is-completed:hover {
-  background: var(--study-green);
-  border-color: var(--study-green);
-  color: white;
+  background: #edf6f0;
+  border-color: #d2e7db;
+  color: #34483d;
 }
 .theory__keypad .is-active {
   outline: 2px solid var(--study-green);
@@ -314,8 +314,8 @@
   border-radius: 3px;
 }
 .theory__legend .is-completed {
-  background: var(--study-green);
-  border-color: var(--study-green);
+  background: #edf6f0;
+  border-color: #d2e7db;
 }
 .theory__legend .is-active {
   background: transparent;
