@@ -21,7 +21,7 @@ function Content({
         <section className="friends-section friends-section--requests">
           <div className="friends-section__header">
             <div>
-              <h2 className="text-h2">Lời mời kết bạn</h2>
+              <h2 className="text-h2">Đang chờ phản hồi</h2>
               <p className="friends-section__hint text-caption">
                 Chấp nhận để thêm vào danh sách và bắt đầu luyện cùng nhau.
               </p>
@@ -38,7 +38,6 @@ function Content({
                 <article className="friend-request-card" key={request.id}>
                   <div className="friend-request-card__avatar-wrap">
                     <Avatar user={request} size={48} />
-                    <span className="friend-request-card__indicator" />
                   </div>
 
                   <div className="friend-request-card__content">
@@ -60,7 +59,7 @@ function Content({
                       onClick={() => handleAcceptRequest(request)}
                     >
                       <Check size={15} strokeWidth={1.8} />
-                      <span>Chấp nhận</span>
+                      <span>{pendingRequestId === request.id ? "Đang xử lý…" : "Chấp nhận"}</span>
                     </button>
 
                     <button
@@ -72,6 +71,7 @@ function Content({
                       title={`Từ chối lời mời của ${request.name}`}
                     >
                       <X size={15} strokeWidth={1.8} />
+                      <span>Từ chối</span>
                     </button>
                   </div>
                 </article>

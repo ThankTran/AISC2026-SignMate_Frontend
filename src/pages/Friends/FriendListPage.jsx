@@ -31,43 +31,144 @@ function Content({
 }) {
   return (
     <>
-      {isFriendsHome && (
-        <div className="friends-search" role="search">
-          <label htmlFor="friends-name-search">Tìm bạn học</label>
-          <Search size={17} strokeWidth={1.8} className="friends-search__icon" />
+      <section className="friends-discovery" aria-labelledby="friends-discovery-title">
+        <div className="friends-discovery__heading">
+          <h2 id="friends-discovery-title">Tìm người học mới</h2>
+          <p>Kết nối với người học để cùng luyện ngôn ngữ ký hiệu.</p>
+        </div>
+        {isFriendsHome && (
+          <div className="friends-search" role="search">
+            <label className="friends-search__label" htmlFor="friends-name-search">
+              Tên người học
+            </label>
+            <Search size={17} strokeWidth={1.8} className="friends-search__icon" />
 
-          <input
-            id="friends-name-search"
-            type="text"
-            className="friends-search__input"
-            placeholder="Ví dụ: Minh Anh"
-            value={searchValue}
-            onChange={(e) => {
-              setSearchValue(e.target.value);
-            }}
-            aria-label="Tìm kiếm bạn bè"
+            <input
+              id="friends-name-search"
+              type="text"
+              className="friends-search__input"
+              placeholder="Ví dụ: Minh Anh"
+              value={searchValue}
+              onChange={(e) => {
+                setSearchValue(e.target.value);
+              }}
+              aria-label="Tìm kiếm bạn bè"
+            />
+
+            {searchValue && (
+              <button
+                type="button"
+                className="friends-search__clear"
+                aria-label="Xóa tìm kiếm"
+                onClick={() => setSearchValue("")}
+              >
+                <X size={16} strokeWidth={1.8} />
+              </button>
+            )}
+          </div>
+        )}
+
+        {isFriendsHome && (
+          <FriendSearchResults
+            query={searchValue}
+            onAdd={handleAddFriend}
+            sentRequests={requestedCallIds}
+            pendingId={requestingCallId}
           />
+        )}
+      </section>
 
-          {searchValue && (
+      {/* ================= DANH SÁCH BẠN BÈ ================= */}
+      {isFriendsHome && (
+        <section className="friends-section friends-section--list">
+          <div className="friends-section__header">
+            <div>
+              <h2 className="text-h2">Bạn bè của bạn</h2>
+              <p className="friends-section__hint">
+                Chọn một người bạn để gọi hoặc hẹn lịch luyện tập.
+              </p>
+            </div>
+
+            <div className="friends-section__meta">
+              <span className="friends-section__count text-caption">
+                {filteredFriends.length} bạn bè · {selectedFriendFilterLabel}
+              </span>
+
+              <div className="friends-filter" ref={filterRef}>
+                <button
+                  type="button"
+                  className={`friends-section__filter-btn ${
+                    friendFilter !== "all" ? "friends-section__filter-btn--active" : ""
+                  }`}
+                  aria-label="Lọc danh sách bạn bè"
+                  title="Lọc danh sách bạn bè"
+                  aria-expanded={isFriendFilterOpen}
+                  aria-haspopup="menu"
+                  onClick={() => setIsFriendFilterOpen((prev) => !prev)}
+                >
+                  <ListFilter size={16} strokeWidth={1.8} />
+                </button>
+
+                {isFriendFilterOpen && (
+                  <div className="friends-filter__menu" role="menu">
+                    {friendFilters.map((filter) => (
+                      <button
+                        type="button"
+                        className={`friends-filter__item ${
+                          friendFilter === filter.value ? "friends-filter__item--active" : ""
+                        }`}
+                        key={filter.value}
+                        role="menuitemradio"
+                        aria-checked={friendFilter === filter.value}
+                        onClick={() => {
+                          setFriendFilter(filter.value);
+                          setIsFriendFilterOpen(false);
+                        }}
+                      >
+                        {filter.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div className="friends-list">
+            {filteredFriends.length === 0 ? (
+              <EmptyState
+                title="Không tìm thấy kết nối phù hợp"
+                description="Thử tên khác hoặc thay đổi bộ lọc trạng thái."
+                onAction={() => {
+                  setSearchValue("");
+                  setFriendFilter("all");
+                  document.querySelector(".friends-search__input")?.focus();
+                }}
+                actionLabel={searchValue || friendFilter !== "all" ? "Xóa bộ lọc" : "Tìm bạn học"}
+              />
+            ) : (
+              filteredFriends
+                .slice(0, visibleFriendCount)
+                .map((friend) => (
+                  <FriendListItem
+                    key={friend.id}
+                    friend={friend}
+                    onSchedule={handleSchedule}
+                    onCall={handleCall}
+                  />
+                ))
+            )}
+          </div>
+          {visibleFriendCount < filteredFriends.length && (
             <button
               type="button"
-              className="friends-search__clear"
-              aria-label="Xóa tìm kiếm"
-              onClick={() => setSearchValue("")}
+              className="friends-list__load-more"
+              onClick={() => setVisibleFriendCount((count) => count + 8)}
             >
-              <X size={16} strokeWidth={1.8} />
+              Xem thêm bạn bè
             </button>
           )}
-        </div>
-      )}
-
-      {isFriendsHome && (
-        <FriendSearchResults
-          query={searchValue}
-          onAdd={handleAddFriend}
-          sentRequests={requestedCallIds}
-          pendingId={requestingCallId}
-        />
+        </section>
       )}
       {/* ================= CUỘC GỌI GẦN ĐÂY ================= */}
       {isFriendsHome && (
@@ -93,6 +194,11 @@ function Content({
             </div>
           </div>
 
+          {!recentConversationCalls.length && (
+            <p className="friends-directory-empty">
+              Chưa có người mới từ các cuộc trò chuyện gần đây.
+            </p>
+          )}
           <div className="friends-recent-calls">
             {recentConversationCalls.slice(0, 4).map((call) => (
               <RecentCallCard
@@ -182,94 +288,6 @@ function Content({
                 })}
               </div>
             </Modal>
-          )}
-        </section>
-      )}
-
-      {/* ================= DANH SÁCH BẠN BÈ ================= */}
-      {isFriendsHome && (
-        <section className="friends-section friends-section--list">
-          <div className="friends-section__header">
-            <h2 className="text-h2">Danh sách bạn bè</h2>
-
-            <div className="friends-section__meta">
-              <span className="friends-section__count text-caption">
-                {filteredFriends.length} bạn bè · {selectedFriendFilterLabel}
-              </span>
-
-              <div className="friends-filter" ref={filterRef}>
-                <button
-                  type="button"
-                  className={`friends-section__filter-btn ${
-                    friendFilter !== "all" ? "friends-section__filter-btn--active" : ""
-                  }`}
-                  aria-label="Lọc danh sách bạn bè"
-                  title="Lọc danh sách bạn bè"
-                  aria-expanded={isFriendFilterOpen}
-                  aria-haspopup="menu"
-                  onClick={() => setIsFriendFilterOpen((prev) => !prev)}
-                >
-                  <ListFilter size={16} strokeWidth={1.8} />
-                </button>
-
-                {isFriendFilterOpen && (
-                  <div className="friends-filter__menu" role="menu">
-                    {friendFilters.map((filter) => (
-                      <button
-                        type="button"
-                        className={`friends-filter__item ${
-                          friendFilter === filter.value ? "friends-filter__item--active" : ""
-                        }`}
-                        key={filter.value}
-                        role="menuitemradio"
-                        aria-checked={friendFilter === filter.value}
-                        onClick={() => {
-                          setFriendFilter(filter.value);
-                          setIsFriendFilterOpen(false);
-                        }}
-                      >
-                        {filter.label}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-
-          <div className="friends-list">
-            {filteredFriends.length === 0 ? (
-              <EmptyState
-                title="Không tìm thấy kết nối phù hợp"
-                description="Thử tên khác hoặc thay đổi bộ lọc trạng thái."
-                onAction={() => {
-                  setSearchValue("");
-                  setFriendFilter("all");
-                  document.querySelector(".friends-search__input")?.focus();
-                }}
-                actionLabel={searchValue || friendFilter !== "all" ? "Xóa bộ lọc" : "Tìm bạn học"}
-              />
-            ) : (
-              filteredFriends
-                .slice(0, visibleFriendCount)
-                .map((friend) => (
-                  <FriendListItem
-                    key={friend.id}
-                    friend={friend}
-                    onSchedule={handleSchedule}
-                    onCall={handleCall}
-                  />
-                ))
-            )}
-          </div>
-          {visibleFriendCount < filteredFriends.length && (
-            <button
-              type="button"
-              className="friends-list__load-more"
-              onClick={() => setVisibleFriendCount((count) => count + 8)}
-            >
-              Xem thêm bạn bè
-            </button>
           )}
         </section>
       )}

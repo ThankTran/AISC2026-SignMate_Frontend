@@ -3,7 +3,7 @@ import { useFriends } from "../../hooks/useFriends";
 import Modal from "../../components/ui/Modal";
 import { useToast } from "../../hooks/useToast";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { X, Calendar, Check, Clock, Plus } from "lucide-react";
 
 import { recentCallsData } from "../../mockdata";
@@ -17,6 +17,7 @@ import {
 } from "./friendsPageConfig";
 
 import "./FriendsPage.css";
+import "./FriendsDirectory.css";
 
 const FriendsWorkspace = ({ view = "list", Content }) => {
   const toast = useToast();
@@ -496,13 +497,23 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
   };
 
   return (
-    <div className="friends-page">
+    <div className={`friends-page friends-page--${view}`}>
       <div className="friends-page__header">
         <h1 id="friends-page-title" className="friends-page__title text-h1">
           {pageTitle}
         </h1>
         <p className="friends-page__subtitle text-caption">{pageSubtitle}</p>
       </div>
+
+      <nav className="friends-directory-nav" aria-label="Các trang bạn bè">
+        <NavLink to="/friends/list">
+          Bạn bè <span>{friends.length}</span>
+        </NavLink>
+        <NavLink to="/friends/friend-requests">
+          Lời mời kết bạn <span>{incomingRequests.length}</span>
+        </NavLink>
+        <NavLink to="/friends/video-call-invites">Lịch luyện tập</NavLink>
+      </nav>
 
       <DataState status={status} error={error} retry={retry}>
         <Content

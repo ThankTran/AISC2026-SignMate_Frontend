@@ -41,3 +41,24 @@ test("UI aliases and canonical labels select the intended videos", () => {
   assert.ok(groupsFor({ title: "Biểu cảm cảm xúc" }).length);
   assert.deepEqual(groupsFor({ title: "Unknown" }), []);
 });
+
+test("numbered lessons select their own vocabulary level for all expanded chapters", () => {
+  for (const topic of [
+    "Trường học",
+    "Công việc",
+    "Du lịch",
+    "Ăn uống",
+    "Mua sắm",
+    "Thời tiết",
+    "Sức khỏe",
+    "Văn hóa",
+  ]) {
+    const levels = groupsFor({ title: topic });
+    for (let index = 0; index < 3; index++) {
+      const group = groupsFor({ title: `${topic} · Bài ${index + 1}` });
+      assert.equal(group.length, 1);
+      assert.deepEqual(group[0].terms, levels[index].terms);
+      assert.equal(group[0].terms.length, 20);
+    }
+  }
+});

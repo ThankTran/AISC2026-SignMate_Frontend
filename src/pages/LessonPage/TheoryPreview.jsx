@@ -296,7 +296,6 @@ export default function TheoryPreview({ lesson }) {
                 onDoubleClick={() => progress.mark(item.id)}
               >
                 {item.term}
-                {viewed.includes(item.id) && <span className="theory__dot" />}
               </button>
             ))}
             {!group && <p>Từ vựng của bài học đang được cập nhật.</p>}
