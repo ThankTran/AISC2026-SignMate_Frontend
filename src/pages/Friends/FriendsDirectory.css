@@ -1,0 +1,222 @@
+/* Directory hierarchy: page heading, navigation, then distinct working panels. */
+.friends-page:is(.friends-page--list, .friends-page--requests) {
+  background: var(--color-neutral-50, #f6f8f7);
+  max-width: 90rem;
+  margin-inline: auto;
+}
+.friends-page .friends-page__header {
+  display: block;
+  padding-block: 0.75rem 1.25rem;
+  margin: 0;
+}
+.friends-page .friends-page__title {
+  font-size: clamp(1.7rem, 3vw, 2.25rem);
+  letter-spacing: -0.035em;
+}
+.friends-page .friends-page__subtitle {
+  max-width: 42rem;
+  text-align: left;
+  margin-top: 0.6rem;
+  line-height: 1.6;
+}
+.friends-directory-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  border-bottom: 1px solid var(--color-neutral-200);
+  margin-bottom: 2rem;
+}
+.friends-directory-nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 3rem;
+  padding: 0.5rem 0.2rem;
+  border-bottom: 3px solid transparent;
+  color: var(--color-neutral-700);
+  font-weight: 600;
+  text-decoration: none;
+}
+.friends-directory-nav a.active {
+  color: var(--color-teal-800);
+  border-bottom-color: var(--color-teal-600);
+}
+.friends-directory-nav a span {
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  padding: 0.15rem 0.45rem;
+  border-radius: 0.4rem;
+  background: var(--color-neutral-100);
+}
+.friends-discovery {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(16rem, 1fr);
+  align-items: center;
+  gap: 1rem 2rem;
+  padding: 1.5rem;
+  background: var(--color-teal-50);
+  border-radius: 1rem;
+  margin-bottom: 2rem;
+}
+.friends-discovery h2 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-teal-900);
+}
+.friends-discovery p {
+  margin-top: 0.4rem;
+  color: var(--color-neutral-700);
+  line-height: 1.6;
+}
+.friends-discovery .friends-search {
+  margin: 0;
+  min-height: 3rem;
+  padding: 0.5rem 2.75rem;
+  border-radius: 0.65rem;
+}
+.friends-search__label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.friends-discovery > .friends-section {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+.friends-page:is(.friends-page--list, .friends-page--requests) .friends-section {
+  padding: 1.5rem;
+  margin-bottom: 1.75rem;
+  border: 1px solid var(--color-neutral-200);
+  border-radius: 1rem;
+  background: var(--color-white);
+}
+.friends-page .friends-section__header {
+  padding-bottom: 1.1rem;
+  margin-bottom: 1.1rem;
+  border-bottom: 1px solid var(--color-neutral-200);
+  gap: 1rem;
+}
+.friends-page .friends-section__header h2 {
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+}
+.friends-page .friends-section__hint {
+  max-width: 38rem;
+  font-size: 0.875rem;
+}
+.friends-page .friends-section__count {
+  font-size: 0.8rem;
+  padding: 0.45rem 0.65rem;
+  border-radius: 0.5rem;
+  background: var(--color-neutral-100);
+  white-space: normal;
+}
+.friends-page .friends-section--recent {
+  background: transparent;
+}
+.friends-directory-empty {
+  color: var(--color-neutral-700);
+  padding: 1rem 0;
+  line-height: 1.6;
+}
+.friends-page .friend-item {
+  padding: 1.1rem 0.4rem;
+  gap: 1rem;
+}
+.friends-page .friend-item__name {
+  font-size: 1rem;
+}
+.friends-page .friend-item__actions button {
+  min-height: 2.75rem;
+}
+.friends-page .friend-requests {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+.friends-page .friend-request-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.25rem 0.25rem;
+  border: 0;
+  border-bottom: 1px solid var(--color-neutral-200);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.friends-page .friend-request-card:last-child {
+  border-bottom: 0;
+}
+.friends-page .friend-request-card__content {
+  text-align: left;
+  min-width: 0;
+}
+.friends-page .friend-request-card__name {
+  font-size: 1.05rem;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.friends-page .friend-request-card__note {
+  margin-top: 0.4rem;
+  line-height: 1.5;
+}
+.friends-page .friend-request-card__actions {
+  display: flex;
+  grid-column: auto;
+  gap: 0.6rem;
+  width: auto;
+}
+.friends-page .friend-request-card__actions button {
+  width: auto;
+  min-width: 6rem;
+  min-height: 2.75rem;
+  padding: 0.6rem 0.85rem;
+  border-radius: 0.6rem;
+}
+.friends-page .friend-request-card__decline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  background: var(--color-neutral-100);
+  color: var(--color-neutral-700);
+}
+.friends-page :is(button, a):focus-visible {
+  outline: 2px solid var(--color-teal-600);
+  outline-offset: 3px;
+}
+.friends-directory-nav a:hover {
+  color: var(--color-teal-800);
+  background: var(--color-teal-50);
+}
+@media (max-width: 700px) {
+  .friends-discovery {
+    grid-template-columns: 1fr;
+  }
+  .friends-page:is(.friends-page--list, .friends-page--requests) .friends-section,
+  .friends-discovery {
+    padding: 1rem;
+  }
+  .friends-page .friend-request-card {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0.75rem;
+  }
+  .friends-page .friend-request-card__actions {
+    grid-column: 1 / -1;
+    justify-content: flex-end;
+  }
+  .friends-directory-nav {
+    gap: 0.25rem 0.8rem;
+  }
+  .friends-directory-nav a {
+    font-size: 0.85rem;
+  }
+  .friends-page .friends-section__meta {
+    flex-wrap: wrap;
+  }
+}
