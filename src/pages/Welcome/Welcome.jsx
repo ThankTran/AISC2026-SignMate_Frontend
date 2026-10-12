@@ -1,162 +1,180 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Plus, User, VideoOff, Lightbulb, BookOpen, GraduationCap, Users } from "lucide-react";
+import { ArrowRight, Sparkles, Shield, Users, Camera, PlayCircle } from "lucide-react";
+import Navbar from "../../components/Welcome/Navbar";
+import HeroPreview from "../../components/Welcome/HeroPreview";
+import CommunityStats from "../../components/Welcome/CommunityStats";
+import ChallengesSection from "../../components/Welcome/ChallengesSection";
+import JourneySection from "../../components/Welcome/JourneySection";
+import AiFeatureBento from "../../components/Welcome/AiFeatureBento";
+import ConnectShowcase from "../../components/Welcome/ConnectShowcase";
+import FaqSection from "../../components/Welcome/FaqSection";
+import CtaBanner from "../../components/Welcome/CtaBanner";
+import WelcomeFooter from "../../components/Welcome/WelcomeFooter";
 import "./Welcome.css";
-import Footer from "../../components/Footer/Footer";
-
-const CHALLENGES = [
-  {
-    icon: Plus,
-    tone: "coral",
-    title: "Khoảng trống hạ tầng số",
-    desc: "Khoảng 2,5 triệu người Việt Nam sống với tình trạng khiếm thính (60% trong độ tuổi đi làm). Các ứng dụng gọi video phổ biến (Zoom, Meet, Zalo) tối ưu hóa cho âm thanh, không hỗ trợ giao tiếp ký hiệu.",
-  },
-  {
-    icon: User,
-    tone: "purple",
-    title: "Thiếu môi trường thực hành phản xạ",
-    desc: "Phong trào học ngôn ngữ ký hiệu trong giới trẻ gia tăng mạnh, nhưng phương pháp hiện tại chủ yếu là học thụ động qua hình ảnh tĩnh hoặc video một chiều, thiếu hoàn toàn môi trường thực hành phản xạ hai chiều với người thật.",
-  },
-  {
-    icon: VideoOff,
-    tone: "teal",
-    title: "Hạn chế của nền tảng Video Call",
-    desc: "Zoom, Google Meet, Zalo tối ưu hóa cho giọng nói - chất lượng hình ảnh dễ bị mờ nhoè khi tay cử động nhanh, bố cục góc quay không tối ưu và không có cơ chế ghép cặp tìm bạn cùng luyện tập.",
-  },
-  {
-    icon: Lightbulb,
-    tone: "dark",
-    title: "Thiếu phản hồi AI tức thời",
-    desc: "Các ứng dụng hiện tại không có AI chấm điểm đúng/sai dáng tay. Người học không biết mình thực hiện ký hiệu sai ở đâu, dẫn đến luyện tập sai lặp đi lặp lại.",
-  },
-];
-
-const EXPLORE = [
-  {
-    icon: BookOpen,
-    title: "Thư viện Ký hiệu có cấu trúc",
-    desc: "Cơ sở dữ liệu đa phương tiện phân loại theo cấu trúc phân cấp - từ bảng chữ cái ngón tay đến từ vựng và cụm từ giao tiếp thường dùng theo chủ đề.",
-    bullets: [
-      "Video ký hiệu theo chủ đề & cấp độ",
-      "Bảng chữ cái ngón tay (Fingerspelling)",
-      "Cơ sở dữ liệu mở rộng cho AI",
-    ],
-  },
-  {
-    icon: GraduationCap,
-    title: "Học theo lộ trình & AI đánh giá",
-    desc: "Nội dung học thiết kế theo chương, cấp độ và chủ đề. Module AI trích xuất 21 điểm mốc khớp bàn tay, đo lệch góc chuyển động và đưa ra phản hồi chỉnh tư thế ngay lập tức.",
-    bullets: [
-      "AI đánh giá tư thế tay theo thời gian thực",
-      "Theo dõi tiến độ, điểm thưởng & huy hiệu",
-      "Bài tập tương tác & kiểm tra cuối chương",
-    ],
-  },
-  {
-    icon: Users,
-    title: "Giao tiếp video thực tế",
-    desc: "Gọi video tối ưu cho ngôn ngữ ký hiệu - khung hình quan sát rõ khuôn mặt & bàn tay, WebRTC độ trễ thấp. Ghép cặp thông minh theo sở thích để thực hành giao tiếp hai chiều.",
-    bullets: [
-      "Video call tối ưu góc quay bàn tay - nét mặt",
-      "Ghép cặp theo sở thích & chủ đề giao tiếp",
-      "Chat văn bản song song trong cuộc gọi",
-    ],
-  },
-];
 
 export default function Welcome() {
   const navigate = useNavigate();
-  const scrollToExplore = () => {
-    document.getElementById("explore-section")?.scrollIntoView({ behavior: "smooth" });
+
+  useEffect(() => {
+    const pageEl = document.querySelector(".welcome-page");
+    const targets = document.querySelectorAll(".scroll-reveal");
+
+    if (!("IntersectionObserver" in window)) {
+      targets.forEach((el) => el.classList.add("is-visible"));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+          }
+        });
+      },
+      {
+        root: pageEl || null,
+        threshold: 0.08,
+        rootMargin: "0px 0px -40px 0px",
+      }
+    );
+
+    targets.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
+  const scrollToSection = (id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
     <div className="welcome-page">
-      <header className="welcome-nav">
-        <div className="welcome-logo">
-          <img className="welcome-logo-icon" src="/logo-signmate.png" alt="SignMate" />
-          <span className="welcome-logo-text">SignMate</span>
-        </div>
-        <button className="btn-primary-pill" onClick={() => navigate("/login")}>
-          Đăng Nhập
-        </button>
-      </header>
+      {/* 1. Header & Navigation */}
+      <Navbar />
 
-      <section className="hero">
-        <div className="hero-inner">
-          <div className="hero-image">
-            <img src="/BG_Welcome.png" alt="Người dùng luyện tập ký hiệu" />
+      <main id="main-content">
+        {/* 2. Hero Section (Highest Priority Focal Point) */}
+        <section className="hero-section scroll-reveal is-visible" id="hero" aria-label="Giới thiệu SignMate">
+          {/* Ambient Background Decorative Gradients */}
+          <div className="hero-ambient-mesh" aria-hidden="true">
+            <div className="mesh-blob mesh-blob--teal" />
+            <div className="mesh-blob mesh-blob--purple" />
+            <div className="mesh-blob mesh-blob--warm" />
           </div>
 
-          <div className="hero-content">
-            <h1 className="text-display">
-              SignMate - Kết nối qua
-              <br />
-              <span className="highlight">ngôn ngữ ký hiệu</span>
-            </h1>
-            <p className="hero-desc">
-              Lộ trình học cá nhân hóa và luyện tập video 1-1 với người thật - được hỗ trợ bởi AI
-              đánh giá tư thế và phản hồi thời gian thực.
-            </p>
+          <div className="section-container hero-container">
+            {/* Left: Hero Editorial Pitch */}
+            <div className="hero-pitch">
+              {/* Eyebrow Pill */}
+              <div className="hero-eyebrow">
+                <span className="eyebrow-pill eyebrow-pill--hero">
+                  <Sparkles size={14} className="text-teal" aria-hidden="true" />
+                  <span>Nền tảng VSL thông minh đầu tiên tại Việt Nam</span>
+                </span>
+              </div>
 
-            <div className="feature-tags">
-              <span className="tag">Lộ trình học chi tiết</span>
-              <span className="tag">Luyện tập video 1-1</span>
-              <span className="tag">AI đánh giá tư thế</span>
+              {/* Display Headline */}
+              <h1 className="hero-headline">
+                Kết nối yêu thương qua
+                <br />
+                <span className="hero-headline-highlight">Ngôn ngữ Ký hiệu</span>
+                <br />
+                cùng AI & Bạn đồng hành
+              </h1>
+
+              {/* Subtitle */}
+              <p className="hero-lead-text">
+                Tự tin giao tiếp từ ký hiệu đầu tiên với lộ trình chuẩn VSL,
+                công nghệ thị giác máy tính nhận diện 21 khớp ngón tay và nền tảng
+                gọi video P2P kết nối trực tiếp cùng người khiếm thính.
+              </p>
+
+              {/* Core Feature Highlights */}
+              <div className="hero-feature-tags" role="list">
+                <div className="hero-feature-pill" role="listitem">
+                  <Camera size={14} className="text-teal" aria-hidden="true" />
+                  <span>21 Điểm mốc khớp tay 3D</span>
+                </div>
+                <div className="hero-feature-pill" role="listitem">
+                  <Users size={14} className="text-purple" aria-hidden="true" />
+                  <span>Video Call 1-1 chuyên biệt</span>
+                </div>
+                <div className="hero-feature-pill" role="listitem">
+                  <Shield size={14} className="text-coral" aria-hidden="true" />
+                  <span>Chấm điểm tư thế thời gian thực</span>
+                </div>
+              </div>
+
+              {/* Hero CTA Actions */}
+              <div className="hero-cta-group">
+                <button
+                  type="button"
+                  className="btn-hero-primary"
+                  onClick={() => navigate("/register")}
+                >
+                  <span>Bắt đầu học miễn phí</span>
+                  <ArrowRight size={17} aria-hidden="true" />
+                </button>
+
+                <button
+                  type="button"
+                  className="btn-hero-secondary"
+                  onClick={() => scrollToSection("journey")}
+                >
+                  <PlayCircle size={17} aria-hidden="true" />
+                  <span>Khám phá lộ trình 4 bước</span>
+                </button>
+              </div>
+
+              {/* Trust Indicators */}
+              <div className="hero-trust-bar">
+                <div className="trust-item">
+                  <span className="trust-dot" />
+                  <span>Chuẩn Ngôn ngữ Ký hiệu Việt Nam (VSL)</span>
+                </div>
+                <div className="trust-divider" aria-hidden="true">•</div>
+                <div className="trust-item">
+                  <span className="trust-dot trust-dot--purple" />
+                  <span>Bảo mật 100% dữ liệu camera</span>
+                </div>
+              </div>
             </div>
 
-            <div className="hero-actions">
-              <button className="btn-primary hero-cta" onClick={() => navigate("/register")}>
-                Bắt đầu ngay →
-              </button>
-              <button className="btn-outline" onClick={scrollToExplore}>
-                Khám phá SignMate
-              </button>
+            {/* Right: Interactive Product Interface Showcase */}
+            <div className="hero-visual-column">
+              <HeroPreview />
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <hr className="section-divider" />
+        {/* 3. Capability Stats */}
+        <CommunityStats />
 
-      <section className="challenges">
-        <h2 className="text-h2">Thách thức hiện tại</h2>
-        <p className="section-subtitle">Tại sao việc học ngôn ngữ ký hiệu lại khó khăn?</p>
+        {/* 4. Challenges & Problem Definition */}
+        <ChallengesSection onExploreClick={() => scrollToSection("journey")} />
 
-        <div className="challenges-grid">
-          {CHALLENGES.map(({ icon: Icon, tone, title, desc }) => (
-            <div className={`challenge-card challenge-card--${tone}`} key={title}>
-              <div className={`challenge-icon challenge-icon--${tone}`}>
-                <Icon size={18} />
-              </div>
-              <h3 className="text-h3">{title}</h3>
-              <p>{desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+        {/* 5. Progressive Learning Journey (Discover -> Learn -> Practice -> Connect) */}
+        <JourneySection />
 
-      <section className="explore" id="explore-section">
-        <h2 className="text-h2">Khám phá SignMate</h2>
+        {/* 6. AI Computer Vision Deep-Dive (Bento Grid) */}
+        <AiFeatureBento />
 
-        <div className="explore-grid">
-          {EXPLORE.map(({ icon: Icon, title, desc, bullets }) => (
-            <div className="explore-col" key={title}>
-              <div className="explore-icon">
-                <Icon size={26} />
-              </div>
-              <h3 className="text-h3">{title}</h3>
-              <p>{desc}</p>
-              <ul>
-                {bullets.map((b) => (
-                  <li key={b}>{b}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </section>
+        {/* 7. SignConnect Video Platform & Community Values */}
+        <ConnectShowcase />
 
-      <Footer />
+        {/* 8. Frequently Asked Questions (Accordion) */}
+        <FaqSection />
+
+        {/* 9. Final Call-to-Action Banner */}
+        <CtaBanner />
+      </main>
+
+      {/* 10. Comprehensive Multi-column Footer */}
+      <WelcomeFooter />
     </div>
   );
 }
