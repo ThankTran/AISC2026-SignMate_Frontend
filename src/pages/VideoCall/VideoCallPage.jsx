@@ -1,3 +1,4 @@
+import DemoCallPage from "./DemoCallPage";
 import { VIDEO_DEMO } from "../../services/videoCall/config";
 import FirstCallGuide from "../../components/VideoCall/FirstCallGuide";
 import CallInvitations from "../../components/VideoCall/CallInvitations";
@@ -17,6 +18,10 @@ import { useBodyScrollLock } from "../../hooks/videoCall/useBodyScrollLock";
 import "./VideoCallPage.css";
 
 export default function VideoCallPage() {
+  return VIDEO_DEMO ? <DemoCallPage /> : <RealVideoCallPage />;
+}
+
+function RealVideoCallPage() {
   const flow = useVideoCallFlow();
   const toast = useToast();
   const { notice, dismissNotice } = flow;
