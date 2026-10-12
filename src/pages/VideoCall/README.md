@@ -41,3 +41,22 @@ node node_modules/vite/bin/vite.js build
 ```
 
 Kiểm tra UI tại `/video`: chọn/thêm chủ đề → tìm/hủy tìm → tìm người khác → bắt đầu gọi → gửi tin nhắn, đóng/mở chat → kết thúc → chọn sao/tag, ghi chú → gửi đánh giá → tiếp tục. Kiểm tra thêm dialog chặn/báo cáo với Tab và Escape.
+
+
+## Local UI simulation
+
+Vite development now uses simulated matching by default (`VITE_VIDEO_CALL_MODE=auto`).
+Production builds retain real matching. Set `VITE_VIDEO_CALL_MODE=real` to test a real
+local connection, or `demo` to explicitly preview the simulator in a build. Restart
+Vite after changing environment settings. This flag does not switch learning APIs
+or account data to mock mode.
+
+Open `/video` to choose topics and simulate matching (about five seconds), or use
+the local preview controls to jump to match, device check, call, and review screens.
+`/video?step=call` opens the call UI without requesting camera/microphone. Device
+check also offers a camera-free entry button; camera and microphone can still be
+enabled manually. Ending a call leads to review and the rewards preview.
+
+Demo chat, reports, reviews and blocking stay local. They do not send call,
+signaling, review or blocking mutations to the backend, and demo XP is not awarded
+to the account. The partner is simulated; no remote video stream is connected.

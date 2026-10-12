@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import CallButton from "./CallButton";
+import { VIDEO_DEMO } from "../../services/videoCall/config";
 export default function DeviceCheck({ onReady, onBack }) {
   const video = useRef(null),
     stream = useRef(null),
@@ -97,6 +98,11 @@ export default function DeviceCheck({ onReady, onBack }) {
       </label>
       {error && <p role="alert">{error}</p>}
       <div className="vc-actions">
+        {VIDEO_DEMO && (
+          <CallButton onClick={() => onReady({ camera: false, mic: false })}>
+            Vào phòng giả lập không cần camera
+          </CallButton>
+        )}
         <button type="button" onClick={onBack}>
           Quay lại
         </button>

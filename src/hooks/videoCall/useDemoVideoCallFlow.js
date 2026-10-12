@@ -1,4 +1,3 @@
-import { socialApi } from "../../services/api";
 import { useSearchParams } from "react-router-dom";
 import { useFriends } from "../useFriends";
 import { VIDEO_DEMO } from "../../services/videoCall/config";
@@ -28,7 +27,7 @@ export function useDemoVideoCallFlow() {
       }),
     [setParams],
   );
-  const [mediaOptions, setMediaOptions] = useState({});
+  const [mediaOptions, setMediaOptions] = useState({ camera: false, mic: false });
   const [selected, setSelected] = useState(defaultTopics);
   const [prompt, setPrompt] = useState(defaultPrompt);
   const [elapsed, setElapsed] = useState(0);
@@ -114,21 +113,13 @@ export function useDemoVideoCallFlow() {
 
   async function confirmSafetyAction(reason) {
     if (safetyAction === "block") {
-      if (import.meta.env.VITE_USE_MOCK !== "true") {
-        await socialApi.block(partner.id);
-      }
-
       setBlockedIds((current) => [...new Set([...current, partner.id])]);
 
       if (stage === "call") {
         setStage("review");
       }
 
-      setNotice(
-        import.meta.env.VITE_USE_MOCK === "true"
-          ? "Đã chặn hồ sơ trong phiên demo."
-          : "Đã chặn người dùng.",
-      );
+      setNotice("Đã chặn hồ sơ trong phiên demo.");
     } else {
       if (!reason.trim()) {
         return;

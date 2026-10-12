@@ -27,3 +27,19 @@
   border-radius: 10px;
   color: var(--color-teal-700);
 }
+
+.vc-demo-preview {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--color-teal-200);
+  border-radius: 0.75rem;
+  background: var(--color-teal-50);
+}
+.vc-demo-preview > span {
+  margin-left: 0.75rem;
+}
+.vc-demo-preview .vc-actions {
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}

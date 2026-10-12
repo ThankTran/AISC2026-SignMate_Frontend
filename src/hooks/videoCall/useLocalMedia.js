@@ -86,7 +86,7 @@ export function useLocalMedia(onError, options = {}) {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      void toggleMedia("video");
+      if (options.camera !== false) void toggleMedia("video");
 
       if (options.mic) {
         void toggleMedia("audio");

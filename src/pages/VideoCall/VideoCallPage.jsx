@@ -1,3 +1,4 @@
+import { VIDEO_DEMO } from "../../services/videoCall/config";
 import FirstCallGuide from "../../components/VideoCall/FirstCallGuide";
 import CallInvitations from "../../components/VideoCall/CallInvitations";
 import DeviceCheck from "../../components/VideoCall/DeviceCheck";
@@ -123,6 +124,35 @@ export default function VideoCallPage() {
 
   return (
     <div className={`vc-page vc-stage-${flow.stage}`}>
+      {VIDEO_DEMO && flow.stage !== "call" && (
+        <aside className="vc-demo-preview" aria-label="Điều hướng giao diện giả lập">
+          <strong>Giả lập local</strong>
+          <span>Không ghép với người dùng thật.</span>
+          <div className="vc-actions">
+            <button className="vc-text-button" onClick={flow.showTopics}>
+              Chọn chủ đề
+            </button>
+            <button className="vc-text-button" onClick={() => flow.search()}>
+              Thử ghép cặp
+            </button>
+            <button className="vc-text-button" onClick={flow.showMatch}>
+              Đã ghép cặp
+            </button>
+            <button className="vc-text-button" onClick={flow.checkDevices}>
+              Thiết bị
+            </button>
+            <button
+              className="vc-text-button"
+              onClick={() => flow.startCall({ camera: false, mic: false })}
+            >
+              Xem phòng gọi
+            </button>
+            <button className="vc-text-button" onClick={flow.endCall}>
+              Đánh giá
+            </button>
+          </div>
+        </aside>
+      )}
       {!["call", "search"].includes(flow.stage) && <VideoCallHeader />}
       {flow.stage === "topics" && <FirstCallGuide />}
       {flow.stage === "topics" && !flow.call && <CallInvitations />}
