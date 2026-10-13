@@ -4,8 +4,10 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { useCurrentUser } from "../hooks/useCurrentUser";
 import { useApiResource } from "../hooks/useApiResource";
-import { socialApi } from "../services/api";
+import { socialApi, callApi } from "../services/api";
+import { adaptRecentCalls } from "../api/recentCallsAdapter";
 import { adaptFriend } from "../api/friendsAdapter";
+import { adaptAppointments } from "../api/appointmentAdapter";
 import {
   incomingScheduleRequestsData,
   incomingFriendRequestsData,
@@ -98,6 +100,7 @@ function MockFriendsProvider({ children, loader = loadFriends }) {
 }
 
 const empty = {
+  recentCalls: [],
   friends: [],
   incomingRequests: [],
   outgoingRequests: [],
@@ -118,14 +121,18 @@ function ServerFriendsProvider({ children }) {
       return empty;
     }
 
-    const [friends, incomingRequests, outgoingRequests] = await Promise.all([
+    const [friends, incomingRequests, outgoingRequests, appointments, calls] = await Promise.all([
       socialApi.friends(),
       socialApi.requests("incoming"),
       socialApi.requests("outgoing"),
+      socialApi.appointments(),
+      callApi.history(),
     ]);
 
     return {
       ...empty,
+      ...adaptAppointments(appointments),
+      recentCalls: adaptRecentCalls(calls, friends),
       friends: friends.map(adaptFriend),
       incomingRequests: incomingRequests.map(adaptFriend),
       outgoingRequests: outgoingRequests.map(adaptFriend),
@@ -149,13 +156,15 @@ function ServerFriendsProvider({ children }) {
 
     ping();
 
-    const timer = setInterval(ping, 45000);
+    const timer = setInterval(ping, 10000);
 
     document.addEventListener("visibilitychange", ping);
+    window.addEventListener("focus", ping);
 
     return () => {
       clearInterval(timer);
       document.removeEventListener("visibilitychange", ping);
+      window.removeEventListener("focus", ping);
     };
   }, [enabled, uid, retry]);
 
@@ -187,6 +196,21 @@ function ServerFriendsProvider({ children }) {
     [retry],
   );
   const value = data || empty;
+  const createSchedule = useCallback(
+    async (body) => {
+      const result = await socialApi.schedule(body);
+      retry();
+      return result;
+    },
+    [retry],
+  );
+  const decideSchedule = useCallback(
+    async (id, action) => {
+      await socialApi.decideSchedule(id, action);
+      retry();
+    },
+    [retry],
+  );
   const context = useMemo(
     () => ({
       ...value,
@@ -197,12 +221,14 @@ function ServerFriendsProvider({ children }) {
       sentRequests: value.outgoingRequests.map((row) => row.id),
       addFriend,
       decideRequest,
+      createSchedule,
+      decideSchedule,
       setFriends: unchanged,
       setIncomingRequests: unchanged,
       setIncomingScheduleRequests: unchanged,
       setScheduledSessions: unchanged,
     }),
-    [value, enabled, error, data, retry, addFriend, decideRequest],
+    [value, enabled, error, data, retry, addFriend, decideRequest, createSchedule, decideSchedule],
   );
 
   return <FriendsContext.Provider value={context}>{children}</FriendsContext.Provider>;

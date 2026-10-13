@@ -4,7 +4,7 @@ import { FriendsProvider } from "../src/contexts/FriendsContext";
 import { useFriends } from "../src/hooks/useFriends";
 import { useFriendSearch } from "../src/hooks/useFriendSearch";
 import { CurrentUserContext } from "../src/hooks/useCurrentUser";
-import { socialApi, ApiError } from "../src/services/api";
+import { socialApi, callApi, ApiError } from "../src/services/api";
 globalThis.IS_REACT_ACT_ENVIRONMENT = true;
 
 const root = createRoot(document.getElementById("root")),
@@ -45,6 +45,8 @@ socialApi.friends = async () => {
 };
 
 socialApi.requests = async (direction) => (direction === "incoming" ? incoming : outgoing);
+socialApi.appointments = async () => [];
+callApi.history = async () => [];
 socialApi.ping = async () => ({ updated: true });
 socialApi.decide = async (id, action) => {
   calls.push(["decide", id, action]);
@@ -117,6 +119,63 @@ try {
       current.incomingRequests[0].id === "bob",
   );
 
+  let appointments = [];
+  socialApi.appointments = async () => appointments;
+  socialApi.schedule = async (body) => {
+    appointments = [
+      { ...body, id: "appointment-1", partnerName: "Bob", status: "pending", incoming: false },
+    ];
+  };
+  socialApi.decideSchedule = async (id, action) => {
+    appointments = appointments.map((row) =>
+      row.id === id ? { ...row, status: action === "accept" ? "accepted" : "declined" } : row,
+    );
+  };
+  await act(async () =>
+    current.createSchedule({
+      partnerId: "bob",
+      startsAt: "2030-06-10T12:30:00Z",
+      topic: "Gia đình",
+    }),
+  );
+  check(
+    "creating appointment refreshes sender calendar",
+    current.scheduledSessions[0]?.id === "appointment-1",
+  );
+  appointments[0].incoming = true;
+  await act(async () => current.retry());
+  check(
+    "recipient sees incoming invitation without calendar duplication",
+    current.incomingScheduleRequests.length === 1 && current.scheduledSessions.length === 0,
+  );
+  await act(async () => current.decideSchedule("appointment-1", "accept"));
+  check(
+    "accept moves invitation to confirmed calendar",
+    current.incomingScheduleRequests.length === 0 &&
+      current.scheduledSessions[0]?.status === "Sắp diễn ra",
+  );
+
+  callApi.history = async () => [
+    {
+      id: "call-bob",
+      partner: { id: "bob", name: "Bob" },
+      status: "ended",
+      wasConnected: true,
+      endedAt: "2030-06-10T12:00:00Z",
+      durationSeconds: 180,
+    },
+  ];
+  await act(async () => current.retry());
+  check(
+    "server history populates recent people using partner ID",
+    current.recentCalls[0]?.id === "bob" && current.recentCalls[0]?.callId === "call-bob",
+  );
+  await act(async () => current.addFriend(current.recentCalls[0].id));
+  check(
+    "recent person friend request sends user ID rather than call ID",
+    calls.some((row) => row.join() === "request,bob"),
+  );
+
   const request = current.incomingRequests[0];
   let undo;
 
@@ -139,6 +198,10 @@ try {
     undo = await current.decideRequest(request, "accept");
   });
   check("accept refreshes actual friend list", current.friends[0].id === "bob");
+  check(
+    "existing friend remains in recent conversations",
+    current.recentCalls[0]?.id === "bob" && current.recentCalls[0].isFriend,
+  );
   await act(async () => undo());
   check(
     "undo acceptance removes friendship through API",

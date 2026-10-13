@@ -14,10 +14,9 @@ export default function ProtectedRoute({ children, setup = false }) {
   }
 
   if (!user) {
-    // Logout can clear the user before navigation finishes. Let the provider
-    // finish its Welcome redirect instead of racing it with a login redirect.
+    // Explicit logout always leads to Welcome, including navigation races and Back.
     if (signingOut) {
-      return null;
+      return <Navigate to="/" replace />;
     }
 
     return <Navigate to="/login" state={{ from: location }} replace />;

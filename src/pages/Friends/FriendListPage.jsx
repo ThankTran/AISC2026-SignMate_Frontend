@@ -1,4 +1,5 @@
 import EmptyState from "../../components/ui/EmptyState";
+import Avatar from "../../components/ui/Avatar";
 import FriendsWorkspace from "./FriendsWorkspace";
 import { Search, X, ListFilter, Clock, UserPlus } from "lucide-react";
 import Modal from "../../components/ui/Modal";
@@ -39,7 +40,7 @@ function Content({
         {isFriendsHome && (
           <div className="friends-search" role="search">
             <label className="friends-search__label" htmlFor="friends-name-search">
-              Tên người học
+              Tên hoặc ID người học
             </label>
             <Search size={17} strokeWidth={1.8} className="friends-search__icon" />
 
@@ -47,12 +48,12 @@ function Content({
               id="friends-name-search"
               type="text"
               className="friends-search__input"
-              placeholder="Ví dụ: Minh Anh"
+              placeholder="Nhập tên hoặc ID tài khoản"
               value={searchValue}
               onChange={(e) => {
                 setSearchValue(e.target.value);
               }}
-              aria-label="Tìm kiếm bạn bè"
+              aria-label="Tìm bạn bè theo tên hoặc ID"
             />
 
             {searchValue && (
@@ -138,7 +139,7 @@ function Content({
             {filteredFriends.length === 0 ? (
               <EmptyState
                 title="Không tìm thấy kết nối phù hợp"
-                description="Thử tên khác hoặc thay đổi bộ lọc trạng thái."
+                description="Thử tên, ID khác hoặc thay đổi bộ lọc trạng thái."
                 onAction={() => {
                   setSearchValue("");
                   setFriendFilter("all");
@@ -177,7 +178,7 @@ function Content({
             <div>
               <h2 className="text-h2">Cuộc gọi gần đây</h2>
               <p className="friends-section__hint text-caption">
-                Những người bạn đã trò chuyện nhưng chưa kết bạn.
+                Những người bạn đã trò chuyện, theo cuộc gọi hoàn thành gần nhất.
               </p>
             </div>
 
@@ -195,9 +196,7 @@ function Content({
           </div>
 
           {!recentConversationCalls.length && (
-            <p className="friends-directory-empty">
-              Chưa có người mới từ các cuộc trò chuyện gần đây.
-            </p>
+            <p className="friends-directory-empty">Chưa có cuộc trò chuyện nào đã hoàn thành.</p>
           )}
           <div className="friends-recent-calls">
             {recentConversationCalls.slice(0, 4).map((call) => (
@@ -252,11 +251,7 @@ function Content({
 
                   return (
                     <article className="call-history-item" key={`history-${call.id}`}>
-                      <img
-                        src={call.avatar}
-                        alt={call.name}
-                        className="call-history-item__avatar"
-                      />
+                      <Avatar user={call} size={48} className="call-history-item__avatar" />
 
                       <div className="call-history-item__content">
                         <p className="call-history-item__name">{call.name}</p>
@@ -275,12 +270,18 @@ function Content({
                         className={`call-history-item__action ${
                           isRequested ? "call-history-item__action--sent" : ""
                         }`}
-                        disabled={isRequested || isRequesting}
+                        disabled={call.isFriend || isRequested || isRequesting}
                         onClick={() => handleAddFriend(call.id)}
                       >
                         <UserPlus size={16} strokeWidth={1.8} />
                         <span>
-                          {isRequesting ? "Đang gửi..." : isRequested ? "Đã gửi" : "Kết bạn"}
+                          {call.isFriend
+                            ? "Đã là bạn bè"
+                            : isRequesting
+                              ? "Đang gửi..."
+                              : isRequested
+                                ? "Đã gửi"
+                                : "Kết bạn"}
                         </span>
                       </button>
                     </article>

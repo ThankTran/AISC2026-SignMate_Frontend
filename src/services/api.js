@@ -139,6 +139,9 @@ export const learningApi = {
   quizResult: (id) => api(`/api/chapters/${id}/quiz/result`),
 };
 export const socialApi = {
+  appointments: () => api("/api/appointments"),
+  schedule: (body) => post("/api/appointments", body),
+  decideSchedule: (id, action) => patch(`/api/appointments/${id}`, { action }),
   profile: (id) => api(`/api/users/${id}/profile`),
   block: (userId) => post("/api/blocks", { userId }),
   unblock: (id) => remove(`/api/blocks/${id}`),

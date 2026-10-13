@@ -24,10 +24,13 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
   const {
     source,
     decideRequest,
+    createSchedule,
+    decideSchedule,
     status,
     error,
     retry,
     friends,
+    recentCalls,
     setFriends,
     incomingRequests,
     setIncomingRequests,
@@ -38,6 +41,8 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
     sentRequests: requestedCallIds,
     addFriend,
   } = useFriends();
+  const [scheduleBusy, setScheduleBusy] = useState(false);
+  const scheduleBusyRef = useRef(false);
   const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState("");
   const [requestingCallId, setRequestingCallId] = useState(null);
@@ -86,7 +91,12 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
     };
   }, [isFriendFilterOpen]);
   function validateSchedule(date, time) {
-    if (!date || !time || new Date(`${date}T${time}`).getTime() <= new Date().getTime()) {
+    if (
+      !date ||
+      !time ||
+      !Number.isFinite(new Date(`${date}T${time}`).getTime()) ||
+      new Date(`${date}T${time}`).getTime() <= Date.now()
+    ) {
       toast({ type: "error", message: "Vui lòng chọn thời gian trong tương lai." });
 
       return false;
@@ -149,7 +159,11 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
       return byStatus;
     }
 
-    return byStatus.filter((friend) => friend.name.toLowerCase().includes(keyword));
+    return byStatus.filter(
+      (friend) =>
+        friend.name.toLowerCase().includes(keyword) ||
+        String(friend.id).toLowerCase().includes(keyword),
+    );
   }, [friendFilter, friends, searchValue]);
 
   const visibleRequests = showAllRequests
@@ -172,13 +186,8 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
 
   const recentConversationCalls = useMemo(
     () =>
-      (source === "mock" ? recentCallsData : []).filter(
-        (call) =>
-          !call.isFriend &&
-          call.wasConnected &&
-          !friends.some((friend) => friend.name === call.name),
-      ),
-    [friends, source],
+      source === "mock" ? recentCallsData.filter((call) => call.wasConnected) : recentCalls || [],
+    [recentCalls, source],
   );
 
   const calendarAppointments = useMemo(() => {
@@ -265,12 +274,6 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
   };
 
   const openQuickInvite = (dateKey) => {
-    if (source === "server") {
-      toast({ type: "info", message: "Lịch hẹn đang được cập nhật." });
-
-      return;
-    }
-
     setQuickInviteDate(dateKey);
     setQuickInviteFriendId(friends[0]?.id || "");
     setQuickInviteTime("19:30");
@@ -278,10 +281,10 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
   };
 
   const closeQuickInvite = () => {
-    setQuickInviteDate("");
+    if (!scheduleBusyRef.current) setQuickInviteDate("");
   };
 
-  const handleQuickInviteSubmit = (event) => {
+  const handleQuickInviteSubmit = async (event) => {
     event.preventDefault();
 
     const selectedFriend = friends.find((friend) => friend.id === quickInviteFriendId);
@@ -290,6 +293,16 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
       return;
     }
 
+    if (source === "server") {
+      const saved = await sendSchedule(
+        selectedFriend.id,
+        quickInviteDate,
+        quickInviteTime,
+        quickInviteTopic,
+      );
+      if (saved) closeQuickInvite();
+      return;
+    }
     setScheduledSessions((prev) => [
       {
         id: `quick-session-${new Date().getTime()}`,
@@ -387,7 +400,29 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
     setIncomingRequests((prev) => prev.filter((item) => item.id !== requestId));
   };
 
-  const handleAcceptScheduleRequest = (request) => {
+  const respondToSchedule = async (id, action) => {
+    if (scheduleBusyRef.current) return;
+    scheduleBusyRef.current = true;
+    setScheduleBusy(true);
+    try {
+      await decideSchedule(id, action);
+      toast({
+        type: "success",
+        message: action === "accept" ? "Đã chấp nhận lịch hẹn." : "Đã từ chối lịch hẹn.",
+      });
+    } catch (error) {
+      toast({ type: "error", error });
+    } finally {
+      scheduleBusyRef.current = false;
+      setScheduleBusy(false);
+    }
+  };
+
+  const handleAcceptScheduleRequest = async (request) => {
+    if (source === "server") {
+      await respondToSchedule(request.id, "accept");
+      return;
+    }
     if (!validateSchedule(request.date, request.time)) {
       return;
     }
@@ -408,7 +443,11 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
     setIncomingScheduleRequests((prev) => prev.filter((item) => item.id !== request.id));
   };
 
-  const handleDeclineScheduleRequest = (requestId) => {
+  const handleDeclineScheduleRequest = async (requestId) => {
+    if (source === "server") {
+      await respondToSchedule(requestId, "decline");
+      return;
+    }
     const request = incomingScheduleRequests.find((item) => item.id === requestId);
 
     toast({
@@ -444,16 +483,6 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
   };
 
   const handleSchedule = (friend) => {
-    if (source === "server") {
-      toast({
-        type: "info",
-        message:
-          "Lịch hẹn đang được kết nối với máy chủ. Bạn có thể gọi trực tiếp cho bạn đang online.",
-      });
-
-      return;
-    }
-
     setScheduleTarget(friend);
     setScheduleDate("");
     setScheduleTime("");
@@ -463,10 +492,35 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
   };
 
   const closeScheduleFlow = () => {
-    setScheduleTarget(null);
+    if (!scheduleBusyRef.current) setScheduleTarget(null);
   };
 
-  const handleScheduleSubmit = (event) => {
+  const sendSchedule = async (partnerId, date, time, topic) => {
+    if (scheduleBusyRef.current) return false;
+    if (!topic.trim()) {
+      toast({ type: "error", message: "Vui lòng nhập chủ đề luyện tập." });
+      return false;
+    }
+    scheduleBusyRef.current = true;
+    setScheduleBusy(true);
+    try {
+      await createSchedule({
+        partnerId,
+        startsAt: new Date(`${date}T${time}`).toISOString(),
+        topic: topic.trim(),
+      });
+      toast({ type: "success", message: "Đã gửi lời mời lịch hẹn." });
+      return true;
+    } catch (error) {
+      toast({ type: "error", error });
+      return false;
+    } finally {
+      scheduleBusyRef.current = false;
+      setScheduleBusy(false);
+    }
+  };
+
+  const handleScheduleSubmit = async (event) => {
     event.preventDefault();
 
     if (!validateSchedule(scheduleDate, scheduleTime)) {
@@ -475,6 +529,11 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
 
     const finalTopic = scheduleTopic === OTHER_TOPIC ? customScheduleTopic.trim() : scheduleTopic;
 
+    if (source === "server") {
+      const saved = await sendSchedule(scheduleTarget.id, scheduleDate, scheduleTime, finalTopic);
+      if (saved) setScheduleStep("success");
+      return;
+    }
     const newSession = {
       id: `session-${new Date().getTime()}`,
       friendName: scheduleTarget.name,
@@ -519,6 +578,7 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
         <Content
           {...{
             pendingRequestId,
+            scheduleBusy,
             searchValue,
             setSearchValue,
             isFriendsHome,
@@ -595,6 +655,8 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
           </div>
 
           <form className="schedule-form" onSubmit={handleQuickInviteSubmit}>
+            {scheduleBusy && <p role="status">Đang gửi lời mời…</p>}
+            {!friends.length && <p role="status">Hãy kết bạn trước khi gửi lời hẹn.</p>}
             <label className="schedule-form__field schedule-form__field--full">
               <span>Chọn bạn bè</span>
               <select
@@ -645,7 +707,12 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
               >
                 Hủy
               </button>
-              <button type="submit" className="schedule-modal__primary">
+              <button
+                type="submit"
+                className="schedule-modal__primary"
+                disabled={scheduleBusy}
+                aria-busy={scheduleBusy}
+              >
                 <Plus size={15} strokeWidth={2} />
                 <span>Mời call</span>
               </button>
@@ -703,6 +770,7 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
               </div>
 
               <form className="schedule-form" onSubmit={handleScheduleSubmit}>
+                {scheduleBusy && <p role="status">Đang gửi lời mời…</p>}
                 <label className="schedule-form__field">
                   <span>Ngày luyện</span>
                   <input
@@ -773,7 +841,12 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
                   >
                     Hủy
                   </button>
-                  <button type="submit" className="schedule-modal__primary">
+                  <button
+                    type="submit"
+                    className="schedule-modal__primary"
+                    disabled={scheduleBusy}
+                    aria-busy={scheduleBusy}
+                  >
                     <Calendar size={15} strokeWidth={1.8} />
                     <span>Tạo lịch hẹn</span>
                   </button>

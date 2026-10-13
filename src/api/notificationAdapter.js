@@ -23,6 +23,7 @@ export function relativeNotificationTime(createdAt, now = Date.now()) {
 
 export function notificationPath(type = "") {
   const key = type.toLowerCase().replaceAll("_", "-");
+  if (key.startsWith("schedule-")) return "/friends/video-call-invites?tab=schedule";
 
   if (key === "friend-accepted") {
     return "/friends/list";

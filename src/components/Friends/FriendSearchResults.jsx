@@ -19,7 +19,7 @@ export default function FriendSearchResults({ query, onAdd, sentRequests, pendin
           {!data.length ? (
             <EmptyState
               title="Không tìm thấy người học"
-              description="Thử tên khác để tìm người học có hồ sơ công khai."
+              description="Thử tên hoặc ID khác để tìm người học có hồ sơ công khai."
               to={null}
             />
           ) : (
@@ -34,6 +34,9 @@ export default function FriendSearchResults({ query, onAdd, sentRequests, pendin
                     <Avatar user={person} size={44} />
                     <div>
                       <strong>{person.name}</strong>
+                      <p className="text-caption" style={{ overflowWrap: "anywhere" }}>
+                        ID: {person.id}
+                      </p>
                       <p className="text-caption">
                         {person.mutualFriends} bạn chung · {person.statusText}
                       </p>
