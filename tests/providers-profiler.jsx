@@ -10,7 +10,7 @@ import { ConfirmProvider } from "../src/components/ui/ConfirmDialog";
 import Sidebar from "../src/components/Sidebar/Sidebar";
 import Header from "../src/components/Header/Header";
 import FriendListPage from "../src/pages/Friends/FriendListPage";
-import { socialApi } from "../src/services/api";
+import { socialApi, callApi } from "../src/services/api";
 import { initialProgress } from "../src/utils/progress";
 import "../src/index.css";
 
@@ -23,6 +23,8 @@ const user = {
 
 socialApi.friends = async () => [];
 socialApi.requests = async () => [];
+socialApi.appointments = async () => [];
+callApi.history = async () => [];
 socialApi.ping = async () => ({ updated: false });
 socialApi.search = async () => [];
 

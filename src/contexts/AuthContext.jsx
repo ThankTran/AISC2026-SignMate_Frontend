@@ -31,7 +31,9 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const update = () => {
-      setUser(getSession()?.user || null);
+      const nextUser = getSession()?.user || null;
+      setUser(nextUser);
+      if (nextUser) setSigningOut(false);
       setAuthRevision((n) => n + 1);
     };
 
@@ -50,8 +52,9 @@ export function AuthProvider({ children }) {
       await authApi.logout();
       clearSession();
       navigate("/", { replace: true });
-    } finally {
+    } catch (error) {
       setSigningOut(false);
+      throw error;
     }
   }, [navigate]);
 

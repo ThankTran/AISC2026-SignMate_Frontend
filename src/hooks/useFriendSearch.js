@@ -18,8 +18,10 @@ export function useFriendSearch(value) {
       try {
         const rows =
           source === "mock"
-            ? friends.filter((row) =>
-                row.name.toLocaleLowerCase("vi").includes(query.toLocaleLowerCase("vi")),
+            ? friends.filter(
+                (row) =>
+                  row.name.toLocaleLowerCase("vi").includes(query.toLocaleLowerCase("vi")) ||
+                  String(row.id).toLowerCase().includes(query.toLowerCase()),
               )
             : await socialApi.search(query);
 

@@ -1,12 +1,13 @@
 import "./RecentCallCard.css";
+import Avatar from "../ui/Avatar";
 
 const RecentCallCard = ({ call, onAddFriend, isRequesting, isRequested }) => {
-  const buttonLabel = isRequested ? "Đã gửi lời mời" : "Kết bạn";
+  const buttonLabel = call.isFriend ? "Đã là bạn bè" : isRequested ? "Đã gửi lời mời" : "Kết bạn";
 
   return (
     <div className="recent-call-card">
       <div className="recent-call-card__avatar-wrap">
-        <img src={call.avatar} alt={call.name} className="recent-call-card__avatar" />
+        <Avatar user={call} size={64} className="recent-call-card__avatar" />
       </div>
 
       <p className="recent-call-card__name text-h3">{call.name}</p>
@@ -20,7 +21,7 @@ const RecentCallCard = ({ call, onAddFriend, isRequesting, isRequested }) => {
           isRequested ? "recent-call-card__action--sent" : ""
         }`}
         onClick={() => onAddFriend(call.id)}
-        disabled={isRequested || isRequesting}
+        disabled={call.isFriend || isRequested || isRequesting}
       >
         {isRequesting ? "Đang gửi..." : buttonLabel}
       </button>

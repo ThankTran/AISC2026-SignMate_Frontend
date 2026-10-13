@@ -1,5 +1,5 @@
 import EmptyState from "../../components/ui/EmptyState";
-import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import CallInvitations from "../../components/VideoCall/CallInvitations";
 import FriendsWorkspace from "./FriendsWorkspace";
 import { X, Check, Video, CalendarDays } from "lucide-react";
@@ -7,6 +7,7 @@ import MonthCalendar from "../../components/Friends/MonthCalendar";
 import { SCHEDULE_PREVIEW_LIMIT } from "./friendsPageConfig";
 function Content({
   isVideoInvitesView,
+  scheduleBusy,
   incomingScheduleRequests,
   visibleScheduleRequests,
   handleAcceptScheduleRequest,
@@ -23,7 +24,17 @@ function Content({
   goToTodayMonth,
   openQuickInvite,
 }) {
-  const [tab, setTab] = useState("instant");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const tab = searchParams.get("tab") === "schedule" ? "schedule" : "instant";
+  const setTab = (value) =>
+    setSearchParams(
+      (previous) => {
+        const next = new URLSearchParams(previous);
+        next.set("tab", value);
+        return next;
+      },
+      { replace: true },
+    );
   const tabs = [
     { id: "instant", label: "Gọi ngay", Icon: Video },
     { id: "schedule", label: "Hẹn lịch", Icon: CalendarDays },
@@ -119,6 +130,7 @@ function Content({
                       <div className="schedule-request-card__actions">
                         <button
                           type="button"
+                          disabled={scheduleBusy}
                           className="schedule-request-card__accept"
                           onClick={() => handleAcceptScheduleRequest(request)}
                         >
@@ -128,6 +140,7 @@ function Content({
 
                         <button
                           type="button"
+                          disabled={scheduleBusy}
                           className="schedule-request-card__decline"
                           onClick={() => handleDeclineScheduleRequest(request.id)}
                           aria-label={`Từ chối lời hẹn của ${request.name}`}
