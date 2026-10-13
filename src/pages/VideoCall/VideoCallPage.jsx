@@ -68,10 +68,8 @@ export default function VideoCallPage() {
         return (
           <TopicSelection
             selected={flow.selected}
-            prompt={flow.prompt}
             onToggleTopic={flow.toggleTopic}
             onAddTopic={flow.addTopic}
-            onPromptChange={flow.setPrompt}
             onSearch={() => flow.search()}
           />
         );
@@ -125,7 +123,7 @@ export default function VideoCallPage() {
     <div className={`vc-page vc-stage-${flow.stage}`}>
       {!["call", "search"].includes(flow.stage) && <VideoCallHeader />}
       {flow.stage === "topics" && <FirstCallGuide />}
-      {flow.stage === "topics" && !flow.call && <CallInvitations />}
+      {flow.stage === "topics" && !flow.call && <CallInvitations hideIfEmpty />}
       {flow.busy && <p role="status">Đang kết nối máy chủ…</p>}
       {flow.error && (
         <div role="alert">

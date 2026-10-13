@@ -1,2 +1,2 @@
-export const VIDEO_DEMO =
-  import.meta.env.VITE_USE_MOCK === "true" || import.meta.env.VITE_DEMO === "true";
+import { isVideoDemo } from "./mode.js";
+export const VIDEO_DEMO = isVideoDemo(import.meta.env);

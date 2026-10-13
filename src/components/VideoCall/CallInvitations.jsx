@@ -7,7 +7,7 @@ import { VIDEO_DEMO } from "../../services/videoCall/config";
 import { Video } from "lucide-react";
 import "./CallInvitations.css";
 
-function ServerInvitations() {
+function ServerInvitations({ hideIfEmpty = false }) {
   const [revision, setRevision] = useState(0),
     [pending, setPending] = useState(null);
   const resource = useApiResource(callApi.invitations, revision, { keepPrevious: true });
@@ -36,6 +36,10 @@ function ServerInvitations() {
     } finally {
       setPending(null);
     }
+  }
+
+  if (hideIfEmpty && (!resource.data || resource.data.length === 0) && !resource.error) {
+    return null;
   }
 
   return (
@@ -98,13 +102,18 @@ function ServerInvitations() {
   );
 }
 
-export default function CallInvitations() {
-  return VIDEO_DEMO ? (
-    <section className="call-invitations">
-      <h2 className="text-h2">Cuộc gọi đến</h2>
-      <p className="call-invitations__empty">Chưa có cuộc gọi đến trong phiên demo.</p>
-    </section>
-  ) : (
-    <ServerInvitations />
-  );
+export default function CallInvitations({ hideIfEmpty = false }) {
+  if (VIDEO_DEMO) {
+    if (hideIfEmpty) {
+      return null;
+    }
+    return (
+      <section className="call-invitations">
+        <h2 className="text-h2">Cuộc gọi đến</h2>
+        <p className="call-invitations__empty">Chưa có cuộc gọi đến trong phiên demo.</p>
+      </section>
+    );
+  }
+
+  return <ServerInvitations hideIfEmpty={hideIfEmpty} />;
 }

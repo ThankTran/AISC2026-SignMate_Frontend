@@ -41,3 +41,52 @@ node node_modules/vite/bin/vite.js build
 ```
 
 Kiểm tra UI tại `/video`: chọn/thêm chủ đề → tìm/hủy tìm → tìm người khác → bắt đầu gọi → gửi tin nhắn, đóng/mở chat → kết thúc → chọn sao/tag, ghi chú → gửi đánh giá → tiếp tục. Kiểm tra thêm dialog chặn/báo cáo với Tab và Escape.
+
+
+## Interactive call demo
+
+In Vite development, `/video` opens the isolated frontend demo by default.
+`VITE_VIDEO_CALL_MODE=demo` also enables it in a production build; `real` keeps the
+existing real-call integration. Restart Vite after changing the mode. Production
+continues to use the existing integration by default. No realtime infrastructure
+was added for this demo.
+
+`DemoCallPage.jsx` renders the view. `useDemoCallController` subscribes to the small
+external-store controller in `services/videoCall/demoController.js`. Its snapshot
+contains status, participants, elapsed seconds, camera/mic state, local media,
+messages, panel, layout and pinned participant. Actions handle join, leave,
+rejoin, media, chat, panels, layout, pin and deterministic recovery. A future call
+adapter can expose this same view contract. Sample identities, messages, delays
+and scenario definitions live in `demoContent.js`, outside presentation code.
+
+Join transitions through joining (900 ms), waiting (1400 ms), then connected.
+Elapsed time counts connected time only; interruption freezes it. Leave and
+unmount cancel scheduled work and stop acquired tracks, including permission
+results that arrive late. Rejoin clears the draft and restores initial messages,
+media controls, timer and layout. Chat is memory-only and never delivered remotely.
+The partner is an explicitly labeled sample profile with an avatar, not live or
+prerecorded video. Camera/mic controls initially simulate state. Actual devices
+are requested only through explicit settings actions; permission denial leaves
+simulation usable. Local video is muted and never sent to another participant.
+There is no recording, screen sharing or fabricated device inventory.
+
+Development-only `Tình huống xem trước` exposes all ten scenarios. Transient
+fixtures remain still until `Tiếp tục đến kết nối` is selected. Normal Join uses
+the timed sequence. Interruption only happens by explicit selection/button.
+Use `/video?scenario=chat`, `/video?scenario=interrupted`, or `/video?step=call`.
+The isolated `/tests/demo-call-preview.html?scenario=chat` fixture needs no login.
+Neither the selector nor query-driven scenarios is enabled in production.
+
+Validation:
+
+```sh
+node --test tests/*.test.js tests/*.test.mjs src/utils/videoCall/videoCall.test.mjs src/services/videoCall/demoSessionStorage.test.mjs
+npm run lint
+npm run build
+```
+
+Controller tests cover joining/canceling, timer pause/resume, clean rejoin, chat,
+panels/layout/pin, all fixtures, permission denial, actual track toggles, disposal,
+and late permission results. Browser checks cover desktop/mobile layouts, sending
+messages, panel focus and Escape, media simulation, pinning and ending/rejoining.
+Real multi-user connectivity remains outside this demo's acceptance criteria.

@@ -3,13 +3,18 @@ import { ShieldCheck, Video } from "lucide-react";
 
 export default function VideoCallHeader() {
   return (
-    <div className="vc-topline">
-      <span>
-        <Video size={16} /> SIGNCONNECT {VIDEO_DEMO && <span className="vc-demo">BẢN DEMO</span>}
-      </span>
-      <span>
-        <ShieldCheck size={15} /> Không gian học tập an toàn
-      </span>
-    </div>
+    <header className="vc-topline" aria-label="Đầu trang SignConnect">
+      <div className="vc-brand-badge">
+        <span className="vc-brand-icon">
+          <Video size={16} />
+        </span>
+        <span className="vc-brand-text">SIGNCONNECT</span>
+        {VIDEO_DEMO && <span className="vc-demo-pill">BẢN DEMO</span>}
+      </div>
+      <div className="vc-trust-badge">
+        <ShieldCheck size={15} />
+        <span>Không gian thực hành an toàn & tôn trọng</span>
+      </div>
+    </header>
   );
 }

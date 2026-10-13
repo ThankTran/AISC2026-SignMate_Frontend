@@ -11,6 +11,9 @@ import {
   Ban,
   Columns2,
   Minimize2,
+  Wifi,
+  WifiOff,
+  Radio,
 } from "lucide-react";
 import ParticipantAvatar from "./ParticipantAvatar";
 import { formatTime } from "../../utils/videoCall/formatTime";
@@ -47,6 +50,7 @@ export default function CallRoom({
       timers.clear();
     };
   }, []);
+
   function showReaction(emoji) {
     const id = ++reactionId.current;
 
@@ -83,102 +87,185 @@ export default function CallRoom({
     }
   }
 
+  const connectionDetails = {
+    connecting: { label: "Đang kết nối…", icon: Radio, tone: "warning" },
+    connected: { label: "Kết nối ổn định", icon: Wifi, tone: "success" },
+    reconnecting: { label: "Đang kết nối lại…", icon: Radio, tone: "warning" },
+    failed: { label: "Mất kết nối", icon: WifiOff, tone: "danger" },
+  }[connectionState] || { label: "Đang kết nối", icon: Radio, tone: "warning" };
+
+  const StatusIcon = connectionDetails.icon;
+
   return (
     <section className={`vc-call vc-enter${splitView ? " vc-call--split" : ""}`}>
-      <div className="vc-call-backdrop">
+      {/* Remote Video Stage */}
+      <div className="vc-call-backdrop" role="region" aria-label={`Khung hình của ${partner.name}`}>
         <h1 className={connectionState === "connected" && !VIDEO_DEMO ? "sr-only" : "text-h1"}>
           {partner.name}
         </h1>
+
         {!VIDEO_DEMO && (
           <video
             ref={remoteRef}
             autoPlay
             playsInline
             className="vc-remote-video"
-            aria-label={`Video của ${partner.name}`}
+            aria-label={`Video đối tác ${partner.name}`}
           />
         )}
+
         {(VIDEO_DEMO || connectionState !== "connected") && (
-          <>
-            <ParticipantAvatar person={partner} className="vc-remote-avatar" />
-            <span>{VIDEO_DEMO ? "Phòng luyện tập demo" : "Phòng luyện tập"}</span>
-            <p>
+          <div className="vc-placeholder-stage">
+            <div className="vc-avatar-wrapper">
+              <ParticipantAvatar person={partner} className="vc-remote-avatar" />
+              <span className="vc-avatar-ring" aria-hidden="true" />
+            </div>
+            <strong className="vc-partner-name">{partner.name}</strong>
+            <span className="vc-stage-status">
+              {VIDEO_DEMO ? "Phòng luyện tập đối thoại demo" : "Phòng luyện tập trực tiếp"}
+            </span>
+            <p className="vc-stage-desc">
               {VIDEO_DEMO
-                ? "Camera của đối tác trong phiên demo."
+                ? "Camera mô phỏng đối tác luyện tập ngôn ngữ ký hiệu."
                 : connectionState === "failed"
-                  ? "Không thể kết nối. Hãy kết thúc và thử lại."
+                  ? "Không thể kết nối. Vui lòng kiểm tra mạng hoặc kết thúc cuộc gọi."
                   : connectionState === "reconnecting"
-                    ? "Đang kết nối lại…"
-                    : "Đang kết nối camera của đối tác…"}
+                    ? "Đang tự động kết nối lại tín hiệu video…"
+                    : "Đang chờ đối tác kích hoạt camera…"}
             </p>
             <div className="vc-wave" aria-hidden="true">
               {Array.from({ length: 9 }, (_, i) => (
                 <i key={i} style={{ "--i": i }} />
               ))}
             </div>
-          </>
+          </div>
         )}
+
+        {/* Remote participant badge */}
+        <div className="vc-video-badge vc-badge-partner">
+          <span className="vc-badge-dot" aria-hidden="true" />
+          <span className="vc-badge-name">{partner.name}</span>
+        </div>
       </div>
+
+      {/* Top Header Bar */}
       <header className="vc-call-header">
-        <div>
-          <span className="vc-call-logo">
-            <Hand size={24} />
+        <div className="vc-header-brand">
+          <span className="vc-call-logo" aria-hidden="true">
+            <Hand size={22} />
           </span>
-          <div>
-            <strong>SignMate</strong>
-            <small>
-              <i /> {VIDEO_DEMO ? "Phiên demo · " : ""}
+          <div className="vc-brand-info">
+            <div className="vc-brand-row">
+              <strong>SignMate</strong>
+              <span className="vc-live-indicator" title="Cuộc gọi đang diễn ra">
+                <span className="vc-live-dot" /> LIVE
+              </span>
+            </div>
+            <small className="vc-duration-timer">
+              {VIDEO_DEMO ? "Demo · " : ""}
               {formatTime(duration)}
             </small>
           </div>
         </div>
-        {VIDEO_DEMO && (
-          <span className="vc-call-xp">
-            <Sparkles size={15} /> XP +{demoRewards.callXp}
-          </span>
-        )}
-        {!VIDEO_DEMO && (
-          <span role="status">
-            {
-              {
-                connecting: "Đang kết nối",
-                connected: "Đã kết nối",
-                reconnecting: "Đang kết nối lại",
-                failed: "Mất kết nối",
-              }[connectionState]
-            }
-          </span>
-        )}
+
+        <div className="vc-header-status-group">
+          {VIDEO_DEMO ? (
+            <span className="vc-call-xp" title="Điểm kinh nghiệm nhận được">
+              <Sparkles size={14} /> XP +{demoRewards.callXp}
+            </span>
+          ) : (
+            <span
+              className={`vc-connection-pill vc-tone-${connectionDetails.tone}`}
+              role="status"
+              aria-live="polite"
+            >
+              <StatusIcon size={14} className="vc-status-icon" />
+              {connectionDetails.label}
+            </span>
+          )}
+
+          {/* Quick safety actions */}
+          <div className="vc-header-actions">
+            <button
+              type="button"
+              className="vc-safety-btn"
+              title="Báo cáo người dùng"
+              aria-label="Báo cáo người dùng"
+              onClick={() => onSafetyAction("report")}
+            >
+              <Flag size={15} />
+            </button>
+            <button
+              type="button"
+              className="vc-safety-btn"
+              title="Chặn người dùng này"
+              aria-label="Chặn người dùng này"
+              onClick={() => onSafetyAction("block")}
+            >
+              <Ban size={15} />
+            </button>
+          </div>
+        </div>
       </header>
-      <div className="vc-self">
-        <video ref={previewRef} autoPlay playsInline muted className={camera ? "" : "vc-hidden"} />
+
+      {/* Self-View Container (PiP or Split Tile) */}
+      <div
+        className="vc-self"
+        role="region"
+        aria-label="Khung hình camera của bạn"
+      >
+        <video
+          ref={previewRef}
+          autoPlay
+          playsInline
+          muted
+          className={`vc-self-video ${camera ? "" : "vc-hidden"}`}
+        />
+
         {!camera && (
-          <div>
-            <VideoOff size={28} />
-            <span>Camera đang tắt</span>
+          <div className="vc-camera-off-state">
+            <div className="vc-camera-off-icon">
+              <VideoOff size={26} />
+            </div>
+            <span>Camera của bạn đang tắt</span>
           </div>
         )}
-        <button
-          type="button"
-          className={`vc-self-mic ${mic ? "is-on" : "is-off"}`}
-          aria-label={mic ? "Tắt micro của bạn" : "Bật micro của bạn"}
-          title={mic ? "Micro đang bật — bấm để tắt" : "Micro đang tắt — bấm để bật"}
-          aria-pressed={mic}
-          onClick={() => toggleMedia("audio")}
-        >
-          {mic ? <Mic size={20} /> : <MicOff size={20} />}
-        </button>
-        <button
-          type="button"
-          className="vc-self-expand"
-          aria-label={splitView ? "Thu nhỏ camera của bạn" : "Chia đôi màn hình cuộc gọi"}
-          title={splitView ? "Thu nhỏ camera" : "Chia đôi màn hình"}
-          aria-pressed={splitView}
-          onClick={() => setSplitView((value) => !value)}
-        >
-          {splitView ? <Minimize2 size={18} /> : <Columns2 size={18} />}
-        </button>
+
+        {/* Self-view control pill: mic toggle + view toggle */}
+        <div className="vc-self-controls">
+          <button
+            type="button"
+            className={`vc-self-mic-pill ${mic ? "is-on" : "is-off"}`}
+            aria-label={mic ? "Tắt micro của bạn" : "Bật micro của bạn"}
+            title={mic ? "Micro đang bật" : "Micro đang tắt"}
+            aria-pressed={mic}
+            onClick={() => toggleMedia("audio")}
+          >
+            {mic ? <Mic size={15} /> : <MicOff size={15} />}
+            <span className="vc-self-mic-label">{mic ? "Bật" : "Tắt"}</span>
+          </button>
+
+          <button
+            type="button"
+            className="vc-self-expand"
+            aria-label={splitView ? "Thu nhỏ camera (Chế độ PiP)" : "Chia đôi màn hình (Chế độ Split)"}
+            title={splitView ? "Chế độ góc nhỏ (PiP)" : "Chia đôi màn hình (Split)"}
+            aria-pressed={splitView}
+            onClick={() => setSplitView((value) => !value)}
+          >
+            {splitView ? <Minimize2 size={15} /> : <Columns2 size={15} />}
+            <span className="vc-expand-label">{splitView ? "Thu nhỏ" : "Chia đôi"}</span>
+          </button>
+        </div>
+
+        {/* Self-view participant badge */}
+        <div className="vc-video-badge vc-badge-self">
+          <span className="vc-badge-dot vc-dot-self" aria-hidden="true" />
+          <span className="vc-badge-name">Bạn (Tôi)</span>
+        </div>
       </div>
+
+      {/* Floating Chat Drawer */}
       {chatOpen && (
         <CallChat
           partner={partner}
@@ -192,16 +279,26 @@ export default function CallRoom({
           }}
         />
       )}
+
+      {/* Floating Emoji Reactions */}
       {reactions.map((reaction) => (
         <div
           className="vc-floating-reaction"
           key={reaction.id}
           aria-hidden="true"
-          style={{ left: `calc(55% + ${((reaction.id % 5) - 2) * 24}px)` }}
+          style={{ left: `calc(52% + ${((reaction.id % 5) - 2) * 28}px)` }}
         >
           {reaction.emoji}
         </div>
       ))}
+
+      {/* Signing Space Helper Hint */}
+      <div className="vc-call-hint" role="note">
+        <Hand size={14} className="vc-hint-icon" />
+        <span>Giữ đôi tay và khuôn mặt trong khung hình để bạn học dễ quan sát</span>
+      </div>
+
+      {/* Main Call Action Toolbar */}
       <CallToolbar
         mic={mic}
         camera={camera}
@@ -217,26 +314,16 @@ export default function CallRoom({
         onEndCall={async () => {
           if (
             await confirm({
-              title: "Kết thúc cuộc gọi?",
-              message: "Bạn sẽ chuyển đến phần đánh giá buổi luyện tập.",
-              confirmLabel: "Kết thúc",
+              title: "Kết thúc buổi luyện tập?",
+              message: "Bạn sẽ hoàn tất phiên gọi và chuyển sang phần ghi nhận XP & đánh giá đóng góp.",
+              confirmLabel: "Kết thúc cuộc gọi",
+              cancelLabel: "Ở lại",
             })
           ) {
             onEndCall();
           }
         }}
       />
-      <div className="vc-call-safety">
-        <button title="Báo cáo" aria-label="Báo cáo" onClick={() => onSafetyAction("report")}>
-          <Flag size={17} />
-        </button>
-        <button title="Chặn" aria-label="Chặn" onClick={() => onSafetyAction("block")}>
-          <Ban size={17} />
-        </button>
-      </div>
-      <div className="vc-call-hint">
-        <Hand size={14} /> Giữ đôi tay trong khung hình để bạn học dễ quan sát
-      </div>
     </section>
   );
 }

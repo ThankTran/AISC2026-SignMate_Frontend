@@ -49,6 +49,8 @@ export default function CallToolbar({
     <div
       className="vc-call-toolbar"
       ref={toolbarRef}
+      role="toolbar"
+      aria-label="Điều khiển cuộc gọi"
       onBlur={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget)) {
           setReactionsOpen(false);
@@ -56,67 +58,66 @@ export default function CallToolbar({
       }}
     >
       <button
+        type="button"
         aria-label={mic ? "Tắt micro" : "Bật micro"}
-        title={mic ? "Tắt micro" : "Bật micro"}
+        title={mic ? "Micro đang bật — Bấm để tắt" : "Micro đang tắt — Bấm để bật"}
         aria-pressed={mic}
-        className={mic ? "active" : ""}
+        className={`vc-tool-btn ${mic ? "active vc-btn-active" : "vc-btn-muted"}`}
         onClick={onToggleMic}
       >
-        {mic ? <Mic size={21} /> : <MicOff size={21} />}
+        {mic ? <Mic size={20} /> : <MicOff size={20} />}
+        <span className="vc-tool-sr">{mic ? "Tắt micro" : "Bật micro"}</span>
       </button>
+
       <button
+        type="button"
         aria-label={camera ? "Tắt camera" : "Bật camera"}
-        title={camera ? "Tắt camera" : "Bật camera"}
+        title={camera ? "Camera đang bật — Bấm để tắt" : "Camera đang tắt — Bấm để bật"}
         aria-pressed={camera}
-        className={camera ? "active" : ""}
+        className={`vc-tool-btn ${camera ? "active vc-btn-active" : "vc-btn-muted"}`}
         onClick={onToggleCamera}
       >
-        {camera ? <Video size={21} /> : <VideoOff size={21} />}
+        {camera ? <Video size={20} /> : <VideoOff size={20} />}
+        <span className="vc-tool-sr">{camera ? "Tắt camera" : "Bật camera"}</span>
       </button>
-      {[
-        {
-          icon: MessageCircle,
-          label: "Trò chuyện",
-          onClick: onToggleChat,
-          active: chatOpen,
-        },
-      ].map(({ icon: Icon, label, onClick, active }) => (
-        <button
-          key={label}
-          aria-label={label}
-          title={label}
-          aria-pressed={active}
-          className={active ? "active" : ""}
-          onClick={onClick}
-        >
-          <Icon size={21} />
-          {label === "Trò chuyện" && unreadCount > 0 && (
-            <span className="vc-unread" aria-label={`${unreadCount} tin mới`}>
-              {unreadCount}
-            </span>
-          )}
-        </button>
-      ))}
+
+      <button
+        type="button"
+        aria-label="Trò chuyện"
+        title={chatOpen ? "Đóng khung trò chuyện" : "Mở khung trò chuyện"}
+        aria-pressed={chatOpen}
+        className={`vc-tool-btn ${chatOpen ? "active vc-btn-active" : ""}`}
+        onClick={onToggleChat}
+      >
+        <MessageCircle size={20} />
+        {unreadCount > 0 && (
+          <span className="vc-unread" aria-label={`${unreadCount} tin nhắn mới`}>
+            {unreadCount}
+          </span>
+        )}
+      </button>
+
       <button
         type="button"
         ref={reactionButtonRef}
-        aria-label="Thả cảm xúc"
+        aria-label="Thả cảm xúc biểu cảm"
         title="Thả cảm xúc"
         aria-expanded={reactionsOpen}
         aria-controls={panelId}
-        className={reactionsOpen ? "active" : ""}
+        className={`vc-tool-btn ${reactionsOpen ? "active vc-btn-active" : ""}`}
         onClick={() => setReactionsOpen((open) => !open)}
       >
-        <Smile size={21} />
+        <Smile size={20} />
       </button>
+
       {reactionsOpen && (
         <div
           className="vc-emoji-picker vc-reaction-picker"
           id={panelId}
           role="group"
-          aria-label="Chọn cảm xúc"
+          aria-label="Chọn cảm xúc gửi đến đối tác"
         >
-          <span>Thả cảm xúc</span>
+          <span className="vc-picker-title">Thả cảm xúc trực tiếp</span>
           <div className="vc-emoji-grid">
             {emojis.map(([emoji, label]) => (
               <button
@@ -134,14 +135,17 @@ export default function CallToolbar({
           </div>
         </div>
       )}
-      <span />
+
+      <span className="vc-toolbar-separator" aria-hidden="true" />
+
       <button
+        type="button"
         className="vc-hangup"
         aria-label="Kết thúc cuộc gọi"
         title="Kết thúc cuộc gọi"
         onClick={onEndCall}
       >
-        <PhoneOff size={23} />
+        <PhoneOff size={22} />
       </button>
     </div>
   );
