@@ -2,7 +2,7 @@
   --vc-ink: var(--color-neutral-900);
   --vc-green: var(--color-teal-700);
   --vc-mint: var(--color-teal-50);
-  --vc-purple: var(--color-teal-500);
+  --vc-purple: var(--color-purple-500);
   --vc-orange: var(--color-coral-500);
   color: var(--vc-ink);
   padding: var(--space-5) var(--page-gutter) var(--space-6);
@@ -71,9 +71,49 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: var(--space-6);
-  font-size: var(--font-size-caption);
-  color: var(--color-neutral-700);
+  margin-bottom: var(--space-5);
+  font-size: var(--text-xs);
+  color: var(--color-neutral-600);
+}
+.vc-brand-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--color-teal-700);
+}
+.vc-brand-icon {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: var(--color-teal-50);
+  color: var(--color-teal-600);
+}
+.vc-brand-text {
+  font-family: var(--font-family-main);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+.vc-demo-pill {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  background: var(--color-neutral-100);
+  border: 1px solid var(--color-neutral-200);
+  padding: 1px 7px;
+  border-radius: 6px;
+  color: var(--color-neutral-600);
+}
+.vc-trust-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-neutral-600);
+  font-size: 12px;
 }
 .vc-topline > span {
   display: flex;
@@ -203,46 +243,428 @@
 }
 .vc-device-check {
   max-width: 680px;
-  margin: var(--space-5) auto;
-  display: grid;
+  margin: var(--space-4) auto var(--space-6);
+  display: flex;
+  flex-direction: column;
   gap: var(--space-4);
-  padding: var(--space-5);
+  padding: var(--space-6);
+  border-radius: 24px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
+  background: var(--color-white);
+  border: 1px solid var(--color-neutral-100);
 }
-.vc-device-check label {
+
+.vc-device-header {
+  text-align: center;
+}
+
+.vc-device-header h1 {
+  font-size: var(--font-size-h2);
+  margin-top: var(--space-1);
+}
+
+.vc-device-subtitle {
+  font-size: var(--font-size-caption);
+  color: var(--color-neutral-700);
+  max-width: 520px;
+  margin: var(--space-2) auto 0;
+  line-height: 1.55;
+}
+
+/* Device Video Preview Stage */
+.vc-device-stage {
+  position: relative;
+  width: 100%;
+  height: 340px;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #091316;
+  border: 2px solid var(--color-neutral-200);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.vc-device-video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform: scaleX(-1);
+  background: #060e10;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.vc-device-video.is-ready {
+  opacity: 1;
+}
+
+/* Visual Framing Guide for Sign Language */
+.vc-framing-guide {
+  position: absolute;
+  inset: 12px;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.vc-guide-corner {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-color: rgba(29, 158, 117, 0.6);
+  border-style: solid;
+}
+
+.vc-corner-tl { top: 0; left: 0; border-width: 2.5px 0 0 2.5px; border-top-left-radius: 8px; }
+.vc-corner-tr { top: 0; right: 0; border-width: 2.5px 2.5px 0 0; border-top-right-radius: 8px; }
+.vc-corner-bl { bottom: 0; left: 0; border-width: 0 0 2.5px 2.5px; border-bottom-left-radius: 8px; }
+.vc-corner-br { bottom: 0; right: 0; border-width: 0 2.5px 2.5px 0; border-bottom-right-radius: 8px; }
+
+.vc-guide-silhouette {
+  position: absolute;
+  inset: 15px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+}
+
+.vc-guide-head {
+  width: 90px;
+  height: 110px;
+  border: 1.5px dashed rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  margin-top: 10px;
+}
+
+.vc-guide-hands-zone {
+  flex: 1;
+  width: 100%;
+  max-width: 320px;
+  border: 1.5px dashed rgba(29, 158, 117, 0.35);
+  border-radius: 16px;
+  margin-top: 10px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 8px;
+}
+
+.vc-guide-hands-zone span {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.45);
+  letter-spacing: 0.03em;
+}
+
+.vc-guide-pill {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(10, 20, 24, 0.75);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--color-teal-100);
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  white-space: nowrap;
+}
+
+.vc-device-live-badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(16, 185, 129, 0.2);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  color: #34d399;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 9999px;
+  z-index: 4;
+}
+
+.vc-device-prompt-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: var(--space-4);
+  color: var(--color-neutral-300);
+  text-align: center;
+  background: rgba(9, 19, 22, 0.85);
+  z-index: 2;
+}
+
+.vc-prompt-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  display: grid;
+  place-items: center;
+  color: var(--color-teal-300);
+}
+
+.vc-device-prompt-overlay p {
+  font-size: var(--font-size-caption);
+  max-width: 280px;
+  line-height: 1.5;
+}
+
+/* Device Controls Box */
+.vc-device-controls-box {
+  display: grid;
+  gap: var(--space-3);
+  background: var(--color-neutral-50);
+  border: 1px solid var(--color-neutral-100);
+  border-radius: 16px;
+  padding: var(--space-4);
+}
+
+.vc-device-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.vc-field-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--font-size-caption);
+  font-weight: 600;
+  color: var(--color-neutral-800);
+}
+
+.vc-select-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.vc-select {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--color-neutral-200);
+  background: var(--color-white);
+  color: var(--color-neutral-900);
+  font-size: var(--text-sm);
+  outline: none;
+  transition: border-color var(--duration-base) var(--ease-standard);
+  appearance: auto;
+}
+
+.vc-select:focus {
+  border-color: var(--color-teal-500);
+  box-shadow: 0 0 0 3px rgba(29, 158, 117, 0.15);
+}
+
+.vc-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  padding: 4px 0;
+}
+
+.vc-checkbox {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-teal-500);
+  cursor: pointer;
+}
+
+.vc-checkbox-text {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--font-size-caption);
+  color: var(--color-neutral-800);
+}
+
+.vc-device-error {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  color: #dc2626;
+  font-size: var(--font-size-caption);
+  line-height: 1.5;
+}
+
+/* Device Actions Row */
+.vc-device-actions {
   display: flex;
   gap: var(--space-3);
   align-items: center;
 }
-.vc-device-check select {
-  max-width: 100%;
+
+.vc-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 11px 18px;
+  border-radius: 12px;
+  border: 1px solid var(--color-neutral-200);
+  background: var(--color-white);
+  color: var(--color-neutral-800);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--duration-base) var(--ease-standard);
 }
-.vc-page .vc-button:not(.vc-secondary) {
-  background: var(--color-coral-700);
+
+.vc-btn-secondary:hover {
+  background: var(--color-neutral-100);
+  border-color: var(--color-neutral-300);
+}
+
+.vc-btn-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 11px 18px;
+  border-radius: 12px;
+  border: 1px solid var(--color-teal-200);
+  background: var(--color-teal-50);
+  color: var(--color-teal-700);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--duration-base) var(--ease-standard);
+}
+
+.vc-btn-action:hover {
+  background: var(--color-teal-100);
+  border-color: var(--color-teal-300);
+}
+
+.vc-demo-bypass-wrapper {
+  text-align: center;
+  padding-top: var(--space-2);
+  border-top: 1px dashed var(--color-neutral-200);
+}
+
+.vc-demo-bypass-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: 0;
+  color: var(--color-neutral-600);
+  font-size: var(--font-size-caption);
+  font-weight: 500;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all var(--duration-base) var(--ease-standard);
+}
+
+.vc-demo-bypass-btn:hover {
+  color: var(--color-teal-700);
+  background: var(--color-teal-50);
+}
+
+/* Primary Button Standardization across VideoCall */
+.vc-page .vc-button:not(.vc-secondary),
+.vc-button:not(.vc-secondary) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--color-teal-500);
   color: var(--color-white);
+  padding: 12px 24px;
+  border-radius: 12px;
+  border: 0;
+  font-weight: 600;
+  font-size: var(--text-sm);
+  cursor: pointer;
+  transition: all var(--duration-base) var(--ease-standard);
+  box-shadow: 0 2px 8px rgba(29, 158, 117, 0.25);
 }
+
+.vc-page .vc-button:not(.vc-secondary):hover:not(:disabled),
+.vc-button:not(.vc-secondary):hover:not(:disabled) {
+  background: var(--color-teal-600);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(29, 158, 117, 0.35);
+}
+
+.vc-page .vc-button:not(.vc-secondary):active:not(:disabled),
+.vc-button:not(.vc-secondary):active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.vc-page .vc-button:not(.vc-secondary):disabled,
+.vc-button:not(.vc-secondary):disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Secondary Button Standardization */
+.vc-page .vc-button.vc-secondary,
+.vc-button.vc-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--color-white);
+  color: var(--color-teal-700);
+  border: 1.5px solid var(--color-teal-200);
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: var(--text-sm);
+  cursor: pointer;
+  transition: all var(--duration-base) var(--ease-standard);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.vc-page .vc-button.vc-secondary:hover:not(:disabled),
+.vc-button.vc-secondary:hover:not(:disabled) {
+  background: var(--color-teal-50);
+  border-color: var(--color-teal-500);
+  color: var(--color-teal-800);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(29, 158, 117, 0.12);
+}
+
+.vc-page .vc-button.vc-secondary:active:not(:disabled),
+.vc-button.vc-secondary:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.vc-page .vc-button.vc-secondary:disabled,
+.vc-button.vc-secondary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
 .vc-page:not(.vc-stage-call) {
   background: var(--color-neutral-50);
   color: var(--color-neutral-900);
-}
-.vc-unread {
-  position: absolute;
-  top: -5px;
-  right: -5px;
-  border-radius: var(--radius-full);
-  padding: var(--space-1) var(--space-1);
-  background: var(--color-coral-700);
-  color: var(--color-white);
-  font-family: var(--font-family-mono);
-  font-size: var(--font-size-caption);
-}
-.vc-call-toolbar button {
-  position: relative;
-}
-.vc-chat-message {
-  background: color-mix(in srgb, var(--color-neutral-900) 78%, transparent);
-  border-radius: 10px;
-  padding: var(--space-2);
-}
-.vc-page .vc-button:not(.vc-secondary):hover:not(:disabled) {
-  background: var(--color-coral-700);
 }

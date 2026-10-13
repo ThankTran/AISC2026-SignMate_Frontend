@@ -19,10 +19,6 @@
   .vc-orbit {
     height: 175px;
   }
-  .vc-suggestions {
-    margin-top: var(--space-6);
-    padding-top: var(--space-6);
-  }
 }
 @media (max-width: 1024px) {
   .vc-page {
@@ -86,21 +82,16 @@
   }
   .vc-ai-card {
     padding: var(--space-5);
-    min-height: 260px;
   }
   .vc-orbit {
-    float: right;
-    margin: var(--space-4) 0 0 var(--space-2);
-    width: 200px;
+    float: none;
+    margin: 8px auto 16px;
   }
   .vc-ai-card h2 {
-    margin-top: var(--space-4);
+    margin-top: 0;
   }
   .vc-ai-card > p {
-    max-width: 290px;
-  }
-  .vc-online {
-    clear: both;
+    max-width: none;
   }
   .vc-bottom-steps {
     display: none;

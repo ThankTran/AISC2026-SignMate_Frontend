@@ -1,134 +1,300 @@
+/* ==========================================================================
+   SignConnect - Matching Screen (Radar / Pulse Search State)
+   ========================================================================== */
+
 .vc-search {
   position: relative;
-  min-height: calc(100dvh - 64px);
+  min-height: calc(100dvh - 72px);
   background:
-    radial-gradient(
-      ellipse at 80% 10%,
-      color-mix(in srgb, var(--color-teal-900) 40%, transparent),
-      transparent 55%
-    ),
-    radial-gradient(
-      ellipse at 10% 90%,
-      color-mix(in srgb, var(--color-teal-800) 33.33%, transparent),
-      transparent 50%
-    ),
-    var(--color-teal-900);
-  color: var(--color-white);
+    radial-gradient(circle at 50% 35%, rgba(225, 245, 238, 0.6) 0%, transparent 65%),
+    var(--color-neutral-50);
   display: flex;
-  align-items: center;
   flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  padding: 65px var(--space-5) var(--space-6);
-  overflow: hidden;
+  padding: var(--space-4) var(--page-gutter) var(--space-6);
+  color: var(--color-neutral-900);
 }
-.vc-back {
-  position: absolute;
-  left: 28px;
-  top: 25px;
-  border: 0;
-  background: none;
-  color: var(--color-teal-100);
+
+.vc-search-topbar {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
-  font-size: var(--font-size-caption);
+  margin-bottom: var(--space-3);
 }
+
+.vc-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 8px 16px;
+  border-radius: 12px;
+  border: 1.5px solid var(--color-neutral-200);
+  background: var(--color-white);
+  color: var(--color-neutral-700);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.vc-back:hover {
+  border-color: var(--color-teal-500);
+  color: var(--color-teal-700);
+  background: var(--color-teal-50);
+}
+
+/* Central Card */
+.vc-search-card {
+  max-width: 500px;
+  width: 100%;
+  margin: auto;
+  text-align: center;
+  background: var(--color-white);
+  border: 1px solid var(--color-neutral-200);
+  border-radius: 28px;
+  padding: 36px 32px 32px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Animated Radar Pulse */
 .vc-search-orb {
   position: relative;
-  width: 155px;
-  height: 155px;
+  width: 130px;
+  height: 130px;
   display: grid;
   place-items: center;
-  margin: var(--space-1) 0 var(--space-6);
-  color: var(--color-teal-100);
+  margin-bottom: 20px;
 }
-.vc-search-orb > span {
+
+.vc-ripple-ring {
   position: absolute;
-  inset: 18px;
-  border: 1px solid color-mix(in srgb, var(--color-teal-200) 31.37%, transparent);
+  inset: 0;
+  border: 2px solid var(--color-teal-200);
   border-radius: 50%;
-  background: color-mix(in srgb, var(--color-teal-200) 3.92%, transparent);
-  animation: none;
+  background: rgba(225, 245, 238, 0.35);
+  animation: vc-radar-pulse 2.8s cubic-bezier(0.2, 0.8, 0.3, 1) infinite;
 }
-.vc-search-orb > span:nth-child(2) {
+
+.vc-ripple-ring.r1 {
+  animation-delay: 0s;
 }
-.vc-search-orb > span:nth-child(3) {
+
+.vc-ripple-ring.r2 {
+  animation-delay: 0.9s;
 }
-.vc-search-orb > svg {
-  animation: none;
+
+.vc-ripple-ring.r3 {
+  animation-delay: 1.8s;
 }
-.vc-search .vc-eyebrow {
-  color: var(--color-teal-200);
-  font-size: var(--font-size-caption);
+
+@keyframes vc-radar-pulse {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.9;
+  }
+  60% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
 }
-.vc-search h1 {
-  font-size: var(--font-size-h1);
-  margin: var(--space-4) 0;
+
+.vc-orb-core {
+  position: relative;
+  z-index: 2;
+  width: 64px;
+  height: 64px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, var(--color-teal-500), var(--color-teal-700));
+  color: var(--color-white);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 8px 24px rgba(29, 158, 117, 0.35);
+  animation: vc-core-pulse 2s ease-in-out infinite;
 }
-.vc-search > p {
-  font-size: var(--font-size-caption);
-  color: var(--color-teal-200);
+
+@keyframes vc-core-pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
 }
-.vc-search-checks {
-  text-align: left;
-  background: color-mix(in srgb, var(--color-white) 4.71%, transparent);
-  border: 1px solid color-mix(in srgb, var(--color-white) 7.45%, transparent);
-  border-radius: 18px;
-  padding: var(--space-4) var(--space-5);
-  width: min(350px, 100%);
-  margin: var(--space-5) 0;
-}
-.vc-search-checks > div {
-  display: flex;
-  gap: var(--space-3);
+
+/* Badges & Titles */
+.vc-search-badge {
+  display: inline-flex;
   align-items: center;
-  padding: var(--space-2) 0;
-  color: var(--color-teal-50);
-  font-size: var(--font-size-caption);
-  transition: none;
+  gap: 6px;
+  background: var(--color-teal-50);
+  color: var(--color-teal-700);
+  border: 1px solid var(--color-teal-200);
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin-bottom: 12px;
 }
-.vc-search-checks > div > span {
-  width: 25px;
-  height: 25px;
+
+.vc-search-title {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--color-neutral-900);
+  margin: 0 0 8px;
+  letter-spacing: -0.01em;
+}
+
+.vc-dots {
+  animation: vc-blink 1.4s infinite steps(1);
+}
+
+@keyframes vc-blink {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+
+.vc-search-desc {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-neutral-600);
+  margin: 0 0 20px;
+  max-width: 380px;
+}
+
+/* Matching Steps Checklist */
+.vc-search-checks {
+  width: 100%;
+  background: var(--color-neutral-50);
+  border: 1px solid var(--color-neutral-200);
+  border-radius: 18px;
+  padding: 12px 18px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.vc-check-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  font-size: 13px;
+  color: var(--color-neutral-500);
+  transition: all 0.2s ease;
+}
+
+.vc-check-row:not(:last-child) {
+  border-bottom: 1px dashed var(--color-neutral-100);
+}
+
+.vc-check-row.complete {
+  color: var(--color-teal-900);
+  font-weight: 600;
+}
+
+.vc-check-icon {
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   display: grid;
   place-items: center;
-  background: color-mix(in srgb, var(--color-white) 3.14%, transparent);
+  background: var(--color-neutral-100);
+  color: var(--color-neutral-400);
+  flex-shrink: 0;
 }
-.vc-search-checks > div.complete {
-  color: var(--color-teal-50);
+
+.vc-check-row.complete .vc-check-icon {
+  background: var(--color-teal-500);
+  color: var(--color-white);
 }
-.vc-search-checks > div.complete > span {
-  background: var(--color-teal-600);
-  color: var(--color-teal-50);
-}
+
 .vc-loader {
-  width: 11px;
-  height: 11px;
-  border: 1px solid var(--color-teal-500);
-  border-top-color: var(--color-teal-100);
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--color-teal-200);
+  border-top-color: var(--color-teal-600);
   border-radius: 50%;
-  animation: vc-spin calc(var(--duration-slow) * 3) var(--ease-standard) infinite;
+  animation: vc-spin 0.8s linear infinite;
 }
-.vc-wait small {
-  display: block;
-  letter-spacing: 2px;
-  font-size: var(--font-size-caption);
-  color: var(--color-teal-50);
+
+@keyframes vc-spin {
+  to { transform: rotate(360deg); }
 }
-.vc-wait strong {
-  display: block;
+
+/* Non-Demo Server Status Banner */
+.vc-search-status-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  background: var(--color-teal-50);
+  border: 1px solid var(--color-teal-200);
+  border-radius: 14px;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  text-align: left;
+  font-size: 13px;
+  color: var(--color-teal-900);
+}
+
+.vc-search-status-banner p {
+  margin: 0;
+  line-height: 1.45;
+}
+
+/* Wait Timer */
+.vc-wait-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-neutral-50);
+  border: 1px solid var(--color-neutral-200);
+  padding: 6px 16px;
+  border-radius: 9999px;
+  font-size: 12px;
+  color: var(--color-neutral-600);
+  margin-bottom: 24px;
+}
+
+.vc-wait-badge strong {
   font-family: var(--font-family-mono);
-  font-size: var(--font-size-body);
-  font-weight: 400;
-  margin-top: var(--space-2);
+  font-weight: 700;
+  color: var(--color-teal-700);
+  font-size: 14px;
 }
-.vc-search-demo {
-  font-size: var(--font-size-caption);
-  color: var(--color-teal-50);
-  margin-top: var(--space-4);
+
+/* Cancel Search Button */
+.vc-cancel-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 24px;
+  border-radius: 12px;
+  border: 1.5px solid var(--color-neutral-300);
+  background: var(--color-white);
+  color: var(--color-neutral-700);
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
 }
-.vc-search .vc-text-button {
-  color: var(--color-teal-100);
+
+.vc-cancel-btn:hover {
+  background: var(--color-coral-50);
+  border-color: var(--color-coral-200);
+  color: var(--color-coral-700);
+  box-shadow: 0 2px 8px rgba(216, 90, 48, 0.1);
+}
+
+.vc-cancel-btn:active {
+  transform: scale(0.99);
 }
