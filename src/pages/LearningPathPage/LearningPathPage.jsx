@@ -44,7 +44,7 @@ const LearningPathPage = () => {
         <ProgressWidget stats={data.stats} chapters={data.chapters} />
         <section className="lp-page__daily">
           <DailyQuests quests={data.dailyQuests} />
-          <p>{data.stats.xpToday} XP đã được ghi nhận.</p>
+          <p className="lp-page__daily-note">{data.stats.xpToday} XP đã được ghi nhận hôm nay.</p>
         </section>
         {nextLesson && <NextUpCard lesson={nextLesson} />}
       </aside>

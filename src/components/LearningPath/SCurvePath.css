@@ -1,678 +1,1268 @@
 /* =========================================================
-   S-CURVE LEARNING PATH (THEO CHƯƠNG)
+   SIGNMATE 3D LEARNING PATH (S-CURVE JOURNEY)
+   Tactile 2.5D Platforms, Directional Lighting, Dotted Map
    ========================================================= */
 
-.lp-curve {
+/* --- Container --- */
+.lp-journey-container {
   position: relative;
   width: 100%;
-  margin-top: var(--space-3);
-  max-width: 720px;
-  margin-left: auto;
-  margin-right: auto;
-  aspect-ratio: auto;
+  max-width: 680px;
+  margin-inline: auto;
+  margin-top: var(--space-4);
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: var(--space-4);
   min-width: 0;
 }
 
-/* ===== SVG ===== */
+.lp-chapter-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-.lp-curve__svg {
+/* =========================================================
+   1. 3D CHAPTER BANNER
+   ========================================================= */
+
+.lp-chapter3d {
+  position: relative;
+  z-index: 4;
+  width: min(100%, 480px);
+  margin-inline: auto;
+  border-radius: 20px;
+  padding: var(--space-4) var(--space-5);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(15, 23, 42, 0.05);
+  border: 1px solid var(--color-neutral-200);
+  background: var(--color-white);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  transition: transform var(--duration-base) var(--ease-standard);
+}
+
+.lp-chapter3d--completed {
+  background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+  border-color: #a7f3d0;
+}
+
+.lp-chapter3d--active {
+  background: var(--color-white);
+  border-color: var(--color-teal-500);
+  box-shadow: 0 8px 24px rgba(29, 158, 117, 0.12), 0 2px 6px rgba(29, 158, 117, 0.08);
+}
+
+.lp-chapter3d--locked {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+  opacity: 0.85;
+}
+
+.lp-chapter3d__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.lp-chapter3d__tag {
+  font-family: var(--font-family-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-teal-800);
+  background: var(--color-teal-50);
+  padding: 3px 10px;
+  border-radius: 9999px;
+  border: 1px solid var(--color-teal-100);
+}
+
+.lp-chapter3d--locked .lp-chapter3d__tag {
+  color: #64748b;
+  background: #e2e8f0;
+  border-color: #cbd5e1;
+}
+
+.lp-chapter3d__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.lp-chapter3d--completed .lp-chapter3d__status {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.lp-chapter3d--active .lp-chapter3d__status {
+  background: #ccfbf1;
+  color: #0f766e;
+}
+
+.lp-chapter3d__title {
+  font-family: var(--font-family-main);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--color-neutral-900);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.lp-chapter3d__desc {
+  font-family: var(--font-family-body);
+  font-size: 13px;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.45;
+}
+
+.lp-chapter3d__foot {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-1);
+}
+
+.lp-chapter3d__bar {
+  flex: 1;
+  height: 8px;
+  border-radius: 9999px;
+  background: #e2e8f0;
+  overflow: hidden;
+  position: relative;
+}
+
+.lp-chapter3d__bar-fill {
+  height: 100%;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #10b981 0%, #14b8a6 100%);
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.lp-chapter3d__count {
+  font-family: var(--font-family-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: #475569;
+  white-space: nowrap;
+}
+
+/* =========================================================
+   2. PATH CANVAS & DOTTED SVG CONNECTORS
+   ========================================================= */
+
+.lp-chapter-section {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.lp-path-canvas {
+  position: relative;
+  width: 100%;
+  overflow: visible;
+}
+
+.lp-path-svg {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: 0;
+  z-index: 1;
 }
 
-.lp-curve__segment {
-  stroke-linecap: round;
-  animation: none;
+/* Soft base trench behind the dashed path */
+.lp-path-trench {
+  stroke: rgba(15, 23, 42, 0.07);
+  fill: none;
 }
 
-/* Trong chương - đã đi qua (nét đứt xanh lá mềm mại) */
-.lp-curve__segment--done {
-  stroke: var(--color-teal-600);
-  stroke-dasharray: 14 8;
-  animation: none;
+/* Foreground journey dotted lines */
+.lp-path-segment {
+  fill: none;
+  transition: stroke 0.3s ease;
 }
 
-/* Trong chương - đoạn đang học (xanh lá phát sáng) */
-.lp-curve__segment--active {
-  stroke-dasharray: 14 8;
-  animation: none;
-  stroke: var(--color-coral-500);
+.lp-path-segment--done {
+  stroke: #10b981;
 }
 
-/* Trong chương - chưa mở khóa (xám mờ) */
-.lp-curve__segment--pending {
-  stroke: var(--color-neutral-200);
-  stroke-dasharray: 6 10;
+.lp-path-segment--active {
+  stroke: #14b8a6;
+  filter: drop-shadow(0 0 6px rgba(20, 184, 166, 0.45));
 }
 
-/* Đường uốn lượn giữa các chương - nét to hơn, rõ hơn */
-.lp-curve__segment--transition {
-  stroke-width: 6.5;
+.lp-path-segment--pending {
+  stroke: #cbd5e1;
 }
 
-.lp-curve__segment--transition.lp-curve__segment--done {
-  stroke-dasharray: 10 12;
-  animation: none;
-}
-
-.lp-curve__segment--transition.lp-curve__segment--pending {
-  stroke-dasharray: 2 14;
+/* Chapter to chapter bridge */
+.lp-chapter-bridge {
+  position: relative;
+  width: 100%;
+  height: 110px;
 }
 
 /* =========================================================
-   NODE BÀI HỌC
+   3. 3D LESSON NODE (TACTILE CYLINDRICAL PODIUM)
    ========================================================= */
 
-.lp-node {
+.lp-node-mount {
+  display: contents;
+}
+
+.lp-node3d-container {
   position: absolute;
-  transform: translate(-50%, -50%);
-  z-index: 2;
+  transform: translate(-50%, -40px);
+  z-index: 3;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-2);
+  gap: 10px;
+  pointer-events: auto;
 }
 
-.lp-node__link {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-2);
-  text-decoration: none;
-  max-width: 100%;
+/* Contact shadow cast onto the ground surface */
+.lp-node3d-shadow {
+  position: absolute;
+  width: 86px;
+  height: 24px;
+  border-radius: 50%;
+  top: 54px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center, rgba(15, 23, 42, 0.32) 0%, rgba(15, 23, 42, 0.08) 55%, transparent 75%);
+  filter: blur(3.5px);
+  z-index: 0;
+  pointer-events: none;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.25s ease;
 }
 
-.lp-node__icon {
+/* Button wrapper */
+.lp-node3d-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  outline: none;
   position: relative;
-  width: 56px;
-  height: 56px;
-  border-radius: 18px;
+  z-index: 2;
+  border-radius: 50%;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.lp-node3d-btn:focus-visible {
+  outline: 3px solid #14b8a6;
+  outline-offset: 6px;
+  border-radius: 50%;
+}
+
+/* Active Concentric Ripple / Beacon Ring */
+.lp-node3d-beacon-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  border: 2.5px solid #2dd4bf;
+  pointer-events: none;
+  animation: lpBeaconPulse 2.4s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+  z-index: 1;
+}
+
+@keyframes lpBeaconPulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0.95);
+    opacity: 0.85;
+  }
+  60% {
+    transform: translate(-50%, -50%) scale(1.42);
+    opacity: 0.15;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.55);
+    opacity: 0;
+  }
+}
+
+/* The 3D Cylindrical Pedestal body */
+.lp-node3d-pedestal {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Raised Top Platform Face */
+.lp-node3d-face {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  transition: transform var(--duration-base) var(--ease-standard);
-}
-
-a:hover > .lp-node__icon:not(.lp-node__icon--locked) {
-  transform: scale(1.08);
-}
-
-.lp-node__glyph {
   position: relative;
-  z-index: 1;
-  display: inline-flex;
-}
-
-/* --- Trạng thái: Hoàn thành --- */
-
-.lp-node__icon--completed {
-  background: var(--color-teal-600);
-  box-shadow: var(--shadow-md);
-}
-
-.lp-node__icon--completed .lp-node__glyph {
-  color: var(--color-white);
-}
-
-.lp-node__ring--completed {
-  border: 2.5px solid var(--color-teal-600);
-  background: color-mix(in srgb, var(--color-teal-600) 8%, transparent);
-}
-
-/* --- Trạng thái: Đang học (Active) --- */
-
-.lp-node__icon--active {
-  width: 64px;
-  height: 64px;
-  border-radius: 20px;
-  background: var(--color-teal-600);
-  box-shadow: var(--shadow-md);
-}
-
-.lp-node__icon--active .lp-node__glyph {
-  color: var(--color-white);
-}
-
-.lp-node__ring--active {
-  animation: none;
-  border-color: var(--color-coral-500);
-  border: 2.5px solid var(--color-coral-500);
-  background: transparent;
-}
-
-/* --- Trạng thái: Mở khóa (Unlocked) --- */
-
-.lp-node__icon--unlocked {
-  background: var(--color-white);
-  border: 2.5px solid var(--color-teal-600);
-  box-shadow: var(--shadow-sm);
-}
-
-.lp-node__icon--unlocked .lp-node__glyph {
-  color: var(--color-teal-600);
-}
-
-.lp-node__ring--unlocked {
-  border: none;
-  background: none;
-}
-
-/* --- Trạng thái: Khóa (Locked) --- */
-
-.lp-node__icon--locked {
-  background: var(--color-neutral-100);
-  cursor: not-allowed;
-}
-
-.lp-node__icon--locked .lp-node__glyph {
-  color: var(--color-neutral-700);
-}
-
-.lp-node__ring--locked {
-  border: 2px dashed var(--color-neutral-200);
-  background: color-mix(in srgb, var(--color-neutral-200) 12%, transparent);
-}
-
-/* --- Label --- */
-
-.lp-node__label {
-  font-family: var(--font-family-body);
-  font-size: var(--font-size-caption);
-  font-weight: 600;
-  color: var(--color-neutral-700);
-  text-align: center;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: normal;
-  overflow-wrap: anywhere;
-  max-width: 100%;
-  line-height: 1.4;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
 }
 
-.lp-node__label--locked {
-  color: var(--color-neutral-700);
+/* Inset Concentric Groove */
+.lp-node3d-groove {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
-/* =========================================================
-   HEADER CHƯƠNG (Banner bo góc)
-   ========================================================= */
-
-.lp-chapter {
-  position: absolute;
-  transform: translate(-50%, -60%);
+.lp-node3d-icon-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
   z-index: 2;
-  width: 58%;
-  max-width: 420px;
-  border-radius: var(--radius-lg);
-  padding: var(--space-3) var(--space-4) var(--space-3);
-  color: var(--color-white);
-  box-shadow: var(--shadow-md);
 }
 
-.lp-chapter--completed {
-  background: var(--color-teal-600);
+.lp-node3d-glyph {
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.3));
 }
 
-.lp-chapter--active {
-  background: var(--color-white);
-  color: var(--color-teal-900);
-  border: 1px solid var(--color-teal-600);
-  box-shadow: var(--shadow-sm);
+/* --- State: COMPLETED (Emerald Teal / Jade Platform) --- */
+
+.lp-node3d-btn--completed .lp-node3d-pedestal {
+  background: #0f6e56;
+  box-shadow: 0 9px 0 #094a3a, 0 14px 16px rgba(15, 110, 86, 0.35);
 }
 
-.lp-chapter--locked {
-  background: linear-gradient(135deg, var(--color-neutral-100) 0%, var(--color-neutral-200) 100%);
-  color: var(--color-neutral-700);
-  box-shadow: var(--shadow-lg);
+.lp-node3d-btn--completed .lp-node3d-face {
+  background: linear-gradient(145deg, #34d399 0%, #10b981 40%, #059669 100%);
+  box-shadow: inset 0 2.5px 3px rgba(255, 255, 255, 0.6), inset 0 -2.5px 4px rgba(0, 0, 0, 0.25);
+}
+
+.lp-node3d-btn--completed .lp-node3d-groove {
+  background: radial-gradient(circle at 40% 35%, #059669 0%, #047857 100%);
+  box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.35), 0 1px 1px rgba(255, 255, 255, 0.3);
+}
+
+.lp-node3d-btn--completed .lp-node3d-glyph {
+  color: #ffffff;
+}
+
+/* --- State: ACTIVE / UNLOCKED (Vibrant Teal & Mint Platform) --- */
+
+.lp-node3d-btn--active .lp-node3d-pedestal,
+.lp-node3d-btn--unlocked .lp-node3d-pedestal {
+  background: #0d8260;
+  box-shadow: 0 10px 0 #064e3b, 0 16px 20px rgba(13, 148, 136, 0.4);
+}
+
+.lp-node3d-btn--active .lp-node3d-face,
+.lp-node3d-btn--unlocked .lp-node3d-face {
+  background: linear-gradient(145deg, #5eead4 0%, #14b8a6 40%, #0d9488 100%);
+  box-shadow: inset 0 3px 4px rgba(255, 255, 255, 0.75), inset 0 -3px 4px rgba(0, 0, 0, 0.25);
+}
+
+.lp-node3d-btn--active .lp-node3d-groove,
+.lp-node3d-btn--unlocked .lp-node3d-groove {
+  background: radial-gradient(circle at 40% 35%, #0d9488 0%, #0f766e 100%);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+.lp-node3d-btn--active .lp-node3d-glyph,
+.lp-node3d-btn--unlocked .lp-node3d-glyph {
+  color: #ffffff;
+}
+
+/* --- State: LOCKED (Carved Slate Platform) --- */
+
+.lp-node3d-btn--locked {
+  cursor: pointer;
+}
+
+.lp-node3d-btn--locked .lp-node3d-pedestal {
+  background: #94a3b8;
+  box-shadow: 0 7px 0 #64748b, 0 10px 12px rgba(100, 116, 139, 0.2);
+}
+
+.lp-node3d-btn--locked .lp-node3d-face {
+  background: linear-gradient(145deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%);
+  box-shadow: inset 0 2px 2px rgba(255, 255, 255, 0.7), inset 0 -2px 3px rgba(0, 0, 0, 0.15);
+}
+
+.lp-node3d-btn--locked .lp-node3d-groove {
+  background: radial-gradient(circle at 40% 35%, #e2e8f0 0%, #cbd5e1 100%);
+  box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.18), 0 1px 1px rgba(255, 255, 255, 0.4);
+}
+
+.lp-node3d-btn--locked .lp-node3d-glyph {
+  color: #64748b;
+  filter: drop-shadow(0 1px 1px rgba(255, 255, 255, 0.6));
+}
+
+/* --- Tactile Interactions: Hover Lift & Press Compression --- */
+
+.lp-node3d-btn:not(.lp-node3d-btn--locked):hover .lp-node3d-pedestal {
+  transform: translateY(-4px);
+}
+
+.lp-node3d-btn--completed:hover .lp-node3d-pedestal {
+  box-shadow: 0 13px 0 #094a3a, 0 18px 22px rgba(15, 110, 86, 0.4);
+}
+
+.lp-node3d-btn--active:hover .lp-node3d-pedestal {
+  box-shadow: 0 14px 0 #064e3b, 0 20px 26px rgba(13, 148, 136, 0.45);
+}
+
+.lp-node3d-btn:not(.lp-node3d-btn--locked):hover ~ .lp-node3d-shadow {
+  transform: translateX(-50%) scale(1.08);
   opacity: 0.75;
 }
 
-.lp-chapter__head {
+/* Press depression */
+.lp-node3d-btn:not(.lp-node3d-btn--locked):active .lp-node3d-pedestal {
+  transform: translateY(4px);
+}
+
+.lp-node3d-btn--completed:active .lp-node3d-pedestal {
+  box-shadow: 0 5px 0 #094a3a, 0 8px 10px rgba(15, 110, 86, 0.3);
+}
+
+.lp-node3d-btn--active:active .lp-node3d-pedestal {
+  box-shadow: 0 6px 0 #064e3b, 0 9px 12px rgba(13, 148, 136, 0.35);
+}
+
+.lp-node3d-btn:not(.lp-node3d-btn--locked):active ~ .lp-node3d-shadow {
+  transform: translateX(-50%) scale(0.92);
+  opacity: 0.95;
+}
+
+/* --- Status Jewel Badges --- */
+
+.lp-node3d-status-badge {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.6);
+  z-index: 3;
+}
+
+.lp-node3d-status-badge--completed {
+  background: #10b981;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+}
+
+.lp-node3d-status-badge--locked {
+  background: #64748b;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+}
+
+.lp-node3d-status-badge--active {
+  background: #ffffff;
+  border: 2px solid #14b8a6;
+}
+
+.lp-node3d-beacon-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #14b8a6;
+  animation: lpDotBlink 1.4s ease-in-out infinite;
+}
+
+@keyframes lpDotBlink {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+}
+
+/* --- Upright Under-Node Label --- */
+
+.lp-node3d-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  max-width: 155px;
+  text-align: center;
+}
+
+.lp-node3d-kind-tag {
+  font-family: var(--font-family-mono);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+}
+
+.lp-node3d-kind-tag--theory {
+  background: #f0fdfa;
+  color: #0f766e;
+  border-color: #ccfbf1;
+}
+
+.lp-node3d-kind-tag--practice {
+  background: #f5f3ff;
+  color: #6d28d9;
+  border-color: #ede9fe;
+}
+
+.lp-node3d-title {
+  font-family: var(--font-family-main);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-neutral-900);
+  line-height: 1.35;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.lp-node3d-live-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #0d9488;
+  background: #f0fdfa;
+  padding: 1px 7px;
+  border-radius: 9999px;
+  border: 1px solid #99f6e4;
+}
+
+.lp-node3d-live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #14b8a6;
+  box-shadow: 0 0 6px #14b8a6;
+}
+
+/* =========================================================
+   4. 3D MILESTONE QUIZ PODIUM
+   ========================================================= */
+
+.lp-milestone3d-container {
+  position: absolute;
+  transform: translate(-50%, -46px);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  pointer-events: auto;
+}
+
+.lp-milestone3d-shadow {
+  position: absolute;
+  width: 104px;
+  height: 28px;
+  border-radius: 50%;
+  top: 66px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center, rgba(180, 83, 9, 0.35) 0%, rgba(15, 23, 42, 0.1) 60%, transparent 75%);
+  filter: blur(4px);
+  z-index: 0;
+  pointer-events: none;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.lp-milestone3d-container--locked .lp-milestone3d-shadow {
+  background: radial-gradient(ellipse at center, rgba(15, 23, 42, 0.25) 0%, transparent 70%);
+}
+
+.lp-milestone3d-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  z-index: 2;
+  border-radius: 50%;
+  touch-action: manipulation;
+}
+
+.lp-milestone3d-btn:focus-visible {
+  outline: 3px solid #f59e0b;
+  outline-offset: 6px;
+  border-radius: 50%;
+}
+
+.lp-milestone3d-beacon-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  border: 2.5px solid #fbbf24;
+  pointer-events: none;
+  animation: lpBeaconPulse 2.4s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+  z-index: 1;
+}
+
+.lp-milestone3d-pedestal {
+  position: relative;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.lp-milestone3d-face {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.lp-milestone3d-groove {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lp-milestone3d-glyph {
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.35));
+}
+
+/* Milestone: Gold Unlocked / Completed */
+
+.lp-milestone3d-btn--completed .lp-milestone3d-pedestal,
+.lp-milestone3d-btn--unlocked .lp-milestone3d-pedestal {
+  background: #b45309;
+  box-shadow: 0 12px 0 #78350f, 0 18px 24px rgba(180, 83, 9, 0.38);
+}
+
+.lp-milestone3d-btn--completed .lp-milestone3d-face,
+.lp-milestone3d-btn--unlocked .lp-milestone3d-face {
+  background: linear-gradient(145deg, #fef08a 0%, #facc15 35%, #eab308 70%, #ca8a04 100%);
+  box-shadow: inset 0 3px 5px rgba(255, 255, 255, 0.85), inset 0 -3px 5px rgba(0, 0, 0, 0.3);
+}
+
+.lp-milestone3d-btn--completed .lp-milestone3d-groove,
+.lp-milestone3d-btn--unlocked .lp-milestone3d-groove {
+  background: radial-gradient(circle at 40% 35%, #eab308 0%, #a16207 100%);
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.35), 0 1px 2px rgba(255, 255, 255, 0.6);
+}
+
+.lp-milestone3d-btn--completed .lp-milestone3d-glyph,
+.lp-milestone3d-btn--unlocked .lp-milestone3d-glyph {
+  color: #78350f;
+}
+
+/* Milestone: Locked Slate */
+
+.lp-milestone3d-btn--locked .lp-milestone3d-pedestal {
+  background: #94a3b8;
+  box-shadow: 0 8px 0 #64748b, 0 12px 16px rgba(100, 116, 139, 0.25);
+}
+
+.lp-milestone3d-btn--locked .lp-milestone3d-face {
+  background: linear-gradient(145deg, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%);
+  box-shadow: inset 0 2.5px 3px rgba(255, 255, 255, 0.7), inset 0 -2.5px 3px rgba(0, 0, 0, 0.2);
+}
+
+.lp-milestone3d-btn--locked .lp-milestone3d-groove {
+  background: radial-gradient(circle at 40% 35%, #e2e8f0 0%, #cbd5e1 100%);
+  box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.2), 0 1px 1px rgba(255, 255, 255, 0.4);
+}
+
+.lp-milestone3d-btn--locked .lp-milestone3d-glyph {
+  color: #64748b;
+  filter: drop-shadow(0 1px 1px rgba(255, 255, 255, 0.6));
+}
+
+/* Milestone Hover & Press */
+
+.lp-milestone3d-btn:not(.lp-milestone3d-btn--locked):hover .lp-milestone3d-pedestal {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 0 #78350f, 0 22px 28px rgba(180, 83, 9, 0.45);
+}
+
+.lp-milestone3d-btn:not(.lp-milestone3d-btn--locked):active .lp-milestone3d-pedestal {
+  transform: translateY(4px);
+  box-shadow: 0 7px 0 #78350f, 0 10px 14px rgba(180, 83, 9, 0.35);
+}
+
+/* Milestone Badges */
+
+.lp-milestone3d-badge {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.7);
+  z-index: 3;
+}
+
+.lp-milestone3d-badge--completed {
+  background: #10b981;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+}
+
+.lp-milestone3d-badge--ready {
+  background: #f59e0b;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+}
+
+.lp-milestone3d-badge--locked {
+  background: #64748b;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+}
+
+/* Milestone Label */
+
+.lp-milestone3d-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  max-width: 220px;
+  text-align: center;
+}
+
+.lp-milestone3d-tag {
+  font-family: var(--font-family-mono);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 2px 10px;
+  border-radius: 9999px;
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
+}
+
+.lp-milestone3d-title {
+  font-family: var(--font-family-main);
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--color-neutral-900);
+}
+
+.lp-milestone3d-meta {
+  font-family: var(--font-family-mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+}
+
+/* =========================================================
+   5. INTERACTIVE DETAILS POPOVER / BOTTOM SHEET
+   ========================================================= */
+
+.lp-popover-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: lpOverlayFadeIn 0.2s ease;
+}
+
+@keyframes lpOverlayFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.lp-popover-card {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  background: var(--color-white);
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 20px 40px -8px rgba(15, 23, 42, 0.25), 0 1px 3px rgba(15, 23, 42, 0.1);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-sizing: border-box;
+  animation: lpCardPop 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.lp-popover-card--milestone {
+  border-color: #fde68a;
+}
+
+@keyframes lpCardPop {
+  from {
+    transform: scale(0.92) translateY(12px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+.lp-popover-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: var(--space-1);
-  flex-wrap: wrap;
-  gap: var(--space-1);
 }
 
-.lp-chapter__tag,
-.lp-chapter__status {
-  padding: var(--space-1) var(--space-2);
-  border-radius: 20px;
-  font-size: var(--font-size-caption);
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  background: color-mix(in srgb, var(--color-white) 22%, transparent);
-}
-
-.lp-chapter--locked .lp-chapter__tag,
-.lp-chapter--locked .lp-chapter__status {
-  background: color-mix(in srgb, var(--color-neutral-600) 16%, transparent);
-}
-
-.lp-chapter__title {
-  font-family: var(--font-family-main);
-  font-size: var(--font-size-h3);
-  font-weight: 700;
-  line-height: 1.25;
-  margin: 0;
-  overflow-wrap: anywhere;
-}
-
-.lp-chapter__desc {
-  font-family: var(--font-family-body);
-  font-size: var(--font-size-caption);
-  line-height: 1.4;
-  margin: var(--space-1) 0 var(--space-2);
-  opacity: 0.9;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.lp-chapter--locked .lp-chapter__desc {
-  opacity: 0.75;
-}
-
-.lp-chapter__foot {
+.lp-popover-badges {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
+  gap: 8px;
 }
 
-.lp-chapter__bar {
-  flex: 1;
-  height: 6px;
-  border-radius: 20px;
-  background: color-mix(in srgb, var(--color-white) 28%, transparent);
-  overflow: hidden;
-}
-
-.lp-chapter--locked .lp-chapter__bar {
-  background: color-mix(in srgb, var(--color-neutral-600) 18%, transparent);
-}
-
-.lp-chapter__bar i {
-  display: block;
-  height: 100%;
-  border-radius: 20px;
-  background: var(--color-white);
-  transition: width var(--duration-slow) var(--ease-standard);
-}
-
-.lp-chapter__count {
-  font-size: var(--font-size-caption);
-  font-weight: 700;
-  white-space: nowrap;
-
+.lp-popover-kind-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   font-family: var(--font-family-mono);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  padding: 4px 10px;
+  border-radius: 9999px;
 }
 
-/* =========================================================
-   NODE QUIZ CUỐI CHƯƠNG
-   ========================================================= */
+.lp-popover-kind-tag--theory {
+  background: #f0fdfa;
+  color: #0f766e;
+  border: 1px solid #ccfbf1;
+}
 
-.lp-quiz {
+.lp-popover-kind-tag--practice {
+  background: #f5f3ff;
+  color: #6d28d9;
+  border: 1px solid #ede9fe;
+}
+
+.lp-popover-kind-tag--milestone {
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
+}
+
+.lp-popover-step-num {
+  font-family: var(--font-family-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: #64748b;
+}
+
+.lp-popover-close-btn {
+  background: #f1f5f9;
+  border: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-2) var(--space-4) var(--space-2) var(--space-3);
-  border-radius: 18px;
+  justify-content: center;
+  color: #64748b;
   cursor: pointer;
-  box-shadow: var(--shadow-lg);
-  transition: transform var(--duration-base) var(--ease-standard);
-  max-width: 100%;
+  transition: all 0.15s ease;
+}
+
+.lp-popover-close-btn:hover {
+  background: #e2e8f0;
+  color: #1e293b;
+}
+
+.lp-popover-close-btn:focus-visible {
+  outline: 2px solid #14b8a6;
+  outline-offset: 2px;
+}
+
+.lp-popover-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.lp-popover-chapter-tag {
+  font-family: var(--font-family-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-teal-700);
+  text-transform: uppercase;
+}
+
+.lp-popover-title {
+  font-family: var(--font-family-main);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--color-neutral-900);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.lp-popover-desc {
+  font-family: var(--font-family-body);
+  font-size: 13.5px;
+  color: #475569;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.lp-popover-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.lp-popover-stat-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-family-mono);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #334155;
+}
+
+.lp-popover-status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 8px;
+}
+
+.lp-popover-status-chip--completed {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.lp-popover-status-chip--active,
+.lp-popover-status-chip--unlocked {
+  background: #ccfbf1;
+  color: #0f766e;
+}
+
+.lp-popover-status-chip--locked {
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+.lp-popover-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #fffbeb;
+  border: 1px solid #fef3c7;
+}
+
+.lp-popover-alert-icon {
+  color: #d97706;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.lp-popover-alert-text {
+  font-size: 12.5px;
+  color: #92400e;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.lp-popover-footer {
+  margin-top: 4px;
+}
+
+.lp-popover-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px 18px;
+  border-radius: 14px;
+  font-family: var(--font-family-body);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  text-decoration: none;
   box-sizing: border-box;
 }
 
-a:hover > .lp-quiz {
-  transform: scale(1.04);
+.lp-popover-btn--primary {
+  background: linear-gradient(135deg, #10b981 0%, #0d9488 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.35);
 }
 
-.lp-quiz--completed {
-  background: var(--color-teal-600);
+.lp-popover-btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.45);
 }
 
-.lp-quiz--active {
-  animation: none;
-  background: var(--color-teal-50);
-  border-color: var(--color-teal-600);
-  color: var(--color-teal-800);
+.lp-popover-btn--review {
+  background: #f0fdf4;
+  color: #065f46;
+  border: 1.5px solid #a7f3d0;
 }
 
-.lp-quiz--locked {
-  background: var(--color-neutral-100);
+.lp-popover-btn--review:hover {
+  background: #dcfce7;
+  transform: translateY(-2px);
+}
+
+.lp-popover-btn--milestone {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.35);
+}
+
+.lp-popover-btn--milestone:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(217, 119, 6, 0.45);
+}
+
+.lp-popover-btn--disabled {
+  background: #f1f5f9;
+  color: #94a3b8;
   cursor: not-allowed;
   box-shadow: none;
 }
 
-a:hover > .lp-quiz--locked {
-  transform: scale(1);
-}
-
-.lp-quiz__icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 14px;
-  background: color-mix(in srgb, var(--color-white) 22%, transparent);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-white);
-  flex-shrink: 0;
-}
-
-.lp-quiz--locked .lp-quiz__icon {
-  background: color-mix(in srgb, var(--color-neutral-600) 16%, transparent);
-  color: var(--color-neutral-700);
-}
-
-.lp-quiz__body {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-  color: var(--color-white);
-  min-width: 0;
-}
-
-.lp-quiz__title {
-  font-family: var(--font-family-body);
-  font-size: var(--font-size-caption);
-  font-weight: 700;
-  white-space: normal;
-  overflow-wrap: anywhere;
-}
-
-.lp-quiz__meta {
-  font-family: var(--font-family-mono);
-  font-size: var(--font-size-caption);
-  font-weight: 600;
-  color: color-mix(in srgb, var(--color-white) 92%, transparent);
-  white-space: normal;
-  overflow-wrap: anywhere;
-}
-
-.lp-quiz--locked .lp-quiz__title {
-  color: var(--color-neutral-700);
-}
-
-.lp-quiz--locked .lp-quiz__meta {
-  color: var(--color-neutral-700);
-}
-
 /* =========================================================
-   TOOLTIP CARD  (node đang học)
+   6. FLOATING SHORTCUT: RETURN TO ACTIVE LESSON
    ========================================================= */
 
-.lp-tooltip {
-  position: absolute;
-  top: -6px;
-  right: calc(100% + 18px);
-  width: 232px;
-  background: var(--color-white);
-  border: 1px solid var(--color-neutral-50);
-  border-radius: 14px;
-  padding: var(--space-3) var(--space-4);
-  box-shadow: var(--shadow-lg);
-  z-index: 20;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-}
-
-.lp-tooltip::before {
-  content: "";
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  background: var(--color-white);
-  border-right: 1px solid var(--color-neutral-50);
-  border-top: 1px solid var(--color-neutral-50);
-  top: -6px;
-  right: calc(50% - 6px);
-  transform: rotate(-45deg);
-}
-
-.lp-tooltip__title {
-  font-family: var(--font-family-main);
-  font-size: var(--font-size-body);
-  font-weight: 700;
-  color: var(--color-neutral-900);
-  margin: 0;
-}
-
-.lp-tooltip__desc {
-  font-family: var(--font-family-body);
-  font-size: var(--font-size-caption);
-  color: var(--color-neutral-700);
-  line-height: 1.4;
-  margin: 0;
-}
-
-.lp-tooltip__meta {
-  display: flex;
-  gap: var(--space-3);
-  font-family: var(--font-family-mono);
-  font-size: var(--font-size-caption);
-  font-weight: 600;
-}
-
-.lp-tooltip__time {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-1);
-
-  font-family: var(--font-family-mono);
-  color: var(--color-neutral-700);
-}
-
-.lp-tooltip__xp {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-1);
-
-  font-family: var(--font-family-mono);
-
-  color: var(--color-teal-800);
-}
-
-.lp-tooltip__btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-1);
-  width: 100%;
-  padding: var(--space-2) 0;
-  border-radius: 10px;
-  font-family: var(--font-family-body);
-  font-size: var(--text-sm);
-  font-weight: 700;
-  cursor: pointer;
-  transition: transform var(--duration-fast) var(--ease-standard);
-  text-decoration: none;
-  background: var(--color-white);
-  color: var(--color-teal-800);
-  border: 1px solid var(--color-teal-600);
-}
-
-.lp-tooltip__btn:hover {
-  transform: translateY(-1px);
-  background: var(--color-teal-50);
-}
-
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
-
-.lp-curve__chapter {
-  min-width: 0;
-  container-type: inline-size;
-}
-
-.lp-curve__chapter .lp-chapter {
-  position: relative;
-  transform: none;
-  width: 100%;
-  max-width: none;
-  box-sizing: border-box;
-}
-
-.lp-curve__lessons {
-  position: relative;
-}
-
-.lp-curve__bridge {
-  position: relative;
-  height: 150px;
-}
-
-.lp-curve__lessons .lp-node {
-  width: 40%;
-  max-width: 180px;
-  transform: translate(-50%, -28px);
-}
-
-.lp-quiz-row {
-  display: flex;
-  justify-content: center;
-  position: relative;
-}
-
-.lp-quiz-row .lp-node__link {
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
-.lp-curve__chapter .lp-tooltip {
-  top: 116px;
-  right: auto;
+.lp-jump-to-current {
+  position: fixed;
+  bottom: 24px;
   left: 50%;
   transform: translateX(-50%);
-  width: min(260px, 90cqw);
-  box-sizing: border-box;
-}
-.lp-node__ring {
-  position: absolute;
-  inset: -6px;
-  border-radius: inherit;
-  pointer-events: none;
-}
-.lp-quiz--active .lp-quiz__icon {
-  background: var(--color-teal-700);
-  color: var(--color-white);
-}
-
-/* Paired learning steps keep the existing S-shaped map. */
-.lp-node__title {
-  position: relative;
-  z-index: 1;
-  padding: 3px 8px;
-  border-radius: var(--radius-sm);
-  background: var(--color-white);
-  max-width: 180px;
-  text-align: center;
-  line-height: 1.4;
-  white-space: normal;
-  font-size: 14px;
-  font-weight: 800;
-  color: var(--color-teal-800);
-}
-.lp-node__hint {
-  font-size: var(--font-size-caption);
-  line-height: 1.4;
-  color: var(--color-neutral-700);
-  text-align: center;
-  max-width: 155px;
-}
-.lp-node__badge {
-  position: absolute;
-  bottom: -5px;
-  right: -5px;
-  background: var(--color-white);
-  color: var(--color-teal-800);
-  border-radius: 50%;
-  padding: var(--space-1);
-  box-sizing: content-box;
-}
-.lp-node__icon--locked .lp-node__badge {
-  color: var(--color-neutral-700);
-}
-.lp-node--step .lp-node__link {
-  gap: var(--space-2);
-  padding: var(--space-1);
-  border-radius: var(--radius-md);
-}
-.lp-node--step .lp-node__label {
-  display: block;
-  overflow: visible;
-}
-.lp-node--step a:focus-visible {
-  outline: 2px solid var(--color-teal-500);
-  outline-offset: 2px;
-}
-.lp-quiz--active .lp-quiz__body,
-.lp-quiz--active .lp-quiz__meta {
-  color: var(--color-teal-800);
+  z-index: 90;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: #0f766e;
+  color: #ffffff;
+  font-family: var(--font-family-body);
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 9999px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 24px rgba(15, 118, 110, 0.4), 0 2px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: lpJumpEntrance 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-@media (max-width: 1024px) {
-  .lp-curve {
-    max-width: 560px;
+@keyframes lpJumpEntrance {
+  from {
+    transform: translateX(-50%) translateY(20px);
+    opacity: 0;
   }
-
-  .lp-tooltip {
-    width: 200px;
-    padding: var(--space-3);
-  }
-
-  .lp-chapter {
-    width: 62%;
-    padding: var(--space-2) var(--space-3) var(--space-3);
-  }
-
-  .lp-chapter__title {
-    font-size: var(--font-size-h3);
+  to {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
   }
 }
+
+.lp-jump-to-current:hover {
+  background: #115e59;
+  transform: translateX(-50%) translateY(-2px);
+  box-shadow: 0 12px 28px rgba(15, 118, 110, 0.5);
+}
+
+.lp-jump-sparkle {
+  color: #fde047;
+  animation: lpSparkleSpin 3s linear infinite;
+}
+
+@keyframes lpSparkleSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.lp-jump-arrow {
+  color: rgba(255, 255, 255, 0.85);
+  animation: lpArrowBounce 1.5s ease-in-out infinite;
+}
+
+@keyframes lpArrowBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(3px); }
+}
+
+/* =========================================================
+   7. RESPONSIVE OPTIMIZATIONS (TABLET & MOBILE)
+   ========================================================= */
 
 @media (max-width: 640px) {
-  .lp-chapter__desc {
-    display: none;
+  .lp-journey-container {
+    max-width: 100%;
+    margin-top: var(--space-3);
+  }
+
+  .lp-chapter3d {
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    border-radius: 16px;
+  }
+
+  .lp-chapter3d__title {
+    font-size: 1.1rem;
+  }
+
+  /* Compact 3D Nodes for Mobile */
+  .lp-node3d-container {
+    transform: translate(-50%, -34px);
+  }
+
+  .lp-node3d-pedestal {
+    width: 62px;
+    height: 62px;
+  }
+
+  .lp-node3d-groove {
+    width: 44px;
+    height: 44px;
+  }
+
+  .lp-node3d-shadow {
+    width: 74px;
+    height: 20px;
+    top: 48px;
+  }
+
+  .lp-node3d-beacon-ring {
+    width: 62px;
+    height: 62px;
+  }
+
+  .lp-node3d-title {
+    max-width: 130px;
+    font-size: 12px;
+  }
+
+  /* Milestone Mobile */
+  .lp-milestone3d-container {
+    transform: translate(-50%, -40px);
+  }
+
+  .lp-milestone3d-pedestal {
+    width: 76px;
+    height: 76px;
+  }
+
+  .lp-milestone3d-groove {
+    width: 54px;
+    height: 54px;
+  }
+
+  .lp-milestone3d-shadow {
+    width: 90px;
+    height: 24px;
+    top: 58px;
+  }
+
+  /* Mobile Bottom Sheet */
+  .lp-popover-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .lp-popover-card {
+    max-width: 100%;
+    border-radius: 24px 24px 0 0;
+    padding: 20px 20px 32px;
+    animation: lpBottomSheetUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes lpBottomSheetUp {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  .lp-jump-to-current {
+    bottom: 18px;
+    padding: 8px 16px;
+    font-size: 12px;
   }
 }
+
+/* =========================================================
+   8. ACCESSIBILITY: REDUCED MOTION
+   ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
-  .lp-curve *,
-  .lp-curve *::before,
-  .lp-curve *::after {
-    animation: none;
-    transition: none;
-  }
-}
-
-@media (max-width: 768px) {
-  .lp-node--step .lp-node__label {
-    max-width: 180px;
-    width: 100%;
-    display: block;
-    overflow: visible;
-    -webkit-line-clamp: unset;
-  }
-  .lp-curve__chapter .lp-tooltip {
-    max-width: calc(100vw - 32px);
-    width: min(260px, 90cqw);
+  .lp-journey-container *,
+  .lp-journey-container *::before,
+  .lp-journey-container *::after {
+    animation: none !important;
+    transition: none !important;
   }
 }

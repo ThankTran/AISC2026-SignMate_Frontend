@@ -123,6 +123,18 @@ export default function ProfilePage() {
     [error, setError] = useState("");
   const [privacyDraft, setPrivacyDraft] = useState(null);
   const busy = useRef(false);
+  const accountId = current.id || current.uid || "";
+  const accountIdInput = useRef(null);
+  async function copyAccountId() {
+    try {
+      await navigator.clipboard.writeText(accountId);
+      toast({ type: "success", message: "Đã sao chép ID tài khoản." });
+    } catch {
+      accountIdInput.current?.focus();
+      accountIdInput.current?.select();
+      toast({ type: "info", message: "ID đã được chọn. Nhấn Ctrl+C hoặc giữ để sao chép." });
+    }
+  }
   const profile = {
     name: current.displayName,
     bio: current.bio ?? storedProfile?.bio ?? "",
@@ -201,6 +213,18 @@ export default function ProfilePage() {
           <Avatar user={current} size="xl" />
           <div>
             <h2 className="text-h2">{current.displayName}</h2>
+            {accountId && (
+              <div className="pf-account-id">
+                <label htmlFor="profile-account-id">ID tài khoản</label>
+                <div>
+                  <input id="profile-account-id" ref={accountIdInput} value={accountId} readOnly />
+                  <button type="button" onClick={copyAccountId}>
+                    Sao chép ID
+                  </button>
+                </div>
+                <p>Chia sẻ ID này để người khác tìm và kết bạn với bạn.</p>
+              </div>
+            )}
             <LevelBadges user={current} />
           </div>
         </div>

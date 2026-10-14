@@ -11,6 +11,7 @@ import { adaptAppointments } from "../api/appointmentAdapter";
 import {
   incomingScheduleRequestsData,
   incomingFriendRequestsData,
+  outgoingFriendRequestsData,
   scheduledSessionsData,
   friendsListData,
 } from "../mockdata";
@@ -18,6 +19,7 @@ import {
 const loadFriends = async () => ({
   friends: friendsListData,
   incomingRequests: incomingFriendRequestsData,
+  outgoingRequests: outgoingFriendRequestsData,
   incomingScheduleRequests: incomingScheduleRequestsData,
   scheduledSessions: scheduledSessionsData,
 });
@@ -28,11 +30,12 @@ function MockFriendsProvider({ children, loader = loadFriends }) {
     [revision, setRevision] = useState(0);
   const [friends, setFriends] = useState(friendsListData),
     [incomingRequests, setIncomingRequests] = useState(incomingFriendRequestsData),
+    [outgoingRequests, setOutgoingRequests] = useState(outgoingFriendRequestsData),
     [incomingScheduleRequests, setIncomingScheduleRequests] = useState(
       incomingScheduleRequestsData,
     ),
     [scheduledSessions, setScheduledSessions] = useState(scheduledSessionsData),
-    [sentRequests, setSentRequests] = useState([]);
+    [sentRequests, setSentRequests] = useState(["out-req-1", "out-req-2"]);
 
   useEffect(() => {
     let active = true;
@@ -42,6 +45,7 @@ function MockFriendsProvider({ children, loader = loadFriends }) {
         if (active) {
           setFriends(data.friends);
           setIncomingRequests(data.incomingRequests);
+          setOutgoingRequests(data.outgoingRequests || outgoingFriendRequestsData);
           setIncomingScheduleRequests(data.incomingScheduleRequests);
           setScheduledSessions(data.scheduledSessions);
           setStatus("ready");
@@ -61,10 +65,34 @@ function MockFriendsProvider({ children, loader = loadFriends }) {
     };
   }, [loader, revision]);
 
-  const addFriend = useCallback(
-    (id) => setSentRequests((current) => (current.includes(id) ? current : [...current, id])),
-    [],
-  );
+  const addFriend = useCallback((id) => {
+    setSentRequests((current) => (current.includes(id) ? current : [...current, id]));
+    setOutgoingRequests((prev) => {
+      if (prev.some((r) => r.id === id)) return prev;
+      return [
+        {
+          id,
+          name: `Người học #${id}`,
+          avatar: `https://i.pravatar.cc/150?u=${id}`,
+          mutualFriends: 0,
+          requestedAt: "Vừa xong",
+          statusText: "Đang chờ chấp nhận",
+          isOnline: false,
+        },
+        ...prev,
+      ];
+    });
+  }, []);
+
+  const removeFriend = useCallback((friendId) => {
+    setFriends((prev) => prev.filter((f) => f.id !== friendId));
+  }, []);
+
+  const cancelSentRequest = useCallback((requestId) => {
+    setOutgoingRequests((prev) => prev.filter((r) => r.id !== requestId));
+    setSentRequests((prev) => prev.filter((id) => id !== requestId));
+  }, []);
+
   const retry = useCallback(() => setRevision((value) => value + 1), []);
   const value = useMemo(
     () => ({
@@ -76,12 +104,16 @@ function MockFriendsProvider({ children, loader = loadFriends }) {
       setFriends,
       incomingRequests,
       setIncomingRequests,
+      outgoingRequests,
+      setOutgoingRequests,
       incomingScheduleRequests,
       setIncomingScheduleRequests,
       scheduledSessions,
       setScheduledSessions,
       sentRequests,
       addFriend,
+      removeFriend,
+      cancelSentRequest,
     }),
     [
       status,
@@ -89,10 +121,13 @@ function MockFriendsProvider({ children, loader = loadFriends }) {
       retry,
       friends,
       incomingRequests,
+      outgoingRequests,
       incomingScheduleRequests,
       scheduledSessions,
       sentRequests,
       addFriend,
+      removeFriend,
+      cancelSentRequest,
     ],
   );
 
@@ -211,6 +246,24 @@ function ServerFriendsProvider({ children }) {
     },
     [retry],
   );
+  const removeFriend = useCallback(
+    async (friendId) => {
+      await socialApi.remove(friendId);
+      retry();
+    },
+    [retry],
+  );
+  const cancelSentRequest = useCallback(
+    async (requestId) => {
+      try {
+        await socialApi.decide(requestId, "cancel");
+      } catch {
+        await socialApi.remove(requestId);
+      }
+      retry();
+    },
+    [retry],
+  );
   const context = useMemo(
     () => ({
       ...value,
@@ -220,6 +273,8 @@ function ServerFriendsProvider({ children }) {
       retry,
       sentRequests: value.outgoingRequests.map((row) => row.id),
       addFriend,
+      removeFriend,
+      cancelSentRequest,
       decideRequest,
       createSchedule,
       decideSchedule,
@@ -228,7 +283,19 @@ function ServerFriendsProvider({ children }) {
       setIncomingScheduleRequests: unchanged,
       setScheduledSessions: unchanged,
     }),
-    [value, enabled, error, data, retry, addFriend, decideRequest, createSchedule, decideSchedule],
+    [
+      value,
+      enabled,
+      error,
+      data,
+      retry,
+      addFriend,
+      removeFriend,
+      cancelSentRequest,
+      decideRequest,
+      createSchedule,
+      decideSchedule,
+    ],
   );
 
   return <FriendsContext.Provider value={context}>{children}</FriendsContext.Provider>;
