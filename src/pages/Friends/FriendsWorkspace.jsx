@@ -4,7 +4,7 @@ import Modal from "../../components/ui/Modal";
 import { useToast } from "../../hooks/useToast";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { X, Calendar, Check, Clock, Plus } from "lucide-react";
+import { X, Calendar, Check, Clock, Plus, UserMinus, Users, UserPlus, CalendarDays } from "lucide-react";
 
 import { recentCallsData } from "../../mockdata";
 import {
@@ -34,6 +34,10 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
     setFriends,
     incomingRequests,
     setIncomingRequests,
+    outgoingRequests = [],
+    setOutgoingRequests,
+    removeFriend,
+    cancelSentRequest,
     incomingScheduleRequests,
     setIncomingScheduleRequests,
     scheduledSessions,
@@ -41,6 +45,51 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
     sentRequests: requestedCallIds,
     addFriend,
   } = useFriends();
+  const [removeFriendTarget, setRemoveFriendTarget] = useState(null);
+  const [isRemovingFriend, setIsRemovingFriend] = useState(false);
+
+  const handleRemoveFriend = (friend) => {
+    setRemoveFriendTarget(friend);
+  };
+
+  const handleConfirmRemoveFriend = async () => {
+    if (!removeFriendTarget || isRemovingFriend) return;
+    setIsRemovingFriend(true);
+    const target = removeFriendTarget;
+    try {
+      if (removeFriend) {
+        await removeFriend(target.friendshipId || target.id);
+      } else {
+        setFriends((prev) => prev.filter((f) => f.id !== target.id));
+      }
+      toast({
+        type: "info",
+        message: `Đã hủy kết bạn với ${target.name}.`,
+      });
+      setRemoveFriendTarget(null);
+    } catch (err) {
+      toast({ type: "error", error: err });
+    } finally {
+      setIsRemovingFriend(false);
+    }
+  };
+
+  const handleCancelSentRequest = async (requestId) => {
+    try {
+      if (cancelSentRequest) {
+        await cancelSentRequest(requestId);
+      } else {
+        setOutgoingRequests?.((prev) => prev.filter((r) => r.id !== requestId));
+      }
+      toast({
+        type: "info",
+        message: "Đã hủy lời mời kết bạn.",
+      });
+    } catch (err) {
+      toast({ type: "error", error: err });
+    }
+  };
+
   const [scheduleBusy, setScheduleBusy] = useState(false);
   const scheduleBusyRef = useRef(false);
   const navigate = useNavigate();
@@ -565,13 +614,37 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
       </div>
 
       <nav className="friends-directory-nav" aria-label="Các trang bạn bè">
-        <NavLink to="/friends/list">
-          Bạn bè <span>{friends.length}</span>
+        <NavLink to="/friends/list" className={({ isActive }) => (isActive ? "active" : "")}>
+          <Users size={17} strokeWidth={2} />
+          <span>Bạn bè</span>
+          <span className="friends-directory-nav__count">{friends.length}</span>
         </NavLink>
-        <NavLink to="/friends/friend-requests">
-          Lời mời kết bạn <span>{incomingRequests.length}</span>
+        <NavLink
+          to="/friends/friend-requests"
+          className={({ isActive }) => (isActive ? "active" : "")}
+        >
+          <UserPlus size={17} strokeWidth={2} />
+          <span>Lời mời kết bạn</span>
+          {incomingRequests.length > 0 ? (
+            <span className="friends-directory-nav__count friends-directory-nav__count--alert">
+              {incomingRequests.length}
+            </span>
+          ) : (
+            <span className="friends-directory-nav__count">{incomingRequests.length}</span>
+          )}
         </NavLink>
-        <NavLink to="/friends/video-call-invites">Lịch luyện tập</NavLink>
+        <NavLink
+          to="/friends/video-call-invites"
+          className={({ isActive }) => (isActive ? "active" : "")}
+        >
+          <CalendarDays size={17} strokeWidth={2} />
+          <span>Lịch luyện tập</span>
+          {incomingScheduleRequests.length > 0 && (
+            <span className="friends-directory-nav__count friends-directory-nav__count--accent">
+              {incomingScheduleRequests.length}
+            </span>
+          )}
+        </NavLink>
       </nav>
 
       <DataState status={status} error={error} retry={retry}>
@@ -589,6 +662,7 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
             requestingCallId,
             requestedCallIds,
             showCallHistory,
+            friends,
             filteredFriends,
             selectedFriendFilterLabel,
             friendFilter,
@@ -600,8 +674,11 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
             setVisibleFriendCount,
             handleSchedule,
             handleCall,
+            handleRemoveFriend,
             isFriendRequestsView,
             incomingRequests,
+            outgoingRequests,
+            handleCancelSentRequest,
             visibleRequests,
             handleAcceptRequest,
             handleDeclineRequest,
@@ -854,6 +931,48 @@ const FriendsWorkspace = ({ view = "list", Content }) => {
               </form>
             </>
           )}
+        </Modal>
+      )}
+
+      {/* Modal xác nhận Hủy kết bạn */}
+      {removeFriendTarget && (
+        <Modal
+          className="confirm-modal__panel"
+          labelledBy="confirm-unfriend-title"
+          onClose={() => !isRemovingFriend && setRemoveFriendTarget(null)}
+        >
+          <div className="confirm-modal__header">
+            <div className="confirm-modal__icon">
+              <UserMinus size={22} strokeWidth={2} />
+            </div>
+            <div>
+              <h2 id="confirm-unfriend-title" className="confirm-modal__title text-h2">
+                Hủy kết bạn với {removeFriendTarget.name}?
+              </h2>
+              <p className="confirm-modal__text">
+                {removeFriendTarget.name} sẽ không còn trong danh sách bạn bè của bạn. Bạn vẫn có thể tìm kiếm và gửi lại lời mời kết bạn bất kỳ lúc nào.
+              </p>
+            </div>
+          </div>
+
+          <div className="confirm-modal__actions">
+            <button
+              type="button"
+              className="confirm-modal__btn-cancel"
+              disabled={isRemovingFriend}
+              onClick={() => setRemoveFriendTarget(null)}
+            >
+              Giữ lại
+            </button>
+            <button
+              type="button"
+              className="confirm-modal__btn-confirm"
+              disabled={isRemovingFriend}
+              onClick={handleConfirmRemoveFriend}
+            >
+              {isRemovingFriend ? "Đang xử lý…" : "Xác nhận hủy kết bạn"}
+            </button>
+          </div>
         </Modal>
       )}
     </div>

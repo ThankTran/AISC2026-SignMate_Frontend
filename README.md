@@ -19,7 +19,7 @@ These instructions use **Windows + PowerShell**.
 | Java JDK | 17; set `JAVA_HOME` to the JDK folder |
 | Python | 3.11, 64-bit; add to PATH |
 
-Internet access is required for dependencies, AI models, and the video dataset. The local backend uses **H2**, so PostgreSQL is not required for this setup.
+Internet access is required for dependencies, AI models, the video dataset, and the shared **Supabase PostgreSQL** database. Each machine runs its own backend; all backends connect to the same online database. You do not need a local PostgreSQL server for this setup.
 
 | Repository | Service | Port |
 | --- | --- | --- |
@@ -49,8 +49,12 @@ For each step below, open a **separate terminal from that parent folder** and ke
 
 ```powershell
 cd AISC2026-SignMate_Backend
-powershell -ExecutionPolicy Bypass -File .\run-local.ps1
+powershell -ExecutionPolicy Bypass -File .\run-supabase.ps1
 ```
+
+Use an updated backend checkout containing `run-supabase.ps1`. Enter the shared **Supabase database password** in the PowerShell credential prompt; obtain it privately from the project maintainer. This is not your SignMate account password or your local PostgreSQL password. Do not commit it or put it in frontend environment variables.
+
+The script uses the shared Session pooler on port `5432`, checks authentication with `psql` when installed, and starts the backend on `localhost:8080`. It resolves the existing V2 migration imported from the local database. Do not run setup or migration scripts on every machine: transferring the original database is a one-time maintainer task.
 
 ✅ [Backend health](http://localhost:8080/actuator/health) should return `"status":"UP"`.
 
@@ -97,8 +101,8 @@ Download the dataset and start the API:
 ```powershell
 cd AISC2026-SignMate_Frontend
 npm ci
-if (-not (Test-Path .env)) { Copy-Item .env.example .env }
-notepad .env
+if (-not (Test-Path .env.local)) { Copy-Item .env.example .env.local }
+notepad .env.local
 ```
 
 Set these values and save. Leave the two AI URLs empty to use the local proxy:
@@ -107,6 +111,7 @@ Set these values and save. Leave the two AI URLs empty to use the local proxy:
 VITE_API_BASE_URL=http://localhost:8080
 VITE_USE_MOCK=false
 VITE_DEMO=false
+VITE_VIDEO_CALL_MODE=real
 VITE_HANDSIGN_API_URL=
 VITE_VSL_API_URL=
 ```
@@ -115,7 +120,7 @@ VITE_VSL_API_URL=
 npm run dev -- --port 5173 --strictPort
 ```
 
-🎉 Open **[http://localhost:5173](http://localhost:5173)**, register an email/password account, and allow camera/microphone access when prompted.
+🎉 Open **[http://localhost:5173](http://localhost:5173)**, sign in with an existing shared account or register a new one, and allow camera/microphone access when prompted. Keep `VITE_VIDEO_CALL_MODE=real` when testing calls between users; `auto` simulates calls in development. Calls across different networks may also require a TURN relay.
 
 ## 3. ⚡ Run again
 
@@ -123,14 +128,14 @@ After the first setup, run these commands in separate terminals **inside the cor
 
 | Repository | Command |
 | --- | --- |
-| Backend | `powershell -ExecutionPolicy Bypass -File .\run-local.ps1` |
+| Backend | `powershell -ExecutionPolicy Bypass -File .\run-supabase.ps1` |
 | HandSign | `powershell -ExecutionPolicy Bypass -File .\run-api.ps1` |
 | fast-api-trans-vsl | `.\.venv\Scripts\python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8000` |
 | Frontend | `npm run dev -- --port 5173 --strictPort` |
 
 Open **[localhost:5173](http://localhost:5173)**. Press `Ctrl+C` in each terminal to stop.
 
-To update: stop the services, run `git pull` in each repository, and reinstall dependencies if their files changed. Keep the backend's `data/` folder to preserve local accounts and progress.
+To update: stop the services, run `git pull` in each repository, and reinstall dependencies if their files changed (`npm ci` for the frontend). All machines should use the same backend version. Accounts and progress are stored in the shared Supabase database; cloning a repository does not copy or merge a separate local database.
 
 ## 4. 📦 Build & preview
 
@@ -160,9 +165,13 @@ Open **[localhost:5173](http://localhost:5173)**. Keep the backend and both AI s
 
 The frontend build contains only the web interface; deploy the backend and AI services separately. Never put API keys or server passwords in `VITE_*` variables or commit `.env` files.
 
-## 5. 🗄️ PostgreSQL or Docker
+## 5. 🗄️ Optional isolated local databases
 
-Use either option **instead of** the H2 backend command. Run only one backend at a time.
+The setup above uses shared Supabase. The options below use separate local databases and will not show the shared accounts, friends, or rankings. Run only one backend on port `8080` at a time.
+
+### H2
+
+For an isolated local environment, run `powershell -ExecutionPolicy Bypass -File .\run-local.ps1` inside the backend repository. Keep its `data/` folder to preserve local data.
 
 ### PostgreSQL
 
@@ -183,7 +192,7 @@ Start Docker Desktop with Linux containers. Inside the backend repository, copy 
 docker compose up --build -d
 ```
 
-Compose starts the backend and PostgreSQL; run the frontend and AI services separately. Its `prod` profile does not seed sample lessons. Stop with `docker compose down`; avoid `-v` to keep database data.
+Compose starts the backend and PostgreSQL; run the frontend and AI services separately. Stop with `docker compose down`; avoid `-v` to keep database data.
 
 H2, local PostgreSQL, and Docker use separate databases. See the [backend setup guide](https://github.com/ThankTran/AISC2026-SignMate_Backend#readme) for configuration details.
 
@@ -194,6 +203,9 @@ H2, local PostgreSQL, and Docker use separate databases. See the [backend setup 
 | Command not found | Check the required version and PATH, then open a new terminal. For Java, also check `JAVA_HOME` and `javac`. |
 | PowerShell blocks scripts | For this trusted checkout, run `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` in the current terminal. |
 | Registration/login fails | Check backend health and `VITE_API_BASE_URL`. For 401/403 responses, sign in again. |
+| Accounts or friends differ between machines | Confirm every backend runs `run-supabase.ps1` against the same project. Frontends still call their own `http://localhost:8080`. |
+| Supabase password authentication failed | Use the database password in the credential prompt. Read the first `psql` or `Caused by` error; the final Maven exit code is only a summary. Backend application logs are in `target/supabase-startup.log`. |
+| Flyway: applied migration not resolved locally: 2 | Update the backend script so Flyway scans both `db/migration` and `db/seed`. Do not delete migration history or run `repair` to bypass this error. |
 | CORS error | Use `http://localhost:5173`, or update backend `CORS_ALLOWED_ORIGINS` to match your frontend origin and restart. |
 | Port already in use | Stop the previous service with `Ctrl+C`. |
 | H2 database locked | Stop the previous backend or disconnect the database viewer; do not delete the database file. |

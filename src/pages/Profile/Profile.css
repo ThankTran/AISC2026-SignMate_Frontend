@@ -23,6 +23,27 @@
   align-items: center;
   gap: var(--space-4);
 }
+.pf-identity > div {
+  min-width: 0;
+  flex: 1;
+}
+.pf-account-id {
+  margin-block: var(--space-3);
+}
+.pf-account-id > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+.pf-account-id input {
+  flex: 1 1 290px;
+  width: 100%;
+}
+.pf-account-id p {
+  color: var(--color-neutral-700);
+  font-size: 0.875rem;
+}
 .pf-field {
   display: grid;
   grid-template-columns: minmax(150px, 1fr) minmax(0, 3fr);

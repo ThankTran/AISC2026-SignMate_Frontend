@@ -285,3 +285,24 @@ export const scheduledSessionsData = [
     status: "Sắp diễn ra",
   },
 ];
+
+export const outgoingFriendRequestsData = [
+  {
+    id: "out-req-1",
+    name: "Hoàng Nam",
+    avatar: "https://i.pravatar.cc/150?img=51",
+    mutualFriends: 2,
+    requestedAt: "3 giờ trước",
+    statusText: "Đang chờ chấp nhận",
+    isOnline: true,
+  },
+  {
+    id: "out-req-2",
+    name: "Minh Châu",
+    avatar: "https://i.pravatar.cc/150?img=47",
+    mutualFriends: 0,
+    requestedAt: "Hôm qua",
+    statusText: "Đang chờ chấp nhận",
+    isOnline: false,
+  },
+];
