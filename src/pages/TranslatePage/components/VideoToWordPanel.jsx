@@ -27,8 +27,11 @@ export default function VideoToWordPanel({ draftVideo = null, onDraftChange }) {
   const [minConfidence, setMinConfidence] = useState(0.35);
   const [result, setResult] = useState(null);
   const [errorState, setErrorState] = useState(null);
-  const [showVocabList, setShowVocabList] = useState(false);
+  const [showVocabList, setShowVocabList] = useState(true);
   const [recLabels, setRecLabels] = useState([]);
+  const [vocabError, setVocabError] = useState("");
+  const [vocabLoading, setVocabLoading] = useState(true);
+  const [vocabAttempt, setVocabAttempt] = useState(0);
 
   const fileInputRef = useRef(null);
   const requestRef = useRef(null);
@@ -62,11 +65,16 @@ export default function VideoToWordPanel({ draftVideo = null, onDraftChange }) {
           setRecLabels(data.recognition_labels);
         }
       })
-      .catch(() => {});
+      .catch((error) => {
+        if (isMounted) setVocabError(error.message || "Không tải được danh sách cử chỉ.");
+      })
+      .finally(() => {
+        if (isMounted) setVocabLoading(false);
+      });
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [vocabAttempt]);
 
   // Sync draft
   useEffect(() => {
@@ -433,16 +441,36 @@ export default function VideoToWordPanel({ draftVideo = null, onDraftChange }) {
             aria-expanded={showVocabList}
           >
             <span className="v2w-panel__vocab-drawer-title">
-              100 cử chỉ mô hình AI hiện nhận diện được ({recLabels.length || 100})
+              Cử chỉ mô hình AI hiện nhận diện được
+              {recLabels.length > 0 ? ` (${recLabels.length})` : ""}
             </span>
             {showVocabList ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
           </button>
 
           {showVocabList && (
             <div className="v2w-panel__vocab-drawer-content">
-              <p className="v2w-panel__vocab-notice">
-                Mô hình phân loại VideoMAE hiện tại nhận diện trong tập 100 nhãn sau:
-              </p>
+              {vocabLoading ? (
+                <p role="status">Đang tải danh sách cử chỉ...</p>
+              ) : vocabError ? (
+                <div role="alert">
+                  <p>{vocabError}</p>
+                  <button
+                    type="button"
+                    className="v2w-panel__retry-btn"
+                    onClick={() => {
+                      setVocabError("");
+                      setVocabLoading(true);
+                      setVocabAttempt((attempt) => attempt + 1);
+                    }}
+                  >
+                    Thử tải lại danh sách
+                  </button>
+                </div>
+              ) : (
+                <p className="v2w-panel__vocab-notice">
+                  Mô hình hiện nhận diện {recLabels.length} cử chỉ sau:
+                </p>
+              )}
               <div className="v2w-panel__labels-grid">
                 {recLabels.map((label, idx) => (
                   <span key={idx} className="v2w-panel__label-tag">

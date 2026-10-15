@@ -322,7 +322,8 @@ export default function SentenceToSignPanel({ draftSentence = "", onDraftChange 
           <p>
             Chế độ này hiển thị chuỗi video ký hiệu liên tiếp theo thứ tự từ vựng hỗ trợ của câu.
             Đây là chuỗi ký hiệu đối chiếu từ vựng, không thay thế hoàn toàn ngữ pháp không gian và
-            biểu cảm cử chỉ tự nhiên của VSL.
+            biểu cảm cử chỉ tự nhiên của VSL. Các cử chỉ trong bộ nhận diện được bổ sung bằng video
+            mẫu tương ứng khi chưa có trong từ điển VSL.
           </p>
         </div>
       </div>

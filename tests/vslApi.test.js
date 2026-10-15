@@ -10,6 +10,14 @@ const mockResponse = (body, status = 200, contentType = "application/json") => (
   text: async () => (typeof body === "string" ? body : JSON.stringify(body)),
 });
 
+test("missing backend route explains how to recover instead of reporting an unknown word", async () => {
+  const api = createVslApi({ fetcher: async () => mockResponse({ detail: "Not Found" }, 404) });
+  await assert.rejects(api.segmentSentence("xin lỗi ban ngày"), (error) => {
+    assert.match(error.message, /khởi động lại backend VSL/);
+    return error.status === 404;
+  });
+});
+
 test("resolveMediaUrl formats relative paths properly and handles base variations", () => {
   assert.equal(
     resolveMediaUrl("/api/v1/videos/clips/W0001.mp4", "/vsl"),

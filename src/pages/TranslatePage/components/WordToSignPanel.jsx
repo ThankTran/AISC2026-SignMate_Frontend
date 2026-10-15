@@ -4,7 +4,6 @@ import {
   Search,
   X,
   Sparkles,
-  BookOpen,
   ArrowRight,
   AlertCircle,
   HelpCircle,
@@ -13,7 +12,6 @@ import {
 } from "lucide-react";
 import vslApi from "../../../services/vslApi";
 import SignVideoPlayer from "./SignVideoPlayer";
-import SupportedVocabularyPicker from "./SupportedVocabularyPicker";
 import { QUICK_EXAMPLES } from "../constants";
 import "./WordToSignPanel.css";
 
@@ -22,7 +20,6 @@ export default function WordToSignPanel({ draftWord = "", onDraftChange }) {
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [errorState, setErrorState] = useState(null); // { type: 'unsupported' | 'network' | 'missing', message, suggestions: [] }
-  const [isPickerOpen, setIsPickerOpen] = useState(false);
   const [suggestionState, setSuggestionState] = useState({ query: "", items: [] });
   const suggestions =
     inputWord.trim().length >= 2 && suggestionState.query === inputWord.trim()
@@ -235,21 +232,6 @@ export default function WordToSignPanel({ draftWord = "", onDraftChange }) {
           </div>
         </div>
 
-        {/* Browser modal trigger */}
-        <div className="w2s-panel__picker-trigger-box">
-          <button
-            type="button"
-            className="w2s-panel__picker-btn"
-            onClick={() => setIsPickerOpen(true)}
-          >
-            <BookOpen size={16} />
-            Duyệt toàn bộ 3.314 từ vựng ký hiệu
-          </button>
-          <span className="w2s-panel__picker-hint">
-            Xem danh sách ký hiệu có sẵn theo thứ tự bảng chữ cái hoặc tìm kiếm
-          </span>
-        </div>
-
         {/* Unsupported / Error message */}
         {errorState && (
           <div className={`w2s-panel__alert w2s-panel__alert--${errorState.type}`} role="alert">
@@ -311,15 +293,6 @@ export default function WordToSignPanel({ draftWord = "", onDraftChange }) {
           </p>
         </div>
       </div>
-
-      {/* Modal picker */}
-      <SupportedVocabularyPicker
-        isOpen={isPickerOpen}
-        onClose={() => setIsPickerOpen(false)}
-        onSelectWord={handleSelectExample}
-        mode="dictionary"
-        title="Từ điển ký hiệu VSL (3.314 từ vựng)"
-      />
     </div>
   );
 }
