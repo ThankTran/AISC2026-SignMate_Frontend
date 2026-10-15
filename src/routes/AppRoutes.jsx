@@ -36,6 +36,7 @@ import Dashboard from "../pages/Dashboard/Dashboard";
 import Profile from "../pages/Profile/Profile";
 import Stats from "../pages/Stats/Stats";
 import VideoCallPage from "../pages/VideoCall/VideoCallPage";
+import TranslatePage from "../pages/TranslatePage/TranslatePage";
 
 export default function AppRoutes() {
   return (
@@ -96,6 +97,7 @@ export default function AppRoutes() {
         <Route path="/learning-path/quiz/:quizId" element={<QuizPage />} />
         <Route path="/learning-path/quiz/:quizId/result" element={<QuizResultPage />} />
         <Route path="/practice-ai" element={<AiPracticePage />} />
+        <Route path="/translate" element={<TranslatePage />} />
         <Route path="/ranking" element={<LeaderboardPage />} />
         <Route path="/video" element={<VideoCallPage />} />
         <Route path="/video-call" element={<Navigate to="/video" replace />} />

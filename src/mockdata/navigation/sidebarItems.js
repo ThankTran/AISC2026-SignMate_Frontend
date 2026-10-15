@@ -29,6 +29,10 @@ export const sidebarItems = [
             path: "/practice-ai",
           },
           {
+            label: "Dịch ký hiệu VSL",
+            path: "/translate",
+          },
+          {
             label: "Xếp hạng",
             path: "/ranking",
           },
