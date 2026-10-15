@@ -8,6 +8,7 @@ const titles = {
   "/dashboard": "Trang chủ",
   "/learning-path": "Lộ trình học",
   "/practice-ai": "Luyện tập với AI",
+  "/translate": "Dịch ký hiệu VSL",
   "/ranking": "Bảng xếp hạng",
   "/video": "Gọi video",
   "/friends/list": "Bạn bè",
