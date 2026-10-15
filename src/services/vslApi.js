@@ -66,7 +66,10 @@ export function createVslApi({
 
       let userMessage = detailMessage || "Lỗi xử lý yêu cầu từ máy chủ.";
       if (response.status === 404) {
-        userMessage = detailMessage || "Không tìm thấy dữ liệu ký hiệu.";
+        userMessage =
+          typeof detailMessage === "string" && /^not found$/i.test(detailMessage.trim())
+            ? "Dịch vụ VSL chưa có API này. Hãy cập nhật và khởi động lại backend VSL."
+            : detailMessage || "Không tìm thấy dữ liệu ký hiệu.";
       } else if (response.status === 413) {
         userMessage = detailMessage || "File tải lên vượt quá dung lượng cho phép.";
       } else if (response.status === 415) {
