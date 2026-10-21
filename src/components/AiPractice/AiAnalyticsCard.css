@@ -154,3 +154,35 @@
     font-size: var(--font-size-h2);
   }
 }
+.ai-analytics__processing {
+  min-height: 290px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+.ai-analytics__processing p {
+  margin: 0;
+  line-height: 1.6;
+  color: var(--color-neutral-700);
+}
+.ai-analytics__loader {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--color-neutral-200);
+  border-top-color: var(--color-purple-600, #6542a6);
+  border-radius: 50%;
+  animation: practice-processing 1s linear infinite;
+}
+@keyframes practice-processing {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ai-analytics__loader {
+    animation: none;
+  }
+}

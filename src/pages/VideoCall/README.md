@@ -30,7 +30,7 @@
 
 ## Khi kết nối backend
 
-Thay dữ liệu trong `mockdata/videoCall` bằng dữ liệu từ API ở hook/service; giữ component giao diện nhận props. Thay timeout demo trong `useVideoCallFlow` bằng kết quả ghép cặp. `useLocalMedia` chỉ quản lý thiết bị cục bộ, chưa thực hiện WebRTC/signaling. Thay `demoSessionStorage` bằng service API khi có endpoint.
+`useServerVideoCallFlow` quản lý lời mời và ghép cặp qua API. `useLocalMedia` quản lý camera/micro, `useWebRTCCall` và `callPeer` trao đổi offer/answer/ICE để truyền media thật. Chat dùng API của cuộc gọi. Demo chỉ bật khi được cấu hình rõ ràng.
 
 ## Kiểm tra
 
@@ -45,11 +45,7 @@ Kiểm tra UI tại `/video`: chọn/thêm chủ đề → tìm/hủy tìm → t
 
 ## Interactive call demo
 
-In Vite development, `/video` opens the isolated frontend demo by default.
-`VITE_VIDEO_CALL_MODE=demo` also enables it in a production build; `real` keeps the
-existing real-call integration. Restart Vite after changing the mode. Production
-continues to use the existing integration by default. No realtime infrastructure
-was added for this demo.
+Real calls are the default in development and production. Set `VITE_VIDEO_CALL_MODE=demo` only for the explicit offline demo; use `real` to override any mock flags. Restart Vite after changing environment settings.
 
 `DemoCallPage.jsx` renders the view. `useDemoCallController` subscribes to the small
 external-store controller in `services/videoCall/demoController.js`. Its snapshot
@@ -90,3 +86,26 @@ panels/layout/pin, all fixtures, permission denial, actual track toggles, dispos
 and late permission results. Browser checks cover desktop/mobile layouts, sending
 messages, panel focus and Escape, media simulation, pinning and ending/rejoining.
 Real multi-user connectivity remains outside this demo's acceptance criteria.
+
+
+## Gọi video thật
+
+Cấu hình `VITE_VIDEO_CALL_MODE=real`, chạy backend và khởi động lại frontend.
+Dùng hai tài khoản khác nhau trong hai trình duyệt/hai máy: người gọi mở hồ sơ bạn
+và gửi lời mời, người nhận chấp nhận tại Cuộc gọi đến. Cả hai kiểm tra camera rồi
+bấm Vào phòng luyện tập. Bật tùy chọn micro trước khi vào hoặc nút micro trong phòng.
+
+API `/api/calls/{id}/signals` chuyển offer, answer và ICE; hình/tiếng truyền qua
+WebRTC. Phía nhận gắn track vào transceiver được tạo từ offer. Khi trình duyệt
+chặn autoplay, nút Phát video và âm thanh của đối tác cho phép phát bằng thao tác tay.
+
+Trên hai máy, frontend phải dùng HTTPS (localhost chỉ phù hợp máy đang chạy) và
+`VITE_API_BASE_URL` phải trỏ đến backend mà cả hai truy cập được; cấu hình CORS tương ứng.
+Mạng khác nhau hoặc NAT hạn chế cần TURN qua `VITE_TURN_URL`, `VITE_TURN_USERNAME`,
+`VITE_TURN_CREDENTIAL`. Không có TURN thì kết nối trực tiếp có thể thất bại tùy mạng.
+
+Kiểm thử RTP thực bằng video canvas và audio tổng hợp: mở
+`/tests/webrtc-media.html`, bấm Run synthetic camera and audio test. Test xác minh
+video/audio nhận ở cả hai peer, reaction và thay track mà không gọi camera thật.
+Test này xác minh WebRTC trong cùng trình duyệt; không thay thế kiểm thử hai máy
+qua NAT/TURN hoặc tài khoản đăng nhập ở môi trường triển khai.

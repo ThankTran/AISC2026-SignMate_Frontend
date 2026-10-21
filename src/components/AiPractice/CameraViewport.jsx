@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Camera, CameraOff, CircleDot, Info, Signal, Sparkles } from "lucide-react";
+import { handSign } from "../../services/handSign";
 
 import "./CameraViewport.css";
 
@@ -14,6 +15,8 @@ const CameraViewport = ({
   cameraOn,
   onOpenGuide,
   onRetry,
+  framing,
+  onFraming,
   mock = false,
 }) => {
   const videoRef = useRef(null);
@@ -25,6 +28,48 @@ const CameraViewport = ({
     }
   }, [stream]);
 
+  useEffect(() => {
+    if (!stream || !onFraming) return;
+    let stopped = false,
+      timer,
+      controller;
+    const canvas = document.createElement("canvas");
+    canvas.width = 480;
+    const sample = async () => {
+      const video = videoRef.current;
+      if (!video || video.readyState < 2 || !video.videoWidth) {
+        timer = setTimeout(sample, 300);
+        return;
+      }
+      canvas.height = Math.round((480 * video.videoHeight) / video.videoWidth);
+      canvas.getContext("2d").drawImage(video, 0, 0, canvas.width, canvas.height);
+      const blob = await new Promise((resolve) => canvas.toBlob(resolve, "image/jpeg", 0.7));
+      if (stopped) return;
+      controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 4000);
+      try {
+        if (!blob) throw new Error("Chưa đọc được camera.");
+        const status = await handSign.framing(blob, controller.signal);
+        if (!stopped) onFraming(status);
+      } catch {
+        if (!stopped)
+          onFraming({
+            ready: false,
+            message: "Chưa kiểm tra được vị trí · Đang thử kết nối lại AI…",
+          });
+      } finally {
+        clearTimeout(timeout);
+        if (!stopped) timer = setTimeout(sample, 650);
+      }
+    };
+    void sample();
+    return () => {
+      stopped = true;
+      clearTimeout(timer);
+      controller?.abort();
+    };
+  }, [stream, onFraming]);
+
   const isActive = phase === "recording";
   const isCountdown = phase === "countdown";
   const isIdle = phase === "idle";
@@ -33,7 +78,9 @@ const CameraViewport = ({
   const confidenceLabel = confidence >= 85 ? "HIGH" : confidence >= 60 ? "MEDIUM" : "LOW";
 
   return (
-    <div className="cam-viewport">
+    <div
+      className={`cam-viewport ${cameraOn ? `cam-viewport--${framing?.ready ? "ready" : "adjust"}` : ""}`}
+    >
       {/* ---- Top-left status pills ---- */}
       <div className="cam-viewport__badges-top">
         {cameraOn ? (
@@ -103,7 +150,11 @@ const CameraViewport = ({
         {!cameraOn && !cameraError && (
           <div className="cam-viewport__camera-off">
             <Camera size={30} strokeWidth={1.5} />
-            <p>Nhấn Bắt đầu luyện tập để mở Camera</p>
+            <p>
+              {phase === "processing"
+                ? "Video đã gửi · AI đang chấm điểm"
+                : "Nhấn Mở camera để căn chỉnh vị trí"}
+            </p>
           </div>
         )}
 
@@ -129,6 +180,12 @@ const CameraViewport = ({
           </div>
         )}
       </div>
+      {cameraOn && (
+        <div className="cam-viewport__framing" role="status">
+          <strong>{framing?.ready ? "Vị trí phù hợp" : "Cần căn chỉnh"}</strong>
+          <span>{framing?.message || "Đang kiểm tra mặt và hai vai…"}</span>
+        </div>
+      )}
 
       {/* ---- Bottom-left sign info (clickable -> mở đề bài) ---- */}
       <button
