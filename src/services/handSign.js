@@ -42,6 +42,7 @@ export const handSign = {
     data.append("image", image, "preview.jpg");
     return request("/framing", { method: "POST", body: data, signal });
   },
+  lessons: (signal) => import.meta.env.VITE_USE_MOCK === "true" ? Promise.resolve(MOCK_LESSONS) : request("/lessons", { signal }),
   sample: (label) => `${BASE}/samples/${encodeURIComponent(label)}?format=webm`,
   evaluate: (label, video, signal) => {
     const data = new FormData();

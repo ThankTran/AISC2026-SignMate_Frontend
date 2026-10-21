@@ -166,12 +166,14 @@ export default function VideoToWordPanel({ draftVideo = null, onDraftChange }) {
 
       console.error("Video recognition error:", err);
       let userMsg = err.message || "Quá trình nhận diện thất bại.";
-      if (err.status === 422) {
-        userMsg =
-          "Không nhận diện được cử chỉ đạt ngưỡng tin cậy hoặc video không có đủ khung hình hợp lệ. Hãy thử quay lại rõ nét hơn hoặc hạ ngưỡng tin cậy.";
-      } else if (err.status === 503) {
-        userMsg =
-          "Mô hình nhận diện VideoMAE đang tải hoặc chưa sẵn sàng. Vui lòng thử lại sau vài giây.";
+      if (!err.message) {
+        if (err.status === 422) {
+          userMsg =
+            "Không nhận diện được cử chỉ đạt ngưỡng tin cậy. Hãy thử quay lại rõ nét hơn hoặc hạ ngưỡng tin cậy.";
+        } else if (err.status === 503) {
+          userMsg =
+            "Mô hình nhận diện VideoMAE đang tải hoặc chưa sẵn sàng. Vui lòng thử lại sau vài giây.";
+        }
       }
 
       setErrorState({

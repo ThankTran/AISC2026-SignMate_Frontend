@@ -53,8 +53,8 @@ export function CurrentUserProvider({ children }) {
       photoURL: user?.photoURL || "",
       handle: `@${(user?.email || displayName).split("@")[0]}`,
       onboardingComplete:
-        data.onboardingComplete === true || ui.onboardingComplete === true || localOnboarding(uid),
-      hasSetLevel: data.hasSetLevel === true,
+        mock || data.onboardingComplete === true || ui.onboardingComplete === true || localOnboarding(uid),
+      hasSetLevel: mock || data.hasSetLevel === true,
       _profileStatus: profileStatus,
       _profileError: error,
       _updateProfile: updateCurrent,
