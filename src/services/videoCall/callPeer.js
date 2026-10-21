@@ -11,10 +11,11 @@ export function createCallPeer({
   Peer = RTCPeerConnection,
   Stream = MediaStream,
   disconnectMs = 15000,
+  connectMs = 90000,
 }) {
   const peer = new Peer(rtcConfig);
   const senders = new Map(
-    ["video", "audio"].map((kind) => [
+    (role === "caller" ? ["video", "audio"] : []).map((kind) => [
       kind,
       peer.addTransceiver(kind, { direction: "sendrecv" }).sender,
     ]),
@@ -25,7 +26,18 @@ export function createCallPeer({
     timeout,
     remoteReady = false;
   let pendingIce = [],
-    queue = Promise.resolve();
+    queue = Promise.resolve(),
+    localStream = null;
+  const applyTracks = () =>
+    Promise.all(
+      [...senders].map(([kind, sender]) =>
+        sender.replaceTrack(
+          localStream
+            ?.getTracks()
+            .find((track) => track.kind === kind && track.readyState !== "ended") || null,
+        ),
+      ),
+    );
   const report = (error) => {
     if (!closed) {
       onError(error);
@@ -70,7 +82,7 @@ export function createCallPeer({
     }
   };
 
-  function armTimeout() {
+  function armTimeout(delay = disconnectMs) {
     if (!timeout) {
       timeout = setTimeout(() => {
         timeout = null;
@@ -79,7 +91,7 @@ export function createCallPeer({
           onState("failed");
           onTimeout();
         }
-      }, disconnectMs);
+      }, delay);
     }
   }
 
@@ -96,6 +108,8 @@ export function createCallPeer({
       onState("connected");
     } else if (state === "disconnected" || state === "failed") {
       onState("reconnecting");
+      clearTimeout(timeout);
+      timeout = null;
       armTimeout();
     } else if (state === "connecting") {
       onState("connecting");
@@ -103,7 +117,7 @@ export function createCallPeer({
   };
 
   onState("connecting");
-  armTimeout();
+  armTimeout(connectMs);
 
   return {
     async start() {
@@ -121,7 +135,7 @@ export function createCallPeer({
       await send("offer", peer.localDescription);
     },
     receive(message) {
-      queue = queue.then(async () => {
+      const received = queue.then(async () => {
         if (closed) {
           return;
         }
@@ -139,6 +153,19 @@ export function createCallPeer({
           (message.type === "answer" && role === "caller")
         ) {
           await peer.setRemoteDescription(data);
+          if (closed) return;
+          if (role === "callee") {
+            // Bind to the offer's transceivers; pre-created callee transceivers
+            // are not the negotiated senders and can produce one-way media.
+            for (const transceiver of peer.getTransceivers()) {
+              const kind = transceiver.receiver.track.kind;
+              if (kind === "audio" || kind === "video") {
+                transceiver.direction = "sendrecv";
+                senders.set(kind, transceiver.sender);
+              }
+            }
+            await applyTracks();
+          }
           remoteReady = true;
           for (const candidate of pendingIce) {
             await peer.addIceCandidate(candidate);
@@ -153,22 +180,16 @@ export function createCallPeer({
         }
       });
 
-      return queue;
+      queue = received.catch(() => {});
+      return received;
     },
     async setStream(stream) {
       if (closed) {
         return;
       }
 
-      await Promise.all(
-        [...senders].map(([kind, sender]) =>
-          sender.replaceTrack(
-            stream
-              ?.getTracks()
-              .find((track) => track.kind === kind && track.readyState !== "ended") || null,
-          ),
-        ),
-      );
+      localStream = stream;
+      await applyTracks();
     },
     react(emoji) {
       if (channel?.readyState !== "open") {

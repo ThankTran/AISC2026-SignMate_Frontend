@@ -52,7 +52,9 @@ export function useWebRTCCall(callId, role, { stream, mediaRevision, onError, on
           },
           onReaction: (emoji) => callbacks.current.onReaction(emoji),
           onTimeout: () => {
-            callbacks.current.onError("Mất kết nối quá 15 giây. Cuộc gọi đã kết thúc.");
+            callbacks.current.onError(
+              "Chưa thể kết nối với đối tác hoặc đường truyền đã ngắt. Hãy thử lại cuộc gọi.",
+            );
             void callbacks.current.onEnd();
           },
         });

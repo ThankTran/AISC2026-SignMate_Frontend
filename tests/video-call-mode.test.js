@@ -2,8 +2,8 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { isVideoDemo } from "../src/services/videoCall/mode.js";
 
-test("local development simulates calls without enabling mock lessons", () => {
-  assert.equal(isVideoDemo({ DEV: true, VITE_USE_MOCK: "false", VITE_DEMO: "false" }), true);
+test("local development uses real calls unless demo is explicit", () => {
+  assert.equal(isVideoDemo({ DEV: true, VITE_USE_MOCK: "false", VITE_DEMO: "false" }), false);
 });
 test("production retains real calls by default", () => {
   assert.equal(isVideoDemo({ DEV: false, VITE_VIDEO_CALL_MODE: "auto" }), false);

@@ -24,6 +24,11 @@ async function request(path, options) {
 
 export const handSign = {
   lessons: (signal) => request("/lessons", { signal }),
+  framing: (image, signal) => {
+    const data = new FormData();
+    data.append("image", image, "preview.jpg");
+    return request("/framing", { method: "POST", body: data, signal });
+  },
   sample: (label) => `${BASE}/samples/${encodeURIComponent(label)}?format=webm`,
   evaluate: (label, video, signal) => {
     const data = new FormData();

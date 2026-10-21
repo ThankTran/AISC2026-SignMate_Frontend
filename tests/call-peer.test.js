@@ -14,6 +14,7 @@ class Stream {
 class Peer {
   static instances = [];
   senders = [];
+  transceivers = [];
   ice = [];
   connectionState = "new";
   constructor() {
@@ -29,7 +30,9 @@ class Peer {
 
     this.senders.push(sender);
 
-    return { sender };
+    const transceiver = { sender, receiver: { track: { kind } }, direction: "sendrecv" };
+    this.transceivers.push(transceiver);
+    return transceiver;
   }
   createDataChannel() {
     return (this.channel = {
@@ -51,6 +54,13 @@ class Peer {
   }
   async setRemoteDescription(value) {
     this.remoteDescription = value;
+    if (value.type === "offer" && !this.transceivers.length) {
+      this.addTransceiver("video");
+      this.addTransceiver("audio");
+    }
+  }
+  getTransceivers() {
+    return this.transceivers;
   }
   async addIceCandidate(value) {
     assert.ok(this.remoteDescription);
@@ -134,6 +144,57 @@ test("reaction data channel ignores malformed and unsupported messages", () => {
     peer.channel.onmessage({ data: JSON.stringify({ type: "reaction", emoji: "bad" }) });
     peer.channel.onmessage({ data: JSON.stringify({ type: "reaction", emoji: "👋" }) });
     assert.deepEqual(reactions, ["👋"]);
+  } finally {
+    connection.close();
+  }
+});
+
+test("callee attaches early camera and microphone to the offered transceivers", async () => {
+  const { connection, peer } = setup("callee");
+  try {
+    const stream = new Stream();
+    const video = { kind: "video", readyState: "live" };
+    const audio = { kind: "audio", readyState: "live" };
+    stream.addTrack(video);
+    stream.addTrack(audio);
+    await connection.setStream(stream);
+    assert.equal(peer.senders.length, 0);
+    await connection.receive({
+      type: "offer",
+      payload: JSON.stringify({ type: "offer", sdp: "remote" }),
+    });
+    assert.equal(peer.senders[0].track, video);
+    assert.equal(peer.senders[1].track, audio);
+    assert.ok(peer.getTransceivers().every((value) => value.direction === "sendrecv"));
+  } finally {
+    connection.close();
+  }
+});
+
+test("bad signaling message does not poison subsequent negotiation", async () => {
+  const { connection, signals } = setup("callee");
+  try {
+    await assert.rejects(connection.receive({ type: "ice", payload: "not-json" }));
+    await connection.receive({
+      type: "offer",
+      payload: JSON.stringify({ type: "offer", sdp: "valid" }),
+    });
+    assert.equal(signals[0].type, "answer");
+  } finally {
+    connection.close();
+  }
+});
+
+test("initial join allows time for the other participant's device check", async () => {
+  let ended = 0;
+  const { connection } = setup("caller", {
+    disconnectMs: 10,
+    connectMs: 1000,
+    onTimeout: () => ended++,
+  });
+  try {
+    await new Promise((resolve) => setTimeout(resolve, 30));
+    assert.equal(ended, 0);
   } finally {
     connection.close();
   }

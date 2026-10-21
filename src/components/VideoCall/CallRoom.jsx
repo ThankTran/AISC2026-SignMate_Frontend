@@ -39,6 +39,7 @@ export default function CallRoom({
   const [readMessages, setReadMessages] = useState(0);
   const [splitView, setSplitView] = useState(false);
   const [reactions, setReactions] = useState([]);
+  const [playbackBlocked, setPlaybackBlocked] = useState(false);
   const reactionId = useRef(0);
   const reactionTimers = useRef(new Set());
 
@@ -109,9 +110,32 @@ export default function CallRoom({
             ref={remoteRef}
             autoPlay
             playsInline
+            onCanPlay={(event) => {
+              event.currentTarget
+                .play()
+                .then(() => setPlaybackBlocked(false))
+                .catch(() => setPlaybackBlocked(true));
+            }}
             className="vc-remote-video"
             aria-label={`Video đối tác ${partner.name}`}
           />
+        )}
+        {!VIDEO_DEMO && playbackBlocked && (
+          <button
+            className="vc-button vc-playback-unlock"
+            onClick={() => {
+              remoteRef.current
+                ?.play()
+                .then(() => setPlaybackBlocked(false))
+                .catch(() => {
+                  onNotice(
+                    "Trình duyệt chưa phát được âm thanh/video. Hãy kiểm tra quyền phát âm thanh của trang.",
+                  );
+                });
+            }}
+          >
+            Phát video và âm thanh của đối tác
+          </button>
         )}
 
         {(VIDEO_DEMO || connectionState !== "connected") && (
@@ -209,11 +233,7 @@ export default function CallRoom({
       </header>
 
       {/* Self-View Container (PiP or Split Tile) */}
-      <div
-        className="vc-self"
-        role="region"
-        aria-label="Khung hình camera của bạn"
-      >
+      <div className="vc-self" role="region" aria-label="Khung hình camera của bạn">
         <video
           ref={previewRef}
           autoPlay
@@ -248,7 +268,9 @@ export default function CallRoom({
           <button
             type="button"
             className="vc-self-expand"
-            aria-label={splitView ? "Thu nhỏ camera (Chế độ PiP)" : "Chia đôi màn hình (Chế độ Split)"}
+            aria-label={
+              splitView ? "Thu nhỏ camera (Chế độ PiP)" : "Chia đôi màn hình (Chế độ Split)"
+            }
             title={splitView ? "Chế độ góc nhỏ (PiP)" : "Chia đôi màn hình (Split)"}
             aria-pressed={splitView}
             onClick={() => setSplitView((value) => !value)}
@@ -315,7 +337,8 @@ export default function CallRoom({
           if (
             await confirm({
               title: "Kết thúc buổi luyện tập?",
-              message: "Bạn sẽ hoàn tất phiên gọi và chuyển sang phần ghi nhận XP & đánh giá đóng góp.",
+              message:
+                "Bạn sẽ hoàn tất phiên gọi và chuyển sang phần ghi nhận XP & đánh giá đóng góp.",
               confirmLabel: "Kết thúc cuộc gọi",
               cancelLabel: "Ở lại",
             })

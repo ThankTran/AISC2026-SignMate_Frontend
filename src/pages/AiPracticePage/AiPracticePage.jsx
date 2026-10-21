@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { usePracticeSession } from "../../hooks/usePracticeSession";
 import { useProgress } from "../../hooks/useProgress";
 import { handSign } from "../../services/handSign";
@@ -17,6 +17,17 @@ export default function AiPracticePage() {
   const [phase, setPhase] = useState("idle");
   const [countdown, setCountdown] = useState(3);
   const [stream, setStream] = useState(null);
+  const [framing, setFraming] = useState(null);
+  const framingExpiry = useRef(null);
+  const onFraming = useCallback((status) => {
+    clearTimeout(framingExpiry.current);
+    setFraming(status);
+    if (!status.ready) setPhase((current) => (current === "countdown" ? "preview" : current));
+    framingExpiry.current = setTimeout(() => {
+      setFraming({ ready: false, message: "Đang kiểm tra lại vị trí…" });
+      setPhase((current) => (current === "countdown" ? "preview" : current));
+    }, 2500);
+  }, []);
   const [result, setResult] = useState(null);
   const [error, setError] = useState("");
   const [cameraError, setCameraError] = useState(null);
@@ -29,8 +40,10 @@ export default function AiPracticePage() {
     sample = useRef(null),
     busyRef = useRef(false);
   const label = lessons[index];
-  const busy = ["starting", "countdown", "recording", "processing"].includes(phase);
+  const busy = ["starting", "preview", "countdown", "recording", "processing"].includes(phase);
   const release = () => {
+    clearTimeout(framingExpiry.current);
+    setFraming(null);
     media.current?.getTracks().forEach((track) => track.stop());
     media.current = null;
     setStream(null);
@@ -68,6 +81,7 @@ export default function AiPracticePage() {
       });
 
     return () => {
+      clearTimeout(framingExpiry.current);
       generationRef.current++;
       request.current?.abort();
       controller.abort();
@@ -168,7 +182,7 @@ export default function AiPracticePage() {
       recording.current.catch(() => {});
       recorder.current = current;
       setCountdown(3);
-      setPhase("countdown");
+      setPhase("preview");
     } catch (err) {
       if (token === generation.current) {
         const cameraMessages = {
@@ -191,8 +205,17 @@ export default function AiPracticePage() {
     }
   }
 
+  function beginCountdown() {
+    if (phase !== "preview" || !framing?.ready || !media.current?.active) return;
+    setCountdown(3);
+    setPhase("countdown");
+  }
+
   useEffect(() => {
     if (phase !== "countdown") {
+      return;
+    }
+    if (!framing?.ready) {
       return;
     }
 
@@ -206,7 +229,7 @@ export default function AiPracticePage() {
     }, 1000);
 
     return () => clearTimeout(timer);
-  }, [phase, countdown]);
+  }, [phase, countdown, framing?.ready]);
   async function stop() {
     if (recorder.current?.state !== "recording") {
       return;
@@ -251,7 +274,7 @@ export default function AiPracticePage() {
   useEffect(() => {
     const timer = phase === "recording" ? setTimeout(stop, 15000) : null;
     const hide = () => {
-      if (document.hidden && ["starting", "countdown", "recording"].includes(phase)) {
+      if (document.hidden && ["starting", "preview", "countdown", "recording"].includes(phase)) {
         generation.current++;
 
         if (recorder.current?.state === "recording") {
@@ -320,6 +343,8 @@ export default function AiPracticePage() {
 
       if (phase === "recording") {
         void stop();
+      } else if (phase === "preview") {
+        beginCountdown();
       } else if (!busy && !loading && label && session.status !== "loading") {
         void start();
       }
@@ -330,7 +355,7 @@ export default function AiPracticePage() {
     return () => document.removeEventListener("keydown", handleCameraShortcut);
   });
   function switchTab(next) {
-    if (next === "video" && ["starting", "countdown", "recording"].includes(phase)) {
+    if (next === "video" && ["starting", "preview", "countdown", "recording"].includes(phase)) {
       generation.current++;
 
       if (recorder.current?.state === "recording") {
@@ -476,6 +501,8 @@ export default function AiPracticePage() {
             currentSign={label || "—"}
             signLabel="Lượt thực hiện của bạn"
             stream={stream}
+            framing={framing}
+            onFraming={onFraming}
             cameraError={cameraError}
             cameraOn={!!stream}
             onOpenGuide={showSample}
@@ -484,8 +511,8 @@ export default function AiPracticePage() {
           <p className="practice-shortcut">
             <kbd>Space</kbd>
             <span>
-              Bắt đầu / thử lại · Khi đang quay: chấm điểm. Phím tắt tạm ngưng khi đếm ngược hoặc AI
-              đang chấm.
+              Mở camera · Khi khung xanh: bắt đầu đếm ngược · Khi đang quay: chấm điểm. Phím tắt tạm
+              ngưng khi đếm ngược hoặc AI đang chấm.
             </span>
           </p>
           <p className="practice-hint">
@@ -495,7 +522,13 @@ export default function AiPracticePage() {
         </div>
         <aside className="ai-practice__right">
           <AiAnalyticsCard result={result} phase={phase} />
-          <AiFeedbackCard feedback={result?.feedback} />
+          <AiFeedbackCard
+            feedback={
+              result?.status === "incorrect_label" || result?.recognition?.status === "mismatch"
+                ? [{ message: "Không khớp yêu cầu. Vui lòng thử lại." }]
+                : result?.feedback
+            }
+          />
           {result ? (
             <section
               className={`practice-result ${passed ? "practice-result--passed" : ""}`}
@@ -504,8 +537,14 @@ export default function AiPracticePage() {
               <span className="practice-result__eyebrow">
                 {passed ? "ĐÃ HOÀN THÀNH" : "CẦN THỬ LẠI"}
               </span>
-              <h2>{passed ? "Động tác đã đạt" : "Chưa thể xác nhận động tác"}</h2>
-              {!passed && (
+              <h2>
+                {passed
+                  ? "Động tác đã đạt"
+                  : result?.status === "incorrect_label"
+                    ? "Không khớp yêu cầu. Vui lòng thử lại."
+                    : "Chưa thể xác nhận động tác"}
+              </h2>
+              {!passed && result?.status !== "incorrect_label" && (
                 <>
                   <p>Hệ thống chưa ghi nhận động tác khớp với mẫu “{label}”.</p>
                   <p>Hãy giữ tay rõ trong khung hình, thực hiện trọn vẹn động tác và thử lại.</p>
@@ -541,10 +580,14 @@ export default function AiPracticePage() {
                 aria-keyshortcuts="Space"
                 className="practice-primary"
                 disabled={
-                  phase !== "recording" &&
-                  (busy || loading || !label || session.status === "loading")
+                  phase === "preview"
+                    ? !framing?.ready
+                    : phase !== "recording" &&
+                      (busy || loading || !label || session.status === "loading")
                 }
-                onClick={phase === "recording" ? stop : start}
+                onClick={
+                  phase === "recording" ? stop : phase === "preview" ? beginCountdown : start
+                }
               >
                 {phase === "processing"
                   ? "AI đang chấm động tác…"
@@ -554,7 +597,11 @@ export default function AiPracticePage() {
                       ? `Chuẩn bị · ${countdown}`
                       : phase === "starting"
                         ? "Đang mở camera…"
-                        : "Bắt đầu luyện tập"}
+                        : phase === "preview"
+                          ? framing?.ready
+                            ? "Sẵn sàng · Đếm ngược 3 giây"
+                            : "Căn chỉnh đến khi khung xanh"
+                          : "Mở camera"}
               </button>
               <button onClick={showSample} disabled={!label}>
                 Xem động tác mẫu
