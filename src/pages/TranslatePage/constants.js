@@ -38,9 +38,10 @@ export const QUICK_EXAMPLES = [
 ];
 
 export const VERIFIED_SENTENCES = [
-  "xin lỗi ban ngày",
-  "địa chỉ tỉnh",
-  "nhân viên tiếp tân",
-  "chào tạm biệt",
-  "không cần không nên",
+  "Tôi đi học bằng ô tô",
+  "Tôi đi học bằng xe máy",
+  "Tôi muốn giúp đỡ bạn",
+  "Tôi cảm ơn thầy cô",
+  "Xin chào bạn",
+  "Chào bạn tạm biệt",
 ];

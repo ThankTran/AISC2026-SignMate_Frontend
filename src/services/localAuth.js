@@ -1,10 +1,21 @@
 const key = "signmate:session";
 
+const defaultMockSession = {
+  token: "mock-jwt-token-demo",
+  user: {
+    uid: "user_1",
+    email: "learner@signmate.vn",
+    displayName: "Minh Anh",
+  },
+};
+
 export function getSession() {
   try {
-    return JSON.parse(sessionStorage.getItem(key) || "null");
+    const raw = sessionStorage.getItem(key);
+    if (!raw) return defaultMockSession;
+    return JSON.parse(raw);
   } catch {
-    return null;
+    return defaultMockSession;
   }
 }
 

@@ -22,8 +22,18 @@ async function request(path, options) {
   return response.json();
 }
 
+const MOCK_LESSONS = [
+  "Xin chào",
+  "Cảm ơn",
+  "Tạm biệt",
+  "Xin lỗi",
+  "Gia đình",
+  "Bàn tay",
+  "Cần giúp đỡ",
+];
+
 export const handSign = {
-  lessons: (signal) => request("/lessons", { signal }),
+  lessons: (signal) => import.meta.env.VITE_USE_MOCK === "true" ? Promise.resolve(MOCK_LESSONS) : request("/lessons", { signal }),
   sample: (label) => `${BASE}/samples/${encodeURIComponent(label)}?format=webm`,
   evaluate: (label, video, signal) => {
     const data = new FormData();
